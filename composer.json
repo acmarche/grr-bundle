@@ -1,0 +1,27 @@
+{
+  "name": "grr/grr-bundle",
+  "type": "symfony-bundle",
+  "description": "Grr GrrBundle",
+  "keywords": [],
+  "homepage": "https://grr.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jfsenechal",
+      "email": "jfsenechal@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Grr\\GrrBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  }
+}
