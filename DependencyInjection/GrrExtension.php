@@ -45,7 +45,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
 
     protected function loadConfigDoctrine(ContainerBuilder $container)
     {
-        $configs = $this->loadYamlFile($container, 'doctrine.yaml');
+        $configs = $this->loadYamlFile($container, '/packages/doctrine.yaml');
         $container->prependExtensionConfig('doctrine', $configs);
     }
 

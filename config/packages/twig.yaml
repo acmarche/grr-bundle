@@ -1,0 +1,9 @@
+twig:
+  form_themes: ['bootstrap_4_layout.html.twig', 'form/grr_types.html.twig']
+  paths:
+    '%kernel.project_dir%/templates/admin': grr_admin
+    '%kernel.project_dir%/templates/front': grr_front
+    '%kernel.project_dir%/templates/security': grr_security
+    '%kernel.project_dir%/templates/default': grr_default
+    '%kernel.project_dir%/public/images': images
+    '%kernel.project_dir%/public/css': css

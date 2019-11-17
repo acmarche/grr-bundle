@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+  booking_url: "%env(BOOKING_URL)%"
+  booking_token: "%env(BOOKING_TOKEN)%"
+  router.request_context.scheme: '%env(SITE_BASE_SCHEME)%'
+  router.request_context.host: '%env(SITE_BASE_HOST)%'
 
 services:
   # default configuration for services in *this* file
@@ -21,5 +25,6 @@ services:
     resource: '../../Core'
     exclude: '../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-  # add more service definitions when explicit configuration is needed
-  # please note that last definitions always *replace* previous ones
+  Grr\Core\Doctrine\TablePrefix:
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
