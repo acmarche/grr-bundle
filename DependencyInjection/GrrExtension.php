@@ -4,15 +4,18 @@ namespace Grr\GrrBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * This is the class that loads and manages your bundle configuration.
  *
- * @see http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @see https://symfony.com/doc/bundles/prepend_extension.html
  */
-class GrrExtension extends Extension
+class GrrExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -21,5 +24,41 @@ class GrrExtension extends Extension
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../config'));
         $loader->load('services.yaml');
+    }
+
+    /**
+     * Allow an extension to prepend the extension configurations.
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        // get all bundles
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (isset($bundles['DoctrineBundle'])) {
+            foreach ($container->getExtensions() as $name => $extension) {
+                switch ($name) {
+                    case 'doctrine':
+                        $this->loadConfigDoctrine($container);
+                        break;
+                }
+            }
+        }
+    }
+
+    protected function loadConfigDoctrine(ContainerBuilder $container)
+    {
+        $configs = $this->loadYml('doctrine.yaml');
+        $container->prependExtensionConfig('doctrine', $configs);
+    }
+
+    protected function loadYml($name)
+    {
+        try {
+            return Yaml::parse(file_get_contents(__DIR__.'/../config/'.$name));
+        } catch (ParseException $e) {
+            printf('Unable to parse the YAML string: %s', $e->getMessage());
+        }
+
+        return [];
     }
 }
