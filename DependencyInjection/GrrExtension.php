@@ -7,8 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -47,17 +45,16 @@ class GrrExtension extends Extension implements PrependExtensionInterface
 
     protected function loadConfigDoctrine(ContainerBuilder $container)
     {
-        $configs = $this->loadYml('doctrine.yaml');
+        $configs = $this->loadYamlFile($container, 'doctrine.yaml');
         $container->prependExtensionConfig('doctrine', $configs);
     }
 
-    protected function loadYml($name)
+    protected function loadYamlFile(ContainerBuilder $container, $name): array
     {
-        try {
-            return Yaml::parse(file_get_contents(__DIR__.'/../config/'.$name));
-        } catch (ParseException $e) {
-            printf('Unable to parse the YAML string: %s', $e->getMessage());
-        }
+        $configs = new Loader\YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../config'.$name)
+        );
 
         return [];
     }
