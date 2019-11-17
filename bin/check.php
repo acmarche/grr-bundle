@@ -1,4 +1,7 @@
 <?php
+
+namespace Grr\GrrBundle\bin;
+
 /**
  * This file is part of sf5 application
  * @author jfsenechal <jfsenechal@gmail.com>
