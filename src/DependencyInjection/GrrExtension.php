@@ -20,7 +20,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yaml');
     }
 
@@ -53,7 +53,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     {
         $configs = new Loader\YamlFileLoader(
             $container,
-            new FileLocator(__DIR__.'/../config'.$name)
+            new FileLocator(__DIR__.'/../../config'.$name)
         );
 
         return [];

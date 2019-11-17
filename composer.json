@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Grr\\GrrBundle\\": ""
+      "Grr\\GrrBundle\\": "src"
     },
     "exclude-from-classmap": [
       "/Tests/"

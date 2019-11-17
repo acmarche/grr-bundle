@@ -4,6 +4,6 @@ doctrine:
       Grr\GrrBundle:
         is_bundle: false
         type: annotation
-        dir: '%kernel.project_dir%/src/Grr/GrrBundle/Entity'
-        prefix: 'Grr\GrrBundle\Entity'
+        dir: '%kernel.project_dir%/src/Grr/GrrBundle/src/Entity'
+        prefix: 'Grr\GrrBundle\src\Entity'
         alias: GrrGrrBundle
