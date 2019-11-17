@@ -9,20 +9,30 @@
  */
 
 namespace Grr\GrrBundle\Controller;
-//namespace Grr\GrrBundle\GrrBundle\Controller\DefaultController;
 
+use Grr\GrrBundle\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    /**
      * @Route("/", name="homepage")
      */
     public function home()
     {
-        return $this->render('@Grr/default/index.html.twig');
+        $categories = $this->categoryRepository->findAll();
+        return $this->render('@Grr/default/index.html.twig',['categories'=>$categories]);
     }
 
 }

@@ -17,5 +17,9 @@ services:
     resource: '../*'
     exclude: '../{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
+  Grr\Core\:
+    resource: '../../Core'
+    exclude: '../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
