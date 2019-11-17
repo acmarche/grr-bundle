@@ -1,5 +1,5 @@
 {
-  "name": "grr/grr-bundle",
+  "name": "jfsenechal/grr-bundle",
   "type": "symfony-bundle",
   "description": "Grr GrrBundle",
   "keywords": [],
@@ -12,7 +12,8 @@
     }
   ],
   "require": {
-    "php": "^7.3"
+    "php": "^7.3",
+    "jfsenechal/grr-core": "@dev"
   },
   "require-dev": {
   },
