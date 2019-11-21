@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Entity\AreaInterface;
+use Grr\Core\Entity\RoomInterface;
 use Grr\Core\Entity\RoomTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="room")
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\RoomRepository")
  */
-class Room
+class Room implements RoomInterface
 {
     use RoomTrait;
 
@@ -35,8 +36,6 @@ class Room
 
         return $this;
     }
-
-
 
 
 }
