@@ -43,32 +43,30 @@ class GrrExtension extends Extension implements PrependExtensionInterface
             foreach ($container->getExtensions() as $name => $extension) {
                 switch ($name) {
                     case 'doctrine':
-                        $this->loadConfigDoctrine($container);
+                        $this->loadConfig($container, 'doctrine');
                         break;
                 }
             }
         }
     }
 
-    protected function loadConfigDoctrine(ContainerBuilder $container)
+    protected function loadConfig(ContainerBuilder $container, string $name)
     {
-        $configs = new Loader\YamlFileLoader(
+        $configs = $this->loadYamlFile($container);
+
+        $configs->load($name.'.yaml');
+        //  $container->prependExtensionConfig('doctrine', $configs);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @return Loader\YamlFileLoader
+     */
+    protected function loadYamlFile(ContainerBuilder $container): Loader\YamlFileLoader
+    {
+        return new Loader\YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../../config/packages/')
         );
-    //   $t = $configs->load('doctrine.yaml');
-
-      //  $container->prependExtensionConfig('doctrine', $configs);
-    }
-
-    protected function loadYamlFile(ContainerBuilder $container, $name)
-    {
-        $configs = new Loader\YamlFileLoader(
-            $container,
-            new FileLocator(__DIR__.'/../../config'.$name)
-        );
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-
-        return $configs->load('doctrine.yaml');
     }
 }

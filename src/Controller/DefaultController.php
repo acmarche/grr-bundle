@@ -40,7 +40,6 @@ class DefaultController extends AbstractController
     public function home()
     {
         $categories = $this->areaRepository->findAll();
-        $this->t();
 
         return $this->render('@Grr/default/index.html.twig', ['categories' => $categories]);
     }
