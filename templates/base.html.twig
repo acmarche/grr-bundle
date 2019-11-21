@@ -39,7 +39,7 @@
             <ul class="navbar-nav">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {% block menu_user %}
-                        {% include '@grr/_menu_user.html.twig' %}
+                        {% include '@Grr/_menu_user.html.twig' %}
                     {% endblock %}
                 {% else %}
                     <li class="nav-item">
@@ -57,7 +57,7 @@
 {# END MENU TOP #}
 <main role="main" class="container-fluid pt-3">
 
-    {% include '@grr/_flash_messages.html.twig' %}
+    {% include '@Grr/_flash_messages.html.twig' %}
 
     {% block body %}
 
