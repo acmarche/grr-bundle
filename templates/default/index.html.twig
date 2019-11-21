@@ -1,3 +1,7 @@
-{% for category in categories %}
-    {{ category.name }}<br/>
-{% endfor %}
+{% extends '@Grr/base.html.twig' %}
+
+{% block body %}
+    {% for category in categories %}
+        {{ category.name }}<br/>
+    {% endfor %}
+{% endblock %}
