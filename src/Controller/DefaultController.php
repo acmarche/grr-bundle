@@ -10,21 +10,28 @@
 
 namespace Grr\GrrBundle\Controller;
 
-use Grr\GrrBundle\Repository\CategoryRepository;
+use Grr\Core\Repository\AreaRepositoryInterface;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @var CategoryRepository
+     * @var AreaRepositoryInterface
      */
-    private $categoryRepository;
+    private $areaRepository;
+    /**
+     * @var MailerInterface
+     */
+    private $mailer;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(AreaRepositoryInterface $areaRepository, MailerInterface $mailer)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->areaRepository = $areaRepository;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -32,7 +39,8 @@ class DefaultController extends AbstractController
      */
     public function home()
     {
-        $categories = $this->categoryRepository->findAll();
+        $categories = $this->areaRepository->findAll();
+        $this->t();
 
         return $this->render('@Grr/default/index.html.twig', ['categories' => $categories]);
     }
@@ -40,8 +48,9 @@ class DefaultController extends AbstractController
     public function t()
     {
         $email = (new NotificationEmail())
-            ->from('fabien@example.com')
-            ->to('fabien@example.org')
+            ->from('fabien@marche.be')
+            ->to('jf@marche.be')
+            ->cc('jfsenechal@gmail.com')
             ->subject('My first notification email via Symfony')
             ->markdown(
                 <<<EOF
@@ -49,9 +58,13 @@ There is a **problem** on your website, you should investigate it right now.
 Or just wait, the problem might solves itself automatically, we never know.
 EOF
             )
-            ->action('More info?', 'https://example.com/')
-            ->importance('high')//->exception(new \LogicException('That does not work at all...'))
+            ->action('More info2?', 'https://example.com/')
         ;
+        try {
+            $this->mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            dump($e->getMessage());
+        }
     }
 
 }

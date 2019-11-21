@@ -16,11 +16,18 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class GrrExtension extends Extension implements PrependExtensionInterface
 {
     /**
+     * @var Loader\YamlFileLoader
+     */
+    private $loader;
+
+    /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $this->loader = $loader;
+
         $loader->load('services.yaml');
     }
 
@@ -45,17 +52,23 @@ class GrrExtension extends Extension implements PrependExtensionInterface
 
     protected function loadConfigDoctrine(ContainerBuilder $container)
     {
-        $configs = $this->loadYamlFile($container, '/packages/doctrine.yaml');
-        $container->prependExtensionConfig('doctrine', $configs);
+        $configs = new Loader\YamlFileLoader(
+            $container,
+            new FileLocator(__DIR__.'/../../config/packages/')
+        );
+    //   $t = $configs->load('doctrine.yaml');
+
+      //  $container->prependExtensionConfig('doctrine', $configs);
     }
 
-    protected function loadYamlFile(ContainerBuilder $container, $name): array
+    protected function loadYamlFile(ContainerBuilder $container, $name)
     {
         $configs = new Loader\YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../../config'.$name)
         );
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
 
-        return [];
+        return $configs->load('doctrine.yaml');
     }
 }

@@ -7,3 +7,7 @@ doctrine:
         dir: '%kernel.project_dir%/src/Grr/GrrBundle/src/Entity'
         prefix: 'Grr\GrrBundle\src\Entity'
         alias: GrrGrrBundle
+
+    resolve_target_entities:
+      Grr\Core\Entity\AreaInterface: Grr\GrrBundle\Entity\Area
+      Grr\Core\Entity\RoomInterface: Grr\GrrBundle\Entity\Room
