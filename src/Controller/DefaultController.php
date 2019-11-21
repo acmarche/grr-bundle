@@ -35,7 +35,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="grr_homepage")
      */
     public function home()
     {
