@@ -11,5 +11,8 @@ doctrine:
     resolve_target_entities:
       Grr\Core\Entity\AreaInterface: Grr\GrrBundle\Entity\Area
       Grr\Core\Entity\RoomInterface: Grr\GrrBundle\Entity\Room
+      Grr\Core\Entity\EntryInterface: Grr\GrrBundle\Entity\Entry
+      Grr\Core\Entity\EntryTypeInterface: Grr\GrrBundle\Entity\EntryType
+      Grr\Core\Entity\PeriodicityInterface: Grr\GrrBundle\Entity\Periodicity
       Grr\Core\Entity\Security\UserInterface: Grr\GrrBundle\Entity\Security\User
       Grr\Core\Entity\Security\AuthorizationInterface: Grr\GrrBundle\Entity\Security\Authorization

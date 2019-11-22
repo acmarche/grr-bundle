@@ -10,11 +10,11 @@ use Grr\Core\Entity\PeriodicityTrait;
  *
  * @ORM\Table(name="periodicity")
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\PeriodicityRepository")
- * @AppAssertPeriodicity\Periodicity
- * @AppAssertPeriodicity\PeriodicityEveryDay
- * @AppAssertPeriodicity\PeriodicityEveryMonth
- * @AppAssertPeriodicity\PeriodicityEveryYear
- * @AppAssertPeriodicity\PeriodicityEveryWeek
+ * AppAssertPeriodicity\Periodicity
+ * AppAssertPeriodicity\PeriodicityEveryDay
+ * AppAssertPeriodicity\PeriodicityEveryMonth
+ * AppAssertPeriodicity\PeriodicityEveryYear
+ * AppAssertPeriodicity\PeriodicityEveryWeek
  */
 class Periodicity implements PeriodicityInterface
 {
