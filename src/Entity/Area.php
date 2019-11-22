@@ -21,31 +21,4 @@ use Symfony\Component\Validator\Constraints as Assert;
 Class Area implements AreaInterface
 {
     use AreaTrait;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
-    private $description;
-
-    public function __construct()
-    {
-        $this->rooms = new ArrayCollection();
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-
-
 }

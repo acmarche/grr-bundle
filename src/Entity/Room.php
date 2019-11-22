@@ -17,25 +17,4 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Room implements RoomInterface
 {
     use RoomTrait;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
-    private $description;
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-
 }
