@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Repository\Security;
 
-use App\Grr\GrrBundle\src\Entity\Security\User;
+use Grr\GrrBundle\Entity\Security\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;

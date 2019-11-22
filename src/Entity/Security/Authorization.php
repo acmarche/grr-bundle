@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Authorization
- * @package App\Grr\GrrBundle\src\Entity\Security
+ * @package Grr\GrrBundle\src\Entity\Security
  * @ORM\Table(name="authorization", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"user_id", "area_id"}),
  *     @ORM\UniqueConstraint(columns={"user_id", "room_id"})

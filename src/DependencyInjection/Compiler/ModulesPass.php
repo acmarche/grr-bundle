@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\DependencyInjection\Compiler;
 
-use App\Modules\GrrModuleSenderInterface;
+use Grr\Core\Modules\GrrModuleSenderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
