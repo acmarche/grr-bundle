@@ -8,6 +8,6 @@
 
 namespace Grr\GrrBundle\Manager;
 
-class UserManager extends BaseManager
+class AuthorizationManager extends BaseManager
 {
 }
