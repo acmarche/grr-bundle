@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\NamedAddress;
+use Symfony\Component\Mime\Address;
 
 class SetFromListener implements EventSubscriberInterface
 {
@@ -23,6 +23,6 @@ class SetFromListener implements EventSubscriberInterface
             return;
         }
 
-        $email->from(new NamedAddress('webmaster@marche.be', 'The Space Bar'));
+        $email->from(new Address('webmaster@marche.be', 'The Space Bar'));
     }
 }

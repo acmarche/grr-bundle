@@ -7,7 +7,7 @@ use Grr\Core\Factory\MonthFactory;
 use Grr\Core\Factory\WeekFactory;
 use Grr\Core\Helper\MonthHelperDataDisplay;
 use Grr\Core\Provider\TimeSlotsProvider;
-use Grr\Core\Setting\SettingsProvider;
+use Grr\GrrBundle\Setting\SettingsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Service\BindDataManager;

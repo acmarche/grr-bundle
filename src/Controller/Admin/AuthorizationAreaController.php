@@ -6,7 +6,7 @@ use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Form\Security\AuthorizationAreaType;
 use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
-use Grr\Core\Security\HandlerAuthorization;
+use Grr\GrrBundle\Security\HandlerAuthorization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

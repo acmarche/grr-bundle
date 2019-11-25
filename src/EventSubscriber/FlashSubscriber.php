@@ -2,14 +2,14 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use Grr\GrrBundle\Events\AreaEvent;
-use Grr\GrrBundle\Events\AuthorizationEvent;
-use Grr\GrrBundle\Events\EntryEvent;
-use Grr\GrrBundle\Events\EntryTypeAreaEvent;
-use Grr\GrrBundle\Events\EntryTypeEvent;
-use Grr\GrrBundle\Events\RoomEvent;
-use Grr\GrrBundle\Events\SettingSuccessEvent;
-use Grr\GrrBundle\Events\UserEvent;
+use Grr\Core\Events\AreaEvent;
+use Grr\Core\Events\AuthorizationEvent;
+use Grr\Core\Events\EntryEvent;
+use Grr\Core\Events\EntryTypeAreaEvent;
+use Grr\Core\Events\EntryTypeEvent;
+use Grr\Core\Events\RoomEvent;
+use Grr\Core\Events\SettingSuccessEvent;
+use Grr\Core\Events\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 

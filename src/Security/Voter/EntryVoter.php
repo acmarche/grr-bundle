@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Security\Voter;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Security\SecurityHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -37,11 +38,11 @@ class EntryVoter extends Voter
      */
     private $token;
     /**
-     * @var \Grr\Core\Entity\Room|null
+     * @var \Grr\GrrBundle\Entity\Room|null
      */
     private $room;
     /**
-     * @var \Grr\Core\Entity\Area
+     * @var \Grr\GrrBundle\Entity\Area
      */
     private $area;
 

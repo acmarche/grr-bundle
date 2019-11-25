@@ -9,7 +9,7 @@ use Grr\GrrBundle\Form\AreaType;
 use Grr\GrrBundle\Manager\AreaManager;
 use Grr\GrrBundle\Repository\AreaRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\Core\Security\AuthorizationHelper;
+use Grr\GrrBundle\Security\AuthorizationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

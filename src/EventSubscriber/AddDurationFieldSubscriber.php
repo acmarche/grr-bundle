@@ -4,9 +4,9 @@ namespace Grr\GrrBundle\EventSubscriber;
 
 use Exception;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Factory\DurationFactory;
+use Grr\Core\Factory\DurationFactory;
 use Grr\GrrBundle\Form\Type\DurationTimeTypeField;
-use Grr\GrrBundle\Model\DurationModel;
+use Grr\Core\Model\DurationModel;
 use Grr\GrrBundle\Validator\Entry\Duration;
 use Grr\GrrBundle\Validator\Entry\Duration as DurationConstraint;
 use Carbon\Carbon;

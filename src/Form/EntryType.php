@@ -8,7 +8,7 @@ use Grr\GrrBundle\EventSubscriber\AddDurationFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\AddRoomFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\AddTypeEntryFieldSubscriber;
 use Grr\Core\Factory\DurationFactory;
-use Grr\Core\Security\AuthorizationHelper;
+use Grr\GrrBundle\Security\AuthorizationHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
