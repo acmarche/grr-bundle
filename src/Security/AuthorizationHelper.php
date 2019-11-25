@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Grr\Core\Security;
+namespace Grr\GrrBundle\Security;
 
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Repository\AreaRepository;

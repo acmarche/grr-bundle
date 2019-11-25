@@ -2,25 +2,37 @@
 
 namespace Grr\GrrBundle\Security\Voter;
 
-use Grr\GrrBundle\Entity\Room;
+use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\Core\Security\SecurityHelper;
+use Grr\GrrBundle\Security\SecurityHelper;
 use Grr\Core\Security\SecurityRole;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class RoomVoter extends Voter
+/**
+ * It grants or denies permissions for actions related to blog posts (such as
+ * showing, editing and deleting posts).
+ *
+ * See http://symfony.com/doc/current/security/voters.html
+ *
+ * @author Yonel Ceruto <yonelceruto@gmail.com>
+ */
+class AreaVoter extends Voter
 {
-    const INDEX = 'grr.room.index';
-    const ADD_ENTRY = 'grr.addEntry';
-    const SHOW = 'grr.room.show';
-    const EDIT = 'grr.room.edit';
-    const DELETE = 'grr.room.delete';
+    // Defining these constants is overkill for this simple application, but for real
+    // applications, it's a recommended practice to avoid relying on "magic strings"
+    const INDEX = 'grr.area.index';
+    const NEW = 'grr.area.new';
+    const NEW_ROOM = 'grr.area.new.room';
+    const SHOW = 'grr.area.show';
+    const EDIT = 'grr.area.edit';
+    const DELETE = 'grr.area.delete';
     /**
      * @var AccessDecisionManagerInterface
      */
     private $decisionManager;
+
     /**
      * @var User
      */
@@ -30,9 +42,9 @@ class RoomVoter extends Voter
      */
     private $securityHelper;
     /**
-     * @var Room
+     * @var Area
      */
-    private $room;
+    private $area;
     /**
      * @var TokenInterface
      */
@@ -50,14 +62,14 @@ class RoomVoter extends Voter
     protected function supports($attribute, $subject): bool
     {
         if ($subject) {
-            if (!$subject instanceof Room) {
+            if (!$subject instanceof Area) {
                 return false;
             }
         }
 
         return in_array(
             $attribute,
-            [self::INDEX, self::ADD_ENTRY, self::SHOW, self::EDIT, self::DELETE],
+            [self::INDEX, self::NEW, self::NEW_ROOM, self::SHOW, self::EDIT, self::DELETE],
             true
         );
     }
@@ -65,7 +77,7 @@ class RoomVoter extends Voter
     /**
      * {@inheritdoc}
      */
-    protected function voteOnAttribute($attribute, $room, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $area, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -74,7 +86,7 @@ class RoomVoter extends Voter
         }
 
         $this->user = $user;
-        $this->room = $room;
+        $this->area = $area;
         $this->token = $token;
 
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
@@ -85,14 +97,16 @@ class RoomVoter extends Voter
          * not work with test
          */
         if ($this->decisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
-            //    return true;
+            //   return true;
         }
 
         switch ($attribute) {
             case self::INDEX:
                 return $this->canIndex();
-            case self::ADD_ENTRY:
-                return $this->canAddEntry();
+            case self::NEW:
+                return $this->canNew();
+            case self::NEW_ROOM:
+                return $this->canNewRoom();
             case self::SHOW:
                 return $this->canView();
             case self::EDIT:
@@ -104,17 +118,19 @@ class RoomVoter extends Voter
         return false;
     }
 
-    /**
-     * No rule.
-     */
     private function canIndex(): bool
     {
         return true;
     }
 
-    private function canAddEntry(): bool
+    private function canNew(): bool
     {
-        return $this->securityHelper->canAddEntry($this->room, $this->user);
+        return false;
+    }
+
+    private function canNewRoom(): bool
+    {
+        return $this->securityHelper->isAreaAdministrator($this->user, $this->area);
     }
 
     /**
@@ -126,12 +142,12 @@ class RoomVoter extends Voter
             return true;
         }
 
-        return $this->securityHelper->isRoomManager($this->user, $this->room);
+        return $this->securityHelper->isAreaManager($this->user, $this->area);
     }
 
     private function canEdit(): bool
     {
-        return $this->securityHelper->isRoomAdministrator($this->user, $this->room);
+        return $this->securityHelper->isAreaAdministrator($this->user, $this->area);
     }
 
     private function canDelete(): bool

@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\Core\Security;
+namespace Grr\GrrBundle\Security;
 
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\Core\Setting;
+namespace Grr\GrrBundle\Setting;
 
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;

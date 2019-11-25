@@ -1,8 +1,9 @@
 <?php
 
-namespace Grr\GrrBundle\Security\Ldap;
+namespace Grr\GrrBundle\Security\Authenticator;
 
 use Exception;
+use Grr\Core\Security\Ldap\GrrLdap;
 use Grr\GrrBundle\Entity\Security\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
