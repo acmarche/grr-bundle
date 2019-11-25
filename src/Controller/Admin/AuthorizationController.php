@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Events\AuthorizationEvent;
+use Grr\Core\Events\AuthorizationEvent;
 use Grr\GrrBundle\Manager\AuthorizationManager;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
 use Grr\GrrBundle\Security\Voter\AreaVoter;

@@ -2,17 +2,15 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\Core\Factory\DayFactory;
+use Grr\Core\Factory\MonthFactory;
+use Grr\Core\Factory\WeekFactory;
+use Grr\Core\Helper\MonthHelperDataDisplay;
+use Grr\Core\Provider\TimeSlotsProvider;
+use Grr\Core\Setting\SettingsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Factory\DayFactory;
-use Grr\GrrBundle\Factory\MonthFactory;
-use Grr\GrrBundle\Factory\WeekFactory;
-use Grr\GrrBundle\Helper\MonthHelperDataDisplay;
-use Grr\GrrBundle\Model\Month;
-use Grr\GrrBundle\Model\Week;
-use Grr\GrrBundle\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Service\BindDataManager;
-use Grr\GrrBundle\Setting\SettingsProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

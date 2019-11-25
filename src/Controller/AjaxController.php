@@ -11,7 +11,7 @@ namespace Grr\GrrBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Grr\GrrBundle\Repository\AreaRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\GrrBundle\Security\AuthorizationHelper;
+use Grr\Core\Security\AuthorizationHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\Events\EntryTypeEvent;
+use Grr\Core\Events\EntryTypeEvent;
 use Grr\GrrBundle\Form\TypeEntryType;
 use Grr\GrrBundle\Manager\TypeEntryManager;
 use Grr\GrrBundle\Repository\EntryTypeRepository;

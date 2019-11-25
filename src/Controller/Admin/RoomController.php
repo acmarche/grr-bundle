@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Events\RoomEvent;
+use Grr\Core\Events\RoomEvent;
 use Grr\GrrBundle\Form\RoomType;
 use Grr\GrrBundle\Manager\RoomManager;
 use Grr\GrrBundle\Room\RoomFactory;

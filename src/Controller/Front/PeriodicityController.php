@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Controller\Front;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Events\EntryEvent;
+use Grr\Core\Events\EntryEvent;
 use Grr\GrrBundle\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Manager\PeriodicityManager;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;

@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\GrrBundle\Entity\Setting;
-use Grr\GrrBundle\Events\SettingSuccessEvent;
+use Grr\Core\Events\SettingSuccessEvent;
 use Grr\GrrBundle\Form\GeneralSettingType;
 use Grr\GrrBundle\Manager\SettingManager;
 use Grr\GrrBundle\Repository\SettingRepository;

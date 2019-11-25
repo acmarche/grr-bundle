@@ -4,12 +4,12 @@ namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Events\AreaEvent;
+use Grr\Core\Events\AreaEvent;
 use Grr\GrrBundle\Form\AreaType;
 use Grr\GrrBundle\Manager\AreaManager;
 use Grr\GrrBundle\Repository\AreaRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\GrrBundle\Security\AuthorizationHelper;
+use Grr\Core\Security\AuthorizationHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
