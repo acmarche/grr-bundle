@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Navigation;
 
-use Grr\GrrBundle\Model\Navigation;
+use Grr\Core\Model\Navigation;
 
 class NavigationFactory
 {

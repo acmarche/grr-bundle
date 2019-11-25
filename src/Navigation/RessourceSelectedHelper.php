@@ -8,7 +8,7 @@ use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Repository\AreaRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\GrrBundle\Setting\SettingsProvider;
+use Grr\Core\Setting\SettingsProvider;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
 
