@@ -1,0 +1,53 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.name) }}
+        {{ form_row(form.orderDisplay) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.timeInterval) }}
+        {{ form_row(form.durationDefaultEntry) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.startTime) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.endTime) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.weekStart) }}
+        {{ form_row(form.is24HourFormat) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.daysOfWeekToDisplay) }}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.maxBooking) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.durationMaximumEntry) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.isRestricted) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.minutesToAddToEndTime) }}
+    </div>
+</div>
+
+<button class="btn btn-primary" type="submit"><i class="far fa-save"></i> {{ button_label|default('form.btn.save')|trans({}, 'actions') }}</button>
+{{ form_end(form) }}

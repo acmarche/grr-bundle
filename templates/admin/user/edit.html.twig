@@ -1,0 +1,22 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ user.email }}{% endblock %}
+
+{% block body %}
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ user.email }}</h3>
+        </div>
+        <div class="card-body">
+            {{ include('@grr_admin/user/_form.html.twig', {'button_label': 'form.btn.update'}) }}
+        </div>
+    </div>
+
+    <br/>
+    <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
+                class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({},'actions') }}</a>
+
+{% endblock %}
+{% block scripts %}
+    {% include '@grr_front/_select_room_js.html.twig' %}
+{% endblock %}

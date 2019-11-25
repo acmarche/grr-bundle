@@ -1,0 +1,21 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'user.new.title'|trans({},'actions') }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ 'user.new.title'|trans({},'actions') }}</h3>
+        </div>
+        <div class="card-body">
+            {{ include('@grr_admin/user/_form.html.twig') }}
+        </div>
+    </div>
+
+    <br />
+    <a href="{{ path('grr_admin_user_index') }}"><i class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({},'actions') }}</a>
+{% endblock %}
+{% block scripts %}
+    {% include '@grr_front/_select_room_js.html.twig' %}
+{% endblock %}

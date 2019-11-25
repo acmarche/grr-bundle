@@ -1,0 +1,20 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'typeEntry.new.title'|trans }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h2>{{ 'typeEntry.new.title'|trans }}</h2>
+        </div>
+        <div class="card-body">
+
+            {{ include('@grr_admin/type_entry/_form.html.twig') }}
+        </div>
+    </div>
+
+    <br/>
+    <a href="{{ path('grr_admin_type_entry_index') }}"><i
+                class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({}, 'actions') }}</a>
+{% endblock %}

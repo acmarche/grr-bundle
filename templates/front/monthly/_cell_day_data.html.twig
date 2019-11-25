@@ -1,0 +1,11 @@
+{% if day.isSameMonth(firstDay) %}
+    <a href="{{ grrGenerateRouteDayView(day.day) }}" class="float-right">
+        {{ day.day }}
+    </a>
+{% else %}
+
+{% endif %}
+<br />
+{% for entry in day.entries %}
+    {% include '@grr_front/monthly/_entry_line.html.twig' %}
+{% endfor %}

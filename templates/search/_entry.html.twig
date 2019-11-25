@@ -1,0 +1,18 @@
+<div class="hidden-print hidden-xs">
+
+    {{ form_start(form, { 'attr': {'class': 'form-inline'}}) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.area) }}
+    {{ form_row(form.room) }}
+    {{ form_row(form.entry_type) }}
+
+    <br />
+    <button type="submit" class="btn btn-primary mb-2">{{'btn.search'|trans}}</button>
+
+</div>
+
+{{ form_end(form) }}
+
+<br/>

@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+{% if form.area is defined %}
+    {{ form_row(form.area) }}
+{% endif %}
+
+{{ form_row(form.role) }}
+
+{% if form.rooms is defined %}
+    {{ form_row(form.rooms) }}
+{% endif %}
+
+{% if form.users is defined %}
+    {{ form_row(form.users) }}
+{% endif %}
+
+<button class="btn btn-primary" type="submit"><i
+            class="far fa-save"></i> {{ button_label|default('form.btn.save')|trans({}, 'actions') }}</button>
+
+{{ form_end(form) }}

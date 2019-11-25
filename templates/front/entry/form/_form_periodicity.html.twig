@@ -1,0 +1,25 @@
+<h3>{{ 'entry.new.periodicity.title'|trans({},'actions') }}</h3>
+<hr/>
+
+{{ form_row(form.periodicity.endTime) }}
+{{ form_row(form.periodicity.type) }}
+
+<div id="weeks_options" class="{{displayOptionsWeek ? '' : 'd-none'}}">
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td>
+                {{ form_row(form.periodicity.weekDays) }}
+            </td>
+            <td>
+                {{ form_row(form.periodicity.weekRepeat) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+{#  collapse
+https://getbootstrap.com/docs/4.3/components/collapse/
+
+#}

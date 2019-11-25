@@ -1,0 +1,14 @@
+<div class="d-none d-sm-block"><!-- hide smartphone -->
+    <div class="row">
+        {% for type in types %}
+            <div class="col-lg-2 col-4" style="background-color: {{ type.color }}">
+                {{ type.name }}
+            </div>
+        {% endfor %}
+        {# <ul class="mt-5 list-group list-group-horizontal-sm">
+
+          <li class="list-group-item" style="background-color: {{ type.color }}">{{ type.name }}</li>
+
+         </ul>#}
+    </div>
+</div>

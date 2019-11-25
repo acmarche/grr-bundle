@@ -1,7 +1,8 @@
-{% extends '@Grr/base.html.twig' %}
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{'page.welcome'|trans}}{% endblock %}
 
 {% block body %}
-    {% for category in categories %}
-        {{ category.name }}<br/>
-    {% endfor %}
+    <h3>Bienvenue</h3>
+    <img src="{{ asset('totem_grr.png') }}" alt="grr">
 {% endblock %}

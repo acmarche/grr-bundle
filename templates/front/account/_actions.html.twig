@@ -1,0 +1,11 @@
+<a href="{{ path('grr_account_edit') }}" role="button"
+   class="btn btn-primary"><i class="far fa-edit"></i> {{ 'form.btn.edit.label'|trans({}, 'actions') }}</a>
+
+<a href="{{ path('grr_account_edit_password') }}" role="button"
+   class="btn btn-primary"><i class="fas fa-key"></i> {{ 'form.btn.password'|trans({}, 'actions') }}</a>
+
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+    <i class="fas fa-trash"></i> {{ 'form.btn.delete.label'|trans({}, 'actions') }}
+</button>
+<br/>
+<br/>

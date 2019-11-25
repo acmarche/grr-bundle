@@ -1,0 +1,20 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'type_area.edit.title'|trans({'name':area.name}) }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h2>{{ 'type_area.edit.title'|trans({'name':area.name}) }}</h2>
+        </div>
+        <div class="card-body">
+            {{ include('@grr_admin/type_area/_form.html.twig') }}
+        </div>
+    </div>
+
+    <br/>
+    <a href="{{ path('grr_admin_area_show',{'id': area.id}) }}"><i
+                class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({}, 'actions') }}</a>
+
+{% endblock %}

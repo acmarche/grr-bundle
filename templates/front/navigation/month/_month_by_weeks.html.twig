@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-3 text-left">
+        {{ previousButton | raw }}
+    </div>
+
+    <div class="col-6 text-center">
+        <a href="{{ grrGenerateRouteMonthView() }}" class="font-weight-bold">
+            {{ firstDay.monthName|upper }} {{ firstDay.year }}
+        </a>
+        <hr>
+        <p class="font-weight-bold">
+            <a href="{{ grrGenerateRouteDayView(today.day, today) }}">
+                {{ 'Today' | trans }}
+            </a>
+        </p>
+    </div>
+    <div class="col-3 text-right">
+        {{ nextButton | raw }}
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th class="text-center">
+                <span class="d-none d-sm-block">{{ 'week'|trans }}</span> {# hidden xs #}
+                <span class="d-sm-none">{{ 'week'|trans[:1] }}</span>{# hidden wider than lg #}
+            </th>
+            {% for dayName in listDays %}
+                <th scope="col" class="text-center">
+                    <span class="d-none d-sm-block">{{ dayName|trans }}</span> {# hidden xs #}
+                    <span class="d-sm-none">{{ dayName|trans[:3] }}</span>{# hidden wider than lg #}
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for week in weeks %}
+
+            {% if week.startDate.week == weekSelected %}
+                {% set class = "table-info" %}
+            {% else %}
+                {% set class = "" %}
+            {% endif %}
+
+            <tr class="{{ class }}">
+                {% include '@grr_front/navigation/month/_cell_week.html.twig' with {'numericWeek': week.startDate.week } %}
+                {% for day in week %}
+                    {% include '@grr_front/navigation/month/_cell_day.html.twig' with { 'day': day } %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

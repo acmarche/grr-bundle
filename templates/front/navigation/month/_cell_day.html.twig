@@ -1,0 +1,11 @@
+{% set classDay = "" %}
+
+{% if daySelected == day.day %}
+    {% set classDay = "table-info" %}
+{% endif %}
+
+<td class="{{ classDay }}">
+    {% if day.isSameMonth(firstDay) %}
+        <a href="{{ grrGenerateRouteDayView(day.day) }}">{{ day.day }}</a>
+    {% endif %}
+</td>

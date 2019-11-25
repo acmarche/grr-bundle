@@ -1,0 +1,11 @@
+{# test rate #}
+{% block role_select_row22 %}
+    {% for child in form.children if not child.rendered %}
+        <div class="form-group">
+            {{ form_label(child) }}
+            {{ form_widget(child) }}
+            {{ form_help(child) }}
+            {{ form_errors(child) }}
+        </div>
+    {% endfor %}
+{% endblock %}

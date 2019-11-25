@@ -1,0 +1,24 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+        {% for dayName in listDays %}
+            <th scope="col">{{ dayName|trans }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% set pourcent = (100/(listDays|length))|round(2) %}
+    {% for week in weeks %}
+        <tr>
+            {% for day in week.days %}
+                <td class="align-top" style="width: {{ pourcent }}%;">
+                    {% include '@grr_front/monthly/_cell_day_data.html.twig' %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{{ grrLegendEntryType(area) }}

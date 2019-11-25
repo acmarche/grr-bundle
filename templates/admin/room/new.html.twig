@@ -1,0 +1,19 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'room.new.title'|trans({}, 'actions') }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h2>{{ 'room.new.title'|trans({}, 'actions') }}</h2>
+        </div>
+        <div class="card-body">
+            {{ include('@grr_admin/room/_form.html.twig') }}
+        </div>
+    </div>
+
+    <br/>
+    <a href="{{ path('grr_admin_area_show', {'id':area.id}) }}"><i
+                class="fas fa-arrow-left"></i> {{ 'back.to.list'|trans({}, 'actions') }}</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+<h3 class="text-success">{{ 'area.rooms.title'|trans({},'actions') }}</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>{{ 'room.form.nom.label'|trans }}</th>
+        <th>{{ 'room.form.orderDisplay.label'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for room in rooms %}
+        <tr>
+            <td><a href="{{ path('grr_admin_room_show', {'id': room.id}) }}">{{ room.name }}</a></td>
+            <td>{{ room.orderDisplay }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="2">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

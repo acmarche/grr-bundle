@@ -1,0 +1,50 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ user.email }}</h3>
+        </div>
+        <div class="card-body">
+
+            {% include '@grr_admin/user/_actions.html.twig' %}
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>{{ 'user.form.nom.label'| trans }}</th>
+                    <td>{{ user.name }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.form.prenom.label'| trans }}</th>
+                    <td>{{ user.firstName }}</td>
+                </tr>
+                  <tr>
+                    <th>{{ 'user.form.username.label'| trans }}</th>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.form.email.label'| trans }}</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.form.etat.label'| trans }}</th>
+                    <td>{{ user.isEnabled }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'entry.form.area.label'| trans }}</th>
+                    <td>{{ user.area }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.form.room.label'| trans }}</th>
+                    <td>{{ user.room }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    {{ include('@grr_admin/user/_delete_form.html.twig') }}
+{% endblock %}

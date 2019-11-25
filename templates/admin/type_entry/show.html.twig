@@ -1,0 +1,38 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ type_entry.name }}{% endblock %}
+
+{% block body %}
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h2>{{ type_entry.name }}</h2>
+        </div>
+        <div class="card-body">
+
+            {% include '@grr_admin/type_entry/_actions.html.twig' %}
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>{{ 'typeEntry.form.orderDisplay.label'|trans }}</th>
+                    <td>{{ type_entry.orderDisplay }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'typeEntry.form.couleur.label'|trans }}</th>
+                    <td style="background-color: {{ type_entry.color }}">{{ type_entry.color }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'typeEntry.form.typeLetter.label'|trans }}</th>
+                    <td>{{ type_entry.letter }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'typeEntry.form.disponible.label'|trans }}Disponible</th>
+                    <td>{{ type_entry.disponible }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    {{ include('@grr_admin/type_entry/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% apply inline_css(source('@css/bootstrap.min.css')) %}
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>{{ email.subject }}</title>
+    </head>
+    <body class="container">
+    <h3>Zeze</h3>
+    hey {{ zeze }}
+    {{ zeze }}
+    <p class="text-muted">
+        coucouc
+        sdsdsdsd
+    </p>
+
+    <img src="{{ email.image('@images/totem_grr.png') }}" class="img-thumbnail" alt="img">
+    </body>
+    </html>
+{% endapply %}

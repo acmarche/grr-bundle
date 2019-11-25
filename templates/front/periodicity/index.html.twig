@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Periodicity index{% endblock %}
+
+{% block body %}
+    <h1>Periodicity index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>End_time</th>
+                <th>Every_day</th>
+                <th>Every_year</th>
+                <th>Every_week</th>
+                <th>Number_week</th>
+                <th>Week_days</th>
+                <th>Every_month_same_day</th>
+                <th>Every_month_same_week_day</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for periodicity in periodicities %}
+            <tr>
+                <td>{{ periodicity.id }}</td>
+                <td>{{ periodicity.endTime ? periodicity.endTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ periodicity.everyDay ? 'Yes' : 'No' }}</td>
+                <td>{{ periodicity.everyYear ? 'Yes' : 'No' }}</td>
+                <td>{{ periodicity.everyWeek ? 'Yes' : 'No' }}</td>
+                <td>{{ periodicity.numberWeek }}</td>
+                <td>{{ periodicity.weekDays ? periodicity.weekDays|join(', ') : '' }}</td>
+                <td>{{ periodicity.everyMonthSameDay ? 'Yes' : 'No' }}</td>
+                <td>{{ periodicity.everyMonthSameWeekDay ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('periodicity_show', {'id': periodicity.id}) }}">show</a>
+                    <a href="{{ path('periodicity_edit', {'id': periodicity.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('periodicity_new') }}">Create new</a>
+{% endblock %}

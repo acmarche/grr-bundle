@@ -1,0 +1,6 @@
+{% if required == false %}
+    <option value="">{{ 'entry.form.room.select.placeholder' | trans }}</option>
+{% endif %}
+{% for room in rooms %}
+    <option value="{{ room.id }}">{{ room.name }}</option>
+{% endfor %}

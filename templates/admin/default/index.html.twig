@@ -1,0 +1,30 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}Grr admin{% endblock %}
+
+{% block body %}
+    <h3>{{ 'grr.title'|trans }} </h3>
+
+    <div class="row">
+        <div class="col-3">
+            <img src="{{ asset('images/totem_grr.png') }}" alt="grr" class="thumbnail">
+        </div>
+        <div class="col-4">
+            <ul class="list-group mt-5">
+                {% if is_granted(constant('App\\Security\\SecurityRole::ROLE_GRR_MANAGER_USER')) %}
+                    <li class="list-group-item"><a
+                                href="{{ path('grr_admin_user_index') }}">{{ 'user.manage.title'|trans }}</a></li>
+                {% endif %}
+                <li class="list-group-item"><a
+                            href="{{ path('grr_admin_area_index') }}">{{ 'area.manage.title'|trans }}</a></li>
+                {% if is_granted(constant('App\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
+                    <li class="list-group-item"><a
+                                href="{{ path('grr_admin_setting_index') }}">{{ 'setting.manage.title'|trans }}</a></li>
+                    <li class="list-group-item"><a
+                                href="{{ path('grr_admin_type_entry_index') }}">{{ 'typeEntry.manage.title'|trans }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

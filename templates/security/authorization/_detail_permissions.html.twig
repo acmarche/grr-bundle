@@ -1,0 +1,40 @@
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>{{ 'user.title'|trans }}</th>
+        <th>{{ 'area.title'|trans }}</th>
+        <th>{{ 'room.title'|trans }}</th>
+        <th data-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.area.administrator.help'|trans }}">{{ 'area.administrator'|trans }}</th>
+        <th data-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.resource.administrator.help'|trans }}">{{ 'area.resource'|trans }}</th>
+        <th>{{ 'actions'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for authorization in authorizations %}
+        <tr>
+            <td>{{ authorization.user }}</td>
+            <td>{{ authorization.area }}</td>
+            <td>
+                {% if authorization.room %}
+                    {{ authorization.room }}<br/>
+                    <span class="text-muted">{{ authorization.room.area }}</span>
+                {% endif %}
+            </td>
+            <td>{{ authorization.isAreaAdministrator ? 'Yes' | trans : 'No' | trans }}</td>
+            <td>{{ authorization.isResourceAdministrator ? 'Yes' | trans : 'No' | trans }}</td>
+            <td>
+                <button name="coucou" type="button" class="btnDelete btn btn-danger btn-sm" data-toggle="modal"
+                        data-target="#deleteAuthorization" data-id="{{ authorization.id }}"
+                        data-token="{{ csrf_token('delete' ~ authorization.id) }}">
+                    <i class="fas fa-trash"></i> {{ 'form.btn.delete.label'|trans({}, 'actions') }}
+                </button>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6">{{ 'not.found'|trans }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% include 'security/authorization/_delete_form.html.twig' %}

@@ -1,0 +1,105 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ area.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+           <h2>{{ area.name }}</h2>
+        </div>
+        <div class="card-body">
+
+            {% include '@grr_admin/area/_actions.html.twig' %}
+
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class="w-75">
+                                {{ 'area.form.access.label'|trans }}
+                            </th>
+                            <td>{{ area.isRestricted }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.orderDisplay.label'|trans }}</th>
+                            <td>{{ area.orderDisplay }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.weekstartsArea.label'|trans }}</th>
+                            <td>{{ area.weekStart | grrJoursSemaine }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.morningstartsArea.label'|trans }}</th>
+                            <td>{{ area.startTime }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.eveningendsArea.label'|trans }}</th>
+                            <td>{{ area.endTime }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'area.form.timeInterval.label'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.form.timeInterval.help'|trans }}</span>
+                            </th>
+                            <td>{{ area.timeInterval }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.eveningendsMinutesArea.label'|trans }}</th>
+                            <td>{{ area.minutesToAddToEndTime }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'area.form.hour_in_24h.label'|trans }}</th>
+                            <td>
+                                {{ area.is24HourFormat ? 'Yes'|trans : 'No'| trans }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class="w-75">{{ 'area.form.displayDays.label'|trans }}</th>
+                            <td>
+                                {% for jour in  area.daysOfWeekToDisplay %}
+                                    {{ jour | grrJoursSemaine | trans }},
+                                {% endfor %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                {{ 'area.form.dureeMaxResaArea.label'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.form.dureeMaxResaArea.help'|trans }}</span>
+                            </th>
+                            <td>{{ area.durationMaximumEntry }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'area.form.dureeParDefautReservationArea.label'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.form.dureeParDefautReservationArea.help'|trans }}</span>
+                            </th>
+                            <td>{{ area.durationDefaultEntry }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ 'area.form.maxBooking.label'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.form.maxBooking.help'|trans }}</span>
+                            </th>
+                            <td>{{ area.maxBooking }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% include '@grr_admin/area/_list_rooms.html.twig' %}
+
+        </div>
+    </div>
+
+    {{ include('@grr_admin/area/_delete_form.html.twig') }}
+{% endblock %}

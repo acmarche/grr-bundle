@@ -1,0 +1,37 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'room.index.title'|trans({}, 'actions') }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h2>{{ 'room.index.title'|trans({}, 'actions') }}</h2>
+        </div>
+        <div class="card-body">
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ 'room.form.nom.label'|trans }}</th>
+                    <th>{{ 'room.form.orderDisplay.label'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.area }}</td>
+                        <td><a href="{{ path('grr_admin_room_show', {'id': room.id}) }}">{{ room.name }}</a></td>
+                        <td>{{ room.orderDisplay }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

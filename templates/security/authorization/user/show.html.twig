@@ -1,0 +1,21 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}{{ 'authorization.user.title'|trans }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ 'authorization.user.title'|trans() }} {{ user }}</h3>
+        </div>
+
+        <div class="card-body">
+            {% include 'security/authorization/user/_actions.html.twig' %}
+            {% include 'security/authorization/_detail_permissions.html.twig' with {'url_back': url_back}  %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<h4 class="text-success">{{ 'room.informations.title'|trans({}, 'actions') }}</h4>
+<hr/>
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.name) }}
+        {{ form_row(form.capacity) }}
+        {{ form_row(form.statutRoom) }}
+        {{ form_row(form.pictureRoom) }}
+        {{ form_row(form.orderDisplay) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.description) }}
+        {{ form_row(form.showComment) }}
+        {{ form_row(form.commentRoom) }}
+        {{ form_row(form.showFicRoom) }}
+        {{ form_row(form.ruleToAdd) }}
+    </div>
+</div>
+
+<h4 class="text-success">{{ 'room.fonctions.title'|trans({}, 'actions') }}</h4>
+<hr/>
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.allowActionInPast) }}
+        {{ form_row(form.moderate) }}
+        {{ form_row(form.dontAllowModify) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.quiPeutReserverPour) }}
+        {{ form_row(form.typeAffichageReser) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.maximumBooking) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.delaisMaxResaRoom) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.delaisOptionReservation) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.delaisMinResaRoom) }}{{ form_row(form.activeRessourceEmpruntee) }}
+    </div>
+</div>
+
+<button class="btn btn-primary"><i class="far fa-save"></i> {{ button_label|default('form.btn.save') | trans({},'actions') }}</button>
+{{ form_end(form) }}

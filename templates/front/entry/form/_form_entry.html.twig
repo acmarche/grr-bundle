@@ -1,0 +1,30 @@
+{{ form_row(form.name) }}
+{{ form_row(form.startTime) }}
+
+{% if form.endTime is defined %}
+    {{ form_row(form.endTime) }}
+{% endif %}
+
+{# if admin
+{{ form_row(form.beneficiaire) }}
+#}
+
+{% include '@grr_front/entry/form/_field_duration.html.twig' %}
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.area) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.room) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.description) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.type) }}
+    </div>
+</div>

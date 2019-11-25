@@ -1,0 +1,35 @@
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{ 'user.account.title'|trans }} {{ user.name }} {{ user.firstName }}{% endblock %}
+
+{% block body %}
+
+    <div class="card bg-lig2ht mb-3">
+        <div class="card-header bg-light">
+            <h3>{{ 'user.account.title'|trans }} {{ user.name }} {{ user.firstName }}</h3>
+        </div>
+        <div class="card-body">
+            {% include '@grr_front/account/_actions.html.twig' %}
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>{{ 'user.account.area.default.label'|trans }}</th>
+                    <td>{{ user.area }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.account.room.default.label'|trans }}</th>
+                    <td>{{ user.room }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'user.account.email.label'|trans }}</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{ include('@grr_front/account/_authorizations.html.twig') }}
+
+    {{ include('@grr_front/account/_delete_form.html.twig') }}
+{% endblock %}

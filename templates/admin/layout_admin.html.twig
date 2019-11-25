@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block brand %}
+    <a class="navbar-brand" href="{{ path('grr_home') }}" title="Accueil">
+        <i class="fas fa-home"></i> {{ grrCompanyName() }} </a>
+{% endblock %}
+
+{% block menu_top %}
+    {% include '@grr_admin/_menu_admin.html.twig' %}
+{% endblock %}

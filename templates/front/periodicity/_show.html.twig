@@ -1,0 +1,35 @@
+{% if entry.periodicity %}
+    <h3>{{ 'periodicity.title'|trans }}</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>{{ 'periodicity.endtime.label' |trans }}</th>
+            <td>
+                {{ entry.periodicity.endTime|date('d-m-Y') }}
+            </td>
+        <tr>
+        <tr>
+            <th>{{ 'periodicity.type.label'|trans }}</th>
+            <td>{{ entry.periodicity.type|grrPeriodicityTypeName|trans }}</td>
+        <tr>
+            {% if entry.periodicity.type == constant('App\\Periodicity\\PeriodicityConstant::EVERY_WEEK') %}
+        <tr>
+            <th>{{ 'periodicity.repeatWeek.label'|trans }}</th>
+            <td>{{ entry.periodicity.weekRepeat }}</td>
+        <tr>
+        <tr>
+            <th>{{ 'periodicity.days.label'|trans }}</th>
+            <td>
+                {% for day in entry.periodicity.weekDays %}
+                    {{ day|grrJoursSemaine|trans }},
+                {% endfor %}
+            </td>
+        <tr>
+            {% endif %}
+    </table>
+    <br/>
+    <h5>{{ 'periodicity.repeats.title'|trans }}</h5>
+    {% for repeat in repeats %}
+        <span class="text-muted">{{ repeat.startTime | format_datetime('full', 'short') }}</span>
+        <br/>
+    {% endfor %}
+{% endif %}

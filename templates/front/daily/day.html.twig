@@ -1,0 +1,39 @@
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{ day.day }} {{ day.monthName }} {{ day.year }}{% endblock %}
+
+{% block body %}
+
+    {% include '@grr_front/navigation/_top_navigation.html.twig' %}
+
+    <h3 class="text-center text-success">
+        {{ day.dayName|title }} {{ day.day }} {{ day.monthName }} {{ day.year }}
+    </h3>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Hours'|trans }}</th>
+            {% for roomModel in roomsModel %}
+                <th scope="col">{{ roomModel.room.name }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for hourModel in hoursModel %}
+            <tr>
+                <td>{{ hourModel.begin|date('H:i') }} - {{ hourModel.end|date('H:i') }}</td>
+                {% for roomModel in roomsModel %}
+                        {{ grrGenerateCellDataDay(hourModel, roomModel, day) }}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{{ grrLegendEntryType(area) }}
+{% endblock %}
+
+{% block scripts %}
+    {% include '@grr_front/navigation/form/_menu_select.js.html.twig' %}
+{% endblock %}

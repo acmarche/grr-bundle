@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col-4">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.first_name) }}
+    </div>
+    <div class="col-4">
+        {{ form_row(form.email) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="col-6">
+        {% if form.password is defined %}
+            {{ form_row(form.password) }}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {{ form_row(form.area) }}
+    </div>
+    <div class="col-6">
+        {{ form_row(form.room) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        {% if form.roles is defined %}
+            {{ form_row(form.roles) }}
+        {% endif %}
+    </div>
+    <div class="col-6">
+        {% if form.isEnabled is defined %}
+            {{ form_row(form.isEnabled) }}
+        {% endif %}
+    </div>
+</div>
+
+<button class="btn btn-primary"><i
+            class="far fa-save"></i> {{ button_label|default('form.btn.save') | trans({},'actions') }}</button>
+
+{{ form_end(form) }}
