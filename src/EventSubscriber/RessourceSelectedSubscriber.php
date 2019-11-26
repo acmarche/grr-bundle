@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
+use Grr\Core\Entity\AreaInterface;
 use Grr\GrrBundle\Controller\Front\FrontControllerInterface;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -42,8 +43,8 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
                 $room = -1;
             }
 
-            if ($area) {
-                $this->ressourceSelectedHelper->setSelected($area, $room);
+            if ($area instanceof AreaInterface) {
+                $this->ressourceSelectedHelper->setSelected($area->getId(), $room);
             }
         }
     }

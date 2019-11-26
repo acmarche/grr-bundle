@@ -44,6 +44,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
                 switch ($name) {
                     case 'doctrine':
                         $this->loadConfig($container, 'doctrine');
+                        $this->loadConfig($container, 'doctrine_extension');
                         break;
                     case 'twig':
                         $this->loadConfig($container, 'twig');

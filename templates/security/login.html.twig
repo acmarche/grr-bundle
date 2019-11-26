@@ -3,7 +3,7 @@
 {% block title %}{{ 'login.title'|trans() }}{% endblock %}
 
 {% block stylesheets %}
-    <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/grr/css/signin.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -28,7 +28,7 @@
         </div>
 
         <form class="form-signin" method="post" action="{{ path('app_login') }}">
-            <img class="mb-4 img-fluid" title="Grr" src="{{ asset('images/totem_grr.png') }}" alt="logo" width="72">
+            <img class="mb-4 img-fluid" title="Grr" src="{{ asset('bundles/grr/images/totem_grr.png') }}" alt="logo" width="72">
             <h1 class="h3 mb-3 font-weight-normal">{{ 'login.title'|trans() }}</h1>
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

@@ -10,28 +10,30 @@
 
 namespace Grr\GrrBundle\Controller;
 
-use Grr\Core\Repository\AreaRepositoryInterface;
+use Grr\Core\Factory\CarbonFactory;
+use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @var AreaRepositoryInterface
+     * @var CarbonFactory
      */
-    private $areaRepository;
+    private $carbonFactory;
     /**
-     * @var MailerInterface
+     * @var RessourceSelectedHelper
      */
-    private $mailer;
+    private $ressourceSelectedHelper;
 
-    public function __construct(AreaRepositoryInterface $areaRepository, MailerInterface $mailer)
+    public function __construct(CarbonFactory $carbonFactory, RessourceSelectedHelper $ressourceSelectedHelper)
     {
-        $this->areaRepository = $areaRepository;
-        $this->mailer = $mailer;
+
+        $this->carbonFactory = $carbonFactory;
+        $this->ressourceSelectedHelper = $ressourceSelectedHelper;
     }
 
     /**
@@ -39,31 +41,25 @@ class DefaultController extends AbstractController
      */
     public function home()
     {
-        $categories = $this->areaRepository->findAll();
+        $today = $this->carbonFactory->getToday();
 
-        return $this->render('@Grr/default/index.html.twig', ['categories' => $categories]);
-    }
-
-    public function t()
-    {
-        $email = (new NotificationEmail())
-            ->from('fabien@marche.be')
-            ->to('jf@marche.be')
-            ->cc('jfsenechal@gmail.com')
-            ->subject('My first notification email via Symfony')
-            ->markdown(
-                <<<EOF
-There is a **problem** on your website, you should investigate it right now.
-Or just wait, the problem might solves itself automatically, we never know.
-EOF
-            )
-            ->action('More info2?', 'https://example.com/')
-        ;
         try {
-            $this->mailer->send($email);
-        } catch (TransportExceptionInterface $e) {
-            dump($e->getMessage());
+            $area = $this->ressourceSelectedHelper->getArea();
+        } catch (\Exception $e) {
+            return new Response($e->getMessage());
         }
-    }
 
+        $room = $this->ressourceSelectedHelper->getRoom();
+
+        $params = ['area' => $area->getId(), 'year' => $today->year, 'month' => $today->month];
+
+        if ($room !== null) {
+            $params['room'] = $room->getId();
+        }
+
+        return $this->redirectToRoute(
+            'grr_front_month',
+            $params
+        );
+    }
 }

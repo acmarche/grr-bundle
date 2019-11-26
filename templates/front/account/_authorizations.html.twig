@@ -1,6 +1,6 @@
 <h3>{{ 'authorization.title'|trans }}</h3>
 
-{% if is_granted(constant('App\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
+{% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
     {{ 'You are a director of Grr'|trans }}
 {% else %}
     <table class="table table-bordered table-hover">
