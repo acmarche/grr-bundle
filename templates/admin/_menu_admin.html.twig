@@ -1,15 +1,15 @@
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('grr_home') }}">{{ 'menu.planning'|trans({}, 'actions') }} <span class="sr-only">(current)</span></a>
+    <a class="nav-link" href="{{ path('grr_homepage') }}">{{ 'menu.planning'|trans({}, 'actions') }} <span class="sr-only">(current)</span></a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="{{ path('grr_admin_area_index') }}">{{ 'menu.area'|trans({}, 'actions') }}</a>
 </li>
-{% if is_granted(constant('App\\Security\\SecurityRole::ROLE_GRR_MANAGER_USER')) %}
+{% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_MANAGER_USER')) %}
     <li class="nav-item">
         <a class="nav-link" href="{{ path('grr_admin_user_index') }}">{{ 'menu.users'|trans({}, 'actions') }}</a>
     </li>
 {% endif %}
-{% if is_granted(constant('App\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
+{% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false" title="{{ 'menu.settings'|trans({}, 'actions') }}"> <i class="fas fa-ellipsis-v"></i></a>

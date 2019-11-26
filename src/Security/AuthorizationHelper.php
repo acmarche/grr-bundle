@@ -10,6 +10,7 @@
 
 namespace Grr\GrrBundle\Security;
 
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Repository\AreaRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
@@ -50,7 +51,7 @@ class AuthorizationHelper
 
     /**
      * @throws \Exception
-     * @return \Grr\Core\Entity\Area[]|\Grr\Core\Entity\Area[]|null[]
+     * @return \Grr\Core\Entity\AreaInterface[]|\Grr\Core\Entity\AreaInterface[]|null[]
      */
     public function getAreasUserCanAdd(UserInterface $user): array
     {
@@ -78,7 +79,7 @@ class AuthorizationHelper
     /**
      * @throws \Exception
      *
-     * @return \Grr\Core\Entity\Room[]|mixed[]
+     * @return \Grr\Core\Entity\RoomInterface[]|mixed[]
      */
     public function getRoomsUserCanAdd(UserInterface $user, ?Area $area = null): iterable
     {
