@@ -1,5 +1,5 @@
 twig:
-  form_themes: ['bootstrap_4_layout.html.twig', 'form/grr_types.html.twig']
+  form_themes: ['bootstrap_4_layout.html.twig']
   paths:
     '%kernel.project_dir%/src/Grr/GrrBundle/templates/admin': grr_admin
     '%kernel.project_dir%/src/Grr/GrrBundle/templates/front': grr_front
