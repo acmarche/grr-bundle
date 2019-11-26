@@ -9,7 +9,7 @@
         </div>
 
         <div class="card-body">
-            {{ include('security/authorization/_form.html.twig') }}
+            {{ include('@Grr/security/authorization/_form.html.twig') }}
         </div>
     </div>  <br />
 
@@ -20,5 +20,5 @@
 
 {% block scripts %}
     {% include '@grr_front/_select_room_js.html.twig' %}
-    <script src="{{ asset('js/authorization_rooms.js') }}"></script>
+    <script src="{{ asset('bundles/grr/js/authorization_rooms.js') }}"></script>
 {% endblock %}
