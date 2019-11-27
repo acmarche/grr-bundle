@@ -2,11 +2,11 @@
 
 namespace Grr\GrrBundle\Tests\Mailer;
 
-use Grr\GrrBundle\Mailer\GrrMailer;
+use Grr\Core\Mailer\GrrMailer;
 use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\NamedAddress;
+use Symfony\Component\Mime\Address;
 use Twig\Environment;
 
 class MailerTest extends KernelTestCase
@@ -26,9 +26,9 @@ class MailerTest extends KernelTestCase
 
         $this->assertSame('Your weekly report on the Space Bar!', $email->getSubject());
         $this->assertCount(1, $email->getTo());
-        /** @var NamedAddress[] $namedAddresses */
+        /** @var Address[] $namedAddresses */
         $namedAddresses = $email->getTo();
-        $this->assertInstanceOf(NamedAddress::class, $namedAddresses[0]);
+        $this->assertInstanceOf(Address::class, $namedAddresses[0]);
         $this->assertSame('zeze', $namedAddresses[0]->getName());
         $this->assertSame('jf@marche.be', $namedAddresses[0]->getAddress());
 

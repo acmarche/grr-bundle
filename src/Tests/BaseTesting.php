@@ -18,7 +18,7 @@ use Grr\GrrBundle\Entity\EntryType;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Faker\CarbonProvider;
+use Grr\Core\Faker\CarbonProvider;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Fidry\AliceDataFixtures\LoaderInterface;
 use Nelmio\Alice\Loader\NativeLoader;

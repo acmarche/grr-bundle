@@ -13,7 +13,7 @@ namespace Grr\GrrBundle\Tests\Security;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\SecurityHelper;
-use Grr\GrrBundle\Security\SecurityRole;
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Tests\BaseTesting;
 
 class SecurityHelperTest extends BaseTesting
