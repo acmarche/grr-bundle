@@ -21,15 +21,15 @@ class AreaType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'area.form.name.label',
+                    'label' => 'label.area.name',
                 ]
             )
             ->add(
                 'isRestricted',
                 CheckboxType::class,
                 [
-                    'label' => 'area.form.access.label',
-                    'help' => 'area.form.access.help',
+                    'label' => 'label.area.isRestricted',
+                    'help' => 'help.area.isRestricted',
                     'required' => false,
                 ]
             )
@@ -37,7 +37,7 @@ class AreaType extends AbstractType
                 'orderDisplay',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.orderDisplay.label',
+                    'label' => 'label.area.orderDisplay',
                 ]
             )
             ->add(
@@ -45,14 +45,14 @@ class AreaType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => array_flip(DateProvider::getNamesDaysOfWeek()),
-                    'label' => 'area.form.weekstartsArea.label',
+                    'label' => 'label.area.weekStart',
                 ]
             )
             ->add(
                 'daysOfWeekToDisplay',
                 ChoiceType::class,
                 [
-                    'label' => 'area.form.displayDays.label',
+                    'label' => 'label.area.displayDays',
                     'choices' => array_flip(DateProvider::getNamesDaysOfWeek()),
                     'multiple' => true,
                     'expanded' => true,
@@ -62,7 +62,7 @@ class AreaType extends AbstractType
                 'startTime',
                 ChoiceType::class,
                 [
-                    'label' => 'area.form.morningstartsArea.label',
+                    'label' => 'label.area.startTime',
                     'choices' => DateProvider::getHours(),
                 ]
             )
@@ -70,7 +70,7 @@ class AreaType extends AbstractType
                 'endTime',
                 ChoiceType::class,
                 [
-                    'label' => 'area.form.eveningendsArea.label',
+                    'label' => 'label.endTime',
                     'choices' => DateProvider::getHours(),
                 ]
             )
