@@ -24,14 +24,14 @@ class PeriodicityType extends AbstractType
                 'endTime',
                 DateType::class,
                 [
-                    'label' => 'periodicity.form.endtime.label',
+                    'label' => 'label.periodicity.end_time',
                 ]
             )
             ->add(
                 'type',
                 ChoiceType::class,
                 [
-                    'label' => 'periodicity.type.label',
+                    'label' => 'label.periodicity.type',
                     'choices' => array_flip($types),
                     'multiple' => false,
                     'expanded' => true,
@@ -44,8 +44,8 @@ class PeriodicityType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => array_flip($days),
-                    'label' => 'periodicity.form.selectdays.label',
-                    'help' => 'entry.form.duration_unit.help',
+                    'label' => 'label.periodicity.week_days',
+                    'help' => 'help.periodicity.week_days',
                     'multiple' => true,
                     'expanded' => true,
                 ]
@@ -55,7 +55,7 @@ class PeriodicityType extends AbstractType
                 ChoiceType::class,
                 [
                     'choices' => array_flip($weeks),
-                    'label' => 'periodicity.form.selectweeksrepeat.label',
+                    'label' => 'label.periodicity.week_repeat',
                     'required' => false,
                     'multiple' => false,
                     'expanded' => true,

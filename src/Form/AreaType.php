@@ -70,7 +70,7 @@ class AreaType extends AbstractType
                 'endTime',
                 ChoiceType::class,
                 [
-                    'label' => 'label.endTime',
+                    'label' => 'label.area.endTime',
                     'choices' => DateProvider::getHours(),
                 ]
             )
@@ -78,46 +78,46 @@ class AreaType extends AbstractType
                 'minutesToAddToEndTime',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.eveningendsMinutesArea.label',
+                    'label' => 'label.area.minutesToAddToEndTime',
                 ]
             )
             ->add(
                 'timeInterval',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.timeInterval.label',
-                    'help' => 'area.form.timeInterval.help',
+                    'label' => 'label.area.timeInterval',
+                    'help' => 'help.area.timeInterval',
                 ]
             )
             ->add(
                 'durationDefaultEntry',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.dureeParDefautReservationArea.label',
-                    'help' => 'area.form.dureeParDefautReservationArea.help',
+                    'label' => 'label.area.durationDefaultEntry',
+                    'help' => 'help.area.durationDefaultEntry',
                 ]
             )
             ->add(
                 'durationMaximumEntry',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.dureeMaxResaArea.label',
-                    'help' => 'area.form.dureeMaxResaArea.help',
+                    'label' => 'label.area.durationMaximumEntry',
+                    'help' => 'help.area.durationMaximumEntry',
                 ]
             )
             ->add(
                 'is24HourFormat',
                 CheckboxType::class,
                 [
-                    'label' => 'area.form.hour_in_24h.label',
+                    'label' => 'label.area.is24HourFormat',
                 ]
             )
             ->add(
                 'maxBooking',
                 IntegerType::class,
                 [
-                    'label' => 'area.form.maxBooking.label',
-                    'help' => 'area.form.maxBooking.help',
+                    'label' => 'label.area.maxBooking',
+                    'help' => 'help.area.maxBooking',
                 ]
             );
     }

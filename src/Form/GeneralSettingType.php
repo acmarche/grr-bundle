@@ -24,8 +24,8 @@ class GeneralSettingType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.titlehomepage.label',
-                    'help' => 'setting.titlehomepage.help',
+                    'label' => 'label.setting.title_homepage',
+                    'help' => 'help.setting.title_homepage',
                 ]
             )
             ->add(
@@ -33,8 +33,8 @@ class GeneralSettingType extends AbstractType
                 TextareaType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.messagehomepage.label',
-                    'help' => 'setting.messagehomepage.help',
+                    'label' => 'label.setting.message_homepage',
+                    'help' => 'help.setting.message_homepage',
                 ]
             )
             ->add(
@@ -42,8 +42,8 @@ class GeneralSettingType extends AbstractType
                 TextType::class,
                 [
                     'required' => true,
-                    'label' => 'setting.company.label',
-                    'help' => 'setting.compagny.help',
+                    'label' => 'label.setting.company',
+                    'help' => 'help.setting.compagny',
                 ]
             )
             ->add(
@@ -51,8 +51,8 @@ class GeneralSettingType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.webmastername.label',
-                    'help' => 'setting.webmastername.help',
+                    'label' => 'label.setting.webmaster_name',
+                    'help' => 'help.setting.webmaster_name',
                 ]
             )
             ->add(
@@ -64,8 +64,8 @@ class GeneralSettingType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
-                    'label' => 'setting.webmasteremail.label',
-                    'help' => 'setting.webmasteremail.help',
+                    'label' => 'label.setting.webmaster_email',
+                    'help' => 'help.setting.webmaster_email',
                 ]
             )
             ->add(
@@ -77,8 +77,8 @@ class GeneralSettingType extends AbstractType
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
-                    'label' => 'setting.technicalsupportemail.label',
-                    'help' => 'setting.technicalsupportemail.help',
+                    'label' => 'label.setting.technical_support_email',
+                    'help' => 'help.setting.technical_support_email',
                 ]
             )
             ->add(
@@ -86,8 +86,8 @@ class GeneralSettingType extends AbstractType
                 IntegerType::class,
                 [
                     'required' => true,
-                    'label' => 'setting.nbcalendar.label',
-                    'help' => 'setting.nbcalendar.help',
+                    'label' => 'label.setting.nbcalendar',
+                    'help' => 'help.setting.nbcalendar',
                 ]
             )
             ->add(
@@ -95,8 +95,8 @@ class GeneralSettingType extends AbstractType
                 TextareaType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.messageaccueil.label',
-                    'help' => 'setting.messageaccueil.help',
+                    'label' => 'label.setting.message_accueil',
+                    'help' => 'help.setting.message_accueil',
                 ]
             )
             ->add(
@@ -104,8 +104,8 @@ class GeneralSettingType extends AbstractType
                 DateType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.beginbooking.label',
-                    'help' => 'setting.beginbooking.help',
+                    'label' => 'label.setting.begin_booking',
+                    'help' => 'help.setting.begin_booking',
                 ]
             )
             ->add(
@@ -113,8 +113,8 @@ class GeneralSettingType extends AbstractType
                 DateType::class,
                 [
                     'required' => false,
-                    'label' => 'setting.endbooking.label',
-                    'help' => 'setting.endbooking.help',
+                    'label' => 'label.setting.end_booking',
+                    'help' => 'help.setting.end_booking',
                 ]
             )
             ->add(
@@ -123,8 +123,8 @@ class GeneralSettingType extends AbstractType
                 [
                     'required' => true,
                     'choices' => ['fr' => 'fr'],
-                    'label' => 'setting.defaultlanguage.label',
-                    'help' => 'setting.defaultlanguage.help',
+                    'label' => 'label.setting.default_language',
+                    'help' => 'label.setting.default_language',
                 ]
             );
     }

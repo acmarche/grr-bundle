@@ -49,24 +49,22 @@ class EntryType extends AbstractType
                 'startTime',
                 DateTimeType::class,
                 [
-                    'label' => 'entry.form.startTime.label',
-                    'help' => 'entry.form.startTime.help',
+                    'label' => 'label.entry.startTime',
+                    'help' => 'help.entry.startTime',
                 ]
             )
             ->add(
                 'name',
                 TextType::class,
                 [
-                    'label' => 'entry.form.name.label',
-                    'help' => 'entry.form.name.help',
+                    'label' => 'label.entry.name',
                 ]
             )
             ->add(
                 'description',
                 TextareaType::class,
                 [
-                    'label' => 'entry.form.description.label',
-                    'help' => 'entry.form.description.help',
+                    'label' => 'label.entry.description',
                     'required' => false,
                 ]
             )

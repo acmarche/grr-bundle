@@ -23,14 +23,14 @@ class RoomType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'room.form.nom.label',
+                    'label' => 'label.room.name',
                 ]
             )
             ->add(
                 'description',
                 TextType::class,
                 [
-                    'label' => 'room.form.description.label',
+                    'label' => 'label.room.description',
                     'required' => false,
                 ]
             )
@@ -38,8 +38,8 @@ class RoomType extends AbstractType
                 'capacity',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.capacity.label',
-                    'help' => 'room.form.capacity.help',
+                    'label' => 'label.room.capacity',
+                    'help' => 'help.room.capacity',
                     'required' => false,
                 ]
             )
@@ -47,8 +47,8 @@ class RoomType extends AbstractType
                 'maximumBooking',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.maxBooking.label',
-                    'help' => 'room.form.maxBooking.help',
+                    'label' => 'label.room.maximum_booking',
+                    'help' => 'help.room.maximum_booking',
                     'required' => false,
                 ]
             )
@@ -56,8 +56,8 @@ class RoomType extends AbstractType
                 'statutRoom',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.statutRoom.label',
-                    'help' => 'room.form.statutRoom.help',
+                    'label' => 'label.room.statut_room',
+                    'help' => 'help.room.statut_room',
                     'required' => false,
                 ]
             )
@@ -65,8 +65,8 @@ class RoomType extends AbstractType
                 'showFicRoom',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.showFicRoom.label',
-                    'help' => 'room.form.showFicRoom.help',
+                    'label' => 'label.room.show_picture',
+                    'help' => 'help.room.show_picture',
                     'required' => false,
                 ]
             )
@@ -74,8 +74,8 @@ class RoomType extends AbstractType
                 'pictureRoom',
                 FileType::class,
                 [
-                    'label' => 'room.form.pictureRoom.label',
-                    'help' => 'room.form.pictureRoom.help',
+                    'label' => 'label.room.picture',
+                    'help' => 'help.room.picture',
                     'required' => false,
                 ]
             )
@@ -83,7 +83,7 @@ class RoomType extends AbstractType
                 'commentRoom',
                 TextareaType::class,
                 [
-                    'label' => 'room.form.commentRoom.label',
+                    'label' => 'label.room.comment',
                     'attr' => ['height' => '80px'],
                     'required' => false,
                 ]
@@ -92,7 +92,7 @@ class RoomType extends AbstractType
                 'showComment',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.showComment.label',
+                    'label' => 'label.room.show_comment',
                     'required' => false,
                 ]
             )
@@ -100,24 +100,24 @@ class RoomType extends AbstractType
                 'delaisMaxResaRoom',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.delaisMaxResaRoom.label',
-                    'help' => 'room.form.delaisMaxResaRoom.help',
+                    'label' => 'label.room.delaisMaxResaRoom',
+                    'help' => 'help.room.delaisMaxResaRoom',
                 ]
             )
             ->add(
                 'delaisMinResaRoom',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.delaisMinResaRoom.label',
-                    'help' => 'room.form.delaisMinResaRoom.help',
+                    'label' => 'label.room.delaisMinResaRoom',
+                    'help' => 'help.room.delaisMinResaRoom',
                 ]
             )
             ->add(
                 'allowActionInPast',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.allowActionInPast.label',
-                    'help' => 'room.form.allowActionInPast.help',
+                    'label' => 'label.room.allow_action_in_past',
+                    'help' => 'help.room.allow_action_in_past',
                     'required' => false,
                 ]
             )
@@ -125,23 +125,23 @@ class RoomType extends AbstractType
                 'orderDisplay',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.orderDisplay.label',
+                    'label' => 'label.room.order_display',
                 ]
             )
             ->add(
                 'delaisOptionReservation',
                 IntegerType::class,
                 [
-                    'label' => 'room.form.delaisOptionReservation.label',
-                    'help' => 'room.form.delaisOptionReservation.help',
+                    'label' => 'label.room.delaisOptionReservation',
+                    'help' => 'help.room.delaisOptionReservation',
                 ]
             )
             ->add(
                 'dontAllowModify',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.dontAllowModify.label',
-                    'help' => 'room.form.dontAllowModify.help',
+                    'label' => 'label.room.dont_allow_modify',
+                    'help' => 'help.room.dont_allow_modify',
                     'required' => false,
                 ]
             )
@@ -149,8 +149,8 @@ class RoomType extends AbstractType
                 'typeAffichageReser',
                 ChoiceType::class,
                 [
-                    'label' => 'room.form.typeAffichageReser.label',
-                    'help' => 'room.form.typeAffichageReser.help',
+                    'label' => 'label.room.typeAffichageReser',
+                    'help' => 'help.room.typeAffichageReser',
                     'choices' => array_flip(SettingsRoom::typeAffichageReser()),
                 ]
             )
@@ -158,8 +158,8 @@ class RoomType extends AbstractType
                 'moderate',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.moderate.label',
-                    'help' => 'room.form.moderate.help',
+                    'label' => 'label.room.moderate',
+                    'help' => 'help.room.moderate',
                     'required' => false,
                 ]
             )
@@ -167,7 +167,7 @@ class RoomType extends AbstractType
                 'quiPeutReserverPour',
                 ChoiceType::class,
                 [
-                    'label' => 'room.form.quiPeutReserverPour.label',
+                    'label' => 'label.room.quiPeutReserverPour',
                     'choices' => array_flip(SettingsRoom::whoCanAddFor()),
                 ]
             )
@@ -175,7 +175,7 @@ class RoomType extends AbstractType
                 'activeRessourceEmpruntee',
                 CheckboxType::class,
                 [
-                    'label' => 'room.form.activeRessourceEmpruntee.label',
+                    'label' => 'label.room.activeRessourceEmpruntee',
                     'required' => false,
                 ]
             )
@@ -183,7 +183,7 @@ class RoomType extends AbstractType
                 'ruleToAdd',
                 ChoiceType::class,
                 [
-                    'label' => 'room.form.authorization.label',
+                    'label' => 'label.room.rule_to_add',
                     'choices' => array_flip(SettingsRoom::whoCanAdd()),
                 ]
             );

@@ -21,7 +21,7 @@ class AssocTypeForAreaType extends AbstractType
                     'class' => EntryType::class,
                     'multiple' => true,
                     'expanded' => true,
-                    'label' => 'typeEntry.form.name.label',
+                    'label' => 'label.area.entryTypes',
                 ]
             );
     }
