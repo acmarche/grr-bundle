@@ -32,7 +32,7 @@ class SearchEntryType extends AbstractType
                 [
                     'required' => false,
                     'label' => false,
-                    'attr' => ['placeholder' => 'search.form.word.placeholder', 'class' => 'my-1 mr-sm-2'],
+                    'attr' => ['placeholder' => 'placeholder.keyword', 'class' => 'my-1 mr-sm-2'],
                 ]
             )
             ->add(
@@ -43,7 +43,7 @@ class SearchEntryType extends AbstractType
                     'required' => false,
                     'label' => false,
                     'help' => null,
-                    'placeholder' => 'typeEntry.index.title',
+                    'placeholder' => 'placeholder.entryType.select',
                     'attr' => ['class' => 'custom-select my-1 mr-sm-2'],
                 ]
             )
@@ -53,7 +53,7 @@ class SearchEntryType extends AbstractType
                 [
                     'required' => false,
                     'label' => false,
-                    'placeholder' => 'area.form.select.placeholder',
+                    'placeholder' => 'placeholder.area.select',
                 ]
             )
             ->addEventSubscriber(new AddRoomFieldSubscriber());

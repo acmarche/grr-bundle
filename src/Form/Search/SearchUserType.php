@@ -17,9 +17,8 @@ class SearchUserType extends AbstractType
                 SearchType::class,
                 [
                     'required' => true,
-                    'label' => 'user.form.search.name.label',
-                    'help' => 'user.form.search.name.placeholder',
-                    'attr' => ['placeholder' => 'user.form.search.name.placeholder', 'class' => 'm2y-1 hmr-smh-2'],
+                    'label' => 'label.user.name',
+                    'attr' => ['placeholder' => 'placeholder.user.name', 'class' => 'm2y-1 hmr-smh-2'],
                 ]
             );
     }
