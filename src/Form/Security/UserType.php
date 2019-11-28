@@ -20,14 +20,14 @@ class UserType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'user.form.name.label',
+                    'label' => 'label.user.name',
                 ]
             )
             ->add(
                 'first_name',
                 TextType::class,
                 [
-                    'label' => 'user.form.first_name.label',
+                    'label' => 'label.user.first_name',
                     'required' => false,
                 ]
             )
@@ -36,7 +36,7 @@ class UserType extends AbstractType
                 TextType::class,
                 [
                     'required' => true,
-                    'label' => 'user.form.username.label',
+                    'label' => 'label.user.username',
                 ]
             )
             ->add(
@@ -50,16 +50,16 @@ class UserType extends AbstractType
                 'area',
                 AreaSelectType::class,
                 [
-                    'label' => 'user.form.area.label',
+                    'label' => 'label.user.area_select',
                     'required' => false,
-                    'placeholder' => 'area.form.select.placeholder',
+                    'placeholder' => 'placeholder.area.select',
                 ]
             )
             ->addEventSubscriber(
                 new AddRoomFieldSubscriber(
                     false,
-                    'user.form.room.label',
-                    'room.form.select.empty.placeholder'
+                    'label.user.room_select',
+                    'placeholder.room.select_empty'
                 )
             );
     }

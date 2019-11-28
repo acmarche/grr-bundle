@@ -17,7 +17,7 @@ class UserNewType extends AbstractType
                 'password',
                 PasswordType::class,
                 [
-                    'label' => 'user.form.password.label',
+                    'label' => 'label.user.password',
                 ]
             );
     }
@@ -33,6 +33,6 @@ class UserNewType extends AbstractType
 
     public function getParent(): string
     {
-        return  UserAdvanceType::class;
+        return UserAdvanceType::class;
     }
 }

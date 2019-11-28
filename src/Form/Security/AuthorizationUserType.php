@@ -48,14 +48,14 @@ class AuthorizationUserType extends AbstractType
             'area',
             AreaSelectType::class,
             [
-                'placeholder' => 'area.form.select.placeholder',
+                'placeholder' => 'placeholder.area.select',
             ]
         );
 
         $formModifier = function (FormInterface $form, Area $area = null) {
             $options = [
                 'class' => Room::class,
-                'label' => 'room.form.select.multiple.label',
+                'label' => 'label.room.multiple_select',
                 'placeholder' => '',
                 'attr' => ['class' => 'custom-select my-1 mr-sm-2 room-select'],
                 'multiple' => true,

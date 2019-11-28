@@ -19,8 +19,8 @@ class UserPasswordType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
-                    'first_options' => ['label' => 'user.form.password.label'],
-                    'second_options' => ['label' => 'user.form.passwordrepeat.label'],
+                    'first_options' => ['label' => 'label.user.password'],
+                    'second_options' => ['label' => 'label.user.password_repeat'],
                 ]
             );
     }

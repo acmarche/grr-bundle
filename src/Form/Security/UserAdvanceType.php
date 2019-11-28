@@ -19,7 +19,7 @@ class UserAdvanceType extends AbstractType
                 'roles',
                 ChoiceType::class,
                 [
-                    'label' => 'user.form.roles.label',
+                    'label' => 'label.user.roles.select',
                     'choices' => SecurityRole::getRoles(),
                     'required' => true,
                     'multiple' => true,
@@ -32,8 +32,8 @@ class UserAdvanceType extends AbstractType
                 CheckboxType::class,
                 [
                     'required' => false,
-                    'label' => 'user.form.isEnabled.label',
-                    'help' => 'user.form.isEnabled.help',
+                    'label' => 'label.user.is_enabled',
+                    'help' => 'hel.user.is_enabled',
                 ]
             );
     }

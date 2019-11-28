@@ -39,23 +39,20 @@ class AuthorizationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'role',
-            RoleSelectType::class,
+        $builder
+            ->add('role', RoleSelectType::class,)
+            ->add(
+                'area',
+                AreaSelectType::class,
+                [
+                    'placeholder' => 'placeholder.area.select.',
+                ]
             );
-
-        $builder->add(
-            'area',
-            AreaSelectType::class,
-            [
-                'placeholder' => 'area.form.select.placeholder',
-            ]
-        );
 
         $formModifier = function (FormInterface $form, Area $area = null) {
             $options = [
                 'class' => Room::class,
-                'label' => 'room.form.select.multiple.label',
+                'label' => 'label.room.multiple_select',
                 'placeholder' => '',
                 'attr' => ['class' => 'custom-select my-1 mr-sm-2 room-select'],
                 'multiple' => true,
