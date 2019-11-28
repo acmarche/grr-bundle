@@ -10,8 +10,8 @@
 
 namespace Grr\GrrBundle\Form\Type;
 
-use Grr\GrrBundle\Form\DataTransformer\StdClassToNumberTransformer;
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Form\DataTransformer\StdClassToNumberTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +43,7 @@ class RoleSelectType extends AbstractType
         $resolver->setDefaults(
             [
                 'choices' => $roles,
-                'label' => 'authorization.area.role.label',
+                'label' => 'label.role.select',
                 'placeholder' => 'none.male',
                 'choice_label' => function ($role) {
                     return $role->name;

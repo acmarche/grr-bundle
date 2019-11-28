@@ -14,7 +14,7 @@ class RoomSelectType extends AbstractType
         $resolver
             ->setDefaults(
                 [
-                    'label' => 'room.form.select.label',
+                    'label' => 'label.room.select',
                     'class' => Room::class,
                     'attr' => ['class' => 'custom-select my-1 mr-sm-2 room-select'],
                 ]

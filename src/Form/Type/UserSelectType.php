@@ -24,7 +24,7 @@ class UserSelectType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'label' => 'entry.form.user.select.label',
+                'label' => 'label.user.select',
                 'class' => User::class,
                 'multiple' => true,
                 'expanded' => false,

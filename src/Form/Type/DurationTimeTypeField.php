@@ -20,7 +20,7 @@ class DurationTimeTypeField extends AbstractType
                 'time',
                 NumberType::class,
                 [
-                    'label' => 'entry.form.duration_time.label',
+                    'label' => 'label.entry.duration_time',
                     'scale' => 1,
                 ]
             )
@@ -31,15 +31,15 @@ class DurationTimeTypeField extends AbstractType
                     'choices' => array_flip($choices),
                     //  'label' => 'entry.form.duration_unit.label',
                     'label' => ' ',
-                    'help' => 'entry.form.duration_unit.help',
+                    'help' => 'help.entry.duration_unit',
                 ]
             )
             ->add(
                 'full_day',
                 CheckboxType::class,
                 [
-                    'label' => 'entry.form.full_day.label',
-                    'help' => 'entry.form.full_day.help',
+                    'label' => 'label.entry.full_day',
+                    'help' => 'help.entry.full_day',
                     'required' => false,
                 ]
             );
