@@ -1,4 +1,4 @@
-<h4 class="text-success">{{ 'room.informations.title'|trans({}, 'actions') }}</h4>
+<h4 class="text-success">{{ 'room.informations.title'|trans({}) }}</h4>
 <hr/>
 {{ form_start(form) }}
 
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<h4 class="text-success">{{ 'room.fonctions.title'|trans({}, 'actions') }}</h4>
+<h4 class="text-success">{{ 'room.fonctions.title'|trans({}) }}</h4>
 <hr/>
 <div class="row">
     <div class="col-6">
@@ -51,5 +51,5 @@
     </div>
 </div>
 
-<button class="btn btn-primary"><i class="far fa-save"></i> {{ button_label|default('form.btn.save') | trans({},'actions') }}</button>
+<button class="btn btn-primary"><i class="far fa-save"></i> {{ button_label|default('form.btn.save') | trans({}) }}</button>
 {{ form_end(form) }}

@@ -1,0 +1,31 @@
+label:
+  btn:
+    delete: Supprimer
+    edit: Modifier
+    authorization: Autorisations
+    area_types: Types de réservation
+    see: Voir
+    cancel: Annuler
+    room:
+      new: Ajouter une ressource
+    area:
+      new: 'messages'
+back:
+  to_list: Retour à la liste
+delete:
+  confirm: Confirmer la suppression
+area:
+  delete:
+    confirm: Êtes vous sur de supprimer le domaine name
+  rooms:
+    title: Liste des ressources
+  index:
+    title: 'messages'
+  orderDisplay: 'messages'
+  startTime: 'messages'
+  endTime: 'messages'
+  new:
+    title: 'messages'
+records:
+  not_found: Aucun élément trouvé
+name: 'messages'

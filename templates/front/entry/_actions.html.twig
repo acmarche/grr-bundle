@@ -1,5 +1,5 @@
 <a href="{{ url_back }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
-    {{ 'back.to.list'|trans({}, 'actions') }}
+    {{ 'back.to.list'|trans({}) }}
 </a>
 
 
@@ -9,15 +9,15 @@
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                <i class="far fa-edit"></i> {{ 'form.btn.edit.label'|trans({}, 'actions') }}
+                <i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                 <a href="{{ path('grr_front_entry_edit', { 'id': entry.id }) }}" role="button"
-                   class="dropdown-item"> {{ 'form.btn.edit.entry'|trans({}, 'actions') }}</a>
+                   class="dropdown-item"> {{ 'form.btn.edit.entry'|trans({}) }}</a>
 
                 <a href="{{ path('grr_front_periodicity_edit', { 'id': entry.id }) }}" role="button"
-                   class="dropdown-item"> {{ 'form.btn.edit.periodicity'|trans({}, 'actions') }}</a>
+                   class="dropdown-item"> {{ 'form.btn.edit.periodicity'|trans({}) }}</a>
 
             </div>
         </div>
@@ -28,14 +28,14 @@
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-trash"></i> {{ 'form.btn.delete.label'|trans({}, 'actions') }}
+                <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                 <button class="dropdown-item" data-toggle="modal" data-target="#deleteModal">
-                    {{ 'form.btn.delete.entry'|trans({}, 'actions') }}
+                    {{ 'form.btn.delete.entry'|trans({}) }}
                 </button>
                 <button class="dropdown-item" data-toggle="modal" data-target="#deleteModalPeriodicity">
-                    {{ 'form.btn.delete.periodicity'|trans({}, 'actions') }}
+                    {{ 'form.btn.delete.periodicity'|trans({}) }}
                 </button>
             </div>
         </div>
@@ -43,13 +43,13 @@
 {% else %}
     {% if is_granted('grr.entry.edit', entry) %}
         <a href="{{ path('grr_front_entry_edit', { 'id': entry.id }) }}" role="button"
-           class="btn btn-primary"><i class="far fa-edit"></i> {{ 'form.btn.edit.label'|trans({}, 'actions') }}</a>
+           class="btn btn-primary"><i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
 
     {% endif %}
     {% if is_granted('grr.entry.delete', entry) %}
         <a href="{{ url_back }}" class="btn btn-danger" role='button' data-toggle="modal" data-target="#deleteModal"><i
                     class="fas fa-trash"></i>
-            {{ 'form.btn.delete.label'|trans({}, 'actions') }}
+            {{ 'label.btn.delete'|trans({}) }}
         </a>
     {% endif %}
 {% endif %}

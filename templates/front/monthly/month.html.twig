@@ -8,7 +8,7 @@
 
     <h3 class="text-center text-success">
         {{ firstDay.monthName|title }} {{ firstDay.year }}<br/>
-        {{ area }} - {% if room %} {{ room }} {% else %} {{ 'room.all'|trans({},'actions') }} {% endif %}
+        {{ area }} - {% if room %} {{ room }} {% else %} {{ 'room.all'|trans({}) }} {% endif %}
     </h3>
 
     {{ monthData|raw }}

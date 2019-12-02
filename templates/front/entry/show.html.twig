@@ -16,35 +16,35 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <th>{{ 'entry.form.startTime.label'|trans }}</th>
+                            <th>{{ 'entry.startTime'|trans }}</th>
                             <td>{{ entry.startTime|format_datetime('full', 'short') }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.endTime.label'|trans }}</th>
+                            <th>{{ 'entry.endTime'|trans }}</th>
                             <td>{{ entry.endTime|format_datetime('full', 'short') }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.area.label'|trans }}</th>
+                            <th>{{ 'entry.area'|trans }}</th>
                             <td>{{ entry.room.area }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.room.label'|trans }}</th>
+                            <th>{{ 'entry.room'|trans }}</th>
                             <td>{{ entry.room }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.type.label'|trans }}</th>
+                            <th>{{ 'entry.type'|trans }}</th>
                             <td>{{ entry.type }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.statutEntry.label'|trans }}</th>
+                            <th>{{ 'entry.statutEntry'|trans }}</th>
                             <td>{{ entry.statutEntry }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.beneficiaireExt.label'|trans }}</th>
+                            <th>{{ 'entry.beneficiaireExt'|trans }}</th>
                             <td>{{ entry.beneficiaireExt }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'entry.form.beneficiaire.label'|trans }}</th>
+                            <th>{{ 'entry.beneficiaire'|trans }}</th>
                             <td>{{ entry.beneficiaire }}</td>
                         </tr>
                     </table>
@@ -59,7 +59,7 @@
 
         <div class="card-footer">
             <p class="text-muted">
-                {{ 'entry.form.createBy.label'|trans }} {{ entry.createdBy }}
+                {{ 'entry.createBy'|trans }} {{ entry.createdBy }}
                 {{ 'created.at'|trans }} {{ entry.createdAt | date('m-d-Y H:i') }}
             </p>
         </div>

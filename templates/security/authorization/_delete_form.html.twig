@@ -13,7 +13,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">{{ 'modal.delete.title'|trans({}, 'actions') }}</h5>
+                <h5 class="modal-title" id="deleteModalLabel">{{ 'delete.confirm'|trans({}) }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -28,8 +28,8 @@
                     <input type="hidden" name="_tokenauth" id="tokenauth" value="">
                     <input type="hidden" name="_urlback" id="_urlback" value="{{ url_back }}">
                     <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal">{{ 'form.btn.cancel'|trans({}, 'actions') }}</button>
-                    <button type="submit" class="btn btn-danger">{{ 'form.btn.delete.label'|trans({}, 'actions') }}</button>
+                            data-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>
+                    <button type="submit" class="btn btn-danger">{{ 'label.btn.delete'|trans({}) }}</button>
                 </form>
             </div>
         </div>

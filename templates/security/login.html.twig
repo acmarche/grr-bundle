@@ -34,13 +34,13 @@
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
             <label for="inputEmail"
-                   class="sr-only">{{ 'login.form.username.label'|trans() }}</label>
+                   class="sr-only">{{ 'login.username'|trans() }}</label>
             <input type="text" name="username" value="{{ last_username }}" id="inputEmail" class="form-control"
-                   placeholder="{{ 'login.form.username.placeholder'|trans }}" required autofocus>
+                   placeholder="{{ 'login.username.placeholder'|trans }}" required autofocus>
             <label for="inputPassword"
-                   class="sr-only">{{ 'login.form.password.label'|trans() }}</label>
+                   class="sr-only">{{ 'login.password'|trans() }}</label>
             <input name="password" type="password" id="inputPassword" class="form-control mt-2"
-                   placeholder="{{ 'login.form.password.placeholder'|trans() }}" required>
+                   placeholder="{{ 'login.password.placeholder'|trans() }}" required>
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox"

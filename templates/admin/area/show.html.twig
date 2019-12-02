@@ -18,39 +18,39 @@
                         <tbody>
                         <tr>
                             <th class="w-75">
-                                {{ 'area.form.access.label'|trans }}
+                                {{ 'area.isRestricted'|trans }}
                             </th>
                             <td>{{ area.isRestricted }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.orderDisplay.label'|trans }}</th>
+                            <th>{{ 'area.orderDisplay'|trans }}</th>
                             <td>{{ area.orderDisplay }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.weekstartsArea.label'|trans }}</th>
+                            <th>{{ 'area.weekStart'|trans }}</th>
                             <td>{{ area.weekStart | grrJoursSemaine }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.morningstartsArea.label'|trans }}</th>
+                            <th>{{ 'area.startTime'|trans }}</th>
                             <td>{{ area.startTime }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.eveningendsArea.label'|trans }}</th>
+                            <th>{{ 'area.endTime'|trans }}</th>
                             <td>{{ area.endTime }}</td>
                         </tr>
                         <tr>
                             <th>
-                                {{ 'area.form.timeInterval.label'|trans }}<br/>
-                                <span class="text-muted">{{ 'area.form.timeInterval.help'|trans }}</span>
+                                {{ 'area.timeInterval'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.timeInterval.help'|trans }}</span>
                             </th>
                             <td>{{ area.timeInterval }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.eveningendsMinutesArea.label'|trans }}</th>
+                            <th>{{ 'area.minutesToAddToEndTime'|trans }}</th>
                             <td>{{ area.minutesToAddToEndTime }}</td>
                         </tr>
                         <tr>
-                            <th>{{ 'area.form.hour_in_24h.label'|trans }}</th>
+                            <th>{{ 'area.hour_in_24h'|trans }}</th>
                             <td>
                                 {{ area.is24HourFormat ? 'Yes'|trans : 'No'| trans }}
                             </td>
@@ -62,7 +62,7 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <th class="w-75">{{ 'area.form.displayDays.label'|trans }}</th>
+                            <th class="w-75">{{ 'area.daysOfWeekToDisplay'|trans }}</th>
                             <td>
                                 {% for jour in  area.daysOfWeekToDisplay %}
                                     {{ jour | grrJoursSemaine | trans }},
@@ -72,22 +72,22 @@
 
                         <tr>
                             <th>
-                                {{ 'area.form.dureeMaxResaArea.label'|trans }}<br/>
-                                <span class="text-muted">{{ 'area.form.dureeMaxResaArea.help'|trans }}</span>
+                                {{ 'area.durationMaximumEntry'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.durationMaximumEntry.help'|trans }}</span>
                             </th>
                             <td>{{ area.durationMaximumEntry }}</td>
                         </tr>
                         <tr>
                             <th>
-                                {{ 'area.form.dureeParDefautReservationArea.label'|trans }}<br/>
-                                <span class="text-muted">{{ 'area.form.dureeParDefautReservationArea.help'|trans }}</span>
+                                {{ 'area.durationDefaultEntry'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.durationDefaultEntry.help'|trans }}</span>
                             </th>
                             <td>{{ area.durationDefaultEntry }}</td>
                         </tr>
                         <tr>
                             <th>
-                                {{ 'area.form.maxBooking.label'|trans }}<br/>
-                                <span class="text-muted">{{ 'area.form.maxBooking.help'|trans }}</span>
+                                {{ 'area.maxBooking'|trans }}<br/>
+                                <span class="text-muted">{{ 'area.maxBooking.help'|trans }}</span>
                             </th>
                             <td>{{ area.maxBooking }}</td>
                         </tr>

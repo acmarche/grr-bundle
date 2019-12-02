@@ -1,18 +1,18 @@
 {% extends '@grr_admin/layout_admin.html.twig' %}
 
-{% block title %}{{ 'area.index.title'|trans({}, 'actions') }}{% endblock %}
+{% block title %}{{ 'area.index.title'|trans({}) }}{% endblock %}
 
 {% block body %}
     <div class="card bg-light mb-3">
         <div class="card-header">
             <div class="row">
                 <div class="col-8">
-                    <h3>{{ 'area.index.title'|trans({}, 'actions') }}</h3>
+                    <h3>{{ 'area.index.title'|trans({}) }}</h3>
                 </div>
                 <div class="col-4">
                     {% if is_granted('grr.area.new') %}
                         <a class="float-right btn btn-primary" href="{{ path('grr_admin_area_new') }}"><i
-                                    class="fas fa-plus"></i> {{ 'area.new.title'| trans({}, 'actions') }}</a>
+                                    class="fas fa-plus"></i> {{ 'label.btn.area.new'| trans({}) }}</a>
                     {% endif %}
                 </div>
             </div>
@@ -23,9 +23,9 @@
                 <thead>
                 <tr>
                     <th>{{ 'name'| trans }}</th>
-                    <th>{{ 'area.form.orderDisplay.label'| trans }}</th>
-                    <th>{{ 'area.form.morningstartsArea.label'| trans }}</th>
-                    <th>{{ 'area.form.eveningendsArea.label'| trans }}</th>
+                    <th>{{ 'area.orderDisplay'| trans }}</th>
+                    <th>{{ 'area.startTime'| trans }}</th>
+                    <th>{{ 'area.endTime'| trans }}</th>
                     <th>{{ 'area.rooms.title'| trans }}</th>
                 </tr>
                 </thead>
@@ -42,7 +42,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+                        <td colspan="5">{{ 'records.not_found'| trans({}) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

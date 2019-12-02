@@ -1,20 +1,20 @@
 {% extends '@grr_admin/layout_admin.html.twig' %}
 
-{% block title %}{{ 'room.index.title'|trans({}, 'actions') }}{% endblock %}
+{% block title %}{{ 'room.index.title'|trans({}) }}{% endblock %}
 
 {% block body %}
 
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h2>{{ 'room.index.title'|trans({}, 'actions') }}</h2>
+            <h2>{{ 'room.index.title'|trans({}) }}</h2>
         </div>
         <div class="card-body">
 
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>{{ 'room.form.nom.label'|trans }}</th>
-                    <th>{{ 'room.form.orderDisplay.label'|trans }}</th>
+                    <th>{{ 'room.name'|trans }}</th>
+                    <th>{{ 'room.orderDisplay'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+                        <td colspan="3">{{ 'records.not_found'| trans({}) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

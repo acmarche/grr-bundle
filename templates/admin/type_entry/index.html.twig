@@ -10,16 +10,16 @@
         <div class="card-body">
 
             <a class="btn btn-primary" href="{{ path('grr_admin_type_entry_new') }}"><i
-                        class="fas fa-plus"></i> {{ 'typeEntry.new.title'| trans({}, 'actions') }}</a>
+                        class="fas fa-plus"></i> {{ 'typeEntry.new.title'| trans({}) }}</a>
             <br/> <br/>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>{{ 'typeEntry.form.typeName.label'|trans }}</th>
-                    <th>{{ 'typeEntry.form.orderDisplay.label'|trans }}</th>
-                    <th>{{ 'typeEntry.form.couleur.label'|trans }}</th>
-                    <th>{{ 'typeEntry.form.typeLetter.label'|trans }}</th>
+                    <th>{{ 'typeEntry.typeName'|trans }}</th>
+                    <th>{{ 'typeEntry.orderDisplay'|trans }}</th>
+                    <th>{{ 'typeEntry.couleur'|trans }}</th>
+                    <th>{{ 'typeEntry.typeLetter'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+                        <td colspan="4">{{ 'records.not_found'| trans({}) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

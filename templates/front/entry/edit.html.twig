@@ -1,6 +1,6 @@
 {% extends '@grr_front/layout_front.html.twig' %}
 
-{% block title %}{{ 'action.edit'|trans({},'actions') }} {{ entry.name }}{% endblock %}
+{% block title %}{{ 'action.edit'|trans({}) }} {{ entry.name }}{% endblock %}
 
 {% block body %}
 
@@ -15,7 +15,7 @@
                     {{ form_errors(form) }}
                     {% include '@grr_front/entry/form/_form_entry.html.twig' %}
                     <button class="btn btn-primary" type="submit"><i
-                                class="far fa-save"></i> {{ 'form.btn.save'|trans({}, 'actions') }}</button>
+                                class="far fa-save"></i> {{ 'form.btn.save'|trans({}) }}</button>
                     {{ form_end(form) }}
                 </div>
                 <div class="col-6">
@@ -27,7 +27,7 @@
 
     <br/>
     <a href="{{ path('grr_front_entry_show',{'id': entry.id}) }}"><i
-                class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({}, 'actions') }}</a>
+                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 
 {% endblock %}
 {% block scripts %}

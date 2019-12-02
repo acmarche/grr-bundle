@@ -1,11 +1,11 @@
 {% extends '@grr_front/layout_front.html.twig' %}
 
-{% block title %}{{ 'entry.index.title'|trans({}, 'actions') }}{% endblock %}
+{% block title %}{{ 'entry.index.title'|trans({}) }}{% endblock %}
 
 {% block body %}
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h2>{{ 'entry.index.title'|trans({}, 'actions') }}</h2>
+            <h2>{{ 'entry.index.title'|trans({}) }}</h2>
         </div>
         <div class="card-body">
 
@@ -16,10 +16,10 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>{{ 'entry.form.name.label'|trans }}</th>
-                    <th>{{ 'entry.form.startTime.label'|trans }}</th>
-                    <th>{{ 'entry.form.endTime.label'|trans }}</th>
-                    <th>{{ 'entry.form.room.label'|trans }}</th>
+                    <th>{{ 'entry.name'|trans }}</th>
+                    <th>{{ 'entry.startTime'|trans }}</th>
+                    <th>{{ 'entry.endTime'|trans }}</th>
+                    <th>{{ 'entry.room'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,7 +35,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="4">{{ 'records.notfound'| trans({}, 'actions') }}</td>
+                        <td colspan="4">{{ 'records.not_found'| trans({}) }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

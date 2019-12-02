@@ -9,13 +9,12 @@
             <h2>{{ room.name }}</h2>
         </div>
         <div class="card-body">
-
             {{ include('@grr_admin/room/_form.html.twig', {'button_label': 'form.btn.update'}) }}
         </div>
     </div>
 
     <br/>
     <a href="{{ path('grr_admin_area_show',{'id': room.area.id}) }}">
-        <i class="fas fa-arrow-left"></i> {{ 'form.btn.cancel'|trans({}, 'actions') }}</a>
+        <i class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 
 {% endblock %}
