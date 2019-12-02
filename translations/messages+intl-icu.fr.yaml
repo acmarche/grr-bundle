@@ -9,7 +9,8 @@ label:
     room:
       new: Ajouter une ressource
     area:
-      new: 'messages'
+      new: Nouveau domaine
+    search: Rechercher
 back:
   to_list: Retour à la liste
 delete:
@@ -20,12 +21,12 @@ area:
   rooms:
     title: Liste des ressources
   index:
-    title: 'messages'
-  orderDisplay: 'messages'
-  startTime: 'messages'
-  endTime: 'messages'
+    title: Liste des domaines
+  orderDisplay: Ordre d'affichage
+  startTime: Heure de début
+  endTime: Heure de fin des réservations
   new:
-    title: 'messages'
+    title: Nouveau domaine
 records:
   not_found: Aucun élément trouvé
-name: 'messages'
+name: Nom

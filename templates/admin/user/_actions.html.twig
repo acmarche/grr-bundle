@@ -5,10 +5,10 @@
    class="btn btn-primary"><i class="fas fa-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
 
 <a href="{{ path('grr_admin_user_password', { 'id': user.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-secret"></i> {{ 'form.btn.password'|trans({}) }}</a>
+   class="btn btn-primary"><i class="fas fa-user-secret"></i> {{ 'label.btn.password'|trans({}) }}</a>
 
 <a href="{{ path('grr_admin_user_index') }}" class="btn btn-primary" role='button'>
- <i class="fas fa-users"></i>   {{ 'back.to.list'|trans({}) }}
+ <i class="fas fa-users"></i>   {{ 'back.to_list'|trans({}) }}
 </a>
 
 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
