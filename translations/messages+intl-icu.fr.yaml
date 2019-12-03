@@ -1,75 +1,75 @@
 label:
   btn:
-    delete: Supprimer
-    edit: Modifier
-    authorization: Autorisations
-    area_types: Types de réservation
-    see: Voir
-    cancel: Annuler
+    delete: 'Supprimer'
+    edit: 'Modifier'
+    authorization: 'Autorisations'
+    area_types: 'Types de réservation'
+    see: 'Voir'
+    cancel: 'Annuler'
     room:
-      new: Ajouter une ressource
-      back_to_area: 'messages'
+      new: 'Ajouter une ressource'
+      back_to_area: 'Retour au domaine'
     area:
-      new: Nouveau domaine
-      manage: 'messages'
-    search: Rechercher
+      new: 'Nouveau domaine'
+      manage: 'gestion de domaine'
+    search: 'Rechercher'
     user:
-      manage: 'messages'
+      manage: 'gestion des utilisateurs'
     setting:
-      manage: 'messages'
+      manage: 'gestion des paramètres'
     typeEntry:
-      manage: 'messages'
-    save: 'messages'
-    password: 'messages'
-    edit_periodicity: 'messages'
-    edit_entry: 'messages'
-    delete_entry: 'messages'
-    delete_periodicity: 'messages'
+      manage: 'gestion des types d''entrées'
+    save: 'sauvegarder'
+    password: 'mot de passe'
+    edit_periodicity: 'modifier la périodicité'
+    edit_entry: 'modifier l''entrée'
+    delete_entry: 'supprimer l''entrée'
+    delete_periodicity: 'supprimer la périodicité'
     next:
-      month: 'messages'
-      year: 'messages'
+      month: 'mois prochain'
+      year: 'année prochaine'
     previous:
-      year: 'messages'
-      month: 'messages'
+      year: 'année précédente'
+      month: 'mois précédent'
     add:
-      entry: 'messages'
-    new: 'messages'
-    login: 'messages'
+      entry: 'ajouter une entrée'
+    new: 'ajouter'
+    login: 'login'
   setting:
-    edit: 'messages'
+    edit: 'edit setting'
   user:
-    new: 'messages'
+    new: 'new user'
 back:
-  to_list: Retour à la liste
+  to_list: 'Retour à la liste'
 delete:
-  confirm: Confirmer la suppression
+  confirm: 'Confirmer la suppression'
 area:
   delete:
-    confirm: Êtes vous sur de supprimer le domaine name
+    confirm: 'Êtes vous sur de supprimer le domaine name'
   rooms:
-    title: Liste des ressources
+    title: 'Liste des ressources'
   index:
-    title: Liste des domaines
-  orderDisplay: Ordre d'affichage
-  startTime: Heure de début
-  endTime: Heure de fin des réservations
+    title: 'Liste des domaines'
+  orderDisplay: 'Ordre d'affichage'
+  startTime: 'Heure de début'
+  endTime: 'Heure de fin des réservations'
   new:
-    title: Nouveau domaine
-  isRestricted: 'messages'
-  weekStart: 'messages'
-  timeInterval: 'messages'
-  minutesToAddToEndTime: 'messages'
-  hour_in_24h: 'messages'
-  daysOfWeekToDisplay: 'messages'
-  durationMaximumEntry: 'messages'
-  durationDefaultEntry: 'messages'
-  maxBooking: 'messages'
-  title: 'messages'
-  administrator: 'messages'
-  resource: 'messages'
+    title: 'Nouveau domaine'
+  isRestricted: 'accès restreint'
+  weekStart: 'début de la semaine'
+  timeInterval: 'temps interval'
+  minutesToAddToEndTime: 'minutes à ajouter pour la date de fin'
+  hour_in_24h: 'format 24h'
+  daysOfWeekToDisplay: 'jours de la semaine a afficher'
+  durationMaximumEntry: 'durée maximum d''une entrée'
+  durationDefaultEntry: 'durée par défaut d''une entrée'
+  maxBooking: 'nbre maximum de réservation'
+  title: 'les domaines'
+  administrator: 'administrateur de area'
+  resource: 'ressource'
 records:
-  not_found: Aucun élément trouvé
-name: Nom
+  not_found: 'Aucun élément trouvé'
+name: 'Nom'
 user:
   account:
     title: 'messages'
@@ -227,47 +227,47 @@ authorization:
     title: 'messages'
   delete:
     confirm: 'messages'
-You are a director of Grr: 'messages'
-Hours: 'messages'
+You are a director of Grr: 'Vous êtes administrateur de Grr'
+Hours: 'Heures'
 entry:
   new:
     periodicity:
-      title: 'messages'
-    title: 'messages'
+      title: 'Nouvelle entrée avec périodicité'
+    title: 'Nouvelle entrée'
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de supprimer cette entrée ?'
   index:
-    title: 'messages'
-  name: 'messages'
-  startTime: 'messages'
-  endTime: 'messages'
-  room: 'messages'
-  area: 'messages'
-  type: 'messages'
-  beneficiaireExt: 'messages'
-  statutEntry: 'messages'
-  beneficiaire: 'messages'
-  createBy: 'messages'
-created_by: 'messages'
-created_at: 'messages'
+    title: 'Liste des entrées'
+  name: 'entrée'
+  startTime: 'date début'
+  endTime: 'date fin'
+  room: 'salle'
+  area: 'domaine'
+  type: 'type'
+  beneficiaireExt: 'béné extérieur'
+  statutEntry: 'statut'
+  beneficiaire: 'bénéficiaire'
+  createBy: 'créé par'
+created_by: 'créé par'
+created_at: 'créé le'
 week:
-  initial: 'messages'
-  name: 'messages'
-Today: 'messages'
+  initial: 's'
+  name: 'semaine'
+Today: 'Aujourd''hui'
 periodicity:
   delete:
-    confirm: 'messages'
-  title: 'messages'
-  endtime: 'messages'
-  type: 'messages'
-  repeatWeek: 'messages'
-  days: 'messages'
+    confirm: 'Êtes vous sur de supprimer la périodicité ?'
+  title: 'Périodicité'
+  endtime: 'fin temps'
+  type: 'type'
+  repeatWeek: 'répétition semaine'
+  days: 'jours'
   repeats:
-    title: 'messages'
-ressources: 'messages'
-actions: 'messages'
+    title: 'Répétitions'
+ressources: 'ressources'
+actions: 'Actions'
 login:
-  title: 'messages'
-  remember_me: 'messages'
-  password: 'messages'
-  username: 'messages'
+  title: 'Authentification'
+  remember_me: 'Se souvenir de moi'
+  password: 'Mot de passe'
+  username: 'Nom d''utilisateur'
