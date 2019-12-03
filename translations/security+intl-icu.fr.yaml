@@ -1,1 +1,2 @@
-user.not_found : Utilisateur non trouvé
+user:
+  not_found : Utilisateur non trouvé

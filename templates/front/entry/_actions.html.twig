@@ -1,5 +1,5 @@
 <a href="{{ url_back }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
-    {{ 'back.to.list'|trans({}) }}
+    {{ 'back.to_list'|trans({}) }}
 </a>
 
 
@@ -14,10 +14,10 @@
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                 <a href="{{ path('grr_front_entry_edit', { 'id': entry.id }) }}" role="button"
-                   class="dropdown-item"> {{ 'form.btn.edit.entry'|trans({}) }}</a>
+                   class="dropdown-item"> {{ 'label.btn.edit_entry'|trans({}) }}</a>
 
                 <a href="{{ path('grr_front_periodicity_edit', { 'id': entry.id }) }}" role="button"
-                   class="dropdown-item"> {{ 'form.btn.edit.periodicity'|trans({}) }}</a>
+                   class="dropdown-item"> {{ 'label.btn.edit_periodicity'|trans({}) }}</a>
 
             </div>
         </div>
@@ -32,10 +32,10 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                 <button class="dropdown-item" data-toggle="modal" data-target="#deleteModal">
-                    {{ 'form.btn.delete.entry'|trans({}) }}
+                    {{ 'label.btn.delete_entry'|trans({}) }}
                 </button>
                 <button class="dropdown-item" data-toggle="modal" data-target="#deleteModalPeriodicity">
-                    {{ 'form.btn.delete.periodicity'|trans({}) }}
+                    {{ 'label.btn.delete_periodicity'|trans({}) }}
                 </button>
             </div>
         </div>

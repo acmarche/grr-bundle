@@ -8,9 +8,37 @@ label:
     cancel: Annuler
     room:
       new: Ajouter une ressource
+      back_to_area: 'messages'
     area:
       new: Nouveau domaine
+      manage: 'messages'
     search: Rechercher
+    user:
+      manage: 'messages'
+    setting:
+      manage: 'messages'
+    typeEntry:
+      manage: 'messages'
+    save: 'messages'
+    password: 'messages'
+    edit_periodicity: 'messages'
+    edit_entry: 'messages'
+    delete_entry: 'messages'
+    delete_periodicity: 'messages'
+    next:
+      month: 'messages'
+      year: 'messages'
+    previous:
+      year: 'messages'
+      month: 'messages'
+    add:
+      entry: 'messages'
+    new: 'messages'
+    login: 'messages'
+  setting:
+    edit: 'messages'
+  user:
+    new: 'messages'
 back:
   to_list: Retour à la liste
 delete:
@@ -27,6 +55,219 @@ area:
   endTime: Heure de fin des réservations
   new:
     title: Nouveau domaine
+  isRestricted: 'messages'
+  weekStart: 'messages'
+  timeInterval: 'messages'
+  minutesToAddToEndTime: 'messages'
+  hour_in_24h: 'messages'
+  daysOfWeekToDisplay: 'messages'
+  durationMaximumEntry: 'messages'
+  durationDefaultEntry: 'messages'
+  maxBooking: 'messages'
+  title: 'messages'
+  administrator: 'messages'
+  resource: 'messages'
 records:
   not_found: Aucun élément trouvé
 name: Nom
+user:
+  account:
+    title: 'messages'
+    area:
+      default: 'messages'
+    room:
+      default: 'messages'
+    email: 'messages'
+  delete:
+    confirm: 'messages'
+  changepassword:
+    title: 'messages'
+  password:
+    title: 'messages'
+  index:
+    title: 'messages'
+  name: 'messages'
+  email: 'messages'
+  username: 'messages'
+  isEnabled: 'messages'
+  new:
+    title: 'messages'
+  firstName: 'messages'
+  room_default: 'messages'
+  area_default: 'messages'
+  title: 'messages'
+room:
+  orderDisplay: 'messages'
+  name: 'messages'
+  delete:
+    confirm: 'messages'
+  informations:
+    title: 'messages'
+  fonctions:
+    title: 'messages'
+  index:
+    title: 'messages'
+  new:
+    title: 'messages'
+  description: 'messages'
+  capacity: 'messages'
+  maximumBooking: 'messages'
+  ruleToAdd: 'messages'
+  activeRessourceEmpruntee: 'messages'
+  quiPeutReserverPour: 'messages'
+  moderate: 'messages'
+  typeAffichageReser: 'messages'
+  dontAllowModify: 'messages'
+  delaisOptionReservation: 'messages'
+  allowActionInPast: 'messages'
+  delaisMinResaRoom: 'messages'
+  delaisMaxResaRoom: 'messages'
+  showComment: 'messages'
+  commentRoom: 'messages'
+  pictureRoom: 'messages'
+  showFicRoom: 'messages'
+  statutRoom: 'messages'
+  title: 'messages'
+  all: 'messages'
+  back_to_area: 'messages'
+  back_to_room: 'messages'
+  back_to_user: 'messages'
+Yes: 'messages'
+No: 'messages'
+help:
+  area:
+    timeInterval: 'messages'
+    durationDefaultEntry: 'messages'
+    durationMaximumEntry: 'messages'
+    maxBooking: 'messages'
+  room:
+    capacity: 'messages'
+    maximumBooking: 'messages'
+    ruleToAdd: 'messages'
+    quiPeutReserverPour: 'messages'
+    moderate: 'messages'
+    typeAffichageReser: 'messages'
+    dontAllowModify: 'messages'
+    delaisOptionReservation: 'messages'
+    allowActionInPast: 'messages'
+    showFicRoom: 'messages'
+    statutRoom: 'messages'
+page:
+  admin:
+    title: 'messages'
+  notauthorized: 'messages'
+  not_found: 'messages'
+grr:
+  title: 'messages'
+setting:
+  delete:
+    confirm: 'messages'
+btn:
+  add:
+    email: 'messages'
+settings:
+  title: 'messages'
+typeArea:
+  delete:
+    confirm: 'messages'
+  edit:
+    title: 'messages'
+typeEntry:
+  index:
+    title: 'messages'
+  new:
+    title: 'messages'
+  typeName: 'messages'
+  orderDisplay: 'messages'
+  color: 'messages'
+  letter: 'messages'
+  available: 'messages'
+menu:
+  planning: 'messages'
+  area: 'messages'
+  users: 'messages'
+  settings: 'messages'
+  reservation:
+    type: 'messages'
+  home: 'messages'
+  search: 'messages'
+  administration: 'messages'
+  user:
+    account: 'messages'
+    logout: 'messages'
+    login: 'messages'
+placeholder:
+  entry:
+    room:
+      select: 'messages'
+  login:
+    password: 'messages'
+    username: 'messages'
+  search: 'messages'
+return:
+  homepage: 'messages'
+authorization:
+  title: 'messages'
+  role:
+    area:
+      administrator:
+        help: 'messages'
+    resource:
+      administrator:
+        help: 'messages'
+  area:
+    new:
+      title: 'messages'
+    title: 'messages'
+  room:
+    title: 'messages'
+  user:
+    new:
+      title: 'messages'
+    title: 'messages'
+  delete:
+    confirm: 'messages'
+You are a director of Grr: 'messages'
+Hours: 'messages'
+entry:
+  new:
+    periodicity:
+      title: 'messages'
+    title: 'messages'
+  delete:
+    confirm: 'messages'
+  index:
+    title: 'messages'
+  name: 'messages'
+  startTime: 'messages'
+  endTime: 'messages'
+  room: 'messages'
+  area: 'messages'
+  type: 'messages'
+  beneficiaireExt: 'messages'
+  statutEntry: 'messages'
+  beneficiaire: 'messages'
+  createBy: 'messages'
+created_by: 'messages'
+created_at: 'messages'
+week:
+  initial: 'messages'
+  name: 'messages'
+Today: 'messages'
+periodicity:
+  delete:
+    confirm: 'messages'
+  title: 'messages'
+  endtime: 'messages'
+  type: 'messages'
+  repeatWeek: 'messages'
+  days: 'messages'
+  repeats:
+    title: 'messages'
+ressources: 'messages'
+actions: 'messages'
+login:
+  title: 'messages'
+  remember_me: 'messages'
+  password: 'messages'
+  username: 'messages'

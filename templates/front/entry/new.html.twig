@@ -21,7 +21,7 @@
                 </div>
             </div>
             <button class="btn btn-primary" type="submit"><i
-                        class="far fa-save"></i> {{ 'form.btn.save'|trans({}) }}</button>
+                        class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
             {{ form_end(form) }}
         </div>
     </div>
@@ -31,7 +31,7 @@
                 class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 {% endblock %}
 {% block scripts %}
-    <script src="{{ asset('js/periodicity_options_weeks.js') }}"></script>
-    <script src="{{ asset('js/full_day.js') }}"></script>
+    <script src="{{ asset('bundles/grr/js/periodicity_options_weeks.js') }}"></script>
+    <script src="{{ asset('bundles/grr/js/full_day.js') }}"></script>
     {% include '@grr_front/_select_room_js.html.twig' with {'isRestricted' : true} %}
 {% endblock %}
