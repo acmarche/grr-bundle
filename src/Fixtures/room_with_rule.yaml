@@ -1,0 +1,33 @@
+Grr\GrrBundle\Entity\Room:
+  room_1:
+    __construct: ['@area_Esquare']
+    name: 'Room 1'
+    rule_to_add: 1 #every body
+  room_2:
+    __construct: ['@area_Esquare']
+    name: 'Room 2'
+    rule_to_add: 2 #every connected
+  room_3:
+    __construct: ['@area_Esquare']
+    name: 'Room 3'
+    rule_to_add: 3 #every user with role ROLE_GRR_ACTIVE_USER
+  room_4:
+    __construct: ['@area_Esquare']
+    name: 'Room 4'
+    rule_to_add: 4 #every body
+  room_5:
+    __construct: ['@area_Esquare']
+    name: 'Room 5'
+    rule_to_add: 5 #every body
+  room_6:
+    __construct: ['@area_Esquare']
+    name: 'Room 6'
+    rule_to_add: 6 #every body
+  room_7:
+    __construct: ['@area_Esquare']
+    name: 'Room 7'
+    rule_to_add: 7 #every body
+  room_9:
+    __construct: ['@area_Esquare']
+    name: 'Room 9'
+    rule_to_add: 9 #every body

@@ -1,0 +1,6 @@
+Grr\GrrBundle\Entity\Area:
+  area_{Esquare, Hdv}:
+    name: '<current()>'
+    start_time: <numberBetween(7,9)>
+    end_time: <numberBetween(19,22)>
+    is_24_hour_format: <boolean(95)>

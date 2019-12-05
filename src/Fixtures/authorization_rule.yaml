@@ -1,0 +1,26 @@
+Grr\GrrBundle\Entity\Security\Authorization:
+  auth0:
+    user: '@user_bob'
+    area: '@area_Esquare'
+    is_area_administrator: true
+    is_resource_administrator: false
+  auth1:
+    user: '@user_alice'
+    area: '@area_Esquare'
+    is_area_administrator: false
+    is_resource_administrator: false
+  auth2:
+    user: '@user_joseph'
+    room: '@room_1'
+    is_area_administrator: false
+    is_resource_administrator: true
+  auth3:
+    user: '@user_raoul'
+    room: '@room_4'
+    is_area_administrator: false
+    is_resource_administrator: true
+  auth4:
+    user: '@user_kevin'
+    room: '@room_5'
+    is_area_administrator: false
+    is_resource_administrator: false

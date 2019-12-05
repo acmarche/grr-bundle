@@ -1,0 +1,25 @@
+Grr\GrrBundle\Entity\EntryType:
+  type_entry_A:
+    name: 'Cours'
+    letter (unique): 'A'
+    color: '<hexcolor()>'
+  type_entry_B:
+    name: 'Reunion'
+    letter (unique): 'B'
+    color: '<hexcolor()>'
+  type_entry_C:
+    name: 'Location'
+    letter (unique): 'C'
+    color: '<hexcolor()>'
+  type_entry_D:
+    name: 'Bureau'
+    letter (unique): 'D'
+    color: '<hexcolor()>'
+  type_entry_E:
+    name: 'Mise a disposition'
+    letter (unique): 'E'
+    color: '<hexcolor()>'
+  type_entry_F:
+    name: 'Non disponible'
+    letter (unique): 'F'
+    color: '<hexcolor()>'

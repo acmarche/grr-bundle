@@ -1,0 +1,9 @@
+Grr\GrrBundle\Entity\Entry:
+  entry_today_1:
+    name: 'Réunion a ce jour'
+    start_time: '<carbonToday(10,0)>'
+    end_time: '<carbonToday(14,10)>'
+    room: '@room_box'
+    type: '@type_entry_C'
+    beneficiaire: 'jf'
+    created_by: 'jf'

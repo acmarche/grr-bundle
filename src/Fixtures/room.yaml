@@ -1,0 +1,27 @@
+Grr\GrrBundle\Entity\Room:
+
+  room_box:
+    __construct: ['@area_Esquare']
+    name: 'Box'
+  room_creative:
+    __construct: ['@area_Esquare']
+    name: 'Créative'
+  room_meeting:
+    __construct: ['@area_Esquare']
+    name: 'Meeting Room'
+  room_relax:
+    __construct: ['@area_Esquare']
+    name: 'Relax Room'
+  room_digital:
+    __construct: ['@area_Esquare']
+    name: 'Digital Room'
+
+  room_conseil:
+    __construct: ['@area_Hdv']
+    name: 'Salle Conseil'
+  room_college:
+    __construct: ['@area_Hdv']
+    name: 'Salle Collège'
+  room_cafetaria:
+    __construct: ['@area_Hdv']
+    name: 'Salle cafétaria'

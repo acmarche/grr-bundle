@@ -1,0 +1,7 @@
+Grr\GrrBundle\Entity\Security\User:
+  user{1..10}:
+    name: '<name()>'
+    first_name: '<firstName()>'
+    email (unique): '<email()>'
+    username (unique): '<username()>'
+    password: 'homer'

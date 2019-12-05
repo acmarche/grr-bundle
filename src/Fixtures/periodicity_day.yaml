@@ -1,0 +1,26 @@
+#
+#Grr\GrrBundle\Entity\PeriodicityDay:
+#  period_day_{2019_12_03, 2019_12_04, 2019_12_05}:
+#    entry: '@entry_every_day'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_month_same_day{2019_04_05, 2019_05_05, 2019_06_05, 2019_07_05}:
+#    entry: '@entry_every_month_same_day'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_month_same_weekday_{2019_06_12, 2019_07_10, 2019_08_14, 2019_09_11, 2019_10_09}:
+#    entry: '@entry_every_month_same_weekday'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_year_{2020_10_04, 2021_10_04, 2022_10_04}:
+#    entry: '@entry_every_year'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_week1_{2018_06_25, 2018_06_26, 2018_07_02, 2018_07_03, 2018_07_09, 2018_07_10, 2018_07_16, 2018_07_17, 2018_07_23, 2018_07_24, 2018_07_30, 2018_07_31, 2018_08_06, 2018_08_07, 2018_08_13, 2018_08_14, 2018_08_20}:
+#    entry: '@entry_every_week_1'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_week2_{2017_02_08, 2017_02_11, 2017_02_22, 2017_02_25, 2017_03_08, 2017_03_11, 2017_03_22, 2017_03_25, 2017_04_05, 2017_04_08}:
+#    entry: '@entry_every_week_2'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_day_common{2019_12_04, 2019_12_05, 2019_12_06}:
+#    entry: '@entry_with_common_date'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'
+#  period_day_common_other_room{2019_12_04, 2019_12_05, 2019_12_06}:
+#    entry: '@entry_with_common_date_other_room'
+#    date_periodicity: '<carbonFromFormat("Y_m_d", <current()>)>'

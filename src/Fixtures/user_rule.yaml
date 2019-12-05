@@ -1,0 +1,18 @@
+Grr\GrrBundle\Entity\Security\User:
+  user0:
+    email: grr@domain.be
+    username: grr@domain.be
+    name: Jf
+    password: homer
+    roles: ["ROLE_GRR_ADMINISTRATOR"]
+  user_{alice, bob, raoul, joseph, kevin, charle}:
+    email: '<current()>\@domain.be'
+    username: '<current()>\@domain.be'
+    name: '<current()>'
+    password: homer
+  user_fred:
+    email: fred@domain.be
+    username: fred@domain.be
+    name: fred
+    password: homer
+    roles: ["ROLE_GRR","ROLE_GRR_ACTIVE_USER"]
