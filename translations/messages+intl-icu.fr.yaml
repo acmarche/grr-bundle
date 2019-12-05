@@ -50,7 +50,7 @@ area:
     title: 'Liste des ressources'
   index:
     title: 'Liste des domaines'
-  orderDisplay: 'Ordre d'affichage'
+  orderDisplay: 'Ordre d''affichage'
   startTime: 'Heure de début'
   endTime: 'Heure de fin des réservations'
   new:
@@ -72,161 +72,161 @@ records:
 name: 'Nom'
 user:
   account:
-    title: 'messages'
+    title: 'Compte'
     area:
-      default: 'messages'
+      default: 'Domaine par défaut'
     room:
-      default: 'messages'
-    email: 'messages'
+      default: 'Ressource par défaut'
+    email: 'Email'
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de supprimer le compte ?'
   changepassword:
-    title: 'messages'
+    title: 'Changer le mot de passe'
   password:
-    title: 'messages'
+    title: 'Mot de passe'
   index:
-    title: 'messages'
-  name: 'messages'
-  email: 'messages'
-  username: 'messages'
-  isEnabled: 'messages'
+    title: 'Liste des utilisateurs'
+  name: 'Nom'
+  email: 'Email'
+  username: 'Nom d''utilisateur'
+  isEnabled: 'Actif ?'
   new:
-    title: 'messages'
-  firstName: 'messages'
-  room_default: 'messages'
-  area_default: 'messages'
-  title: 'messages'
+    title: 'Nouvel utilisateur'
+  firstName: 'Prénom'
+  room_default: 'Ressource par défaut'
+  area_default: 'Domaine par défaut'
+  title: 'Les utilisateurs22'
 room:
-  orderDisplay: 'messages'
-  name: 'messages'
+  orderDisplay: 'Ordre d''affichage'
+  name: 'Nom'
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de supprimer la ressource ?'
   informations:
-    title: 'messages'
+    title: 'Informations'
   fonctions:
-    title: 'messages'
+    title: 'Fonctions'
   index:
-    title: 'messages'
+    title: 'Liste des ressources'
   new:
-    title: 'messages'
-  description: 'messages'
-  capacity: 'messages'
-  maximumBooking: 'messages'
-  ruleToAdd: 'messages'
-  activeRessourceEmpruntee: 'messages'
-  quiPeutReserverPour: 'messages'
-  moderate: 'messages'
-  typeAffichageReser: 'messages'
-  dontAllowModify: 'messages'
-  delaisOptionReservation: 'messages'
-  allowActionInPast: 'messages'
-  delaisMinResaRoom: 'messages'
-  delaisMaxResaRoom: 'messages'
-  showComment: 'messages'
-  commentRoom: 'messages'
-  pictureRoom: 'messages'
-  showFicRoom: 'messages'
-  statutRoom: 'messages'
-  title: 'messages'
-  all: 'messages'
-  back_to_area: 'messages'
-  back_to_room: 'messages'
-  back_to_user: 'messages'
-Yes: 'messages'
-No: 'messages'
+    title: 'Nouvelle ressource'
+  description: 'Description'
+  capacity: 'Capacité'
+  maximumBooking: 'Nombre maximum de réservation'
+  ruleToAdd: 'Droit pour ajouter'
+  activeRessourceEmpruntee: 'Modération'
+  quiPeutReserverPour: 'Qui peut réserver pour'
+  moderate: 'Modération'
+  typeAffichageReser: 'Type d''affichage'
+  dontAllowModify: 'Non autorisé à modifier'
+  delaisOptionReservation: 'Délais options réservation'
+  allowActionInPast: 'Autoriser à réserver dans le passé'
+  delaisMinResaRoom: 'Durée minimum'
+  delaisMaxResaRoom: 'Durée maximum'
+  showComment: 'Afficher les commentaires'
+  commentRoom: 'Commentaire'
+  pictureRoom: 'Image'
+  showFicRoom: 'Montrer l''image'
+  statutRoom: 'Statut'
+  title: 'Liste des ressources'
+  all: 'Toutes les ressources'
+  back_to_area: 'Retour au domaine'
+  back_to_room: 'Retour à la ressource'
+  back_to_user: 'Retout à l''utilisateur'
+Yes: 'Oui'
+No: 'Non'
 help:
   area:
-    timeInterval: 'messages'
-    durationDefaultEntry: 'messages'
-    durationMaximumEntry: 'messages'
-    maxBooking: 'messages'
+    timeInterval: 'Temps entre deux interval de temps en minutes'
+    durationDefaultEntry: 'Temps par défaut'
+    durationMaximumEntry: 'Durée max'
+    maxBooking: 'Nombre maximum par journée'
   room:
-    capacity: 'messages'
-    maximumBooking: 'messages'
-    ruleToAdd: 'messages'
-    quiPeutReserverPour: 'messages'
-    moderate: 'messages'
-    typeAffichageReser: 'messages'
-    dontAllowModify: 'messages'
-    delaisOptionReservation: 'messages'
-    allowActionInPast: 'messages'
-    showFicRoom: 'messages'
-    statutRoom: 'messages'
+    capacity: 'Nombre de personnes'
+    maximumBooking: 'Maximum de réservation par jour'
+    ruleToAdd: 'Droits pour ajouter'
+    quiPeutReserverPour: 'Qui peut réserver pour'
+    moderate: 'Modération'
+    typeAffichageReser: 'Affichage sur 24h'
+    dontAllowModify: 'Peux pas modifier'
+    delaisOptionReservation: 'Délais xx'
+    allowActionInPast: 'Réservations passées'
+    showFicRoom: 'Montrer image'
+    statutRoom: 'Statut'
 page:
   admin:
-    title: 'messages'
-  notauthorized: 'messages'
-  not_found: 'messages'
+    title: 'Administration'
+  notauthorized: 'Non autorisé'
+  not_found: 'Non trouvé'
 grr:
-  title: 'messages'
+  title: 'Grr'
 setting:
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de supprimer le paramètres'
 btn:
   add:
-    email: 'messages'
+    email: 'Ajouter un email'
 settings:
-  title: 'messages'
+  title: 'Paramètres'
 typeArea:
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de supprimer le type d''entrée'
   edit:
-    title: 'messages'
+    title: 'Editer'
 typeEntry:
   index:
-    title: 'messages'
+    title: 'Les types d''entrées'
   new:
-    title: 'messages'
-  typeName: 'messages'
-  orderDisplay: 'messages'
-  color: 'messages'
-  letter: 'messages'
-  available: 'messages'
+    title: 'Nouveau type d''entrée'
+  typeName: 'Nom'
+  orderDisplay: 'Ordre d''affichage'
+  color: 'Couleur'
+  letter: 'Lettre'
+  available: 'Disponible'
 menu:
-  planning: 'messages'
-  area: 'messages'
-  users: 'messages'
-  settings: 'messages'
+  planning: 'Planing'
+  area: 'Domaine'
+  users: 'Utilisateurs'
+  settings: 'Paramètres'
   reservation:
-    type: 'messages'
-  home: 'messages'
-  search: 'messages'
-  administration: 'messages'
+    type: 'Type de réservations'
+  home: 'Accueil'
+  search: 'Rechercher'
+  administration: 'Administration'
   user:
-    account: 'messages'
-    logout: 'messages'
-    login: 'messages'
+    account: 'Compte'
+    logout: 'Se déconnecter'
+    login: 'Se connecter'
 placeholder:
   entry:
     room:
-      select: 'messages'
+      select: 'Sélectionnez une ressource'
   login:
-    password: 'messages'
-    username: 'messages'
-  search: 'messages'
+    password: 'Mot de passe'
+    username: 'Nom d''utilisateur'
+  search: 'Rechercher'
 return:
-  homepage: 'messages'
+  homepage: 'Retour à la page d''acceuil'
 authorization:
-  title: 'messages'
+  title: 'Autorisations'
   role:
     area:
       administrator:
-        help: 'messages'
+        help: 'Administrateur du domaine'
     resource:
       administrator:
-        help: 'messages'
+        help: 'Administrateur de la ressource'
   area:
     new:
-      title: 'messages'
-    title: 'messages'
+      title: 'Autorisation domaine'
+    title: 'Autorisation domaine'
   room:
-    title: 'messages'
+    title: 'Autorisation ressource'
   user:
     new:
-      title: 'messages'
-    title: 'messages'
+      title: 'Autorisation user'
+    title: 'Autorisation user'
   delete:
-    confirm: 'messages'
+    confirm: 'Êtes vous sur de révoquer ce droit'
 You are a director of Grr: 'Vous êtes administrateur de Grr'
 Hours: 'Heures'
 entry:
