@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Command;
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Repository\AreaRepository;
@@ -15,7 +16,6 @@ use Grr\GrrBundle\Security\UserFactory;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Setting\SettingFactory;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -134,9 +134,9 @@ class InstallDataCommand extends Command
         }
 
         $this->loadType();
-    //    $this->loadArea();
-      //  $this->loadUser();
-        //$this->loadSetting();
+        $this->loadArea();
+        $this->loadUser();
+        $this->loadSetting();
 
         $this->io->success('Les données ont bien été initialisées.');
 
