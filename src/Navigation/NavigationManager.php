@@ -58,6 +58,7 @@ class NavigationManager
 
     /**
      * @param int $number nombre de mois
+     * @return Navigation
      */
     public function createMonth(Month $month, int $number = 1): Navigation
     {

@@ -1,4 +1,7 @@
 label:
+  entry:
+    name: 'Intitulé'
+    startTime: 'Date de début'
   btn:
     delete: 'Supprimer'
     edit: 'Modifier'
@@ -34,7 +37,7 @@ label:
     add:
       entry: 'ajouter une entrée'
     new: 'ajouter'
-    login: 'login'
+    login: 'Me connecter'
   setting:
     edit: 'edit setting'
   user:
@@ -135,6 +138,8 @@ room:
 Yes: 'Oui'
 No: 'Non'
 help:
+  entry:
+    startTime: 'A quelle date ca commence'
   area:
     timeInterval: 'Temps entre deux interval de temps en minutes'
     durationDefaultEntry: 'Temps par défaut'
@@ -252,7 +257,7 @@ created_by: 'créé par'
 created_at: 'créé le'
 week:
   initial: 's'
-  name: 'semaine'
+  name: 'Semaine'
 Today: 'Aujourd''hui'
 periodicity:
   delete:
@@ -271,3 +276,15 @@ login:
   remember_me: 'Se souvenir de moi'
   password: 'Mot de passe'
   username: 'Nom d''utilisateur'
+Monday: 'Lundi'
+Tuesday: 'Mardi'
+Wednesday: 'Mercredi'
+Thursday: 'Jeudi'
+Friday: 'Vendredi'
+Saturday: 'Samedi'
+Sunday: 'Dimanche'
+Year: 'année'
+Month: 'mois'
+Day: 'Jour'
+Hour: 'Heure'
+Minute: 'Minute'
