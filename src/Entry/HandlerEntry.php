@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Entry;
 
+use Grr\Core\Entity\EntryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 use Grr\GrrBundle\Manager\EntryManager;
@@ -46,7 +47,7 @@ class HandlerEntry
         $this->propertyUtil = $propertyUtil;
     }
 
-    public function handleNewEntry(FormInterface $form, Entry $entry): void
+    public function handleNewEntry(FormInterface $form, EntryInterface $entry): void
     {
         $this->setUserAdd($entry);
         $this->fullDay($entry);
@@ -68,7 +69,7 @@ class HandlerEntry
         $this->entryManager->flush();
     }
 
-    public function handleEditEntryWithPeriodicity(Entry $oldEntry, Entry $entry): void
+    public function handleEditEntryWithPeriodicity(EntryInterface $oldEntry, EntryInterface $entry): void
     {
         if ($this->handlerPeriodicity->periodicityHasChange($oldEntry, $entry)) {
             $this->handlerPeriodicity->handleEditPeriodicity($oldEntry, $entry);
@@ -78,7 +79,7 @@ class HandlerEntry
         }
     }
 
-    protected function fullDay(Entry $entry): void
+    protected function fullDay(EntryInterface $entry): void
     {
         $duration = $entry->getDuration();
         if ($duration !== null) {
@@ -93,20 +94,20 @@ class HandlerEntry
         }
     }
 
-    public function handleDeleteEntry(Entry $entry): void
+    public function handleDeleteEntry(EntryInterface $entry): void
     {
         $this->entryManager->remove($entry);
         $this->entryManager->flush();
     }
 
-    protected function setUserAdd(Entry $entry): void
+    protected function setUserAdd(EntryInterface $entry): void
     {
         $user = $this->security->getUser();
         $username = isset($user) ? $user->getUsername() : null;
         $entry->setCreatedBy($username);
     }
 
-    protected function updateEntriesWithSamePeriodicity(Entry $entry): void
+    protected function updateEntriesWithSamePeriodicity(EntryInterface $entry): void
     {
         $propertyAccessor = $this->propertyUtil->getPropertyAccessor();
         $excludes = ['id', 'createdAt'];
@@ -121,7 +122,7 @@ class HandlerEntry
         }
     }
 
-    public function prepareToEditWithPeriodicity(Entry $entry): Entry
+    public function prepareToEditWithPeriodicity(EntryInterface $entry): EntryInterface
     {
         $entryReference = $this->entryRepository->getBaseEntryForPeriodicity($entry->getPeriodicity());
 

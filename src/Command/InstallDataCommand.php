@@ -134,9 +134,9 @@ class InstallDataCommand extends Command
         }
 
         $this->loadType();
-        $this->loadArea();
-        $this->loadUser();
-        $this->loadSetting();
+    //    $this->loadArea();
+      //  $this->loadUser();
+        //$this->loadSetting();
 
         $this->io->success('Les données ont bien été initialisées.');
 

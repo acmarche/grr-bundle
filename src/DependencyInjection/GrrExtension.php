@@ -29,6 +29,8 @@ class GrrExtension extends Extension implements PrependExtensionInterface
         $this->loader = $loader;
 
         $loader->load('services.yaml');
+        $loader->load('services_dev.yaml');
+        $loader->load('services_test.yaml');
     }
 
     /**

@@ -12,6 +12,7 @@ namespace Grr\GrrBundle\Entity\Security;
 
 use Grr\Core\Entity\Security\UserInterface;
 use Grr\Core\Entity\Security\UserTrait;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="Un utilisateur a déjà cette adresse email")
  * @UniqueEntity(fields={"username"}, message="Un utilisateur a déjà ce nom d'utilisateur")
  */
-class User implements UserInterface, UserInterfaceSf
+class User implements UserInterface, UserInterfaceSf,TimestampableInterface
 {
     use UserTrait;
 }

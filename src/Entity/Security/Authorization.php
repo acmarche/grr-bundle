@@ -12,6 +12,7 @@ namespace Grr\GrrBundle\Entity\Security;
 
 use Grr\Core\Entity\Security\AuthorizationInterface;
 use Grr\Core\Entity\Security\AuthorizationTrait;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @UniqueEntity(fields={"user", "area"}, message="Ce user est déjà lié au domaine")
  * @UniqueEntity(fields={"user", "room"}, message="Ce user est déjà lié à la room")
  */
-class Authorization implements AuthorizationInterface
+class Authorization implements AuthorizationInterface, TimestampableInterface
 {
     use AuthorizationTrait;
 }
