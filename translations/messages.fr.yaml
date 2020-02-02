@@ -5,6 +5,8 @@ typeArea:
     confirm: __typeArea.delete.confirm
 label:
   btn:
+    new: __label.btn.new
+    login: __label.btn.login
     next:
       month: __label.btn.next.month
       year: __label.btn.next.year
@@ -46,6 +48,7 @@ back:
 delete:
     confirm: __delete.confirm
 user:
+  title: __user.title
   account:
     title: __user.account.title
   area:
@@ -72,6 +75,9 @@ user:
 records:
   not_found: __records.not_found
 page:
+  welcome: __page.welcome
+    notauthorized: __page.notauthorized
+    not_found: __page.not_found
   admin:
     title: __page.admin.title
 grr:
@@ -87,7 +93,6 @@ btn:
       title: __btn.entry.add.title
   add:
     email: __btn.add.email
-
 help:
   room:
     capacity: __help.room.capacity
@@ -107,6 +112,9 @@ help:
     durationMaximumEntry: __help.area.durationMaximumEntry
     timeInterval: __help.area.timeInterval
 room:
+  back_to_user: __room.back_to_user
+  back_to_area: __room.back_to_area
+  back_to_room: __room.back_to_room
   all: __room.all
   title: __room.title
   index:
@@ -160,16 +168,12 @@ typeEntry:
   letter: __typeEntry.letter
   available: __typeEntry.available
 name: Nom
-
 Yes: 'Oui'
 No: 'Non'
-
 week:
   name: __week.name
   initial: __week.initial
-
 ressources: __ressources
-
 'You are a director of Grr': '__You are a director of Grr'
 area:
   resource: __area.resource
@@ -195,8 +199,21 @@ area:
     confirm: __area.delete.confirm
   new:
     title: __area.new.title
-
 authorization:
+  user:
+    title: __authorization.user.title
+    new:
+      title: __authorization.user.new.title
+  delete:
+    confirm: __authorization.delete.confirm
+  area:
+    title: __authorization.area.title
+    exist: __authorization.area.exist
+    new:
+      title: __authorization.area.new.title
+  room:
+    title: __authorization.room.title
+    exist: __authorization.room.exist
   title: __authorization.title
   role:
     area:
@@ -219,35 +236,17 @@ entry:
 periodicity:
   delete:
     confirm: __periodicity.delete.confirm
-
-
 Hours: __Hours
-
-
 Today: __Today
-
-user.title: __user.title
 actions: __actions
-label.btn.new: __label.btn.new
-room.back_to_user: __room.back_to_user
-authorization.user.title: __authorization.user.title
-authorization.user.new.title: __authorization.user.new.title
-authorization.delete.confirm: __authorization.delete.confirm
-room.back_to_room: __room.back_to_room
-authorization.room.title: __authorization.room.title
-room.back_to_area: __room.back_to_area
-authorization.area.title: __authorization.area.title
-authorization.area.new.title: __authorization.area.new.title
-login.title: __login.title
-login.username: __login.username
-placeholder.login.username: __placeholder.login.username
-login.password: __login.password
-placeholder.login.password: __placeholder.login.password
-login.remember_me: __login.remember_me
-label.btn.login: __label.btn.login
-page.welcome: __page.welcome
-page.notauthorized: __page.notauthorized
-page.not_found: __page.not_found
-return.homepage: __return.homepage
-authorization.area.exist: __authorization.area.exist
-authorization.room.exist: __authorization.room.exist
+login:
+  title: __login.title
+  username: __login.username
+  password: __login.password
+  remember_me: __login.remember_me
+placeholder:
+  login:
+    username: __placeholder.login.username
+    login.password: __placeholder.login.password
+return:
+  homepage: __return.homepage
