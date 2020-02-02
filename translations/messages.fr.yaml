@@ -5,6 +5,18 @@ typeArea:
     confirm: __typeArea.delete.confirm
 label:
   btn:
+    next:
+      month: __label.btn.next.month
+      year: __label.btn.next.year
+    previous:
+      year: __label.btn.previous.year
+    add:
+      entry: __label.btn.add.entry
+    search: __label.btn.search
+    edit_entry: __label.btn.edit_entry
+    edit_periodicity: __label.btn.edit_periodicity
+    delete_entry: __label.btn.delete_entry
+    delete_periodicity: __label.btn.delete_periodicity
     area_types: __label.btn.area_types
     cancel: __label.btn.cancel
     edit: __label.btn.edit
@@ -34,6 +46,13 @@ back:
 delete:
     confirm: __delete.confirm
 user:
+  account:
+    title: __user.account.title
+  area:
+    default: __user.account.area.default
+    room:
+      default: __user.account.room.default
+    email: __user.account.email
   index:
     title: __user.index.title
   name: __user.name
@@ -63,6 +82,9 @@ setting:
   delete:
     confirm: __setting.delete.confirm
 btn:
+  entry:
+    add:
+      title: __btn.entry.add.title
   add:
     email: __btn.add.email
 
@@ -85,6 +107,8 @@ help:
     durationMaximumEntry: __help.area.durationMaximumEntry
     timeInterval: __help.area.timeInterval
 room:
+  all: __room.all
+  title: __room.title
   index:
     title: __room.index.title
   name: __room.name
@@ -116,6 +140,9 @@ room:
   fonctions:
     title: __room.fonctions.title
 menu:
+  home: __menu.home
+  search: __menu.search
+  administration: __menu.administration
   planning: __menu.planning
   area: __menu.area
   users: __menu.users
@@ -133,7 +160,21 @@ typeEntry:
   letter: __typeEntry.letter
   available: __typeEntry.available
 name: Nom
+
+Yes: 'Oui'
+No: 'Non'
+
+week:
+  name: __week.name
+  initial: __week.initial
+
+ressources: __ressources
+
+'You are a director of Grr': '__You are a director of Grr'
 area:
+  resource: __area.resource
+  administrator: __area.administrator
+  title: __area.title
   index:
     title: __area.index.title
   orderDisplay: __area.orderDisplay
@@ -155,50 +196,36 @@ area:
   new:
     title: __area.new.title
 
-Yes: 'Oui'
-No: 'Non'
+authorization:
+  title: __authorization.title
+  role:
+    area:
+      administrator:
+        help: __authorization.role.area.administrator.help
+    resource:
+      administrator:
+        help: __authorization.role.resource.administrator.help
+entry:
+  index.title: __entry.index.title
+  name: __entry.name
+  startTime: __entry.startTime
+  endTime: __entry.endTime
+  room: __entry.room
+  delete.confirm: __entry.delete.confirm
+  new:
+    title: __entry.new.title
+    periodicity:
+      title: __entry.new.periodicity.title
+periodicity:
+  delete:
+    confirm: __periodicity.delete.confirm
 
-label.btn.search: __label.btn.search
-week.name: __week.name
-ressources: __ressources
-label.btn.add.entry: __label.btn.add.entry
-menu.home: __menu.home
-menu.search: __menu.search
-menu.administration: __menu.administration
-user.account.title: __user.account.title
-user.account.area.default: __user.account.area.default
-user.account.room.default: __user.account.room.default
-user.account.email: __user.account.email
-authorization.title: __authorization.title
-'You are a director of Grr': '__You are a director of Grr'
-area.title: __area.title
-room.title: __room.title
-authorization.role.area.administrator.help: __authorization.role.area.administrator.help
-area.administrator: __area.administrator
-authorization.role.resource.administrator.help: __authorization.role.resource.administrator.help
-area.resource: __area.resource
-label.btn.edit_entry: __label.btn.edit_entry
-label.btn.edit_periodicity: __label.btn.edit_periodicity
-label.btn.delete_entry: __label.btn.delete_entry
-label.btn.delete_periodicity: __label.btn.delete_periodicity
-entry.index.title: __entry.index.title
-entry.name: __entry.name
-entry.startTime: __entry.startTime
-entry.endTime: __entry.endTime
-entry.room: __entry.room
-entry.delete.confirm: __entry.delete.confirm
-entry.new.title: __entry.new.title
-entry.new.periodicity.title: __entry.new.periodicity.title
-periodicity.delete.confirm: __periodicity.delete.confirm
-btn.entry.add.title: __btn.entry.add.title
+
 Hours: __Hours
-room.all: __room.all
-week.initial: __week.initial
-label.btn.previous.month: __label.btn.previous.month
-label.btn.previous.year: __label.btn.previous.year
+
+
 Today: __Today
-label.btn.next.month: __label.btn.next.month
-label.btn.next.year: __label.btn.next.year
+
 user.title: __user.title
 actions: __actions
 label.btn.new: __label.btn.new
