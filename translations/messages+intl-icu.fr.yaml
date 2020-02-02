@@ -1,7 +1,7 @@
 label:
   entry:
     name: 'Intitulé'
-    startTime: 'Date de début'
+    startTime: 'Début de la réservation'
   btn:
     delete: 'Supprimer'
     edit: 'Modifier'
@@ -237,7 +237,7 @@ Hours: 'Heures'
 entry:
   new:
     periodicity:
-      title: 'Nouvelle entrée avec périodicité'
+      title: 'Périodicité'
     title: 'Nouvelle entrée'
   delete:
     confirm: 'Êtes vous sur de supprimer cette entrée ?'

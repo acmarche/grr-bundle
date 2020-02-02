@@ -45,7 +45,6 @@ class PeriodicityType extends AbstractType
                 [
                     'choices' => array_flip($days),
                     'label' => 'label.periodicity.week_days',
-                    'help' => 'help.periodicity.week_days',
                     'multiple' => true,
                     'expanded' => true,
                 ]

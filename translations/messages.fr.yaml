@@ -1,44 +1,42 @@
 help:
   periodicity:
-    week_days: ''
     entry:
-      type_select: ''
+      type_select: 'Type d''entrée'
   entry:
-    duration_unit: ''
-    full_day: ''
-    type_select: ''
+    duration_unit: 'Unité de temps'
+    type_select: 'Sélectionnez le type'
 label:
   area:
-    select: ''
+    select: 'Domaine'
   room:
-    select: ''
+    select: 'Ressource'
   entry:
-    duration_time: ''
-    full_day: ''
-    description: ''
-    type_select: ''
+    duration_time: 'Durée'
+    full_day: 'Journée entière'
+    description: 'Description'
+    type_select: 'Type'
   periodicity:
-    week_days: ''
-    week_repeat: ''
-    end_time: ''
-    type: ''
+    week_days: 'Jour(s)'
+    week_repeat: 'Tépétition par semaine'
+    end_time: 'Fin de la périodicité'
+    type: 'Type de périodicité'
 unit:
-  minutes: ''
-  hours: ''
-  days: ''
-  weeks: ''
+  minutes: 'minute(s)'
+  hours: 'heure(s)'
+  days: 'jour(s)'
+  weeks: 'semaine(s)'
 periodicity:
-  every_week_repeat: ''
-  every_week_repeat_2: ''
-  every_week_repeat_3: ''
-  every_week_repeat_4: ''
-  every_week_repeat_5: ''
+  every_week_repeat: 'Toutes les semaines'
+  every_week_repeat_2: 'Toutes les 2 semaines'
+  every_week_repeat_3: 'Toutes les 3 semaines'
+  every_week_repeat_4: 'Toutes les 4 semaines'
+  every_week_repeat_5: 'Toutes les 5 semaines'
   type:
-   none: ''
-   everyday: ''
-   everyweek: ''
-   everymonth:
-     sameday: ''
-     sameweek: ''
-   everyyear: ''
-None: ''
+    none: 'Aucune'
+    everyday: 'Tous les jours'
+    everyweek: 'Toutes les semaines'
+    everymonth:
+      sameday: 'Tous les mois, même jour'
+      sameweek: 'Tous les mois, même semaine'
+    everyyear: 'Tous les ans'
+None: 'Aucune'
