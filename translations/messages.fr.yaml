@@ -5,6 +5,7 @@ typeArea:
     confirm: __typeArea.delete.confirm
 label:
   btn:
+    area_types: __label.btn.area_types
     cancel: __label.btn.cancel
     edit: __label.btn.edit
     delete: __label.btn.delete
@@ -14,10 +15,12 @@ label:
     see: __label.btn.see
     room:
       back_to_area: __label.btn.room.back_to_area
+      new: __label.btn.room.new
     user:
       manage: __label.btn.user.manage
     area:
       manage: __label.btn.area.manage
+      new: __label.btn.area.new
     setting:
       manage: __label.btn.setting.manage
     typeEntry:
@@ -76,6 +79,11 @@ help:
     moderate: __help.room.moderate
     quiPeutReserverPour: __help.room.quiPeutReserverPour
     ruleToAdd: __help.room.ruleToAdd
+  area:
+    maxBooking: __help.area.maxBooking
+    durationDefaultEntry: __help.area.durationDefaultEntry
+    durationMaximumEntry: __help.area.durationMaximumEntry
+    timeInterval: __help.area.timeInterval
 room:
   index:
     title: __room.index.title
@@ -107,45 +115,49 @@ room:
     title: __room.informations.title
   fonctions:
     title: __room.fonctions.title
+menu:
+  planning: __menu.planning
+  area: __menu.area
+  users: __menu.users
+  settings: __menu.settings
+  reservation:
+    type: __menu.reservation.type
+typeEntry:
+  index:
+    title: __typeEntry.index.title
+  new:
+    title: __typeEntry.new.title
+  typeName: __typeEntry.typeName
+  orderDisplay: __typeEntry.orderDisplay
+  color: __typeEntry.color
+  letter: __typeEntry.letter
+  available: __typeEntry.available
+name: Nom
+area:
+  index:
+    title: __area.index.title
+  orderDisplay: __area.orderDisplay
+  startTime: __area.startTime
+  endTime: __area.endTime
+  rooms:
+    title: __area.rooms.title
+  isRestricted: __area.isRestricted
+  weekStart: __area.weekStart
+  timeInterval: __area.timeInterval
+  minutesToAddToEndTime: __area.minutesToAddToEndTime
+  hour_in_24h: __area.hour_in_24h
+  daysOfWeekToDisplay: __area.daysOfWeekToDisplay
+  durationMaximumEntry: __area.durationMaximumEntry
+  durationDefaultEntry: __area.durationDefaultEntry
+  maxBooking: __area.maxBooking
+  delete:
+    confirm: __area.delete.confirm
+  new:
+    title: __area.new.title
 
-menu.planning: __menu.planning
-menu.area: __menu.area
-menu.users: __menu.users
-menu.settings: __menu.settings
-menu.reservation.type: __menu.reservation.type
-typeEntry.index.title: __typeEntry.index.title
-typeEntry.new.title: __typeEntry.new.title
-typeEntry.typeName: __typeEntry.typeName
-typeEntry.orderDisplay: __typeEntry.orderDisplay
-typeEntry.color: __typeEntry.color
-typeEntry.letter: __typeEntry.letter
-typeEntry.available: __typeEntry.available
-label.btn.room.new: __label.btn.room.new
-label.btn.area_types: __label.btn.area_types
-area.index.title: __area.index.title
-label.btn.area.new: __label.btn.area.new
-name: __name
-area.orderDisplay: __area.orderDisplay
-area.startTime: __area.startTime
-area.endTime: __area.endTime
-area.rooms.title: __area.rooms.title
-area.isRestricted: __area.isRestricted
-area.weekStart: __area.weekStart
-area.timeInterval: __area.timeInterval
-help.area.timeInterval: __help.area.timeInterval
-area.minutesToAddToEndTime: __area.minutesToAddToEndTime
-area.hour_in_24h: __area.hour_in_24h
-'Yes': __Yes
-'No': __No
-area.daysOfWeekToDisplay: __area.daysOfWeekToDisplay
-area.durationMaximumEntry: __area.durationMaximumEntry
-help.area.durationMaximumEntry: __help.area.durationMaximumEntry
-area.durationDefaultEntry: __area.durationDefaultEntry
-help.area.durationDefaultEntry: __help.area.durationDefaultEntry
-area.maxBooking: __area.maxBooking
-help.area.maxBooking: __help.area.maxBooking
-area.delete.confirm: __area.delete.confirm
-area.new.title: __area.new.title
+Yes: 'Oui'
+No: 'Non'
+
 label.btn.search: __label.btn.search
 week.name: __week.name
 ressources: __ressources
