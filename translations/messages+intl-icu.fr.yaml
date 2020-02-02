@@ -14,14 +14,14 @@ label:
       back_to_area: 'Retour au domaine'
     area:
       new: 'Nouveau domaine'
-      manage: 'gestion de domaine'
+      manage: 'Gestion de domaine'
     search: 'Rechercher'
     user:
-      manage: 'gestion des utilisateurs'
+      manage: 'Gestion des utilisateurs'
     setting:
-      manage: 'gestion des paramètres'
+      manage: 'Gestion des paramètres'
     typeEntry:
-      manage: 'gestion des types d''entrées'
+      manage: 'Gestion des types d''entrées'
     save: 'sauvegarder'
     password: 'mot de passe'
     edit_periodicity: 'modifier la périodicité'
@@ -62,7 +62,7 @@ area:
   weekStart: 'début de la semaine'
   timeInterval: 'temps interval'
   minutesToAddToEndTime: 'minutes à ajouter pour la date de fin'
-  hour_in_24h: 'format 24h'
+  hour_in_24h: 'Afficher au format 24h'
   daysOfWeekToDisplay: 'jours de la semaine a afficher'
   durationMaximumEntry: 'durée maximum d''une entrée'
   durationDefaultEntry: 'durée par défaut d''une entrée'
