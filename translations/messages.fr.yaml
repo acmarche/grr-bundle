@@ -1,0 +1,214 @@
+typeArea:
+  edit:
+    title: __typeArea.edit.title
+  delete:
+    confirm: __typeArea.delete.confirm
+label:
+  btn:
+    cancel: __label.btn.cancel
+    edit: __label.btn.edit
+    delete: __label.btn.delete
+    authorization: __label.btn.authorization
+    password: __label.btn.password
+    save: __label.btn.save
+    see: __label.btn.see
+    room:
+      back_to_area: __label.btn.room.back_to_area
+    user:
+      manage: __label.btn.user.manage
+    area:
+      manage: __label.btn.area.manage
+    setting:
+      manage: __label.btn.setting.manage
+    typeEntry:
+        manage: __label.btn.typeEntry.manage
+  user:
+    new: __label.user.new
+  setting:
+    edit: __label.setting.edit
+back:
+  to_list: __back.to_list
+delete:
+    confirm: __delete.confirm
+user:
+  index:
+    title: __user.index.title
+  name: __user.name
+  email: __user.email
+  username: __user.username
+  isEnabled: __user.isEnabled
+  firstName: __user.firstName
+  area_default: __user.area_default
+  room_default: __user.room_default
+  delete.confirm: __user.delete.confirm
+  new:
+    title: __user.new.title
+  password:
+    title: __user.password.title
+  changepassword:
+    title: __user.changepassword.title
+records:
+  not_found: __records.not_found
+page:
+  admin:
+    title: __page.admin.title
+grr:
+  title: __grr.title
+settings:
+  title: __settings.title
+setting:
+  delete:
+    confirm: __setting.delete.confirm
+btn:
+  add:
+    email: __btn.add.email
+
+help:
+  room:
+    capacity: __help.room.capacity
+    maximumBooking: __help.room.maximumBooking
+    statutRoom: __help.room.statutRoom
+    showFicRoom: __help.room.showFicRoom
+    allowActionInPast: __help.room.allowActionInPast
+    delaisOptionReservation: __help.room.delaisOptionReservation
+    dontAllowModify: __help.room.dontAllowModify
+    typeAffichageReser: __help.room.typeAffichageReser
+    moderate: __help.room.moderate
+    quiPeutReserverPour: __help.room.quiPeutReserverPour
+    ruleToAdd: __help.room.ruleToAdd
+room:
+  index:
+    title: __room.index.title
+  name: __room.name
+  orderDisplay: __room.orderDisplay
+  description: __room.description
+  capacity: __room.capacity
+  maximumBooking: __room.maximumBooking
+  statutRoom: __room.statutRoom
+  showFicRoom: __room.showFicRoom
+  pictureRoom: __room.pictureRoom
+  commentRoom: __room.commentRoom
+  showComment: __room.showComment
+  delaisMaxResaRoom: __room.delaisMaxResaRoom
+  delaisMinResaRoom: __room.delaisMinResaRoom
+  allowActionInPast: __room.allowActionInPast
+  delaisOptionReservation: __room.delaisOptionReservation
+  dontAllowModify: __room.dontAllowModify
+  typeAffichageReser: __room.typeAffichageReser
+  moderate: __room.moderate
+  quiPeutReserverPour: __room.quiPeutReserverPour
+  activeRessourceEmpruntee: __room.activeRessourceEmpruntee
+  ruleToAdd: __room.ruleToAdd
+  delete:
+    confirm: __room.delete.confirm
+  new:
+    title: __room.new.title
+  informations:
+    title: __room.informations.title
+  fonctions:
+    title: __room.fonctions.title
+
+menu.planning: __menu.planning
+menu.area: __menu.area
+menu.users: __menu.users
+menu.settings: __menu.settings
+menu.reservation.type: __menu.reservation.type
+typeEntry.index.title: __typeEntry.index.title
+typeEntry.new.title: __typeEntry.new.title
+typeEntry.typeName: __typeEntry.typeName
+typeEntry.orderDisplay: __typeEntry.orderDisplay
+typeEntry.color: __typeEntry.color
+typeEntry.letter: __typeEntry.letter
+typeEntry.available: __typeEntry.available
+label.btn.room.new: __label.btn.room.new
+label.btn.area_types: __label.btn.area_types
+area.index.title: __area.index.title
+label.btn.area.new: __label.btn.area.new
+name: __name
+area.orderDisplay: __area.orderDisplay
+area.startTime: __area.startTime
+area.endTime: __area.endTime
+area.rooms.title: __area.rooms.title
+area.isRestricted: __area.isRestricted
+area.weekStart: __area.weekStart
+area.timeInterval: __area.timeInterval
+help.area.timeInterval: __help.area.timeInterval
+area.minutesToAddToEndTime: __area.minutesToAddToEndTime
+area.hour_in_24h: __area.hour_in_24h
+'Yes': __Yes
+'No': __No
+area.daysOfWeekToDisplay: __area.daysOfWeekToDisplay
+area.durationMaximumEntry: __area.durationMaximumEntry
+help.area.durationMaximumEntry: __help.area.durationMaximumEntry
+area.durationDefaultEntry: __area.durationDefaultEntry
+help.area.durationDefaultEntry: __help.area.durationDefaultEntry
+area.maxBooking: __area.maxBooking
+help.area.maxBooking: __help.area.maxBooking
+area.delete.confirm: __area.delete.confirm
+area.new.title: __area.new.title
+label.btn.search: __label.btn.search
+week.name: __week.name
+ressources: __ressources
+label.btn.add.entry: __label.btn.add.entry
+menu.home: __menu.home
+menu.search: __menu.search
+menu.administration: __menu.administration
+user.account.title: __user.account.title
+user.account.area.default: __user.account.area.default
+user.account.room.default: __user.account.room.default
+user.account.email: __user.account.email
+authorization.title: __authorization.title
+'You are a director of Grr': '__You are a director of Grr'
+area.title: __area.title
+room.title: __room.title
+authorization.role.area.administrator.help: __authorization.role.area.administrator.help
+area.administrator: __area.administrator
+authorization.role.resource.administrator.help: __authorization.role.resource.administrator.help
+area.resource: __area.resource
+label.btn.edit_entry: __label.btn.edit_entry
+label.btn.edit_periodicity: __label.btn.edit_periodicity
+label.btn.delete_entry: __label.btn.delete_entry
+label.btn.delete_periodicity: __label.btn.delete_periodicity
+entry.index.title: __entry.index.title
+entry.name: __entry.name
+entry.startTime: __entry.startTime
+entry.endTime: __entry.endTime
+entry.room: __entry.room
+entry.delete.confirm: __entry.delete.confirm
+entry.new.title: __entry.new.title
+entry.new.periodicity.title: __entry.new.periodicity.title
+periodicity.delete.confirm: __periodicity.delete.confirm
+btn.entry.add.title: __btn.entry.add.title
+Hours: __Hours
+room.all: __room.all
+week.initial: __week.initial
+label.btn.previous.month: __label.btn.previous.month
+label.btn.previous.year: __label.btn.previous.year
+Today: __Today
+label.btn.next.month: __label.btn.next.month
+label.btn.next.year: __label.btn.next.year
+user.title: __user.title
+actions: __actions
+label.btn.new: __label.btn.new
+room.back_to_user: __room.back_to_user
+authorization.user.title: __authorization.user.title
+authorization.user.new.title: __authorization.user.new.title
+authorization.delete.confirm: __authorization.delete.confirm
+room.back_to_room: __room.back_to_room
+authorization.room.title: __authorization.room.title
+room.back_to_area: __room.back_to_area
+authorization.area.title: __authorization.area.title
+authorization.area.new.title: __authorization.area.new.title
+login.title: __login.title
+login.username: __login.username
+placeholder.login.username: __placeholder.login.username
+login.password: __login.password
+placeholder.login.password: __placeholder.login.password
+login.remember_me: __login.remember_me
+label.btn.login: __label.btn.login
+page.welcome: __page.welcome
+page.notauthorized: __page.notauthorized
+page.not_found: __page.not_found
+return.homepage: __return.homepage
+authorization.area.exist: __authorization.area.exist
+authorization.room.exist: __authorization.room.exist
