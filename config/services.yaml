@@ -26,7 +26,3 @@ services:
   Grr\Core\Doctrine\TablePrefix:
     tags:
       - { name: doctrine.event_subscriber, connection: default }
-
-  Grr\GrrBundle\EventSubscriber\DoctrineSubscriber:
-      tags:
-        - { name: 'doctrine.event_subscriber' }

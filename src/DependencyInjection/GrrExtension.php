@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\DependencyInjection;
 
+use Doctrine\Common\EventSubscriber;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -28,6 +29,10 @@ class GrrExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $this->loader = $loader;
 
+        // @see https://github.com/doctrine/DoctrineBundle/issues/674
+     /*   $container->registerForAutoconfiguration(EventSubscriber::class)
+            ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
+*/
         $loader->load('services.yaml');
         $loader->load('services_dev.yaml');
         $loader->load('services_test.yaml');
