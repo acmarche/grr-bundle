@@ -11,7 +11,7 @@
             <th>{{ 'periodicity.type'|trans }}</th>
             <td>{{ entry.periodicity.type|grrPeriodicityTypeName|trans }}</td>
         <tr>
-            {% if entry.periodicity.type == constant('App\\Periodicity\\PeriodicityConstant::EVERY_WEEK') %}
+            {% if entry.periodicity.type == constant('Grr\\Core\\Periodicity\\PeriodicityConstant::EVERY_WEEK') %}
         <tr>
             <th>{{ 'periodicity.repeatWeek'|trans }}</th>
             <td>{{ entry.periodicity.weekRepeat }}</td>

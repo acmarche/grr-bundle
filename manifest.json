@@ -11,7 +11,7 @@
     "bin/check.php": "%BIN_DIR%/check.php"
   },
     "copy-from-recipe": {
-    "config/": "%CONFIG_DIR%/",
+    "config/": "%CONFIG_DIR%/"
   },
   "env": {
     "GRR_ENV": "dev"

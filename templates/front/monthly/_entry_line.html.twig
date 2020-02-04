@@ -4,21 +4,20 @@
     </a>
     {% if entry.description %}
         <br/>
-        {# sf5 | u.truncate(20, '...') #}
-        <span class="text-muted">{{ entry.description|slice(1, 20) }}</span>
+        <span class="text-muted">{{ entry.description | u.truncate(20, '...') }}</span>
     {% endif %}
 
-             <span class="text-muted">
+    <span class="text-muted">
     {{ entry.startTime|date('H:i') }}
     - {{ entry.endtime|date('H:i') }}
              </span>
-            <br/>
-            <span class="font-weight-bold">
+    <br/>
+    <span class="font-weight-bold">
                 {{ entry.room }}
             </span>
-        </div>
-        <div class="w-25 d-none d-sm-block" style="background-color: {{ entry.type.color }}">
-            <span class="sr-only">{{ entry.type.name }}</span>&nbsp;&nbsp;
-        </div>
+</div>
+<div class="w-25 d-none d-sm-block" style="background-color: {{ entry.type.color }}">
+    <span class="sr-only">{{ entry.type.name }}</span>&nbsp;&nbsp;
+</div>
 
 <hr style="margin: 0;">

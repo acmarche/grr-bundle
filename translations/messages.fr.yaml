@@ -40,3 +40,7 @@ periodicity:
       sameweek: 'Tous les mois, même semaine'
     everyyear: 'Tous les ans'
 None: 'Aucune'
+room:
+  form:
+    select:
+      placeholder: 'Sélectionnez une ressource'

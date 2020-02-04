@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Entry;
 
 use Grr\Core\Entity\EntryInterface;
 use Grr\Core\Service\PropertyUtil;
+use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 use Grr\GrrBundle\Manager\EntryManager;
 use Grr\GrrBundle\Repository\EntryRepository;
@@ -49,7 +50,6 @@ class HandlerEntry
 
     public function handleNewEntry(FormInterface $form, EntryInterface $entry): void
     {
-        $this->setUserAdd($entry);
         $this->fullDay($entry);
         $periodicity = $entry->getPeriodicity();
 
@@ -79,6 +79,10 @@ class HandlerEntry
         }
     }
 
+    /**
+     * todo set in service
+     * @param EntryInterface $entry
+     */
     protected function fullDay(EntryInterface $entry): void
     {
         $duration = $entry->getDuration();
@@ -98,13 +102,6 @@ class HandlerEntry
     {
         $this->entryManager->remove($entry);
         $this->entryManager->flush();
-    }
-
-    protected function setUserAdd(EntryInterface $entry): void
-    {
-        $user = $this->security->getUser();
-        $username = isset($user) ? $user->getUsername() : null;
-        $entry->setCreatedBy($username);
     }
 
     protected function updateEntriesWithSamePeriodicity(EntryInterface $entry): void
