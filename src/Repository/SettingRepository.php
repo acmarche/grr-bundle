@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
-use Grr\Core\Repository\SettingRepositoryInterface;
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Entity\Setting;
 

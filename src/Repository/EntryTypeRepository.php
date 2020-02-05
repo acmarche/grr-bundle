@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Grr\Core\Repository\EntryTypeRepositoryInterface;
+use Grr\Core\Contrat\Repository\EntryTypeRepositoryInterface;
 use Grr\GrrBundle\Entity\EntryType;
 
 /**

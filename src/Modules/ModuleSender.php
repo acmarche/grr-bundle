@@ -2,8 +2,9 @@
 
 namespace Grr\GrrBundle\Modules;
 
-use Grr\Core\Modules\GrrModuleSenderInterface;
-use Grr\Core\Modules\GrrModuleInterface;
+
+use Grr\Core\Contrat\Modules\GrrModuleInterface;
+use Grr\Core\Contrat\Modules\GrrModuleSenderInterface;
 
 class ModuleSender implements GrrModuleSenderInterface
 {

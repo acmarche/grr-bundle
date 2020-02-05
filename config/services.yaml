@@ -22,7 +22,3 @@ services:
   Grr\Core\:
     resource: '../../Core'
     exclude: '../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
-
-  Grr\Core\Doctrine\TablePrefix:
-    tags:
-      - { name: doctrine.event_subscriber, connection: default }

@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Grr\Core\Entity\PeriodicityInterface;
+use Grr\Core\Contrat\Repository\PeriodicityRepositoryInterface;
 use Grr\GrrBundle\Entity\Periodicity;
 
 /**
@@ -13,7 +13,7 @@ use Grr\GrrBundle\Entity\Periodicity;
  * @method Periodicity[]    findAll()
  * @method Periodicity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PeriodicityRepository extends ServiceEntityRepository implements PeriodicityInterface
+class PeriodicityRepository extends ServiceEntityRepository implements PeriodicityRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

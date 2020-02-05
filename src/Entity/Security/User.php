@@ -10,7 +10,7 @@
 
 namespace Grr\GrrBundle\Entity\Security;
 
-use Grr\Core\Entity\Security\UserInterface;
+use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Entity\Security\UserTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;

@@ -2,8 +2,7 @@
 
 namespace Grr\GrrBundle\Command;
 
-use Grr\Core\Manager\UserManagerInterface;
-use Grr\Core\Repository\Security\UserRepositoryInterface;
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Security\PasswordHelper;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Security\Factory\UserFactory;
@@ -23,10 +22,6 @@ class CreateuserCommand extends Command
      */
     protected static $defaultName = 'grr:create-user';
     /**
-     * @var UserManagerInterface
-     */
-    private $userManager;
-    /**
      * @var UserRepositoryInterface
      */
     private $userRepository;
@@ -40,13 +35,11 @@ class CreateuserCommand extends Command
     private $passwordHelper;
 
     public function __construct(
-        UserManagerInterface $userManager,
         UserFactory $userFactory,
         UserRepositoryInterface $userRepository,
         PasswordHelper $passwordHelper
     ) {
         parent::__construct();
-        $this->userManager = $userManager;
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
         $this->passwordHelper = $passwordHelper;

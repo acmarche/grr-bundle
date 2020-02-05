@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Repository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Grr\Core\Repository\AreaRepositoryInterface;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 
 /**

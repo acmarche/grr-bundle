@@ -2,12 +2,12 @@
 
 namespace Grr\GrrBundle\Repository\Security;
 
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
-use Grr\Core\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Symfony\Component\Security\Core\User\UserInterface;

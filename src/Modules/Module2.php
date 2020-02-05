@@ -1,7 +1,8 @@
 <?php
 
 namespace Grr\GrrBundle\Modules;
-use Grr\Core\Modules\GrrModuleInterface;
+
+use Grr\Core\Contrat\Modules\GrrModuleInterface;
 
 class Module2 implements GrrModuleInterface
 {

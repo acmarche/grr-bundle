@@ -6,7 +6,11 @@ use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Grr\Core\Repository\EntryTypeRepositoryInterface;
+use Grr\Core\Contrat\Entity\AreaInterface;
+use Grr\Core\Contrat\Entity\EntryInterface;
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
+use Grr\Core\Contrat\Entity\RoomInterface;
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
@@ -19,7 +23,7 @@ use Webmozart\Assert\Assert;
  * @method Entry[]    findAll()
  * @method Entry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EntryRepository extends ServiceEntityRepository implements EntryTypeRepositoryInterface
+class EntryRepository extends ServiceEntityRepository implements EntryRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -31,7 +35,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
      *
      * @return Entry[] Returns an array of Entry objects
      */
-    public function findForMonth(DateTimeInterface $date, Area $area, Room $room = null): array
+    public function findForMonth(\DateTimeInterface $date, AreaInterface $area, RoomInterface $room = null): array
     {
         $qb = $this->createQueryBuilder('entry');
         $end = clone $date;
@@ -59,7 +63,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
     /**
      * @return Entry[]
      */
-    public function findForDay(CarbonInterface $day, Room $room): array
+    public function findForDay(CarbonInterface $day, RoomInterface $room): array
     {
         $qb = $this->createQueryBuilder('entry');
 
@@ -78,7 +82,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
     /**
      * @return Entry[]
      */
-    public function isBusy(Entry $entry, Room $room): array
+    public function isBusy(EntryInterface $entry, RoomInterface $room): array
     {
         $qb = $this->createQueryBuilder('entry');
 
@@ -125,7 +129,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
 
         if ($name) {
             $qb->andWhere('entry.name LIKE :name')
-                ->setParameter('name', '%'.$name.'%');
+                ->setParameter('name', '%' . $name . '%');
         }
 
         if ($area instanceof Area) {
@@ -174,7 +178,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
     /**
      * @return Entry[]
      */
-    public function findByPeriodicity(Periodicity $periodicity): array
+    public function findByPeriodicity(PeriodicityInterface $periodicity): array
     {
         $qb = $this->createQueryBuilder('entry');
 
@@ -205,7 +209,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getBaseEntryForPeriodicity(Periodicity $periodicity)
+    public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity)
     {
         $qb = $this->createQueryBuilder('entry');
 
@@ -218,7 +222,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryTypeReposi
             ->getOneOrNullResult();
     }
 
-    public function findPeriodicityEntry(Entry $entry): ?Entry
+    public function findPeriodicityEntry(EntryInterface $entry): ?EntryInterface
     {
         $periodicity = $entry->getPeriodicity();
         Assert::notNull($periodicity);

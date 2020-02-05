@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Grr\Core\Entity\PeriodicityInterface;
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Entity\PeriodicityTrait;
 
 /**

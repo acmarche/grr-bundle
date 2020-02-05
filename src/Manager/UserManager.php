@@ -8,8 +8,6 @@
 
 namespace Grr\GrrBundle\Manager;
 
-use Grr\Core\Manager\UserManagerInterface;
-
-class UserManager extends BaseManager implements UserManagerInterface
+class UserManager extends BaseManager
 {
 }

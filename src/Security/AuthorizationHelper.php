@@ -51,7 +51,7 @@ class AuthorizationHelper
 
     /**
      * @throws \Exception
-     * @return \Grr\Core\Entity\AreaInterface[]|\Grr\Core\Entity\AreaInterface[]|null[]
+     * @return \Grr\Core\Contrat\AreaInterface[]|\Grr\Core\Contrat\AreaInterface[]|null[]
      */
     public function getAreasUserCanAdd(UserInterface $user): array
     {
@@ -79,7 +79,7 @@ class AuthorizationHelper
     /**
      * @throws \Exception
      *
-     * @return \Grr\Core\Entity\RoomInterface[]|mixed[]
+     * @return \Grr\Core\Contrat\RoomInterface[]|mixed[]
      */
     public function getRoomsUserCanAdd(UserInterface $user, ?Area $area = null): iterable
     {

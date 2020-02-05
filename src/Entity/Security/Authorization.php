@@ -10,7 +10,7 @@
 
 namespace Grr\GrrBundle\Entity\Security;
 
-use Grr\Core\Entity\Security\AuthorizationInterface;
+use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
 use Grr\Core\Entity\Security\AuthorizationTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Authorization
- * @package Grr\GrrBundle\src\Entity\Security
+ *
  * @ORM\Table(name="authorization", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"user_id", "area_id"}),
  *     @ORM\UniqueConstraint(columns={"user_id", "room_id"})

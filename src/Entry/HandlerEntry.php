@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Entry;
 
-use Grr\Core\Entity\EntryInterface;
+use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
