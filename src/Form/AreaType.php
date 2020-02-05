@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Form;
 
-use Grr\GrrBundle\Entity\Area;
 use Grr\Core\Provider\DateProvider;
+use Grr\GrrBundle\Entity\Area;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

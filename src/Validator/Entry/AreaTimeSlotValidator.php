@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Validator\Entry;
 
-use InvalidArgumentException;
 use Grr\GrrBundle\Entity\Entry;
+use InvalidArgumentException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

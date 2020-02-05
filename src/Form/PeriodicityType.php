@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Form;
 
-use Grr\GrrBundle\Entity\Periodicity;
 use Grr\Core\Periodicity\PeriodicityConstant;
 use Grr\Core\Provider\DateProvider;
+use Grr\GrrBundle\Entity\Periodicity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

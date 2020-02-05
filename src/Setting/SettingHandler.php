@@ -43,7 +43,7 @@ class SettingHandler
     {
         foreach ($data as $name => $value) {
             $setting = $this->settingRepository->findOneBy(['name' => $name]);
-            if ($setting === null) {
+            if (null === $setting) {
                 $this->handleNewSetting($name, $value);
                 continue;
             }

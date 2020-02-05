@@ -8,12 +8,12 @@
 
 namespace Grr\GrrBundle\Entry;
 
+use Carbon\Carbon;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Periodicity\PeriodicityFactory;
-use Carbon\Carbon;
 
 class EntryFactory
 {

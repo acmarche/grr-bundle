@@ -2,14 +2,14 @@
 
 namespace Grr\GrrBundle\Security;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Manager\AuthorizationManager;
-use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

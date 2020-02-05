@@ -85,6 +85,7 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
      * @throws \UnexpectedValueException If null is returned
+     *
      * @return string[][]|null[][]
      */
     public function getCredentials(Request $request): array

@@ -217,7 +217,7 @@ class RoomVoterTest extends BaseTesting
             ->willReturn(true);
 
         $token = new AnonymousToken('secret', 'anonymous');
-        if ($user !== null) {
+        if (null !== $user) {
             $token = new UsernamePasswordToken(
                 $user, 'homer', 'app_user_provider'
             );

@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Form\DataTransformer;
 
-use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Area;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Repository\RoomRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -48,7 +48,7 @@ class NumberToRoomTransformer implements DataTransformerInterface
     public function reverseTransform($areaNumber): ?Room
     {
         // no area number? It's optional, so that's ok
-        if ($areaNumber === '') {
+        if ('' === $areaNumber) {
             return null;
         }
 

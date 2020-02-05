@@ -28,18 +28,18 @@ class GrrhUrlHelperExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'grrGenerateRouteMonthView', function (int $year = null, int $month = null): string {
-                return $this->routerHelper->generateRouteMonthView($year, $month);
-            }
+                    return $this->routerHelper->generateRouteMonthView($year, $month);
+                }
             ),
             new TwigFunction(
                 'grrGenerateRouteWeekView', function (int $week): string {
-                return $this->routerHelper->generateRouteWeekView($week);
-            }
+                    return $this->routerHelper->generateRouteWeekView($week);
+                }
             ),
             new TwigFunction(
                 'grrGenerateRouteDayView', function (int $day, CarbonInterface $date = null): string {
-                return $this->routerHelper->generateRouteDayView($day, $date);
-            }
+                    return $this->routerHelper->generateRouteDayView($day, $date);
+                }
             ),
             new TwigFunction(
                 'grrGenerateRouteAddEntry',
@@ -49,5 +49,4 @@ class GrrhUrlHelperExtension extends AbstractExtension
             ),
         ];
     }
-
 }

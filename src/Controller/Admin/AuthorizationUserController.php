@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Security\AuthorizationUserType;
 use Grr\GrrBundle\Manager\AuthorizationManager;
-use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
 use Grr\GrrBundle\Security\HandlerAuthorization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

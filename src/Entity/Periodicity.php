@@ -7,7 +7,6 @@ use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Entity\PeriodicityTrait;
 
 /**
- *
  * @ORM\Table(name="periodicity")
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\PeriodicityRepository")
  * AppAssertPeriodicity\Periodicity

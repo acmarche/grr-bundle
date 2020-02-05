@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\Core\Events\EntryEvent;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\Core\Events\EntryEvent;
 use Grr\GrrBundle\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Manager\PeriodicityManager;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
@@ -54,7 +54,7 @@ class PeriodicityController extends AbstractController
         $entry = $this->handlerEntry->prepareToEditWithPeriodicity($entry);
 
         $periodicity = $entry->getPeriodicity();
-        $typePeriodicity = $periodicity !== null ? $periodicity->getType() : 0;
+        $typePeriodicity = null !== $periodicity ? $periodicity->getType() : 0;
 
         if (PeriodicityConstant::EVERY_WEEK === $typePeriodicity) {
             $displayOptionsWeek = true;

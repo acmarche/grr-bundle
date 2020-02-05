@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Security\Authenticator;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Grr\Core\Security\Ldap\GrrLdap;
 use Grr\GrrBundle\Entity\Security\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Ldap\Entry;

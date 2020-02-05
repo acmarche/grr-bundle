@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Tests\Repository;
 
-use Grr\GrrBundle\Entity\Entry;
-use Grr\Core\Model\Month;
-use Grr\GrrBundle\Tests\BaseTesting;
 use Carbon\Carbon;
+use Grr\Core\Model\Month;
+use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Tests\BaseTesting;
 
 class EntryRepositoryTest extends BaseTesting
 {
@@ -122,7 +122,7 @@ class EntryRepositoryTest extends BaseTesting
             ];
 
         if ($withBusy) {
-            $files [] = $this->pathFixtures.'entry_busy.yaml';
+            $files[] = $this->pathFixtures.'entry_busy.yaml';
         }
 
         $this->loader->load($files);

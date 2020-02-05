@@ -3,6 +3,9 @@
 namespace Grr\GrrBundle\Command;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManagerInterface;
+use Grr\Core\Security\SecurityRole;
+use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Repository\AreaRepository;
@@ -11,12 +14,9 @@ use Grr\GrrBundle\Repository\RoomRepository;
 use Grr\GrrBundle\Repository\Security\UserRepository;
 use Grr\GrrBundle\Repository\SettingRepository;
 use Grr\GrrBundle\Room\RoomFactory;
-use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Security\UserFactory;
-use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Setting\SettingFactory;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -157,7 +157,7 @@ class InstallDataCommand extends Command
         $colors = ['#FFCCFF', '#99CCCC', '#FF9999', '#FFFF99', '#C0E0FF', '#FFCC99', '#FF6666', '#66FFFF', '#DDFFDD'];
 
         foreach ($types as $index => $nom) {
-            if ($this->entryTypeRepository->findOneBy(['name' => $nom]) !== null) {
+            if (null !== $this->entryTypeRepository->findOneBy(['name' => $nom])) {
                 continue;
             }
             $type = $this->typeEntryFactory->createNew();
@@ -176,7 +176,7 @@ class InstallDataCommand extends Command
     {
         $esquareName = 'Esquare';
         $esquare = $this->areaRepository->findOneBy(['name' => $esquareName]);
-        if ($esquare === null) {
+        if (null === $esquare) {
             $esquare = $this->areaFactory->createNew();
             $esquare->setName($esquareName);
             $this->entityManager->persist($esquare);
@@ -184,7 +184,7 @@ class InstallDataCommand extends Command
 
         $hdvName = 'Hdv';
         $hdv = $this->areaRepository->findOneBy(['name' => $hdvName]);
-        if ($hdv === null) {
+        if (null === $hdv) {
             $hdv = $this->areaFactory->createNew();
             $hdv->setName($hdvName);
             $this->entityManager->persist($hdv);
@@ -216,7 +216,7 @@ class InstallDataCommand extends Command
     public function loadRooms(Area $area, array $salles): void
     {
         foreach ($salles as $salle) {
-            if ($this->roomRepository->findOneBy(['name' => $salle]) !== null) {
+            if (null !== $this->roomRepository->findOneBy(['name' => $salle])) {
                 continue;
             }
             $room = $this->roomFactory->createNew($area);
@@ -230,7 +230,7 @@ class InstallDataCommand extends Command
         $email = 'grr@domain.be';
         $password = random_int(100000, 999999);
 
-        if ($this->userRepository->findOneBy(['email' => $email]) !== null) {
+        if (null !== $this->userRepository->findOneBy(['email' => $email])) {
             return;
         }
 
@@ -265,7 +265,7 @@ class InstallDataCommand extends Command
         ];
 
         foreach ($settings as $name => $value) {
-            if (($setting = $this->settingRepository->findOneBy(['name' => $name])) === null) {
+            if (null === ($setting = $this->settingRepository->findOneBy(['name' => $name]))) {
                 if (is_array($value)) {
                     $value = serialize($value);
                 }

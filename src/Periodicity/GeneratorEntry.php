@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Periodicity;
 
-use Grr\GrrBundle\Entity\Entry;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Grr\GrrBundle\Entity\Entry;
 
 class GeneratorEntry
 {

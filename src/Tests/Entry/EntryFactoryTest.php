@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Tests\Entry;
 
+use Carbon\Carbon;
 use DateTimeInterface;
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
@@ -11,7 +12,6 @@ use Grr\GrrBundle\Entry\EntryFactory;
 use Grr\GrrBundle\Periodicity\PeriodicityFactory;
 use Grr\GrrBundle\Room\RoomFactory;
 use Grr\GrrBundle\Tests\BaseTesting;
-use Carbon\Carbon;
 
 class EntryFactoryTest extends BaseTesting
 {
@@ -48,11 +48,6 @@ class EntryFactoryTest extends BaseTesting
      *
      * @param Area $area
      * @param Room $room
-     * @param int  $year
-     * @param int  $month
-     * @param int  $day
-     * @param int  $hour
-     * @param int  $minute
      */
     public function testInitEntryForNew(
         int $year,

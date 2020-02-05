@@ -2,11 +2,11 @@
 
 namespace Grr\GrrBundle\Repository\Security;
 
-use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
-use Grr\GrrBundle\Entity\Security\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
+use Grr\GrrBundle\Entity\Security\User;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)

@@ -2,14 +2,14 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Events\UserEvent;
+use Grr\Core\Security\PasswordHelper;
+use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Search\SearchUserType;
 use Grr\GrrBundle\Form\Security\UserAdvanceType;
 use Grr\GrrBundle\Form\Security\UserNewType;
 use Grr\GrrBundle\Manager\UserManager;
 use Grr\GrrBundle\Repository\Security\UserRepository;
-use Grr\Core\Security\PasswordHelper;
 use Grr\GrrBundle\Security\UserFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

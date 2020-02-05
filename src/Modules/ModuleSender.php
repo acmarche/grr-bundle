@@ -2,7 +2,6 @@
 
 namespace Grr\GrrBundle\Modules;
 
-
 use Grr\Core\Contrat\Modules\GrrModuleInterface;
 use Grr\Core\Contrat\Modules\GrrModuleSenderInterface;
 

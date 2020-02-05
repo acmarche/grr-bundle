@@ -1,21 +1,19 @@
 <?php
 /**
- * This file is part of sf5 application
+ * This file is part of sf5 application.
+ *
  * @author jfsenechal <jfsenechal@gmail.com>
  * @date 16/11/19
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Factory\CarbonFactory;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
-use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -31,7 +29,6 @@ class DefaultController extends AbstractController
 
     public function __construct(CarbonFactory $carbonFactory, RessourceSelectedHelper $ressourceSelectedHelper)
     {
-
         $this->carbonFactory = $carbonFactory;
         $this->ressourceSelectedHelper = $ressourceSelectedHelper;
     }
@@ -53,7 +50,7 @@ class DefaultController extends AbstractController
 
         $params = ['area' => $area->getId(), 'year' => $today->year, 'month' => $today->month];
 
-        if ($room !== null) {
+        if (null !== $room) {
             $params['room'] = $room->getId();
         }
 

@@ -2,15 +2,15 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use Exception;
-use Grr\GrrBundle\Entity\Entry;
-use Grr\Core\Factory\DurationFactory;
-use Grr\GrrBundle\Form\Type\DurationTimeTypeField;
-use Grr\Core\Model\DurationModel;
-use Grr\GrrBundle\Validator\Entry\Duration;
-use Grr\GrrBundle\Validator\Entry\Duration as DurationConstraint;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Exception;
+use Grr\Core\Factory\DurationFactory;
+use Grr\Core\Model\DurationModel;
+use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Form\Type\DurationTimeTypeField;
+use Grr\GrrBundle\Validator\Entry\Duration;
+use Grr\GrrBundle\Validator\Entry\Duration as DurationConstraint;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormEvent;
@@ -67,7 +67,7 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
         $entry = $event->getData();
         $form = $event->getForm();
         $room = $entry->getRoom();
-        $type = $room !== null ? $room->getTypeAffichageReser() : 0;
+        $type = null !== $room ? $room->getTypeAffichageReser() : 0;
 
         if (0 === $type) {
             $duration = $this->durationFactory->createByEntry($entry);

@@ -5,8 +5,8 @@ namespace Grr\GrrBundle\Entry;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 use Grr\GrrBundle\Manager\EntryManager;
+use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 use Grr\GrrBundle\Repository\EntryRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Security;
@@ -53,7 +53,7 @@ class HandlerEntry
         $this->fullDay($entry);
         $periodicity = $entry->getPeriodicity();
 
-        if ($periodicity !== null) {
+        if (null !== $periodicity) {
             $type = $periodicity->getType();
             if (null === $type || 0 === $type) {
                 $entry->setPeriodicity(null);
@@ -80,13 +80,12 @@ class HandlerEntry
     }
 
     /**
-     * todo set in service
-     * @param EntryInterface $entry
+     * todo set in service.
      */
     protected function fullDay(EntryInterface $entry): void
     {
         $duration = $entry->getDuration();
-        if ($duration !== null) {
+        if (null !== $duration) {
             if ($duration->isFullDay()) {
                 $area = $entry->getArea();
                 $hourStart = $area->getStartTime();

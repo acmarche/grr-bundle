@@ -12,7 +12,6 @@ class AccessAreaControllerTest extends BaseTesting
      * @dataProvider provideCases
      *
      * @param string $url
-     * @param array  $datas
      */
     public function testArea(string $action, ?string $areaName = null, array $datas): void
     {

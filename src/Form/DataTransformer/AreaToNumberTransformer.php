@@ -45,7 +45,7 @@ class AreaToNumberTransformer implements DataTransformerInterface
     public function reverseTransform($areaNumber): ?Area
     {
         // no area number? It's optional, so that's ok
-        if ($areaNumber === '') {
+        if ('' === $areaNumber) {
             return null;
         }
 

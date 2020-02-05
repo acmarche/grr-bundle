@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\GrrBundle\Entity\Room;
 use Grr\Core\Events\AuthorizationEvent;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Manager\AuthorizationManager;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
@@ -54,15 +54,15 @@ class AuthorizationController extends AbstractController
 
         $authorization = $this->authorizationRepository->find($id);
 
-        if ($authorization === null) {
+        if (null === $authorization) {
             $this->createNotFoundException();
         }
 
-        if (($area = $authorization->getArea()) !== null) {
+        if (null !== ($area = $authorization->getArea())) {
             $this->denyAccessUnlessGranted(AreaVoter::EDIT, $area);
         }
 
-        if (($room = $authorization->getRoom()) !== null) {
+        if (null !== ($room = $authorization->getRoom())) {
             $this->denyAccessUnlessGranted(RoomVoter::EDIT, $room);
         }
 

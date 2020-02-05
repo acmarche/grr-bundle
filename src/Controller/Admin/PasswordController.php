@@ -2,11 +2,11 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Events\UserEvent;
+use Grr\Core\Security\PasswordHelper;
+use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Security\UserPasswordType;
 use Grr\GrrBundle\Manager\UserManager;
-use Grr\Core\Security\PasswordHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Validator\Periodicity;
 
+use Carbon\Carbon;
+use Grr\Core\Periodicity\PeriodicityConstant;
 use Grr\GrrBundle\Entity\Periodicity;
 use InvalidArgumentException;
-use Grr\Core\Periodicity\PeriodicityConstant;
-use Carbon\Carbon;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -13,7 +13,7 @@ class PeriodicityEveryMonthValidator extends ConstraintValidator
 {
     /**
      * @param \Grr\GrrBundle\Entity\Periodicity|null $value
-     * @param PeriodicityEveryWeek         $constraint
+     * @param PeriodicityEveryWeek                   $constraint
      */
     public function validate($value, Constraint $constraint): void
     {

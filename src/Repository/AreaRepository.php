@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Repository;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 

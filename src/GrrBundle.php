@@ -1,11 +1,11 @@
 <?php
 /**
- * This file is part of sf5 application
+ * This file is part of sf5 application.
+ *
  * @author jfsenechal <jfsenechal@gmail.com>
  * @date 16/11/19
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Grr\GrrBundle;
@@ -18,5 +18,4 @@ class GrrBundle extends Bundle
     {
         return \dirname(__DIR__);
     }
-
 }

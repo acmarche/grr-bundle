@@ -35,6 +35,7 @@ class FixCommand extends Command
         } catch (ParseException $exception) {
             $io->writeln('error: %s', $exception->getMessage());
         }
+
         return 0;
     }
 }

@@ -61,7 +61,7 @@ class AuthorizationUserType extends AbstractType
                 'multiple' => true,
             ];
 
-            if ($area !== null) {
+            if (null !== $area) {
                 $options['query_builder'] = function (RoomRepository $roomRepository) use ($area): QueryBuilder {
                     return $roomRepository->getRoomsByAreaQueryBuilder($area);
                 };

@@ -8,10 +8,10 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use LogicException;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Security\AuthorizationHelper;
+use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

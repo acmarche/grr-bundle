@@ -92,7 +92,7 @@ class CreateuserCommand extends Command
             $password = $helper->ask($input, $output, $question);
         }
 
-        if ($this->userRepository->findOneBy(['email' => $email]) !== null) {
+        if (null !== $this->userRepository->findOneBy(['email' => $email])) {
             $io->error('Un utilisateur existe déjà avec cette adresse email');
 
             return 1;

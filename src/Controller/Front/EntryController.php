@@ -2,18 +2,18 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\Core\Events\EntryEvent;
+use Grr\Core\Router\FrontRouterHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\EntryFactory;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\Core\Events\EntryEvent;
 use Grr\GrrBundle\Form\EntryType;
 use Grr\GrrBundle\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Form\Search\SearchEntryType;
 use Grr\GrrBundle\Periodicity\PeriodicityDaysProvider;
 use Grr\GrrBundle\Repository\EntryRepository;
-use Grr\Core\Router\FrontRouterHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -152,7 +152,7 @@ class EntryController extends AbstractController
     {
         $urlList = $this->frontRouterHelper->generateMonthView($entry);
         $repeats = [];
-        if (($periodicity = $entry->getPeriodicity()) !== null) {
+        if (null !== ($periodicity = $entry->getPeriodicity())) {
             $repeats = $this->entryRepository->findByPeriodicity($periodicity);
         }
 
@@ -174,7 +174,7 @@ class EntryController extends AbstractController
     {
         $entry->setArea($entry->getRoom()->getArea());
 
-        if (($periodicity = $entry->getPeriodicity()) !== null) {
+        if (null !== ($periodicity = $entry->getPeriodicity())) {
             $periodicity->setEntryReference($entry); //use for validator
         }
 

@@ -14,7 +14,7 @@ use Grr\Core\Entity\AreaTrait;
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\AreaRepository")
  * @ApiResource
  */
-Class Area implements AreaInterface
+class Area implements AreaInterface
 {
     use AreaTrait;
 }

@@ -12,13 +12,12 @@ class AccessRoomControllerTest extends BaseTesting
      * @dataProvider provideCases
      *
      * @param string $url
-     * @param array  $datas
      */
     public function testArea(string $action, string $roomName, array $datas): void
     {
         $this->loadFixtures();
         $room = $token = null;
-        if ($roomName !== '') {
+        if ('' !== $roomName) {
             $room = $this->getRoom($roomName);
             $tokenManager = new CsrfTokenManager();
             $token = $tokenManager->getToken('delete'.$room->getId())->getValue();

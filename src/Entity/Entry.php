@@ -9,7 +9,6 @@ use Grr\Core\Entity\EntryTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 
 /**
- *
  * @ORM\Table(name="entry")
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\EntryRepository")
  * AppAssertEntry\BusyRoom

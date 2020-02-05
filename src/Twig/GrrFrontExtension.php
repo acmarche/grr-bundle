@@ -28,7 +28,6 @@ class GrrFrontExtension extends AbstractExtension
         FrontHelper $frontHelper,
         NavigationHelper $navigationHelper
     ) {
-
         $this->frontHelper = $frontHelper;
         $this->navigationHelper = $navigationHelper;
     }
@@ -41,15 +40,15 @@ class GrrFrontExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'grrPeriodicityTypeName', function (int $type) {
-                return $this->frontHelper->grrPeriodicityTypeName($type);
-            }, [
+                    return $this->frontHelper->grrPeriodicityTypeName($type);
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFilter(
                 'grrWeekNiceName', function (Week $week): string {
-                return $this->frontHelper->grrWeekNiceName($week);
-            }, [
+                    return $this->frontHelper->grrWeekNiceName($week);
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
@@ -57,48 +56,44 @@ class GrrFrontExtension extends AbstractExtension
     }
 
     /**
-     *
-     *
      * @return \Twig\TwigFunction[]
      */
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'grrMonthNavigationRender', function () :string {
-                return $this->navigationHelper->monthNavigationRender();
-            }, [
+                'grrMonthNavigationRender', function (): string {
+                    return $this->navigationHelper->monthNavigationRender();
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'grrMenuNavigationRender', function () :string {
-                return $this->navigationHelper->menuNavigationRender();
-            }, [
+                'grrMenuNavigationRender', function (): string {
+                    return $this->navigationHelper->menuNavigationRender();
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
                 'grrGenerateCellDataDay', function (TimeSlot $hour, RoomModel $roomModel, Day $day): string {
-                return $this->frontHelper->grrGenerateCellDataDay($hour, $roomModel, $day);
-            }, [
+                    return $this->frontHelper->grrGenerateCellDataDay($hour, $roomModel, $day);
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
                 'grrLegendEntryType', function (Area $area): string {
-                return $this->frontHelper->grrLegendEntryType($area);
-            }, [
+                    return $this->frontHelper->grrLegendEntryType($area);
+                }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
                 'grrCompanyName', function (): string {
-                return $this->frontHelper->grrCompanyName();
-            }
+                    return $this->frontHelper->grrCompanyName();
+                }
             ),
         ];
     }
-
-
 }

@@ -2,11 +2,11 @@
 
 namespace Grr\GrrBundle\Security;
 
+use Grr\Core\Setting\SettingsRoom;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
-use Grr\Core\Setting\SettingsRoom;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class SecurityHelper
@@ -41,6 +41,7 @@ class SecurityHelper
         if ($this->isAreaAdministrator($user, $area)) {
             return true;
         }
+
         return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => false]
         );
@@ -54,6 +55,7 @@ class SecurityHelper
         if ($this->isAreaAdministrator($user, $room->getArea())) {
             return true;
         }
+
         return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => true]
         );
@@ -71,6 +73,7 @@ class SecurityHelper
         if ($this->isAreaManager($user, $room->getArea())) {
             return true;
         }
+
         return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => false]
         );
@@ -98,7 +101,7 @@ class SecurityHelper
         /*
          * A partir d'ici il faut être connecté
          */
-        if ($user === null) {
+        if (null === $user) {
             return false;
         }
 
@@ -187,6 +190,7 @@ class SecurityHelper
         if ($this->isRoomAdministrator($user, $room)) {
             return true;
         }
+
         return $this->isRoomManager($user, $room);
     }
 

@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Events\AreaEvent;
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
-use Grr\Core\Events\AreaEvent;
 use Grr\GrrBundle\Form\AreaType;
 use Grr\GrrBundle\Manager\AreaManager;
 use Grr\GrrBundle\Repository\AreaRepository;

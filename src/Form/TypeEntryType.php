@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Form;
 
-use Grr\GrrBundle\Entity\EntryType;
 use Grr\Core\Setting\SettingsTypeEntry;
+use Grr\GrrBundle\Entity\EntryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;

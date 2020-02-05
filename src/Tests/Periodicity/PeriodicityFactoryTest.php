@@ -43,12 +43,6 @@ class PeriodicityFactoryTest extends BaseTesting
     /**
      * @dataProvider getData
      *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @param int $hour
-     * @param int $minute
-     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

@@ -8,19 +8,19 @@
 
 namespace Grr\GrrBundle\Service;
 
+use Carbon\CarbonInterface;
 use DateTimeInterface;
-use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entity\Room;
 use Grr\Core\Entry\EntryLocationService;
 use Grr\Core\Factory\DayFactory;
 use Grr\Core\Model\Month;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Model\Week;
+use Grr\GrrBundle\Entity\Area;
+use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Repository\EntryRepository;
 use Grr\GrrBundle\Repository\RoomRepository;
-use Carbon\CarbonInterface;
 
 class BindDataManager
 {
@@ -80,7 +80,7 @@ class BindDataManager
      */
     public function bindWeek(Week $weekModel, Area $area, Room $roomSelected = null): array
     {
-        if ($roomSelected !== null) {
+        if (null !== $roomSelected) {
             $rooms = [$roomSelected];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
@@ -116,7 +116,7 @@ class BindDataManager
     {
         $roomsModel = [];
 
-        if ($roomSelected !== null) {
+        if (null !== $roomSelected) {
             $rooms = [$roomSelected];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work

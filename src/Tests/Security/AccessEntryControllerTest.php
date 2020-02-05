@@ -12,10 +12,6 @@ class AccessEntryControllerTest extends BaseTesting
     /**
      * @dataProvider provideCases
      *
-     * @param string $action
-     * @param string $entryName
-     * @param array  $datas
-     *
      * @throws \Exception
      */
     public function testArea(string $action, string $entryName, array $datas): void

@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Security\Voter;
 
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Security\SecurityHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;

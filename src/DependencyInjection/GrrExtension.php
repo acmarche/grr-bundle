@@ -30,8 +30,8 @@ class GrrExtension extends Extension implements PrependExtensionInterface
         $this->loader = $loader;
 
         // @see https://github.com/doctrine/DoctrineBundle/issues/674
-     /*   $container->registerForAutoconfiguration(EventSubscriber::class)
-            ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
+        /*   $container->registerForAutoconfiguration(EventSubscriber::class)
+               ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
 */
         $loader->load('services.yaml');
         $loader->load('services_dev.yaml');
@@ -69,10 +69,6 @@ class GrrExtension extends Extension implements PrependExtensionInterface
         //  $container->prependExtensionConfig('doctrine', $configs);
     }
 
-    /**
-     * @param ContainerBuilder $container
-     * @return Loader\YamlFileLoader
-     */
     protected function loadYamlFile(ContainerBuilder $container): Loader\YamlFileLoader
     {
         return new Loader\YamlFileLoader(

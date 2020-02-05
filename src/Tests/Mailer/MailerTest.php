@@ -13,7 +13,7 @@ class MailerTest extends KernelTestCase
 {
     public function testSomething()
     {
-        $mailerInterface= $this->createMock(MailerInterface::class);
+        $mailerInterface = $this->createMock(MailerInterface::class);
         $mailerInterface
             ->expects($this->once())
             ->method('send');
@@ -32,7 +32,7 @@ class MailerTest extends KernelTestCase
         $this->assertSame('zeze', $namedAddresses[0]->getName());
         $this->assertSame('jf@marche.be', $namedAddresses[0]->getAddress());
 
-        /**
+        /*
          * Symfony 4.4:
          * $this->assertEmailCount(1);
          * $email = $this->getMailerMessage(0);
@@ -54,7 +54,5 @@ class MailerTest extends KernelTestCase
         $grrMailer = new GrrMailer($mailerInterface, $twig, $pdf);
         $email = $grrMailer->sendTest();
         $this->assertCount(1, $email->getAttachments());
-
-
     }
 }

@@ -3,7 +3,6 @@
 namespace Grr\GrrBundle\Repository;
 
 use Carbon\CarbonInterface;
-use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
@@ -13,7 +12,6 @@ use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entity\Room;
 use Webmozart\Assert\Assert;
 
@@ -129,7 +127,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
 
         if ($name) {
             $qb->andWhere('entry.name LIKE :name')
-                ->setParameter('name', '%' . $name . '%');
+                ->setParameter('name', '%'.$name.'%');
         }
 
         if ($area instanceof Area) {
@@ -207,6 +205,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      * Retourne l'entry de base de la repetition.
      *
      * @return mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity)

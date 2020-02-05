@@ -1,15 +1,14 @@
 <?php
 /**
- * This file is part of grr5 application
+ * This file is part of grr5 application.
+ *
  * @author jfsenechal <jfsenechal@gmail.com>
  * @date 27/11/19
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Grr\GrrBundle\Templating\Helper;
-
 
 use Carbon\CarbonInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -54,10 +53,10 @@ class RouterHelper
         $room = $attributes['room'] ?? 0;
 
         if (!$year) {
-            $year = (int)$attributes['year'];
+            $year = (int) $attributes['year'];
         }
         if (!$month) {
-            $month = (int)$attributes['month'];
+            $month = (int) $attributes['month'];
         }
 
         $params = ['area' => $area, 'year' => $year, 'month' => $month];
@@ -86,7 +85,7 @@ class RouterHelper
         $params = ['area' => $area, 'year' => $year, 'month' => $month, 'week' => $week];
 
         if ($room) {
-            $params['room'] = (int)$room;
+            $params['room'] = (int) $room;
         }
 
         return $this->router->generate('grr_front_week', $params);
@@ -107,7 +106,7 @@ class RouterHelper
         $year = $attributes['year'] ?? 0;
         $month = $attributes['month'] ?? 0;
 
-        if ($date !== null) {
+        if (null !== $date) {
             $year = $date->year;
             $month = $date->month;
         }

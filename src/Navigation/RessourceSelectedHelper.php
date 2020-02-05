@@ -63,7 +63,7 @@ class RessourceSelectedHelper
         if ($this->session->has(self::AREA_DEFAULT_SESSION)) {
             $areaId = $this->session->get(self::AREA_DEFAULT_SESSION);
 
-            if (($area = $this->areaRepository->find($areaId)) !== null) {
+            if (null !== ($area = $this->areaRepository->find($areaId))) {
                 return $area;
             }
         }
@@ -73,17 +73,17 @@ class RessourceSelectedHelper
          */
         $user = $this->security->getUser();
         if (null !== $user) {
-            if (($area = $user->getArea()) !== null) {
+            if (null !== ($area = $user->getArea())) {
                 return $area;
             }
         }
 
-        if (($area = $this->settingsProvider->getDefaultArea()) !== null) {
+        if (null !== ($area = $this->settingsProvider->getDefaultArea())) {
             return $area;
         }
 
         $area = $this->areaRepository->findOneBy([], ['id' => 'ASC']);
-        if ($area === null) {
+        if (null === $area) {
             throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
         }
 
@@ -110,12 +110,12 @@ class RessourceSelectedHelper
          */
         $user = $this->security->getUser();
         if (null !== $user) {
-            if (($room = $user->getRoom()) !== null) {
+            if (null !== ($room = $user->getRoom())) {
                 return $room;
             }
         }
 
-        if (($room = $this->settingsProvider->getDefaulRoom()) !== null) {
+        if (null !== ($room = $this->settingsProvider->getDefaulRoom())) {
             return $room;
         }
 

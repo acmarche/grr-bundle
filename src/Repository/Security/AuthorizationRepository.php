@@ -2,14 +2,14 @@
 
 namespace Grr\GrrBundle\Repository\Security;
 
-use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
-use Grr\GrrBundle\Entity\Security\Authorization;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Exception;
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
+use Grr\GrrBundle\Entity\Security\Authorization;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -66,11 +66,11 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
 
         $queryBuilder = $this->createQueryBuilder('authorization');
 
-        if ($user !== null) {
+        if (null !== $user) {
             $this->setCriteriaUser($queryBuilder, $user);
         }
 
-        if ($area !== null) {
+        if (null !== $area) {
             $this->setCriteriaArea($queryBuilder, $area);
         }
 

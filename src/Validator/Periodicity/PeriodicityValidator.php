@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Validator\Periodicity;
 
+use Carbon\Carbon;
 use Grr\GrrBundle\Entity\Periodicity;
 use InvalidArgumentException;
-use Carbon\Carbon;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

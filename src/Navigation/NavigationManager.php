@@ -8,11 +8,11 @@
 
 namespace Grr\GrrBundle\Navigation;
 
+use Carbon\CarbonInterface;
 use Grr\Core\Factory\MonthFactory;
 use Grr\Core\Model\Month;
 use Grr\Core\Model\Navigation;
 use Grr\Core\Provider\DateProvider;
-use Carbon\CarbonInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Webmozart\Assert\Assert;
@@ -58,7 +58,6 @@ class NavigationManager
 
     /**
      * @param int $number nombre de mois
-     * @return Navigation
      */
     public function createMonth(Month $month, int $number = 1): Navigation
     {

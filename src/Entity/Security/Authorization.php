@@ -1,23 +1,23 @@
 <?php
 /**
- * This file is part of grr5 application
+ * This file is part of grr5 application.
+ *
  * @author jfsenechal <jfsenechal@gmail.com>
  * @date 21/11/19
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Grr\GrrBundle\Entity\Security;
 
+use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
 use Grr\Core\Entity\Security\AuthorizationTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Authorization
+ * Class Authorization.
  *
  * @ORM\Table(name="authorization", uniqueConstraints={
  *     @ORM\UniqueConstraint(columns={"user_id", "area_id"}),

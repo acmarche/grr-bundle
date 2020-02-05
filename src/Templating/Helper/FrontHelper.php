@@ -1,15 +1,14 @@
 <?php
 /**
- * This file is part of grr5 application
+ * This file is part of grr5 application.
+ *
  * @author jfsenechal <jfsenechal@gmail.com>
  * @date 27/11/19
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
 
 namespace Grr\GrrBundle\Templating\Helper;
-
 
 use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
@@ -88,7 +87,6 @@ class FrontHelper
             ['position' => 999, 'area' => $area, 'room' => $room, 'day' => $day, 'hourModel' => $hour]
         );
     }
-
 
     /**
      * @return int|string

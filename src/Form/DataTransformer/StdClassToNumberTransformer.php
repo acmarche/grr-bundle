@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Form\DataTransformer;
 
-use stdClass;
 use Grr\Core\Security\SecurityRole;
+use stdClass;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 

@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Tests\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Tests\BaseTesting;
-use Doctrine\ORM\QueryBuilder;
 
 class RoomRepositoryTest extends BaseTesting
 {

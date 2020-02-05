@@ -12,7 +12,6 @@ use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
  */
 class FeatureContext
 {
-
     private $currentUser;
     /**
      * @var EntityManagerInterface
@@ -59,8 +58,7 @@ class FeatureContext
         $user = new \App\Entity\Security\User();
         $user->setUsername($username);
         $user->setPlainPassword($password);
-        $user->setRoles(array('ROLE_ADMIN'));
-
+        $user->setRoles(['ROLE_ADMIN']);
 
         //  $em->persist($user);
         //  $em->flush();
@@ -117,7 +115,7 @@ class FeatureContext
             $product->setPrice(rand(10, 1000));
             $product->setDescription('lorem');
 
-            if (isset($row['is published']) && $row['is published'] == 'yes') {
+            if (isset($row['is published']) && 'yes' == $row['is published']) {
                 $product->setIsPublished(true);
             }
 
@@ -196,7 +194,7 @@ class FeatureContext
     public function iPutABreakpoint()
     {
         fwrite(STDOUT, "\033[s    \033[93m[Breakpoint] Press \033[1;93m[RETURN]\033[0;93m to continue...\033[0m");
-        while (fgets(STDIN, 1024) == '') {
+        while ('' == fgets(STDIN, 1024)) {
         }
         fwrite(STDOUT, "\033[u");
 
@@ -204,7 +202,7 @@ class FeatureContext
     }
 
     /**
-     * Saving a screenshot
+     * Saving a screenshot.
      *
      * @When I save a screenshot to :filename
      */
@@ -232,7 +230,7 @@ class FeatureContext
 
     private function createProducts($count, User $author = null)
     {
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $product = new Product();
             $product->setName('Product '.$i);
             $product->setPrice(rand(10, 1000));
@@ -250,6 +248,7 @@ class FeatureContext
 
     /**
      * @param $rowText
+     *
      * @return \Behat\Mink\Element\NodeElement
      */
     private function findRowByText($rowText)

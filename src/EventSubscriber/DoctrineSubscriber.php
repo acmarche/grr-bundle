@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\Security;
 /**
  * @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/events.html#events
  * Class DoctrineSubscriber
- * @package Grr\GrrBundle\EventSubscriber
  */
 class DoctrineSubscriber implements EventSubscriber
 {

@@ -2,14 +2,14 @@
 
 namespace Grr\GrrBundle\Periodicity;
 
-use DateTimeInterface;
-use DateTime;
-use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entity\Periodicity;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use DateTime;
+use DateTimeInterface;
+use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Entity\Periodicity;
 
 class PeriodicityDaysProvider
 {

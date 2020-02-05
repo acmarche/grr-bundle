@@ -51,6 +51,7 @@ class AuthorizationHelper
 
     /**
      * @throws \Exception
+     *
      * @return \Grr\Core\Contrat\AreaInterface[]|\Grr\Core\Contrat\AreaInterface[]|null[]
      */
     public function getAreasUserCanAdd(UserInterface $user): array
@@ -62,11 +63,11 @@ class AuthorizationHelper
         $areas = [];
         $authorizations = $this->authorizationRepository->findByUser($user);
         foreach ($authorizations as $authorization) {
-            if ($authorization->getArea() !== null) {
+            if (null !== $authorization->getArea()) {
                 $areas[] = $authorization->getArea();
                 continue;
             }
-            if (($room = $authorization->getRoom()) !== null) {
+            if (null !== ($room = $authorization->getRoom())) {
                 $area = $room->getArea();
                 $areas[] = $area;
                 continue;
@@ -84,7 +85,7 @@ class AuthorizationHelper
     public function getRoomsUserCanAdd(UserInterface $user, ?Area $area = null): iterable
     {
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
-            if ($area !== null) {
+            if (null !== $area) {
                 return $this->roomRepository->findByArea($area);
             }
 
@@ -93,7 +94,7 @@ class AuthorizationHelper
 
         $rooms = [[]];
 
-        if ($area !== null) {
+        if (null !== $area) {
             $authorizations = $this->authorizationRepository->findByUserAndArea($user, $area);
         } else {
             $authorizations = $this->authorizationRepository->findByUser($user);
@@ -101,11 +102,11 @@ class AuthorizationHelper
 
         foreach ($authorizations as $authorization) {
             $area = $authorization->getArea();
-            if ($area !== null) {
+            if (null !== $area) {
                 $rooms[] = $area->getRooms()->toArray();
                 continue;
             }
-            if (($room = $authorization->getRoom()) !== null) {
+            if (null !== ($room = $authorization->getRoom())) {
                 $rooms[] = [$room];
                 continue;
             }

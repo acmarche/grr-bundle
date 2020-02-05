@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\GrrBundle\Entity\Area;
 use Grr\Core\Events\EntryTypeAreaEvent;
+use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Form\AssocTypeForAreaType;
 use Grr\GrrBundle\Manager\AreaManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

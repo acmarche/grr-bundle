@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Validator\Entry;
 
-use InvalidArgumentException;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Repository\EntryRepository;
+use InvalidArgumentException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 

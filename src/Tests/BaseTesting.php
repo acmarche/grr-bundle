@@ -10,18 +10,18 @@
 
 namespace Grr\GrrBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use DateTime;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Fidry\AliceDataFixtures\LoaderInterface;
+use Grr\Core\Faker\CarbonProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\EntryType;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\Core\Faker\CarbonProvider;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Fidry\AliceDataFixtures\LoaderInterface;
 use Nelmio\Alice\Loader\NativeLoader;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BaseTesting extends WebTestCase

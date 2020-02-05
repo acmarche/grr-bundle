@@ -8,10 +8,10 @@
 
 namespace Grr\GrrBundle\Manager;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Repository\EntryRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class EntryManager extends BaseManager
 {

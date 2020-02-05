@@ -8,8 +8,8 @@
 
 namespace Grr\GrrBundle\Manager;
 
-use Grr\GrrBundle\Entity\Area;
 use Doctrine\ORM\EntityManagerInterface;
+use Grr\GrrBundle\Entity\Area;
 
 class AreaManager extends BaseManager
 {

@@ -39,7 +39,6 @@ class SecurityController extends AbstractController
         $message = $this->settingRepository->getValueByName(SettingConstants::MESSAGE_HOME_PAGE);
         $company = $this->settingRepository->getValueByName(SettingConstants::COMPANY);
 
-
         return $this->render(
             '@Grr/security/login.html.twig',
             [

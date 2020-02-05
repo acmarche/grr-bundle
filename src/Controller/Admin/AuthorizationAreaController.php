@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Form\Security\AuthorizationAreaType;
-use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
 use Grr\GrrBundle\Security\HandlerAuthorization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -51,7 +51,7 @@ class AuthorizationAreaController extends AbstractController
     {
         $authorizationAreaModel = new AuthorizationModel();
 
-        if ($area !== null) {
+        if (null !== $area) {
             $authorizationAreaModel->setArea($area);
         }
 
@@ -62,7 +62,7 @@ class AuthorizationAreaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerAuthorization->handle($form);
 
-            if ($area !== null) {
+            if (null !== $area) {
                 return $this->redirectToRoute('grr_authorization_area_show', ['id' => $area->getId()]);
             }
         }

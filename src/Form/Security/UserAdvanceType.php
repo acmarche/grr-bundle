@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Form\Security;
 
-use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

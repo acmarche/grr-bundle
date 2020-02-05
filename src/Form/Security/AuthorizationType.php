@@ -3,11 +3,11 @@
 namespace Grr\GrrBundle\Form\Security;
 
 use Doctrine\ORM\QueryBuilder;
+use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Form\Type\RoleSelectType;
-use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Repository\RoomRepository;
 use Grr\GrrBundle\Repository\Security\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,7 +40,7 @@ class AuthorizationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('role', RoleSelectType::class,)
+            ->add('role', RoleSelectType::class, )
             ->add(
                 'area',
                 AreaSelectType::class,
@@ -58,7 +58,7 @@ class AuthorizationType extends AbstractType
                 'multiple' => true,
             ];
 
-            if ($area !== null) {
+            if (null !== $area) {
                 $options['query_builder'] = function (RoomRepository $roomRepository) use ($area): QueryBuilder {
                     return $roomRepository->getRoomsByAreaQueryBuilder($area);
                 };
