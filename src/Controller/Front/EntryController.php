@@ -2,7 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Events\EntryEvent;
+use Grr\Core\Entry\Events\EntryEventCreated;
+use Grr\Core\Entry\Events\EntryEventDeleted;
+use Grr\Core\Entry\Events\EntryEventInitialized;
+use Grr\Core\Entry\Events\EntryEventUpdated;
 use Grr\Core\Router\FrontRouterHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
@@ -113,8 +116,7 @@ class EntryController extends AbstractController
     ): Response {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day, $hour, $minute);
 
-        $entryEvent = new EntryEvent($entry);
-        $this->eventDispatcher->dispatch($entryEvent, EntryEvent::NEW_INITIALIZE);
+        $this->eventDispatcher->dispatch(new EntryEventInitialized($entry));
 
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
 
@@ -123,8 +125,7 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleNewEntry($form, $entry);
 
-            $entryEvent = new EntryEvent($entry);
-            $this->eventDispatcher->dispatch($entryEvent, EntryEvent::NEW_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryEventCreated($entry));
 
             return $this->redirectToRoute(
                 'grr_front_entry_show',
@@ -185,8 +186,7 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntry();
 
-            $entryEvent = new EntryEvent($entry);
-            $this->eventDispatcher->dispatch($entryEvent, EntryEvent::EDIT_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryEventUpdated($entry));
 
             return $this->redirectToRoute(
                 'grr_front_entry_show',
@@ -212,9 +212,7 @@ class EntryController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
             $this->handlerEntry->handleDeleteEntry($entry);
-
-            $entryEvent = new EntryEvent($entry);
-            $this->eventDispatcher->dispatch($entryEvent, EntryEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryEventDeleted($entry));
         }
 
         return $this->redirectToRoute('grr_home');

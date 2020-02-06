@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Form;
 
-use Grr\GrrBundle\EventSubscriber\AddRoomFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Navigation\MenuSelect;
 use Symfony\Component\Form\AbstractType;

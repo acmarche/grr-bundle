@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\UserEvent;
+use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Security\PasswordHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Security\UserPasswordType;
@@ -57,8 +57,7 @@ class PasswordController extends AbstractController
             $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
             $this->userManager->flush();
 
-            $userEvent = new UserEvent($user);
-            $this->eventDispatcher->dispatch($userEvent, UserEvent::CHANGE_PASSWORD_SUCCESS);
+            $this->eventDispatcher->dispatch(new PasswordEventUpdated($user));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',

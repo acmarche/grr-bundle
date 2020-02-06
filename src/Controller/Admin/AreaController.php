@@ -2,7 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\AreaEvent;
+use Grr\Core\Area\Events\AreaEventCreated;
+use Grr\Core\Area\Events\AreaEventDeleted;
+use Grr\Core\Area\Events\AreaEventInitialized;
+use Grr\Core\Area\Events\AreaEventUpdated;
 use Grr\GrrBundle\Area\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Form\AreaType;
@@ -88,14 +91,15 @@ class AreaController extends AbstractController
     {
         $area = $this->areaFactory->createNew();
 
+        $this->eventDispatcher->dispatch(new AreaEventInitialized($area));
+
         $form = $this->createForm(AreaType::class, $area);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->insert($area);
 
-            $areaEvent = new AreaEvent($area);
-            $this->eventDispatcher->dispatch($areaEvent, AreaEvent::NEW_SUCCESS);
+            $this->eventDispatcher->dispatch(new AreaEventCreated($area));
 
             return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
         }
@@ -138,8 +142,7 @@ class AreaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->flush();
 
-            $areaEvent = new AreaEvent($area);
-            $this->eventDispatcher->dispatch($areaEvent, AreaEvent::EDIT_SUCCESS);
+            $this->eventDispatcher->dispatch(new AreaEventUpdated($area));
 
             return $this->redirectToRoute(
                 'grr_admin_area_show',
@@ -169,8 +172,7 @@ class AreaController extends AbstractController
             $this->areaManager->remove($area);
             $this->areaManager->flush();
 
-            $areaEvent = new AreaEvent($area);
-            $this->eventDispatcher->dispatch($areaEvent, AreaEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new AreaEventDeleted($area));
         }
 
         return $this->redirectToRoute('grr_admin_area_index');

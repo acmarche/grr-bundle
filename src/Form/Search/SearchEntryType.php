@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Form\Search;
 
 use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\EventSubscriber\AddRoomFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Repository\RoomRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

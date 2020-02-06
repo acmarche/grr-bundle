@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\AuthorizationEvent;
+use Grr\Core\Authorization\Events\AuthorizationEventCreated;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Manager\AuthorizationManager;
 use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
@@ -70,8 +70,7 @@ class AuthorizationController extends AbstractController
             $this->authorizationManager->remove($authorization);
             $this->authorizationManager->flush();
 
-            $authorizationEvent = new AuthorizationEvent($authorization);
-            $this->eventDispatcher->dispatch($authorizationEvent, AuthorizationEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new AuthorizationEventCreated($authorization));
         } else {
             $this->addFlash('danger', 'authorization.flash.model.delete.error');
         }

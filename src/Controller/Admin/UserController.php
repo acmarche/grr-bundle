@@ -2,8 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\UserEvent;
 use Grr\Core\Security\PasswordHelper;
+use Grr\Core\User\Events\UserEventCreated;
+use Grr\Core\User\Events\UserEventDeleted;
+use Grr\Core\User\Events\UserEventUpdated;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Search\SearchUserType;
 use Grr\GrrBundle\Form\Security\UserAdvanceType;
@@ -90,24 +92,23 @@ class UserController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $utilisateur = $this->userFactory->createNew();
-        $form = $this->createForm(UserNewType::class, $utilisateur);
+        $user = $this->userFactory->createNew();
+        $form = $this->createForm(UserNewType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $utilisateur->setPassword($this->passwordEncoder->encodePassword($utilisateur, $utilisateur->getPassword()));
-            $this->userManager->insert($utilisateur);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+            $this->userManager->insert($user);
 
-            $userEvent = new UserEvent($utilisateur);
-            $this->eventDispatcher->dispatch($userEvent, UserEvent::NEW_SUCCESS);
+            $this->eventDispatcher->dispatch(new UserEventCreated($user));
 
-            return $this->redirectToRoute('grr_admin_user_show', ['id' => $utilisateur->getId()]);
+            return $this->redirectToRoute('grr_admin_user_show', ['id' => $user->getId()]);
         }
 
         return $this->render(
             '@grr_admin/user/new.html.twig',
             [
-                'user' => $utilisateur,
+                'user' => $user,
                 'form' => $form->createView(),
             ]
         );
@@ -129,27 +130,26 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="grr_admin_user_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $utilisateur): Response
+    public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserAdvanceType::class, $utilisateur);
+        $form = $this->createForm(UserAdvanceType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userManager->flush();
 
-            $userEvent = new UserEvent($utilisateur);
-            $this->eventDispatcher->dispatch($userEvent, UserEvent::EDIT_SUCCESS);
+            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
-                ['id' => $utilisateur->getId()]
+                ['id' => $user->getId()]
             );
         }
 
         return $this->render(
             '@grr_admin/user/edit.html.twig',
             [
-                'user' => $utilisateur,
+                'user' => $user,
                 'form' => $form->createView(),
             ]
         );
@@ -158,14 +158,13 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $utilisateur): Response
+    public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getEmail(), $request->request->get('_token'))) {
-            $this->userManager->remove($utilisateur);
+        if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {
+            $this->userManager->remove($user);
             $this->userManager->flush();
 
-            $userEvent = new UserEvent($utilisateur);
-            $this->eventDispatcher->dispatch($userEvent, UserEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new UserEventDeleted($user));
         }
 
         return $this->redirectToRoute('grr_admin_user_index');

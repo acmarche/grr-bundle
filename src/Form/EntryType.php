@@ -4,10 +4,10 @@ namespace Grr\GrrBundle\Form;
 
 use Grr\Core\Factory\DurationFactory;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\EventSubscriber\AddAreaFieldSubscriber;
-use Grr\GrrBundle\EventSubscriber\AddDurationFieldSubscriber;
-use Grr\GrrBundle\EventSubscriber\AddRoomFieldSubscriber;
-use Grr\GrrBundle\EventSubscriber\AddTypeEntryFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddAreaFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddDurationFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddTypeEntryFieldSubscriber;
 use Grr\GrrBundle\Security\AuthorizationHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

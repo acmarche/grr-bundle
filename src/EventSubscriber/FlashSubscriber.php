@@ -2,14 +2,27 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use Grr\Core\Events\AreaEvent;
-use Grr\Core\Events\AuthorizationEvent;
-use Grr\Core\Events\EntryEvent;
-use Grr\Core\Events\EntryTypeAreaEvent;
-use Grr\Core\Events\EntryTypeEvent;
-use Grr\Core\Events\RoomEvent;
-use Grr\Core\Events\SettingSuccessEvent;
-use Grr\Core\Events\UserEvent;
+use Grr\Core\Area\Events\AreaEventAssociatedEntryType;
+use Grr\Core\Area\Events\AreaEventCreated;
+use Grr\Core\Area\Events\AreaEventDeleted;
+use Grr\Core\Area\Events\AreaEventUpdated;
+use Grr\Core\Authorization\Events\AuthorizationEventCreated;
+use Grr\Core\Authorization\Events\AuthorizationEventDeleted;
+use Grr\Core\Authorization\Events\AuthorizationEventUpdated;
+use Grr\Core\Entry\Events\EntryEventCreated;
+use Grr\Core\Entry\Events\EntryEventDeleted;
+use Grr\Core\Entry\Events\EntryEventUpdated;
+use Grr\Core\EntryType\Events\EntryTypeEventCreated;
+use Grr\Core\EntryType\Events\EntryTypeEventDeleted;
+use Grr\Core\EntryType\Events\EntryTypeEventUpdated;
+use Grr\Core\Password\Events\PasswordEventUpdated;
+use Grr\Core\Room\Events\RoomEventCreated;
+use Grr\Core\Room\Events\RoomEventDeleted;
+use Grr\Core\Room\Events\RoomEventUpdated;
+use Grr\Core\Setting\Events\SettingEventUpdated;
+use Grr\Core\User\Events\UserEventCreated;
+use Grr\Core\User\Events\UserEventDeleted;
+use Grr\Core\User\Events\UserEventUpdated;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
@@ -25,102 +38,102 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    public function onEntryTypeDelete(EntryTypeEvent $entryTypeEvent): void
+    public function onEntryTypeDeleted(EntryTypeEventDeleted $entryTypeEvent): void
     {
         $this->flashBag->add('success', 'typeEntry.flash.delete');
     }
 
-    public function onEntryTypeEdit(EntryTypeEvent $entryTypeEvent): void
+    public function onEntryTypeUpdated(EntryTypeEventUpdated $entryTypeEvent): void
     {
         $this->flashBag->add('success', 'typeEntry.flash.edit');
     }
 
-    public function onEntryTypeNew(EntryTypeEvent $entryTypeEvent): void
+    public function onEntryTypeCreated(EntryTypeEventCreated $entryTypeEvent): void
     {
         $this->flashBag->add('success', 'typeEntry.flash.new');
     }
 
-    public function onRoomDelete(RoomEvent $roomEvent): void
+    public function onRoomDeleted(RoomEventDeleted $roomEvent): void
     {
         $this->flashBag->add('success', 'room.flash.delete');
     }
 
-    public function onRoomEdit(RoomEvent $roomEvent): void
+    public function onRoomUpdated(RoomEventUpdated $roomEvent): void
     {
         $this->flashBag->add('success', 'room.flash.edit');
     }
 
-    public function onRoomNew(RoomEvent $roomEvent): void
+    public function onRoomCreated(RoomEventCreated $roomEvent): void
     {
         $this->flashBag->add('success', 'room.flash.new');
     }
 
-    public function onSettingSuccess(): void
+    public function onSettingUpdated(): void
     {
         $this->flashBag->add('success', 'setting.flash.edit');
     }
 
-    public function onUserDelete(UserEvent $userEvent): void
+    public function onUserDeleted(UserEventDeleted $userEvent): void
     {
         $this->flashBag->add('success', 'user.flash.delete');
     }
 
-    public function onUserEdit(UserEvent $userEvent): void
+    public function onUserUpdated(UserEventUpdated $userEvent): void
     {
         $this->flashBag->add('success', 'user.flash.edit');
     }
 
-    public function onUserNew(UserEvent $userEvent): void
+    public function onUserCreated(UserEventCreated $userEvent): void
     {
         $this->flashBag->add('success', 'user.flash.new');
     }
 
-    public function onEntryNew(EntryEvent $event): void
+    public function onEntryCreated(EntryEventCreated $event): void
     {
         $this->flashBag->add('success', 'entry.flash.new');
     }
 
-    public function onEntryEdit(EntryEvent $event): void
+    public function onEntryUpdated(EntryEventUpdated $event): void
     {
         $this->flashBag->add('success', 'entry.flash.edit');
     }
 
-    public function onEntryDelete(EntryEvent $event): void
+    public function onEntryDeleted(EntryTypeEventDeleted $event): void
     {
         $this->flashBag->add('success', 'entry.flash.delete');
     }
 
-    public function onAreaDelete(AreaEvent $areaEvent): void
+    public function onAreaDeleted(AreaEventDeleted $areaEvent): void
     {
         $this->flashBag->add('success', 'area.flash.delete');
     }
 
-    public function onAreaEdit(AreaEvent $areaEvent): void
+    public function onAreaUpdated(AreaEventUpdated $areaEvent): void
     {
         $this->flashBag->add('success', 'area.flash.edit');
     }
 
-    public function onAreaNew(AreaEvent $areaEvent): void
+    public function onAreaCreated(AreaEventCreated $areaEvent): void
     {
         $this->flashBag->add('success', 'area.flash.new');
     }
 
-    public function onAuthorizationDelete(AuthorizationEvent $event): void
+    public function onAuthorizationDeleted(AuthorizationEventDeleted $event): void
     {
         $this->flashBag->add('success', 'authorization.flash.delete.success');
     }
 
-    public function onAuthorizationNew(AuthorizationEvent $event): void
+    public function onAuthorizationCreated(AuthorizationEventUpdated $event): void
     {
         $this->flashBag->add('success', 'authorization.flash.new');
     }
 
-    public function onEditEntryTypeArea(): void
+    public function onAreaAssociatedEntryType(): void
     {
         $this->flashBag->add('success', 'entryType.area.flash');
     }
 
-    public function onUserPassword(UserEvent $userEvent): void
+    public function onPasswordUpdated(PasswordEventUpdated $userEvent): void
     {
         $this->flashBag->add('success', 'user.flash.password');
     }
@@ -131,32 +144,33 @@ class FlashSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EntryEvent::NEW_SUCCESS => 'onEntryNew',
-            EntryEvent::EDIT_SUCCESS => 'onEntryEdit',
-            EntryEvent::DELETE_SUCCESS => 'onEntryDelete',
+            EntryEventCreated::class => 'onEntryCreated',
+            EntryEventUpdated::class => 'onEntryUpdated',
+            EntryEventDeleted::class => 'onEntryDeleted',
 
-            AreaEvent::NEW_SUCCESS => 'onAreaNew',
-            AreaEvent::EDIT_SUCCESS => 'onAreaEdit',
-            AreaEvent::DELETE_SUCCESS => 'onAreaDelete',
+            AreaEventCreated::class => 'onAreaCreated',
+            AreaEventUpdated::class => 'onAreaUpdated',
+            AreaEventDeleted::class => 'onAreaDeleted',
+            AreaEventAssociatedEntryType::class => 'onAreaAssociatedEntryType',
 
-            RoomEvent::NEW_SUCCESS => 'onRoomNew',
-            RoomEvent::EDIT_SUCCESS => 'onRoomEdit',
-            RoomEvent::DELETE_SUCCESS => 'onRoomDelete',
+            RoomEventCreated::class => 'onRoomCreated',
+            RoomEventUpdated::class => 'onRoomUpdated',
+            RoomEventDeleted::class => 'onRoomDeleted',
 
-            EntryTypeEvent::NEW_SUCCESS => 'onEntryTypeNew',
-            EntryTypeEvent::EDIT_SUCCESS => 'onEntryTypeEdit',
-            EntryTypeEvent::DELETE_SUCCESS => 'onEntryTypeDelete',
+            EntryTypeEventCreated::class => 'onEntryTypeCreated',
+            EntryTypeEventUpdated::class => 'onEntryTypeUpdated',
+            EntryTypeEventDeleted::class => 'onEntryTypeDeleted',
 
-            UserEvent::NEW_SUCCESS => 'onUserNew',
-            UserEvent::EDIT_SUCCESS => 'onUserEdit',
-            UserEvent::DELETE_SUCCESS => 'onUserDelete',
-            UserEvent::CHANGE_PASSWORD_SUCCESS => 'onUserPassword',
+            UserEventCreated::class => 'onUserCreated',
+            UserEventUpdated::class => 'onUserUpdated',
+            UserEventDeleted::class => 'onUserDeleted',
+            PasswordEventUpdated::class => 'onPasswordUpdated',
 
-            AuthorizationEvent::NEW_SUCCESS => 'onAuthorizationNew',
-            AuthorizationEvent::DELETE_SUCCESS => 'onAuthorizationDelete',
+            AuthorizationEventCreated::class => 'onAuthorizationCreated',
+            AuthorizationEventDeleted::class => 'onAuthorizationDeleted',
 
-            EntryTypeAreaEvent::class => 'onEditEntryTypeArea',
-            SettingSuccessEvent::class => 'onSettingSuccess',
+            SettingEventUpdated::class => 'onSettingUpdated',
         ];
     }
+
 }

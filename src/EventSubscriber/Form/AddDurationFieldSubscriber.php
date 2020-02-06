@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\EventSubscriber;
+namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;

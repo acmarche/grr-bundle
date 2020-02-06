@@ -2,7 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\SettingSuccessEvent;
+use Grr\Core\Setting\Events\SettingEventCreated;
+use Grr\Core\Setting\Events\SettingEventDeleted;
 use Grr\GrrBundle\Entity\Setting;
 use Grr\GrrBundle\Form\GeneralSettingType;
 use Grr\GrrBundle\Manager\SettingManager;
@@ -42,7 +43,7 @@ class SettingController extends AbstractController
         SettingManager $settingManager,
         SettingRepository $settingRepository,
         SettingHandler $settingHandler,
-    EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->settingRepository = $settingRepository;
         $this->settingManager = $settingManager;
@@ -78,8 +79,7 @@ class SettingController extends AbstractController
             $data = $form->getData();
             $this->settingHandler->handleEdit($data);
 
-            $settingEvent = new SettingSuccessEvent();
-            $this->eventDispatcher->dispatch($settingEvent);
+            $this->eventDispatcher->dispatch(new SettingEventCreated($settings));
 
             return $this->redirectToRoute('grr_admin_setting_index');
         }
@@ -97,10 +97,12 @@ class SettingController extends AbstractController
      */
     public function delete(Request $request, Setting $setting): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $setting->getName(), $request->request->get('_token'))) {
             $this->settingManager->remove($setting);
             $this->settingManager->flush();
         }
+
+        $this->eventDispatcher->dispatch(new SettingEventDeleted($setting));
 
         return $this->redirectToRoute('grr_admin_setting_index');
     }

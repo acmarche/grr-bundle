@@ -6,7 +6,7 @@
  * Time: 22:00.
  */
 
-namespace Grr\GrrBundle\EventSubscriber;
+namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Doctrine\ORM\QueryBuilder;
 use Grr\GrrBundle\Form\Type\RoomSelectType;

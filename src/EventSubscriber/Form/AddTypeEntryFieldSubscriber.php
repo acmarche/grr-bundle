@@ -6,7 +6,7 @@
  * Time: 22:00.
  */
 
-namespace Grr\GrrBundle\EventSubscriber;
+namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Form\Type\EntryTypeSelectField;

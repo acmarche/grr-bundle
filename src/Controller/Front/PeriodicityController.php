@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Events\EntryEvent;
+use Grr\Core\Events\BaseEntryEvent;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\HandlerEntry;
@@ -69,7 +69,7 @@ class PeriodicityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntryWithPeriodicity($oldEntry, $entry);
 
-            $entryEvent = new EntryEvent($entry);
+            $entryEvent = new BaseEntryEvent($entry);
 
             //$this->eventDispatcher->dispatch($entryEvent, EntryEvent::EDIT_SUCCESS);
 

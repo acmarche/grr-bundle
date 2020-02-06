@@ -2,7 +2,9 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\EntryTypeEvent;
+use Grr\Core\EntryType\Events\EntryTypeEventCreated;
+use Grr\Core\EntryType\Events\EntryTypeEventDeleted;
+use Grr\Core\EntryType\Events\EntryTypeEventUpdated;
 use Grr\GrrBundle\Entity\EntryType;
 use Grr\GrrBundle\Form\TypeEntryType;
 use Grr\GrrBundle\Manager\TypeEntryManager;
@@ -76,8 +78,7 @@ class EntryTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryManager->insert($entryType);
 
-            $entryTypeEvent = new EntryTypeEvent($entryType);
-            $this->eventDispatcher->dispatch($entryTypeEvent, EntryTypeEvent::NEW_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryTypeEventCreated($entryType));
 
             return $this->redirectToRoute('grr_admin_type_entry_index');
         }
@@ -115,8 +116,7 @@ class EntryTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryManager->flush();
 
-            $entryTypeEvent = new EntryTypeEvent($entryType);
-            $this->eventDispatcher->dispatch($entryTypeEvent, EntryTypeEvent::EDIT_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryTypeEventUpdated($entryType));
 
             return $this->redirectToRoute(
                 'grr_admin_type_entry_index',
@@ -144,8 +144,7 @@ class EntryTypeController extends AbstractController
             $this->typeEntryManager->remove($entryType);
             $this->typeEntryManager->flush();
 
-            $entryTypeEvent = new EntryTypeEvent($entryType);
-            $this->eventDispatcher->dispatch($entryTypeEvent, EntryTypeEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new EntryTypeEventDeleted($entryType));
         }
 
         return $this->redirectToRoute('grr_admin_type_entry_index');

@@ -2,7 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Events\RoomEvent;
+use Grr\Core\Room\Events\RoomEventCreated;
+use Grr\Core\Room\Events\RoomEventDeleted;
+use Grr\Core\Room\Events\RoomEventInitialized;
+use Grr\Core\Room\Events\RoomEventUpdated;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Form\RoomType;
@@ -51,14 +54,15 @@ class RoomController extends AbstractController
     {
         $room = $this->roomFactory->createNew($area);
 
+        $this->eventDispatcher->dispatch(new RoomEventInitialized($room));
+
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->roomManager->insert($room);
 
-            $roomEvent = new RoomEvent($room);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::NEW_SUCCESS);
+            $this->eventDispatcher->dispatch(new RoomEventCreated($room));
 
             return $this->redirectToRoute('grr_admin_room_show', ['id' => $room->getId()]);
         }
@@ -99,8 +103,7 @@ class RoomController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->roomManager->flush();
 
-            $roomEvent = new RoomEvent($room);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::EDIT_SUCCESS);
+            $this->eventDispatcher->dispatch(new RoomEventUpdated($room));
 
             return $this->redirectToRoute(
                 'grr_admin_room_show',
@@ -129,8 +132,7 @@ class RoomController extends AbstractController
             $this->roomManager->remove($room);
             $this->roomManager->flush();
 
-            $roomEvent = new RoomEvent($room);
-            $this->eventDispatcher->dispatch($roomEvent, RoomEvent::DELETE_SUCCESS);
+            $this->eventDispatcher->dispatch(new RoomEventDeleted($room));
         }
 
         return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
