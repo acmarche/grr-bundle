@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\EntryInterface;
-use Grr\Core\Entity\EntryTrait;
+use Grr\Core\Entry\Entity\EntryTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 
 /**

@@ -11,8 +11,8 @@
 namespace Grr\GrrBundle\Entity\Security;
 
 use Doctrine\ORM\Mapping as ORM;
+use Grr\Core\Authorization\Entity\AuthorizationTrait;
 use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
-use Grr\Core\Entity\Security\AuthorizationTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

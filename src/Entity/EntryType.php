@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\EntryTypeInterface;
-use Grr\Core\Entity\EntryTypeTrait;
+use Grr\Core\EntryType\Entity\EntryTypeTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**

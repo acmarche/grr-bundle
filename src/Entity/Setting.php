@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\SettingInterface;
-use Grr\Core\Entity\SettingTrait;
+use Grr\Core\Setting\Entity\SettingTrait;
 
 /**
  * Setting.

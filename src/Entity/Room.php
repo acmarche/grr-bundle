@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\RoomInterface;
-use Grr\Core\Entity\RoomTrait;
+use Grr\Core\Room\Entity\RoomTrait;
 
 /**
  * Room.

@@ -12,7 +12,7 @@ namespace Grr\GrrBundle\Entity\Security;
 
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
-use Grr\Core\Entity\Security\UserTrait;
+use Grr\Core\User\Entity\UserTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
