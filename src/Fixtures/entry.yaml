@@ -5,7 +5,7 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,8,20,14,10)>'
     room: '@room_box'
     type: '@type_entry_C'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'
   entry_2:
     name: 'Réunion pssp'
@@ -13,7 +13,7 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,8,20,15,35)>'
     room: '@room_relax'
     type: '@type_entry_D'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'
   entry_3:
     name: 'Réunion henalux'
@@ -21,7 +21,7 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,8,21,17,20)>'
     room: '@room_relax'
     type: '@type_entry_A'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'
   entry_4:
     name: 'Réunion timesquare'
@@ -29,7 +29,7 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,8,19,12,40)>'
     room: '@room_digital'
     type: '@type_entry_F'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'
   entry_5:
     name: 'Réunion conseillers'
@@ -37,7 +37,7 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,9,19,9,45)>'
     room: '@room_conseil'
     type: '@type_entry_E'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'
   entry_6:
     name: 'Réunion détente'
@@ -45,5 +45,5 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonDateTime(2019,10,1,17,40)>'
     room: '@room_cafetaria'
     type: '@type_entry_D'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'

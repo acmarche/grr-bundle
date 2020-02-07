@@ -5,9 +5,9 @@
     {{ form_row(form.endTime) }}
 {% endif %}
 
-{# if admin
-{{ form_row(form.beneficiaire) }}
-#}
+{% if admin %}
+{{ form_row(form.reservedFor) }}
+{% endif %}
 
 {% include '@grr_front/entry/form/_field_duration.html.twig' %}
 

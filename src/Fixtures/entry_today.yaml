@@ -5,5 +5,5 @@ Grr\GrrBundle\Entity\Entry:
     end_time: '<carbonToday(14,10)>'
     room: '@room_box'
     type: '@type_entry_C'
-    beneficiaire: 'jf'
+    reservedFor: 'jf'
     created_by: 'jf'

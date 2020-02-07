@@ -48,7 +48,7 @@ class DoctrineSubscriber implements EventSubscriber
         $entity->setUpdatedAt(new \DateTime());
         $username = $this->getUsername();
         $entity->setCreatedBy($username);
-        $entity->setBeneficiaire($username);
+        $entity->setReservedFor($username);
     }
 
     public function preUpdate(LifecycleEventArgs $args)
