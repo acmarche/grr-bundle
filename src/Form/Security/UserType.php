@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Form\Security;
 
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\EventSubscriber\AddRoomFieldSubscriber;
+use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

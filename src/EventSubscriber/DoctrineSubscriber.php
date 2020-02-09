@@ -46,9 +46,13 @@ class DoctrineSubscriber implements EventSubscriber
         }
         $entity->setCreatedAt(new \DateTime());
         $entity->setUpdatedAt(new \DateTime());
-        $username = $this->getUsername();
-        $entity->setCreatedBy($username);
-        $entity->setReservedFor($username);
+        if (!$entity->getCreatedBy() && !$entity->getReservedFor()) {
+            $username = $this->getUsername();
+            if ($username) {
+                $entity->setCreatedBy($username);
+                $entity->setReservedFor($username);
+            }
+        }
     }
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -60,12 +64,13 @@ class DoctrineSubscriber implements EventSubscriber
         $entity->setUpdatedAt(new \DateTime());
     }
 
-    protected function getUsername(): string
+    protected function getUsername(): ?string
     {
         $user = $this->security->getUser();
 
         if (!$user) {
-            throw new \Exception('To add entry, you must login');
+            return null;
+            //  throw new \Exception('To add entry, you must login');
         }
 
         return $user->getUsername();

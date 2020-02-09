@@ -2,8 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Events\UserEvent;
+use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Security\PasswordHelper;
+use Grr\Core\User\Events\UserEventDeleted;
+use Grr\Core\User\Events\UserEventUpdated;
 use Grr\GrrBundle\Form\Security\UserPasswordType;
 use Grr\GrrBundle\Form\Security\UserType;
 use Grr\GrrBundle\Manager\UserManager;
@@ -86,6 +88,8 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userManager->flush();
 
+            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
+
             return $this->redirectToRoute('grr_account_show');
         }
 
@@ -115,8 +119,7 @@ class AccountController extends AbstractController
 
             $this->userManager->flush();
 
-            $userEvent = new UserEvent($user);
-            $this->eventDispatcher->dispatch($userEvent, UserEvent::CHANGE_PASSWORD_SUCCESS);
+            $this->eventDispatcher->dispatch(new PasswordEventUpdated($user));
 
             return $this->redirectToRoute('grr_account_show');
         }
@@ -139,6 +142,8 @@ class AccountController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $this->userManager->remove($user);
             $this->userManager->flush();
+
+            $this->eventDispatcher->dispatch(new UserEventDeleted($user));
         }
 
         return $this->redirectToRoute('grr_home');

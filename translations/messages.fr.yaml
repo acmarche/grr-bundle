@@ -6,6 +6,8 @@ help:
     duration_unit: 'Unité de temps'
     type_select: 'Sélectionnez le type'
 label:
+  btn:
+    update: 'Mettre à jour'
   area:
     select: 'Domaine'
   room:
@@ -20,6 +22,12 @@ label:
     week_repeat: 'Tépétition par semaine'
     end_time: 'Fin de la périodicité'
     type: 'Type de périodicité'
+  user:
+    name: 'Nom'
+    first_name: 'Prénom'
+    username: 'Nom d''utilistaeur'
+    area_select: 'Domaine par défaut'
+    room_select: 'Ressource par défaut'
 unit:
   minutes: 'minute(s)'
   hours: 'heure(s)'
@@ -44,3 +52,38 @@ room:
   form:
     select:
       placeholder: 'Sélectionnez une ressource'
+
+placeholder:
+    area:
+      select: 'Sélectionnez un domaine'
+
+flash:
+  password:
+    updated: 'Le mot de passe a bien été modifié'
+  user:
+    created: 'L''utilisateur a bien été créé'
+    updated: 'L''utilisateur a bien été modifié'
+    deleted: 'L''utilisateur a bien été supprimé'
+  area:
+    created: 'Le domaine a bien été créé'
+    updated: 'Le domaine a bien été modifié'
+    deleted: 'Le domaine a bien été supprimé'
+    setEntryType: 'Les types de réservation ont bien été associés'
+  room:
+    created: 'La ressource a bien été crée'
+    updated: 'La ressource a bien été modifiée'
+    deleted: 'La ressource a bien été supprimée'
+  entry:
+    created: 'La réservation a bien été crée'
+    updated: 'La réservation a bien été modifiée'
+    deleted: 'La réservation a bien été supprimée'
+  typeEntry:
+    created: 'Le type de réservation a bien été créé'
+    updated: 'Le type de réservation a bien été modifié'
+    deleted: 'Le type de réservation a bien été supprimé'
+  authorization:
+    created: 'L''autorisation a bien été crée'
+    updated: 'L''autorisation a bien été modifiée'
+    deleted: 'L''autorisation a bien été supprimée'
+  setting:
+    updated: 'Les paramètres ont bien été enregistrés'

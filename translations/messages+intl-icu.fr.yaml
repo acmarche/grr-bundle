@@ -37,7 +37,7 @@ label:
     add:
       entry: 'Ajouter une entrée'
     new: 'Ajouter'
-    login: 'Me connecter'
+    login: 'S''identifier'
   setting:
     edit: 'edit setting'
   user:
@@ -75,7 +75,7 @@ records:
 name: 'Nom'
 user:
   account:
-    title: 'Compte'
+    title: 'Mon profil'
     area:
       default: 'Domaine par défaut'
     room:

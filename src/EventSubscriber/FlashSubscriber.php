@@ -40,102 +40,102 @@ class FlashSubscriber implements EventSubscriberInterface
 
     public function onEntryTypeDeleted(EntryTypeEventDeleted $entryTypeEvent): void
     {
-        $this->flashBag->add('success', 'typeEntry.flash.delete');
+        $this->flashBag->add('success', 'flash.typeEntry.deleted');
     }
 
     public function onEntryTypeUpdated(EntryTypeEventUpdated $entryTypeEvent): void
     {
-        $this->flashBag->add('success', 'typeEntry.flash.edit');
+        $this->flashBag->add('success', 'flash.typeEntry.updated');
     }
 
     public function onEntryTypeCreated(EntryTypeEventCreated $entryTypeEvent): void
     {
-        $this->flashBag->add('success', 'typeEntry.flash.new');
+        $this->flashBag->add('success', 'flash.typeEntry.created');
     }
 
     public function onRoomDeleted(RoomEventDeleted $roomEvent): void
     {
-        $this->flashBag->add('success', 'room.flash.delete');
+        $this->flashBag->add('success', 'flash.room.deleted');
     }
 
     public function onRoomUpdated(RoomEventUpdated $roomEvent): void
     {
-        $this->flashBag->add('success', 'room.flash.edit');
+        $this->flashBag->add('success', 'flash.room.updated');
     }
 
     public function onRoomCreated(RoomEventCreated $roomEvent): void
     {
-        $this->flashBag->add('success', 'room.flash.new');
+        $this->flashBag->add('success', 'flash.room.created');
     }
 
     public function onSettingUpdated(): void
     {
-        $this->flashBag->add('success', 'setting.flash.edit');
+        $this->flashBag->add('success', 'flash.setting.updated');
     }
 
     public function onUserDeleted(UserEventDeleted $userEvent): void
     {
-        $this->flashBag->add('success', 'user.flash.delete');
+        $this->flashBag->add('success', 'flash.user.deleted');
     }
 
     public function onUserUpdated(UserEventUpdated $userEvent): void
     {
-        $this->flashBag->add('success', 'user.flash.edit');
+        $this->flashBag->add('success', 'flash.user.updated');
     }
 
     public function onUserCreated(UserEventCreated $userEvent): void
     {
-        $this->flashBag->add('success', 'user.flash.new');
+        $this->flashBag->add('success', 'flash.user.created');
     }
 
     public function onEntryCreated(EntryEventCreated $event): void
     {
-        $this->flashBag->add('success', 'entry.flash.new');
+        $this->flashBag->add('success', 'flash.entry.created');
     }
 
     public function onEntryUpdated(EntryEventUpdated $event): void
     {
-        $this->flashBag->add('success', 'entry.flash.edit');
+        $this->flashBag->add('success', 'flash.entry.updated');
     }
 
     public function onEntryDeleted(EntryTypeEventDeleted $event): void
     {
-        $this->flashBag->add('success', 'entry.flash.delete');
+        $this->flashBag->add('success', 'flash.entry.deleted');
     }
 
     public function onAreaDeleted(AreaEventDeleted $areaEvent): void
     {
-        $this->flashBag->add('success', 'area.flash.delete');
+        $this->flashBag->add('success', 'flash.area.deleted');
     }
 
     public function onAreaUpdated(AreaEventUpdated $areaEvent): void
     {
-        $this->flashBag->add('success', 'area.flash.edit');
+        $this->flashBag->add('success', 'flash.area.updated');
     }
 
     public function onAreaCreated(AreaEventCreated $areaEvent): void
     {
-        $this->flashBag->add('success', 'area.flash.new');
+        $this->flashBag->add('success', 'flash.area.created');
     }
 
     public function onAuthorizationDeleted(AuthorizationEventDeleted $event): void
     {
-        $this->flashBag->add('success', 'authorization.flash.delete.success');
+        $this->flashBag->add('success', 'flash.authorization.deleted');
     }
 
     public function onAuthorizationCreated(AuthorizationEventUpdated $event): void
     {
-        $this->flashBag->add('success', 'authorization.flash.new');
+        $this->flashBag->add('success', 'flash.authorization.created');
     }
 
     public function onAreaAssociatedEntryType(): void
     {
-        $this->flashBag->add('success', 'entryType.area.flash');
+        $this->flashBag->add('success', 'flash.area.setEntryType');
     }
 
     public function onPasswordUpdated(PasswordEventUpdated $userEvent): void
     {
-        $this->flashBag->add('success', 'user.flash.password');
+        $this->flashBag->add('success', 'flash.password.updated');
     }
 
     /**
