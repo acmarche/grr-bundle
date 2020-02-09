@@ -28,6 +28,8 @@ label:
     username: 'Nom d''utilistaeur'
     area_select: 'Domaine par défaut'
     room_select: 'Ressource par défaut'
+  password: 'Mot de passe'
+  passwordRepeat: 'Répéter le mot de passe'
 unit:
   minutes: 'minute(s)'
   hours: 'heure(s)'

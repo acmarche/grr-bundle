@@ -84,7 +84,7 @@ user:
   delete:
     confirm: 'Êtes vous sur de supprimer le compte ?'
   changepassword:
-    title: 'Changer le mot de passe'
+    title: 'Modification du mot de passe du compte'
   password:
     title: 'Mot de passe'
   index:

@@ -48,10 +48,8 @@ class DoctrineSubscriber implements EventSubscriber
         $entity->setUpdatedAt(new \DateTime());
         if (!$entity->getCreatedBy() && !$entity->getReservedFor()) {
             $username = $this->getUsername();
-            if ($username) {
-                $entity->setCreatedBy($username);
-                $entity->setReservedFor($username);
-            }
+            $entity->setCreatedBy($username);
+            $entity->setReservedFor($username);
         }
     }
 
@@ -64,13 +62,12 @@ class DoctrineSubscriber implements EventSubscriber
         $entity->setUpdatedAt(new \DateTime());
     }
 
-    protected function getUsername(): ?string
+    protected function getUsername(): string
     {
         $user = $this->security->getUser();
 
         if (!$user) {
-            return null;
-            //  throw new \Exception('To add entry, you must login');
+            throw new \Exception('To add entry, you must login');
         }
 
         return $user->getUsername();
