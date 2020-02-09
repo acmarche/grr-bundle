@@ -65,7 +65,7 @@ class DoctrineSubscriber implements EventSubscriber
         $user = $this->security->getUser();
 
         if (!$user) {
-            throw new \Exception('You must login');
+            throw new \Exception('To add entry, you must login');
         }
 
         return $user->getUsername();
