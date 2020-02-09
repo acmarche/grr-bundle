@@ -1,0 +1,3 @@
+constraint:
+  entryType:
+    alreadyUse: 'Cette lettre est déjà utilisée'

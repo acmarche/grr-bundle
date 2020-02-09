@@ -179,9 +179,9 @@ typeArea:
     title: 'Associer les types de réservation à un domaine'
 typeEntry:
   index:
-    title: 'Les types d''entrées'
+    title: 'Les types de réservation'
   new:
-    title: 'Nouveau type d''entrée'
+    title: 'Nouveau type'
   typeName: 'Nom'
   orderDisplay: 'Ordre d''affichage'
   color: 'Couleur'

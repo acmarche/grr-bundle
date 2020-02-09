@@ -6,7 +6,7 @@ Feature: Gestion des types d'entrées
   Scenario: Lettre "A" déjà utilisée
     Given I am logged in as an admin
     Given I am on "/admin/entrytype/"
-    Then I should see "Types de réservation"
+    Then I should see "Les types de réservation"
     When I follow "Nouveau type"
     And I fill in "type_entry[name]" with "Racc"
     And I fill in "type_entry[letter]" with "A"
@@ -16,7 +16,7 @@ Feature: Gestion des types d'entrées
   Scenario: J'ajoute le type d'entrée "Racc"
     Given I am logged in as an admin
     Given I am on "/admin/entrytype/"
-    Then I should see "Types de réservation"
+    Then I should see "Les types de réservation"
     When I follow "Nouveau type"
     And I fill in "type_entry[name]" with "Racc"
     And I fill in "type_entry[letter]" with "R"
@@ -26,7 +26,7 @@ Feature: Gestion des types d'entrées
   Scenario: Je renomme Bureau en Bureaux
     Given I am logged in as an admin
     Given I am on "/admin/entrytype/"
-    Then I should see "Types de réservation"
+    Then I should see "Les types de réservation"
     When I follow "Bureau"
     When I follow "Modifier"
     And I fill in "type_entry[name]" with "Bureaux"

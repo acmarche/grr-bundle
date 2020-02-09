@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     @ORM\UniqueConstraint(columns={"letter"})
  * })
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\EntryTypeRepository")
- * @UniqueEntity(fields={"letter"}, message="entry_type.constraint.already_use")
+ * @UniqueEntity(fields={"letter"}, message="constraint.entryType.alreadyUse")
  * @ApiResource
  */
 class EntryType implements EntryTypeInterface

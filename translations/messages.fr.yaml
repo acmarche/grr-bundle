@@ -44,6 +44,12 @@ label:
     username: 'Nom d''utilistaeur'
     area_select: 'Domaine par défaut'
     room_select: 'Ressource par défaut'
+  typeEntry:
+    name: 'Nom'
+    available: 'Disponible'
+    orderDisplay: 'Ordre d''affichage'
+    letter: 'Lettre'
+    color: 'Couleur'
   password: 'Mot de passe'
   passwordRepeat: 'Répéter le mot de passe'
 unit:
@@ -79,28 +85,28 @@ flash:
   password:
     updated: 'Le mot de passe a bien été modifié'
   user:
-    created: 'L''utilisateur a bien été créé'
+    created: 'L''utilisateur a bien été ajouté'
     updated: 'L''utilisateur a bien été modifié'
     deleted: 'L''utilisateur a bien été supprimé'
   area:
-    created: 'Le domaine a bien été créé'
+    created: 'Le domaine a bien été ajouté'
     updated: 'Le domaine a bien été modifié'
     deleted: 'Le domaine a bien été supprimé'
     setEntryType: 'Les types de réservation ont bien été associés'
   room:
-    created: 'La ressource a bien été crée'
+    created: 'La ressource a bien été ajoutée'
     updated: 'La ressource a bien été modifiée'
     deleted: 'La ressource a bien été supprimée'
   entry:
-    created: 'La réservation a bien été crée'
+    created: 'La réservation a bien été ajoutée'
     updated: 'La réservation a bien été modifiée'
     deleted: 'La réservation a bien été supprimée'
   typeEntry:
-    created: 'Le type de réservation a bien été créé'
+    created: 'Le type de réservation a bien été ajouté'
     updated: 'Le type de réservation a bien été modifié'
     deleted: 'Le type de réservation a bien été supprimé'
   authorization:
-    created: 'L''autorisation a bien été crée'
+    created: 'L''autorisation a bien été ajoutée'
     updated: 'L''autorisation a bien été modifiée'
     deleted: 'L''autorisation a bien été supprimée'
   setting:

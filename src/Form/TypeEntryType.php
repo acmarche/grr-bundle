@@ -28,7 +28,7 @@ class TypeEntryType extends AbstractType
                 'orderDisplay',
                 IntegerType::class,
                 [
-                    'label' => 'label.typeEntry.order_display',
+                    'label' => 'label.typeEntry.orderDisplay',
                 ]
             )
             ->add(
@@ -36,6 +36,7 @@ class TypeEntryType extends AbstractType
                 ColorType::class,
                 [
                     'required' => false,
+                    'label' => 'label.typeEntry.color',
                 ]
             )
             ->add(
@@ -47,11 +48,11 @@ class TypeEntryType extends AbstractType
                 ]
             )
             ->add(
-                'disponible',
+                'available',
                 ChoiceType::class,
                 [
-                    'label' => 'label.typeEntry.disponible',
-                    'choices' => array_flip(SettingsTypeEntry::disponibleFor()),
+                    'label' => 'label.typeEntry.available',
+                    'choices' => array_flip(SettingsTypeEntry::availableFor()),
                 ]
             );
     }

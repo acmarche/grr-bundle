@@ -10,7 +10,7 @@ Feature: Manage area
     When I follow "Nouveau domaine"
     And I fill in "area[name]" with "Area demo"
     And I press "Sauvegarder"
-    Then I should see "Le domaine a bien été créé"
+    Then I should see "Le domaine a bien été ajouté"
     And I save a screenshot in "index.png"
 
   Scenario: Edit area
