@@ -47,8 +47,8 @@ class RoomType extends AbstractType
                 'maximumBooking',
                 IntegerType::class,
                 [
-                    'label' => 'label.room.maximum_booking',
-                    'help' => 'help.room.maximum_booking',
+                    'label' => 'label.room.maximumBooking',
+                    'help' => 'help.room.maximumBooking',
                     'required' => false,
                 ]
             )
@@ -56,8 +56,8 @@ class RoomType extends AbstractType
                 'statutRoom',
                 CheckboxType::class,
                 [
-                    'label' => 'label.room.statut_room',
-                    'help' => 'help.room.statut_room',
+                    'label' => 'label.room.statutRoom',
+                    'help' => 'help.room.statutRoom',
                     'required' => false,
                 ]
             )
@@ -65,8 +65,8 @@ class RoomType extends AbstractType
                 'showFicRoom',
                 CheckboxType::class,
                 [
-                    'label' => 'label.room.show_picture',
-                    'help' => 'help.room.show_picture',
+                    'label' => 'label.room.showPicture',
+                    'help' => 'help.room.showPicture',
                     'required' => false,
                 ]
             )
@@ -92,7 +92,7 @@ class RoomType extends AbstractType
                 'showComment',
                 CheckboxType::class,
                 [
-                    'label' => 'label.room.show_comment',
+                    'label' => 'label.room.showComment',
                     'required' => false,
                 ]
             )
@@ -125,7 +125,7 @@ class RoomType extends AbstractType
                 'orderDisplay',
                 IntegerType::class,
                 [
-                    'label' => 'label.room.order_display',
+                    'label' => 'label.room.orderDisplay',
                 ]
             )
             ->add(

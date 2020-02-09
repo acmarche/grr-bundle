@@ -7,7 +7,7 @@ Feature: Manage room
     And I am on "/admin/area/"
     #Then print last response
     Given I am on "/admin/area/"
-    Then I should see "Les domaines"
+    Then I should see "Liste des domaines"
     When I follow "Hdv"
     When I follow "Nouvelle ressource"
     And I fill in "room[name]" with "Room demo"
@@ -17,7 +17,7 @@ Feature: Manage room
   Scenario: Edit room
     Given I am logged in as an admin
     Given I am on "/admin/area/"
-    Then I should see "Les domaines"
+    Then I should see "Liste des domaines"
     When I follow "Hdv"
     When I follow "Salle Conseil"
     When I follow "Modifier"

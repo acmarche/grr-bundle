@@ -7,6 +7,15 @@ help:
   entry:
     duration_unit: 'Unité de temps'
     type_select: 'Sélectionnez le type'
+  room:
+    allow_action_in_past: 'Autoriser les réservations dont la date est dépassée'
+    dont_allow_modify: 'Ne peux pas modifier je sais pas quoi'
+    maximum_booking: 'Maximu book help'
+    delaisMaxResaRoom: 'Délais help'
+    delaisMinResaRoom: 'Délais help'
+    picture: 'Image'
+    statut_room: 'Statut'
+    show_picture: 'Montrer l''image'
 label:
   btn:
     update: 'Mettre à jour'
@@ -28,6 +37,26 @@ label:
     entryTypes: 'Types de réservation'
   room:
     select: 'Ressource'
+    name: 'Nom'
+    capacity: 'Capacité'
+    statut_room: 'Statut'
+    picture: 'Photo'
+    orderDisplay: 'Ordre d''affichage'
+    description: 'Description'
+    show_comment: 'Afficher les commentaires'
+    comment: 'Commentaire'
+    show_picture: 'Montre l''image'
+    rule_to_add: 'Règles pour ajouter'
+    allow_action_in_past: 'Autoriser l''ajout de réservation dans le passé'
+    moderate: 'Modération'
+    dont_allow_modify: 'Ne peut pas modifier'
+    quiPeutReserverPour: 'Qui peut réserver pour un autre'
+    typeAffichageReser: 'Type d''affichage de réservation'
+    delaisOptionReservation: 'Délais options réservation'
+    activeRessourceEmpruntee: 'Activer ressource empruntée'
+    delaisMinResaRoom: 'Délais minium d''une réservation'
+    delaisMaxResaRoom: 'Délais maximum d''une réservation'
+    maximum_booking: 'Nombre maximum de réservation'
   entry:
     duration_time: 'Durée'
     full_day: 'Journée entière'
@@ -73,6 +102,19 @@ periodicity:
     everyyear: 'Tous les ans'
 None: 'Aucune'
 room:
+  authorization:
+    select.norule: 'Pas de contrainte'
+    select.everybody: 'Tout le monde'
+    select.everyconnected: 'Tous les utilisateurs connectés'
+    select.everyactive: 'Tous les utilisateurs actifs'
+    select.everyroommanager: 'Tous les managers de ressources'
+    select.everyareaadministrator: 'Tous les administrateurs de domaines'
+    select.everysite: 'Tous les gestionnaires de sites'
+    select.everygrradministrator: 'Tous les administrateurs de Grr'
+  addfor.none: 'Ajout personne'
+  addfor.administratorrestricted: 'ddd'
+  addfor.roommanager: 'ee'
+  addfor.everybody: 'ff'
   form:
     select:
       placeholder: 'Sélectionnez une ressource'
@@ -111,3 +153,7 @@ flash:
     deleted: 'L''autorisation a bien été supprimée'
   setting:
     updated: 'Les paramètres ont bien été enregistrés'
+setting:
+ room:
+   display.type_form_reservation_duree: 'ici '
+   display.type_form_reservation_endtime: 'la '

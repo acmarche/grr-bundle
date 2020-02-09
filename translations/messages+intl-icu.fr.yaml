@@ -238,12 +238,12 @@ entry:
   new:
     periodicity:
       title: 'Périodicité'
-    title: 'Nouvelle entrée'
+    title: 'Nouvelle réservation'
   delete:
     confirm: 'Êtes vous sur de supprimer cette entrée ?'
   index:
-    title: 'Liste des entrées'
-  name: 'Entrée'
+    title: 'Liste des réservations'
+  name: 'Réservation'
   startTime: 'Début'
   endTime: 'Fin'
   room: 'Salle'
