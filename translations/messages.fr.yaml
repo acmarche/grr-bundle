@@ -1,4 +1,6 @@
 help:
+  area:
+      isRestricted: 'Accès à certains sont autorisé à accèder'
   periodicity:
     entry:
       type_select: 'Type d''entrée'
@@ -10,6 +12,20 @@ label:
     update: 'Mettre à jour'
   area:
     select: 'Domaine'
+    name: 'Nom'
+    timeInterval: 'Interval de temps'
+    orderDisplay: 'ordre d''affichage'
+    durationDefaultEntry: 'Temps par défaut d''une réservation'
+    startTime: 'Heure de début'
+    endTime: 'Heure de fin'
+    displayDays: 'Jours à afficher'
+    durationMaximumEntry: 'Durée maximum d''une réservation'
+    maxBooking: 'Nombre maximum de réservation'
+    weekStart: 'Premier jour de la semaine'
+    is24HourFormat: 'Affichage au format 24h'
+    minutesToAddToEndTime: 'Minutes à ajouter pour terminer une réservation'
+    isRestricted: 'Accès restreint'
+    entryTypes: 'Types de réservation'
   room:
     select: 'Ressource'
   entry:

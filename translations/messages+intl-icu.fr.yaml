@@ -176,7 +176,7 @@ typeArea:
   delete:
     confirm: 'Êtes vous sur de supprimer le type d''entrée'
   edit:
-    title: 'Editer'
+    title: 'Associer les types de réservation à un domaine'
 typeEntry:
   index:
     title: 'Les types d''entrées'

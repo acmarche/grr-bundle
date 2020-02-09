@@ -6,17 +6,17 @@ Feature: Manage area
   Scenario: New area
     Given I am logged in as an admin
     And I am on "/admin/area/"
-    Then I should see "Les domaines"
+    Then I should see "Liste des domaines"
     When I follow "Nouveau domaine"
     And I fill in "area[name]" with "Area demo"
     And I press "Sauvegarder"
-    Then I should see "Le domaine a bien été ajouté"
+    Then I should see "Le domaine a bien été créé"
     And I save a screenshot in "index.png"
 
   Scenario: Edit area
     Given I am logged in as an admin
     Given I am on "/admin/area/"
-    Then I should see "Les domaines"
+    Then I should see "Liste des domaines"
     When I follow "Hdv"
     When I follow "Modifier"
     And I fill in "area[name]" with "Hdv demo"
@@ -26,9 +26,9 @@ Feature: Manage area
   Scenario: Attribution de types d'entrée
     Given I am logged in as an admin
     Given I am on "/admin/area/"
-    Then I should see "Les domaines"
+    Then I should see "Liste des domaines"
     When I follow "Hdv"
-    When I follow "Types d'entrée"
+    When I follow "Types de réservation"
     And I check "Cours"
     And I check "Reunion"
     And I press "Sauvegarder"
