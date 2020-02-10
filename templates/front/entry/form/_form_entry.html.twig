@@ -5,7 +5,7 @@
     {{ form_row(form.endTime) }}
 {% endif %}
 
-{% if admin %}
+{% if is_granted('reservedFor') %}
 {{ form_row(form.reservedFor) }}
 {% endif %}
 

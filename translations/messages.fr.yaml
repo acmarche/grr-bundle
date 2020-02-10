@@ -8,13 +8,15 @@ help:
     duration_unit: 'Unité de temps'
     type_select: 'Sélectionnez le type'
   room:
-    allow_action_in_past: 'Autoriser les réservations dont la date est dépassée'
-    dont_allow_modify: 'Ne peux pas modifier je sais pas quoi'
+    allow_action_in_past: 'Si la case n''est pas cochée, un usager (ni même un gestionnaire ou un administrateur restreint) ne peut effectuer une réservation dans le passé, ni modifier ou supprimer une réservation passée. Seul l''administrateur général a cette possibilité.'
+    dont_allow_modify: 'Ne pas permettre aux utilisateurs (hormis les gestionnaires et les administrateurs) de modifier ou de supprimer leurs propres réservations.'
     maximum_booking: 'Maximu book help'
-    delaisMaxResaRoom: 'Délais help'
-    delaisMinResaRoom: 'Délais help'
+    delaisMaxResaRoom: 'Une valeur égale à 30 signifie qu''un utilisateur ne peut réserver une ressource que 30 jours à l''avance au maximum.
+                        Cette limitation ne touche pas les gestionnaires de la ressource ainsi que les administrateurs du domaine'
+    delaisMinResaRoom: 'Une valeur égale à 60 signifie qu''un utilisateur ne peut pas réserver une ressource ou modifier une réservation moins de 60 minutes avant le début de la réservation.
+                        Cette limitation ne touche pas les gestionnaires de la ressource ainsi que les administrateurs du domaine'
     picture: 'Image'
-    statut_room: 'Statut'
+    statut_room: 'La restriction ne s''applique pas aux gestionnaires de la ressource.'
     show_picture: 'Montrer l''image'
 label:
   btn:
@@ -38,25 +40,25 @@ label:
   room:
     select: 'Ressource'
     name: 'Nom'
-    capacity: 'Capacité'
-    statut_room: 'Statut'
+    capacity: 'Nombre de personnes maximum autorisé dans la salle'
+    statut_room: 'Déclarer cette ressource temporairement indisponible. Les réservations sont alors impossibles'
     picture: 'Photo'
     orderDisplay: 'Ordre d''affichage'
     description: 'Description'
-    show_comment: 'Afficher les commentaires'
-    comment: 'Commentaire'
-    show_picture: 'Montre l''image'
+    showComment: 'Afficher la description complète dans le titre des plannings'
+    comment: 'Description complète'
+    showPicture: 'Montre l''image'
     rule_to_add: 'Règles pour ajouter'
-    allow_action_in_past: 'Autoriser l''ajout de réservation dans le passé'
-    moderate: 'Modération'
+    allow_action_in_past: 'Permettre les réservations dans le passé ainsi que les modifications/suppressions de réservations passées.'
+    moderate: 'Modérer les réservations de cette ressource'
     dont_allow_modify: 'Ne peut pas modifier'
-    quiPeutReserverPour: 'Qui peut réserver pour un autre'
-    typeAffichageReser: 'Type d''affichage de réservation'
-    delaisOptionReservation: 'Délais options réservation'
+    quiPeutReserverPour: 'Hormis les administrateurs, précisez ci-contre quels types d''utilisateurs ont le droit de faire des réservations au nom d''autres utilisateurs.'
+    typeAffichageReser: 'Pour une nouvelle réservation ou modification d''une réservation, l''utilisateur spécifie la date/heure de début de réservation et '
+    delaisOptionReservation: 'Poser des réservations "sous réserve" : indiquer une valeur différente de 0 pour activer cette fonctionnalité.'
+    delaisMaxResaRoom: 'Nombre maximal de jours au-delà duquel l''utilisateur ne peut pas réserver ou modifier une réservation'
     activeRessourceEmpruntee: 'Activer ressource empruntée'
-    delaisMinResaRoom: 'Délais minium d''une réservation'
-    delaisMaxResaRoom: 'Délais maximum d''une réservation'
-    maximum_booking: 'Nombre maximum de réservation'
+    delaisMinResaRoom: 'Temps en minutes en-deçà duquel l''utilisateur ne peut pas réserver ou modifier une réservation (0 si pas de restriction)'
+    maximum_booking: 'Nombre maximum de réservations par utilisateur'
   entry:
     duration_time: 'Durée'
     full_day: 'Journée entière'
@@ -103,14 +105,14 @@ periodicity:
 None: 'Aucune'
 room:
   authorization:
-    select.norule: 'Pas de contrainte'
-    select.everybody: 'Tout le monde'
-    select.everyconnected: 'Tous les utilisateurs connectés'
-    select.everyactive: 'Tous les utilisateurs actifs'
-    select.everyroommanager: 'Tous les managers de ressources'
-    select.everyareaadministrator: 'Tous les administrateurs de domaines'
-    select.everysite: 'Tous les gestionnaires de sites'
-    select.everygrradministrator: 'Tous les administrateurs de Grr'
+    select.norule: 'N''importe qui allant sur le site même s''il n''est pas connecté'
+    select.everybody: 'N''importe qui allant sur le site même s''il n''est pas connecté'
+    select.everyconnected: 'Il faut obligatoirement être connecté, même en simple visiteur'
+    select.everyactive: 'Il faut obligatoirement être connecté et avoir le statut "utilisateur"'
+    select.everyroommanager: 'Il faut obligatoirement se connecter et être au moins administrateur de ressource'
+    select.everyareaadministrator: 'Il faut obligatoirement se connecter et être au moins administrateur du domaine'
+    select.everysite: 'Il faut obligatoirement être connecté et être administrateur de site'
+    select.everygrradministrator: 'Il faut obligatoirement être connecté et être administrateur général'
   addfor.none: 'Ajout personne'
   addfor.administratorrestricted: 'ddd'
   addfor.roommanager: 'ee'
@@ -118,11 +120,9 @@ room:
   form:
     select:
       placeholder: 'Sélectionnez une ressource'
-
 placeholder:
     area:
       select: 'Sélectionnez un domaine'
-
 flash:
   password:
     updated: 'Le mot de passe a bien été modifié'
@@ -155,5 +155,5 @@ flash:
     updated: 'Les paramètres ont bien été enregistrés'
 setting:
  room:
-   display.type_form_reservation_duree: 'ici '
-   display.type_form_reservation_endtime: 'la '
+   display.type_form_reservation_duree: 'La durée de la réservation'
+   display.type_form_reservation_endtime: 'La date/heure de fin de réservation'

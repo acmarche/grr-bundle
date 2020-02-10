@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Validator\Entry;
 
-use Grr\GrrBundle\Entity\Entry;
+use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\GrrBundle\Repository\EntryRepository;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraint;
@@ -21,12 +21,12 @@ class BusyRoomValidator extends ConstraintValidator
     }
 
     /**
-     * @param Entry    $value
-     * @param BusyRoom $constraint
+     * @param EntryInterface $value
+     * @param BusyRoom       $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof Entry) {
+        if (!$value instanceof EntryInterface) {
             throw new InvalidArgumentException($value, 0);
         }
 

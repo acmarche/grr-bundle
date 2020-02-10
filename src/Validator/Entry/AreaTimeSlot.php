@@ -17,7 +17,11 @@ class AreaTimeSlot extends Constraint
      *
      * @var string
      */
-    public $message = 'entry.constraint.areatime';
+
+    //end time exceeds opening time
+    public $message_exceeds = 'constraint.entry.area.exceeds';
+    //Start time must be greater than room opening time
+    public $message_greater = 'constraint.entry.area.greater';
 
     public function getTargets(): string
     {

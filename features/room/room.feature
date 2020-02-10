@@ -9,7 +9,7 @@ Feature: Manage room
     Given I am on "/admin/area/"
     Then I should see "Liste des domaines"
     When I follow "Hdv"
-    When I follow "Nouvelle ressource"
+    When I follow "Ajouter une ressource"
     And I fill in "room[name]" with "Room demo"
     And I press "Sauvegarder"
     Then I should see "La ressource a bien été ajoutée"

@@ -16,5 +16,5 @@ class Duration extends Constraint
     /**
      * @var string
      */
-    public $message = 'entry.constraint.duration.time.float';
+    public $message = 'constraint.entry.duration.time_float';
 }

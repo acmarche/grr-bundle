@@ -1,7 +1,7 @@
 <td>
     {% if is_granted('grr.addEntry', room) %}
         <a href="{{ grrGenerateRouteAddEntry(area.id,room.id, day.day, hourModel.begin.hour, hourModel.begin.minute) }}"
-           class="float-right" title="{{ 'btn.entry.add.title'|trans }}"> <i
+           class="float-right" title="{{ 'label.entry.add'|trans }}"> <i
                     class="fas fa-plus"></i> </a>
     {% endif %}
 </td>

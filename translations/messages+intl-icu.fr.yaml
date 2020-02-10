@@ -2,6 +2,7 @@ label:
   entry:
     name: 'Intitulé'
     startTime: 'Début de la réservation'
+    add: 'Ajouter une réservation'
   btn:
     delete: 'Supprimer'
     edit: 'Modifier'
@@ -146,14 +147,13 @@ help:
     durationMaximumEntry: 'Durée max'
     maxBooking: 'Nombre maximum par journée'
   room:
-    capacity: 'Nombre de personnes'
-    maximumBooking: 'Maximum de réservation par jour'
+    capacity: '(0 s''il ne s''agit pas d''une salle)'
+    maximumBooking: '(-1 si pas de restriction)'
     ruleToAdd: 'Droits pour ajouter'
     quiPeutReserverPour: 'Qui peut réserver pour'
-    moderate: 'Modération'
     typeAffichageReser: 'Affichage sur 24h'
     dontAllowModify: 'Peux pas modifier'
-    delaisOptionReservation: 'Délais xx'
+    delaisOptionReservation: 'La valeur ci-contre désigne le nombre maximal de jours dont dispose le réservant pour confirmer une réservation.'
     allowActionInPast: 'Réservations passées'
     showFicRoom: 'Montrer image'
     statutRoom: 'Statut'

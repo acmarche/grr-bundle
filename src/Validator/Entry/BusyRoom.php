@@ -16,7 +16,8 @@ class BusyRoom extends Constraint
     /**
      * @var string
      */
-    public $message = 'entry.constraint.busy';
+
+    public $message = 'constraint.entry.busy';
 
     public function getTargets(): string
     {

@@ -8,7 +8,7 @@ Feature: Verification des droits pour la gestion des entrées
     Given I am logged in as user "bob@domain.be"
     Given I am on homepage
     Then I follow "15"
-    And I follow "Ajouter une entrée"
+    And I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "My reservation"
     And I fill the entry startTime with the date 5/10/2019
     Then I should not see "Hdv"
@@ -39,7 +39,7 @@ Feature: Verification des droits pour la gestion des entrées
     Given I am logged in as user "brenda@domain.be"
     Given I am on the page month view of month 10-2019 and area "Hdv"
     Then I follow "15"
-    And I follow "Ajouter une entrée"
+    And I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "My reservation"
     And I fill the entry startTime with the date 5/10/2019
     Then I should not see "Esquare"

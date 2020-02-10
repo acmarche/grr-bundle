@@ -1,3 +1,26 @@
 constraint:
+  entry:
+    area:
+      exceeds: 'L''heure de fin doit être plus petite que l''heure de fermeture de la salle'
+      greater: 'L''heure de début doit être plus grande que l''heure d''ouverture de la salle'
+    busy: 'La réservation est dans une zone accupée.'
+    duration:
+      time_float : 'Une nombre à virgule n''est autorisé que pour une durée par heure'
   entryType:
     alreadyUse: 'Cette lettre est déjà utilisée'
+  area:
+    start_smaller_end: 'L''heure de fin de journée doit être plus grande que l''heure de début'
+  periodicity:
+    end_time: 'La date de fin de la périodicité doit être plus grande que la date de fin de la réservation'
+    every_day: 'La durée ne peut excéder une journée pour une répétition par jour'
+    every_month: 'La date de fin de la périodicité doit au moins dépasser d''un mois par rapport à la de de fin de la réservation'
+    every_year: 'La date de fin de la périodicité doit au moins dépasser d''un an par rapport à la de de fin de la réservation'
+    every_weeks:
+      endtime: 'La date de fin de la périodicité doit au moins dépasser d''une semaine par rapport à la de de fin de la réservation'
+      more24h: 'La durée ne peut excéder une journée pour une répétition par semaine'
+      no_day: 'Aucun jours de la semaine sélectionnés'
+      no_repeat: 'Aucune répétition choisie'
+
+assert:
+    entry:
+        startstdend: 'La date de début doit être plus petite que la date de fin'

@@ -7,12 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Entry\Entity\EntryTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Grr\GrrBundle\Validator as GrrAssert;
 
 /**
  * @ORM\Table(name="entry")
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\EntryRepository")
- * AppAssertEntry\BusyRoom
- * AppAssertEntry\AreaTimeSlot
+ * @GrrAssert\Entry\BusyRoom
+ * @GrrAssert\Entry\AreaTimeSlot
  * @ApiResource
  */
 class Entry implements EntryInterface, TimestampableInterface
