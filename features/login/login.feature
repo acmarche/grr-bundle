@@ -11,7 +11,7 @@ Feature: Authentication
     And I fill in "password" with "homer"
     And I press "S'identifier"
     Then I should be on "/admin/"
-    Then I should see "Grr admin"
+    Then I should see "Gestion des paramètres"
 
   Scenario: Bad login
     Given I am on "/login"

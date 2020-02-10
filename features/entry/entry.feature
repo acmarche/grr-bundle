@@ -11,6 +11,7 @@ Feature: Manage entries
     And I fill in "entry_with_periodicity[name]" with "My reservation"
 
   Scenario: Add entry
+    And I select "0" from "entry_with_periodicity_startTime_time_minute"
     And I press "Sauvegarder"
     Then I should see "My reservation"
     Then I should see "08:00"
