@@ -40,7 +40,7 @@ class PeriodicityEveryMonthValidator extends ConstraintValidator
          * et la fin de la réservation
          */
         if ($entryEndTime->diffInMonths($endPeriodicity) < 1) {
-            $this->context->buildViolation('periodicity.constraint.every_month')
+            $this->context->buildViolation('constraint.periodicity.every_month')
                 ->addViolation();
 
             return;

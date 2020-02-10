@@ -38,7 +38,7 @@ class PeriodicityEveryYearValidator extends ConstraintValidator
          * et la fin de la réservation
          */
         if ($entryEndTime->diffInYears($endPeriodicity) < 1) {
-            $this->context->buildViolation('periodicity.constraint.every_year')
+            $this->context->buildViolation('constraint.periodicity.every_year')
                 ->addViolation();
 
             return;

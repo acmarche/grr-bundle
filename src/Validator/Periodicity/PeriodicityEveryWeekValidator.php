@@ -40,7 +40,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
          * Si aucun jour de la semaine sélectionné
          */
         if (count($daysSelected) < 1) {
-            $this->context->buildViolation('periodicity.constraint.every_weeks.no_day')
+            $this->context->buildViolation('constraint.periodicity.every_weeks.no_day')
                 ->addViolation();
         }
 
@@ -48,7 +48,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
          * Si aucune répétion par semaine choisie
          */
         if (null === $weekRepeat) {
-            $this->context->buildViolation('periodicity.constraint.every_weeks.no_repeat')
+            $this->context->buildViolation('constraint.periodicity.every_weeks.no_repeat')
                 ->addViolation();
         }
 
@@ -57,7 +57,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
          * et la fin de la réservation.
          */
         if ($entryEndTime->diffInWeeks($endPeriodicity) < $weekRepeat) {
-            $this->context->buildViolation('periodicity.constraint.every_weeks.endtime')
+            $this->context->buildViolation('constraint.periodicity.every_weeks.endtime')
                 ->addViolation();
 
             return;
@@ -67,7 +67,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
          * En répétion par semaine, la réservation ne peut s'étaler sur plusieurs jours
          */
         if ($entryStartTime->diffInDays($entryEndTime) > 1) {
-            $this->context->buildViolation('periodicity.constraint.every_weeks.more24h')
+            $this->context->buildViolation('constraint.periodicity.every_weeks.more24h')
                 ->addViolation();
         }
     }

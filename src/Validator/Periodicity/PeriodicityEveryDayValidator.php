@@ -38,7 +38,7 @@ class PeriodicityEveryDayValidator extends ConstraintValidator
          * En répétion tous les jours, la réservation ne peut s'étaler sur plusieurs jours
          */
         if ($entryStartTime->diffInDays($entryEndTime) > 1) {
-            $this->context->buildViolation('periodicity.constraint.every_day')
+            $this->context->buildViolation('constraint.periodicity.every_day')
                 ->addViolation();
         }
 
@@ -47,7 +47,7 @@ class PeriodicityEveryDayValidator extends ConstraintValidator
          * et la fin de la réservation
          */
         if ($entryEndTime->diffInDays($endPeriodicity) < 1) {
-            $this->context->buildViolation('periodicity.constraint.end_time')
+            $this->context->buildViolation('constraint.periodicity.end_time')
                 ->addViolation();
 
             return;

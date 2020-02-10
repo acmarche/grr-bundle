@@ -38,7 +38,7 @@ class PeriodicityValidator extends ConstraintValidator
          * La date de fin de la periodicité doit être plus grande que la date de fin de la réservation
          */
         if ($endPeriodicity->format('Y-m-d') <= $entryEndTime->format('Y-m-d')) {
-            $this->context->buildViolation('periodicity.constraint.end_time')
+            $this->context->buildViolation('constraint.periodicity.end_time')
                 ->addViolation();
 
             return;

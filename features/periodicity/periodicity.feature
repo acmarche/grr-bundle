@@ -10,13 +10,13 @@ Feature: Manage entries with periodicity
     Given I am logged in as an admin
     Given I am on homepage
     When I follow "15"
-    When I follow "Ajouter une entrée"
+    When I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "My reservation repeated"
 
   Scenario: Add entry with periodicity every day with bad end time
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque jour
     And I select "1" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 1/9/2019
@@ -27,7 +27,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every day with bad end time
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Jour(s)" from "entry_with_periodicity_duration_unit"
+    And I select "jour(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque jour
     And I select "1" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 10/9/2019
@@ -38,7 +38,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every day
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque jour
     And I select "1" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/9/2019
@@ -51,7 +51,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every month with end time too short
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque mois meme jour
     And I select "3" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/9/2019
@@ -61,7 +61,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every month with same day
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque mois meme jour
     And I select "3" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/12/2019
@@ -74,7 +74,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every month with week day
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque mois meme semaine
     And I select "5" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/12/2019
@@ -87,7 +87,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every year end time too short
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque annee
     And I select "4" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/12/2019
@@ -97,7 +97,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every year
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque annee
     And I select "4" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 5/10/2022
@@ -110,7 +110,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every week no day seleted
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 7/9/2019
@@ -120,7 +120,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every week no repeat seleted
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 7/9/2019
@@ -131,7 +131,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every week end time too short
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 7/9/2019
@@ -143,7 +143,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every week
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 28/9/2019
@@ -163,7 +163,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every 2 week
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 28/9/2019
@@ -179,7 +179,7 @@ Feature: Manage entries with periodicity
   Scenario: Add entry with periodicity every week with duration more than 24h
     And I fill the entry startTime with the date 2/9/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Jour(s)" from "entry_with_periodicity_duration_unit"
+    And I select "jour(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque semaine
     And I select "2" from "entry_with_periodicity[periodicity][type]"
     And I fill the periodicity endTime with the date 28/9/2019

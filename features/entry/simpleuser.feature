@@ -21,7 +21,7 @@ Feature: Verification des droits pour la gestion des entrées
     Given I am logged in as user "bob@domain.be"
     Given I am on the page month view of month 08-2019 and area "Esquare"
     And I follow "Réunion henalux"
-    And I should see "Modifier"
+    And I should see "Modifier la réservation"
     And I should see "Supprimer"
     Then I follow "Modifier"
     And I should not see "Hdv"
@@ -32,7 +32,7 @@ Feature: Verification des droits pour la gestion des entrées
   Scenario: Bob ne peux pas modifier une entrée de l'Hdv
     Given I am logged in as user "bob@domain.be"
     Given I am on the page show entry "Réunion conseillers"
-    Then I should not see "Modifier"
+    Then I should not see "Modifier la réservation"
     And I should not see "Supprimer"
 
   Scenario: Brenda ajoute une entrée dans la Salle du Conseil
@@ -51,11 +51,11 @@ Feature: Verification des droits pour la gestion des entrées
   Scenario: Brenda ne peux pas modifier une entrée dans Hdv/Cafétaria
     Given I am logged in as user "brenda@domain.be"
     Given I am on the page show entry "Réunion détente"
-    Then I should not see "Modifier"
+    Then I should not see "Modifier la réservation"
     And I should not see "Supprimer"
 
   Scenario: Brenda ne peux pas modifier une entrée dans Esquare/Relax Room
     Given I am logged in as user "brenda@domain.be"
     Given I am on the page show entry "Réunion henalux"
-    Then I should not see "Modifier"
+    Then I should not see "Modifier la réservation"
     And I should not see "Supprimer"

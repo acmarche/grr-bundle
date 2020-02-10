@@ -43,7 +43,7 @@
 {% else %}
     {% if is_granted('grr.entry.edit', entry) %}
         <a href="{{ path('grr_front_entry_edit', { 'id': entry.id }) }}" role="button"
-           class="btn btn-primary"><i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
+           class="btn btn-primary"><i class="far fa-edit"></i> {{ 'label.btn.edit_entry'|trans({}) }}</a>
 
     {% endif %}
     {% if is_granted('grr.entry.delete', entry) %}

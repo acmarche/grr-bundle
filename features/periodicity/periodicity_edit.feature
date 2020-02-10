@@ -6,11 +6,11 @@ Feature: Edit entries with periodicity
     Et la date de fin est 3 jours plus tard que la date de début
     Given I am logged in as an admin
     When I follow "15"
-    When I follow "Ajouter une entrée"
+    When I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "Tous les jours pendant 3 jours"
     And I fill the entry startTime with the date 5/10/2019
     And I fill in "entry_with_periodicity[duration][time]" with "3"
-    And I select "Heure(s)" from "entry_with_periodicity_duration_unit"
+    And I select "heure(s)" from "entry_with_periodicity_duration_unit"
     #1 => Chaque jour
     And I select "1" from "entry_with_periodicity[periodicity][type]"
     And I select "Relax Room" from "entry_with_periodicity_room"

@@ -26,8 +26,8 @@ label:
     save: 'Sauvegarder'
     password: 'Mot de passe'
     edit_periodicity: 'Modifier la périodicité'
-    edit_entry: 'Modifier l''entrée'
-    delete_entry: 'Supprimer l''entrée'
+    edit_entry: 'Modifier la réservation'
+    delete_entry: 'Supprimer la réservation'
     delete_periodicity: 'Supprimer la périodicité'
     next:
       month: 'Mois prochain'

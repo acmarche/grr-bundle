@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Security;
 
+use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\SettingsRoom;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;

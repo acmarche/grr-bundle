@@ -64,7 +64,7 @@ Feature: Manage entries
     Then I should see "lundi 2 septembre 2019 à 08:00"
     Then I should see "jeudi 5 septembre 2019 à 08:00"
 
-  Scenario: Add entry overload closing area
+  Scenario: Add entry exceeds closing area
     And I select "2" from "entry_with_periodicity_startTime_date_day"
     And I select "9" from "entry_with_periodicity_startTime_date_month"
     And I select "2019" from "entry_with_periodicity_startTime_date_year"
@@ -75,7 +75,7 @@ Feature: Manage entries
     And I press "Sauvegarder"
     Then I should see "L'heure de fin doit être plus petite que l'heure de fermeture de la salle"
 
-  Scenario: Add entry overload opening area
+  Scenario: Add entry exceeds opening area
     And I select "2" from "entry_with_periodicity_startTime_date_day"
     And I select "9" from "entry_with_periodicity_startTime_date_month"
     And I select "2019" from "entry_with_periodicity_startTime_date_year"
