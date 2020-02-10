@@ -18,9 +18,13 @@ help:
     picture: 'Image'
     statut_room: 'La restriction ne s''applique pas aux gestionnaires de la ressource.'
     show_picture: 'Montrer l''image'
+  user:
+    is_enabled: 'Si pas actif peut pas se connecter'
 label:
   btn:
     update: 'Mettre à jour'
+    user:
+      add: 'Ajouter un utilisateur'
   area:
     select: 'Domaine'
     name: 'Nom'
@@ -59,6 +63,9 @@ label:
     activeRessourceEmpruntee: 'Activer ressource empruntée'
     delaisMinResaRoom: 'Temps en minutes en-deçà duquel l''utilisateur ne peut pas réserver ou modifier une réservation (0 si pas de restriction)'
     maximum_booking: 'Nombre maximum de réservations par utilisateur'
+    multiple_select: 'Ressource(s)'
+  role:
+    select: 'Sélectionnez un rôle'
   entry:
     duration_time: 'Durée'
     full_day: 'Journée entière'
@@ -75,6 +82,10 @@ label:
     username: 'Nom d''utilistaeur'
     area_select: 'Domaine par défaut'
     room_select: 'Ressource par défaut'
+    select: 'Sélectionnez un ou plusieurs utilisateurs'
+    roles:
+      select: 'Rôle(s)'
+    is_enabled: 'Actif ?'
   typeEntry:
     name: 'Nom'
     available: 'Disponible'
@@ -121,8 +132,10 @@ room:
     select:
       placeholder: 'Sélectionnez une ressource'
 placeholder:
-    area:
-      select: 'Sélectionnez un domaine'
+  user:
+    name: 'Nom, prénom ou email'
+  area:
+    select: 'Sélectionnez un domaine'
 flash:
   password:
     updated: 'Le mot de passe a bien été modifié'
@@ -157,3 +170,13 @@ setting:
  room:
    display.type_form_reservation_duree: 'La durée de la réservation'
    display.type_form_reservation_endtime: 'La date/heure de fin de réservation'
+none:
+  male: 'Aucun'
+authorization:
+  role:
+    area:
+      administrator:
+        label: 'Administrateur du domaine'
+    resource:
+      administrator:
+        label: 'Gestionnaire des ressources'

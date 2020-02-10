@@ -98,7 +98,7 @@ class HandlerAuthorization
         }
 
         if (!$this->error) {
-            $this->flashBag->add('success', 'authorization.flash.new');
+            $this->flashBag->add('success', 'flash.authorization.created');
         }
     }
 

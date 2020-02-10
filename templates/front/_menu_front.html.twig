@@ -5,8 +5,7 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ path('grr_front_entry_index') }}">{{ 'menu.search'|trans({}) }}</a>
 </li>-->
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <li class="nav-item">
-        <a class="nav-link" href="{{ path('grr_admin_index') }}">{{ 'menu.administration'|trans({}) }}</a>
-    </li>
-{% endif %}
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('grr_admin_index') }}">{{ 'menu.administration'|trans({}) }}</a>
+</li>

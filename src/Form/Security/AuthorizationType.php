@@ -45,7 +45,7 @@ class AuthorizationType extends AbstractType
                 'area',
                 AreaSelectType::class,
                 [
-                    'placeholder' => 'placeholder.area.select.',
+                    'placeholder' => 'placeholder.area.select',
                 ]
             );
 

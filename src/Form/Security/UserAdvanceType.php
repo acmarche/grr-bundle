@@ -33,7 +33,7 @@ class UserAdvanceType extends AbstractType
                 [
                     'required' => false,
                     'label' => 'label.user.is_enabled',
-                    'help' => 'hel.user.is_enabled',
+                    'help' => 'help.user.is_enabled',
                 ]
             );
     }

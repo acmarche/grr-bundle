@@ -188,7 +188,7 @@ typeEntry:
   letter: 'Lettre'
   available: 'Disponible'
 menu:
-  planning: 'Planing'
+  planning: 'Planning'
   area: 'Domaine'
   users: 'Utilisateurs'
   settings: 'Paramètres'
@@ -224,8 +224,10 @@ authorization:
     new:
       title: 'Autorisation domaine'
     title: 'Autorisation domaine'
+    exist: 'L'' autorisation pour {area} existe déjà pour {user}'
   room:
     title: 'Autorisation ressource'
+    exist: 'L'' autorisation pour {room} existe déjà pour {user}'
   user:
     new:
       title: 'Autorisation user'
