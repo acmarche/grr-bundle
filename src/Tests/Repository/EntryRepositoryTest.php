@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Tests\Repository;
 use Carbon\Carbon;
 use Grr\Core\Model\Month;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Tests\BaseTesting;
+use Grr\Core\Tests\BaseTesting;
 
 class EntryRepositoryTest extends BaseTesting
 {

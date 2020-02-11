@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Tests\Mailer;
 
-use Symfony\Component\Panther\PantherTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class MailerControllerTest extends PantherTestCase
+class MailerControllerTest extends WebTestCase
 {
     public function testSomething()
     {

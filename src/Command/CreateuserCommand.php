@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Command;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Security\PasswordHelper;
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Manager\UserManager;
 use Grr\GrrBundle\Security\Factory\UserFactory;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -33,16 +34,22 @@ class CreateuserCommand extends Command
      * @var PasswordHelper
      */
     private $passwordHelper;
+    /**
+     * @var UserManager
+     */
+    private $userManager;
 
     public function __construct(
         UserFactory $userFactory,
         UserRepositoryInterface $userRepository,
-        PasswordHelper $passwordHelper
+        PasswordHelper $passwordHelper,
+        UserManager $userManager
     ) {
         parent::__construct();
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
         $this->passwordHelper = $passwordHelper;
+        $this->userManager = $userManager;
     }
 
     protected function configure(): void

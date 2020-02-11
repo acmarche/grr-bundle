@@ -11,7 +11,7 @@ use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\EntryFactory;
 use Grr\GrrBundle\Periodicity\PeriodicityFactory;
 use Grr\GrrBundle\Room\RoomFactory;
-use Grr\GrrBundle\Tests\BaseTesting;
+use Grr\Core\Tests\BaseTesting;
 
 class EntryFactoryTest extends BaseTesting
 {

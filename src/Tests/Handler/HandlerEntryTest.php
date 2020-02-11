@@ -11,7 +11,7 @@
 namespace Grr\GrrBundle\Tests\Handler;
 
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Tests\BaseTesting;
+use Grr\Core\Tests\BaseTesting;
 
 /**
  * todo test  handler

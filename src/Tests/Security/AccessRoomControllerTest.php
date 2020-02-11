@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Tests\Security;
 
-use Grr\GrrBundle\Tests\BaseTesting;
+use Grr\Core\Tests\BaseTesting;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 

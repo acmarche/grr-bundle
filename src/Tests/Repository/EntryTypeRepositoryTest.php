@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Tests\Repository;
 
 use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\Tests\BaseTesting;
+use Grr\Core\Tests\BaseTesting;
 
 class EntryTypeRepositoryTest extends BaseTesting
 {

@@ -35,7 +35,7 @@ class TypeEntryTest extends TypeTestCase
         $object->setOrderDisplay($formData['orderDisplay']);
         $object->setColor($formData['color']);
         $object->setLetter($formData['letter']);
-        $object->setDisponible($formData['disponible']);
+        $object->setAvailable($formData['disponible']);
 
         $form->submit($formData);
 

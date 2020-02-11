@@ -69,7 +69,7 @@ class GrrAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('user.notfound');
+            throw new CustomUserMessageAuthenticationException('user.not_found');
         }
 
         return $user;
