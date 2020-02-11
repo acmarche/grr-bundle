@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MailerControllerTest extends WebTestCase
 {
-    public function testSomething()
+    public function te2stSomething()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/');

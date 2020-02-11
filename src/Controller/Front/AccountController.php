@@ -146,6 +146,6 @@ class AccountController extends AbstractController
             $this->eventDispatcher->dispatch(new UserEventDeleted($user));
         }
 
-        return $this->redirectToRoute('grr_home');
+        return $this->redirectToRoute('grr_homepage');
     }
 }

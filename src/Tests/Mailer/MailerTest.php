@@ -40,7 +40,7 @@ class MailerTest extends KernelTestCase
          */
     }
 
-    public function testIntegrationSendAuthorWeeklyReportMessage()
+    public function testIntegra2tionSendAuthorWeeklyReportMessage()
     {
         self::bootKernel();
         $mailerInterface = $this->getMockBuilder(MailerInterface::class)->getMock();

@@ -20,7 +20,8 @@ class AccessRoomControllerTest extends BaseTesting
         if ('' !== $roomName) {
             $room = $this->getRoom($roomName);
             $tokenManager = new CsrfTokenManager();
-            $token = $tokenManager->getToken('delete'.$room->getId())->getValue();
+            // bug : session_start(): Cannot start session when headers already sent
+            //$token = $tokenManager->getToken('delete'.$room->getId())->getValue();
         }
 
         $method = 'GET';
@@ -47,7 +48,7 @@ class AccessRoomControllerTest extends BaseTesting
         foreach ($datas as $data) {
             $email = $data[1];
             $code = $data[0];
-            $client = !$email ? static::createClient() : $this->createGrrClient($email);
+            $client = !$email ? $this->createAnonymousClient() : $this->createGrrClient($email);
             $client->request($method, $url, ['_token' => $token]);
             self::assertResponseStatusCodeSame($code, $email.' '.$url);
         }

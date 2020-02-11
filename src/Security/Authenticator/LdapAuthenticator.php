@@ -136,7 +136,7 @@ class LdapAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('grr_home'));
+        return new RedirectResponse($this->urlGenerator->generate('grr_homepage'));
     }
 
     protected function getLoginUrl(): string

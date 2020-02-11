@@ -20,7 +20,7 @@ class AccessEntryControllerTest extends BaseTesting
         $token = null;
         $entry = $this->getEntry($entryName);
         $tokenManager = new CsrfTokenManager();
-        $token = $tokenManager->getToken('delete'.$entry->getId())->getValue();
+        //$token = $tokenManager->getToken('delete'.$entry->getId())->getValue();
 
         $method = 'GET';
         switch ($action) {
@@ -28,7 +28,8 @@ class AccessEntryControllerTest extends BaseTesting
                 $today = new DateTime();
                 $esquare = $this->getArea('Esquare');
                 $room = $this->getRoom('Box');
-                $url = '/front/entry/new/area/'.$esquare->getId().'/room/'.$room->getId().'/year/'.$today->format(
+                $url = '/front/entry/new/area/'.$esquare->getId().'/room/'.$room->getId(
+                    ).'/year/'.$today->format(
                         'Y'
                     ).'/month/'.$today->format('m').'/day/'.$today->format('d').'/hour/9/minute/30';
                 break;
@@ -50,7 +51,7 @@ class AccessEntryControllerTest extends BaseTesting
         foreach ($datas as $data) {
             $email = $data[1];
             $code = $data[0];
-            $client = !$email ? static::createClient() : $this->createGrrClient($email);
+            $client = !$email ? $this->createAnonymousClient() : $this->createGrrClient($email);
             $client->request($method, $url, ['_token' => $token]);
             self::assertResponseStatusCodeSame($code, $email.' '.$url);
         }

@@ -23,7 +23,7 @@ class TypeEntryTest extends TypeTestCase
             'orderDisplay' => 1,
             'color' => '#FFFFFF',
             'letter' => 'A',
-            'disponible' => 2,
+            'available' => 2,
         ];
 
         $objectToCompare = new EntryType();
@@ -35,7 +35,7 @@ class TypeEntryTest extends TypeTestCase
         $object->setOrderDisplay($formData['orderDisplay']);
         $object->setColor($formData['color']);
         $object->setLetter($formData['letter']);
-        $object->setAvailable($formData['disponible']);
+        $object->setAvailable($formData['available']);
 
         $form->submit($formData);
 

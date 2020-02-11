@@ -215,6 +215,6 @@ class EntryController extends AbstractController
             $this->eventDispatcher->dispatch(new EntryEventDeleted($entry));
         }
 
-        return $this->redirectToRoute('grr_home');
+        return $this->redirectToRoute('grr_homepage');
     }
 }
