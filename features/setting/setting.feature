@@ -11,7 +11,7 @@ Feature: Gestion des paramètres
     Given I am logged in as an admin
     Given I am on "/admin/setting/"
     Then I should see "Paramètres de Grr"
-    When I follow "Editer"
+    When I follow "Modifier les paramètres"
     And I fill in "general_setting[company]" with "Afm"
     And I fill in "general_setting[nb_calendar]" with "1"
     And I press "Sauvegarder"

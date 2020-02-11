@@ -40,7 +40,7 @@ label:
     new: 'Ajouter'
     login: 'S''identifier'
   setting:
-    edit: 'edit setting'
+    edit: 'Modifier les paramètres'
   user:
     new: 'new user'
 back:
@@ -171,7 +171,7 @@ btn:
   add:
     email: 'Ajouter un email'
 settings:
-  title: 'Paramètres'
+  title: 'Paramètres de Grr'
 typeArea:
   delete:
     confirm: 'Êtes vous sur de supprimer le type d''entrée'
