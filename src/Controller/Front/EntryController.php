@@ -127,7 +127,7 @@ class EntryController extends AbstractController
 
             $this->eventDispatcher->dispatch(new EntryEventCreated($entry));
 
-           // return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+            return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
         }
 
         return $this->render(
