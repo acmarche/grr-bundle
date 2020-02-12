@@ -1,13 +1,15 @@
 {{ form_row(form.name) }}
+
+{% if form.reservedFor is defined %}
+    {{ form_row(form.reservedFor) }}
+{% endif %}
+
 {{ form_row(form.startTime) }}
 
 {% if form.endTime is defined %}
     {{ form_row(form.endTime) }}
 {% endif %}
 
-{% if is_granted('reservedFor') %}
-{{ form_row(form.reservedFor) }}
-{% endif %}
 
 {% include '@grr_front/entry/form/_field_duration.html.twig' %}
 

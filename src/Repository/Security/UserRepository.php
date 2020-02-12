@@ -53,4 +53,16 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
 
         return $qb->getQuery()->getResult();
     }
+
+    public function listReservedFor(): array
+    {
+        $qb = $this->createQueryBuilder('user')
+            ->orderBy('user.name', 'ASC');
+        $users = [];
+        foreach ($qb->getQuery()->getResult() as $user) {
+            $users[$user->getName()] = $user->getUsername();
+        }
+
+        return $users;
+    }
 }

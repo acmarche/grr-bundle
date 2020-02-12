@@ -3,13 +3,16 @@
 namespace Grr\GrrBundle\Form;
 
 use Grr\Core\Factory\DurationFactory;
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\EventSubscriber\Form\AddAreaFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddDurationFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddTypeEntryFieldSubscriber;
+use Grr\GrrBundle\Repository\Security\UserRepository;
 use Grr\GrrBundle\Security\AuthorizationHelper;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,8 +34,13 @@ class EntryType extends AbstractType
      * @var AuthorizationHelper
      */
     private $authorizationHelper;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     public function __construct(
+        UserRepository $userRepository,
         DurationFactory $durationFactory,
         Security $security,
         AuthorizationHelper $authorizationHelper
@@ -40,6 +48,7 @@ class EntryType extends AbstractType
         $this->durationFactory = $durationFactory;
         $this->security = $security;
         $this->authorizationHelper = $authorizationHelper;
+        $this->userRepository = $userRepository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -72,6 +81,17 @@ class EntryType extends AbstractType
             ->addEventSubscriber(new AddTypeEntryFieldSubscriber())
             ->addEventSubscriber(new AddDurationFieldSubscriber($this->durationFactory))
             ->addEventSubscriber(new AddRoomFieldSubscriber(true));
+
+        if ($this->security->isGranted(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
+            $builder->add(
+                'reservedFor',
+                ChoiceType::class,
+                [
+                    'choices' => $this->userRepository->listReservedFor(),
+                    'label' => 'label.entry.reservedFor',
+                ]
+            );
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -26,7 +26,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $this->loader = $loader;
 
         // @see https://github.com/doctrine/DoctrineBundle/issues/674
@@ -56,6 +56,9 @@ class GrrExtension extends Extension implements PrependExtensionInterface
                     case 'twig':
                         $this->loadConfig($container, 'twig');
                         break;
+                    case 'framework':
+                        $this->loadConfig($container, 'security');
+                        break;
                 }
             }
         }
@@ -65,7 +68,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     {
         $configs = $this->loadYamlFile($container);
 
-        $configs->load($name.'.yaml');
+        $configs->load($name . '.yaml');
         //  $container->prependExtensionConfig('doctrine', $configs);
     }
 
@@ -73,7 +76,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     {
         return new Loader\YamlFileLoader(
             $container,
-            new FileLocator(__DIR__.'/../../config/packages/')
+            new FileLocator(__DIR__ . '/../../config/packages/')
         );
     }
 }

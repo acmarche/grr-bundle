@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Form;
 
 use Grr\Core\Setting\SettingConstants;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -125,6 +126,15 @@ class GeneralSettingType extends AbstractType
                     'choices' => ['fr' => 'fr'],
                     'label' => 'label.setting.default_language',
                     'help' => 'label.setting.default_language',
+                ]
+            )
+            ->add(
+                SettingConstants::SEND_ALWAYS_MAIL_TO_CREATOR,
+                CheckboxType::class,
+                [
+                    'required' => false,
+                    'label' => 'label.setting.send_always_mail_to_creator',
+                    'help' => 'help.setting.send_always_mail_to_creator',
                 ]
             );
     }

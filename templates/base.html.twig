@@ -35,16 +35,9 @@
                 {% endblock %}
             </ul>
             <ul class="navbar-nav">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {% block menu_user %}
-                        {% include '@Grr/_menu_user.html.twig' %}
-                    {% endblock %}
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{{ path('app_login') }}" class="nav-link" title="{{ 'menu.user.login'|trans }}"><i
-                                    class="fas fa-sign-in-alt"></i></a>
-                    </li>
-                {% endif %}
+                {% block menu_user %}
+                    {% include '@Grr/_menu_user.html.twig' %}
+                {% endblock %}
             </ul>
             <form class="form-inline my-2 my-md-0">
              <!--   <input class="form-control" type="text" placeholder="{{ 'placeholder.search'|trans }}"> -->

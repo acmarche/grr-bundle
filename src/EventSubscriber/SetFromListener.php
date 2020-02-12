@@ -23,6 +23,6 @@ class SetFromListener implements EventSubscriberInterface
             return;
         }
 
-        $email->from(new Address('webmaster@marche.be', 'The Space Bar'));
+        $email->from(new Address('webmaster@marche.be', 'Grr'));
     }
 }

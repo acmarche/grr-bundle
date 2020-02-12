@@ -20,6 +20,18 @@ help:
     show_picture: 'Montrer l''image'
   user:
     is_enabled: 'Si pas actif peut pas se connecter'
+  setting:
+    title_homepage: 'Apparait title home page'
+    message_homepage: 'Appparait page login'
+    messageaccueil: 'Le message ci-dessous s''affiche juste en-dessous du bandeau supérieur.'
+    compagny: 'Apparait en haut à droite'
+    webmaster_name: 'Nom du webmaster'
+    webmaster_email: 'Vous pouvez indiquer plusieurs adresses séparées par des points-virgules'
+    nbcalendar: 'Nombre de calendriers mensuels à afficher sur chaque planning de réservation'
+    message_accueil: 'Le message ci-dessous s''affiche juste en-dessous du bandeau supérieur.'
+    begin_booking: 'Pas de réservation possible avant cette date. De plus les réservations déjà effectuées avant cette date seront effacées de la base.'
+    end_booking: 'Pas de réservation possible après cette date. De plus les réservations déjà effectuées après cette date seront effacées de la base.'
+    send_always_mail_to_creator: ' Lorsqu''un utilisateur réserve une ressource, modifie ou bien supprime une réservation pour lui-même (dont il est bénéficiaire), cochez la case ci-contre pour qu''un email de confirmation soit systématiquement envoyé.'
 label:
   btn:
     update: 'Mettre à jour'
@@ -71,6 +83,7 @@ label:
     full_day: 'Journée entière'
     description: 'Description'
     type_select: 'Type'
+    reservedFor: 'Réserver pour'
   periodicity:
     week_days: 'Jour(s)'
     week_repeat: 'Tépétition par semaine'
@@ -92,6 +105,19 @@ label:
     orderDisplay: 'Ordre d''affichage'
     letter: 'Lettre'
     color: 'Couleur'
+  setting:
+    title_homepage: 'Gros titre de la page de connexion'
+    message_homepage: 'Message d''avertissement de la page de connexion'
+    webmaster_email: 'Adresse email du gestionnaire du site'
+    technical_support_email: 'Adresse email du support technique'
+    send_always_mail_to_creator: 'Envoie de mails automatique'
+    nbcalendar: 'Affichage des calendriers'
+    default_language: 'Choix de la langue par défaut'
+    end_booking: 'Fin des réservations'
+    begin_booking: 'Début des réservations'
+    message_accueil: 'Message personnalisé'
+    webmaster_name: 'Nom et prénom du gestionnaire du site'
+    company: 'Nom de l''établissement'
   password: 'Mot de passe'
   passwordRepeat: 'Répéter le mot de passe'
 unit:

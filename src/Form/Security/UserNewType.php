@@ -17,7 +17,7 @@ class UserNewType extends AbstractType
                 'password',
                 PasswordType::class,
                 [
-                    'label' => 'label.user.password',
+                    'label' => 'label.password',
                 ]
             );
     }
