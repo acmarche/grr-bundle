@@ -44,9 +44,9 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/", name="grr_homepage")
+     * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
      */
-    public function home(Request $request)
+    public function home()
     {
         $locale = $this->localHelper->getDefaultLocal();
 
