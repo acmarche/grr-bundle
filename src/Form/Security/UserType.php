@@ -2,10 +2,12 @@
 
 namespace Grr\GrrBundle\Form\Security;
 
+use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,6 +15,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
+    /**
+     * @var LocalHelper
+     */
+    private $localHelper;
+
+    public function __construct(LocalHelper $localHelper)
+    {
+        $this->localHelper = $localHelper;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -44,6 +56,14 @@ class UserType extends AbstractType
                 EmailType::class,
                 [
                     'required' => true,
+                ]
+            )
+            ->add(
+                'languageDefault',
+                ChoiceType::class,
+                [
+                    'label' => 'label.user.languageDefault',
+                    'choices' => $this->localHelper->getSupportedLocales(),
                 ]
             )
             ->add(

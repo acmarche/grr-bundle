@@ -99,6 +99,7 @@ label:
     roles:
       select: 'Rôle(s)'
     is_enabled: 'Actif ?'
+    languageDefault: 'Langue par défaut'
   typeEntry:
     name: 'Nom'
     available: 'Disponible'

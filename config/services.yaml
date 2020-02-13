@@ -6,6 +6,7 @@
 parameters:
   #router.request_context.scheme: '%env(SITE_BASE_SCHEME)%'
   #router.request_context.host: '%env(SITE_BASE_HOST)%'
+  grr.supported_locales: ['fr', 'en', 'nl']
 
 services:
   # default configuration for services in *this* file

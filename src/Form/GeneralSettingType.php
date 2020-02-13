@@ -135,6 +135,9 @@ class GeneralSettingType extends AbstractType
                     'required' => false,
                     'label' => 'label.setting.send_always_mail_to_creator',
                     'help' => 'help.setting.send_always_mail_to_creator',
+                    'label_attr' => [
+                        'class' => 'switch-custom',
+                    ],
                 ]
             );
     }

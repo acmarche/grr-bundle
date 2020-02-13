@@ -10,6 +10,7 @@ use Grr\Core\Entry\Events\EntryEventCreated;
 use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventUpdated;
 use Grr\GrrBundle\Mailer\EmailFactory;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -123,7 +124,7 @@ class MailerSubscriber implements EventSubscriberInterface
      */
     protected function AutosendChangeBySelf(): void
     {
-        if (true === (bool) $this->settingRepository->getValueByName('send_always_mail_to_creator')) {
+        if (true === (bool)$this->settingRepository->getValueByName('send_always_mail_to_creator')) {
             $this->sendEmail();
         }
     }
@@ -152,7 +153,24 @@ class MailerSubscriber implements EventSubscriberInterface
         try {
             $this->mailer->send($message);
         } catch (TransportExceptionInterface $e) {
-            $this->flashBag->add('error', 'flash.mail.error '.$e->getMessage());
+            $this->flashBag->add('error', 'flash.mail.error ' . $e->getMessage());
         }
+    }
+
+    protected function niceEmail()
+    {
+        $email = (new NotificationEmail())
+            ->from('fabien@example.com')
+            ->to('jf@marche.be')
+            ->subject('My first notification email via Symfony')
+            ->markdown(
+                <<<EOF
+        There is a **problem** on your website, you should investigate it
+        right now. Or just wait, the problem might solves itself automatically,
+        we never know.
+        EOF
+            )
+            ->action('More info?', 'https://example.com/')
+            ->importance(NotificationEmail::IMPORTANCE_HIGH);
     }
 }

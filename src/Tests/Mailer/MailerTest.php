@@ -11,6 +11,7 @@ use Twig\Environment;
 
 class MailerTest extends KernelTestCase
 {
+    //https://symfony.com/blog/new-in-symfony-4-4-phpunit-assertions-for-email-messages
     public function testSomething()
     {
         $mailerInterface = $this->createMock(MailerInterface::class);
