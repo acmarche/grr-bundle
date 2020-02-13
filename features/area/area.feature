@@ -5,7 +5,7 @@ Feature: Manage area
 
   Scenario: New area
     Given I am logged in as an admin
-    And I am on "/admin/area/"
+    And I am on "/fr/admin/area/"
     Then I should see "Liste des domaines"
     When I follow "Nouveau domaine"
     And I fill in "area[name]" with "Area demo"
@@ -15,7 +15,7 @@ Feature: Manage area
 
   Scenario: Edit area
     Given I am logged in as an admin
-    Given I am on "/admin/area/"
+    Given I am on "/fr/admin/area/"
     Then I should see "Liste des domaines"
     When I follow "Hdv"
     When I follow "Modifier"
@@ -25,7 +25,7 @@ Feature: Manage area
 
   Scenario: Attribution de types d'entrée
     Given I am logged in as an admin
-    Given I am on "/admin/area/"
+    Given I am on "/fr/admin/area/"
     Then I should see "Liste des domaines"
     When I follow "Hdv"
     When I follow "Types de réservation"

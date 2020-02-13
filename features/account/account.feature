@@ -7,7 +7,7 @@ Feature: Account
 
   Scenario: Modify account
     Given I am logged in as user "bob@domain.be"
-    And I am on "/account/show/"
+    And I am on "/fr/account/show/"
     Then I should see "Mon profil Adams bob"
     When I follow "Modifier"
     And I fill in "user[name]" with "Batman"
@@ -19,7 +19,7 @@ Feature: Account
 
   Scenario: Modify my password
     Given I am logged in as user "bob@domain.be"
-    And I am on "/account/show/"
+    And I am on "/fr/account/show/"
     Then I should see "Mon profil Adams bob"
     When I follow "Mot de passe"
     Then I should see "Modification du mot de passe du compte ADAMS bob"
@@ -30,10 +30,10 @@ Feature: Account
 
     #Test de connection avec le nouveau mot de passe
 
-    When I am on "/logout"
-    Then I am on "/login"
+    When I am on "/fr/logout"
+    Then I am on "/fr/login"
     And I fill in "username" with "bob@domain.be"
     And I fill in "password" with "marge"
     And I press "S'identifier"
-    And I am on "/account/show/"
+    And I am on "/fr/account/show/"
     Then I should see "Mon profil Adams bob"

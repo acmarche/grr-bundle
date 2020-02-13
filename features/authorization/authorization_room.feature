@@ -3,7 +3,7 @@ Feature: Gestion des droits depuis une room
 
   Scenario: New room manager
     Given I am logged in as an admin
-    Given I am on "/admin/area/"
+    Given I am on "/fr/admin/area/"
     Then I should see "Liste des domaines"
     Then I follow "Esquare"
     Then I follow "Autorisations"

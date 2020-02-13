@@ -5,7 +5,7 @@ Feature: Manage user
 
   Scenario: New admin user
     Given I am logged in as an admin
-    And I am on "/admin/user/"
+    And I am on "/fr/admin/user/"
     Then I should see "Liste des utilisateurs"
     When I follow "Ajouter un utilisateur"
     And I fill in "user_new[name]" with "Doe"
@@ -20,7 +20,7 @@ Feature: Manage user
 
   Scenario: Edit fred user
     Given I am logged in as an admin
-    Given I am on "/admin/user/"
+    Given I am on "/fr/admin/user/"
     Then I follow "fred@domain.be"
     Then I follow "Modifier"
     And I fill in "user_advance[name]" with "Simpson"
@@ -29,7 +29,7 @@ Feature: Manage user
 
   Scenario: Test login nouvelle utilisateur
     Given I am logged in as an admin
-    And I am on "/admin/user/"
+    And I am on "/fr/admin/user/"
     Then I should see "Liste des utilisateurs"
     When I follow "Ajouter un utilisateur"
     And I fill in "user_new[name]" with "Fargue"
@@ -40,8 +40,8 @@ Feature: Manage user
     And I press "Sauvegarder"
     Then I should see "L'utilisateur a bien été ajouté"
     Then I should see "joseph@domain.com"
-    When I am on "/logout/"
-    Then I am on "/login"
+    When I am on "/fr/logout/"
+    Then I am on "/fr/login"
     And I fill in "username" with "joseph@domain.com"
     And I fill in "password" with "12345"
     And I press "S'identifier"

@@ -4,7 +4,7 @@ Feature: Gestion des droits depuis un utilisateur
 
   Scenario: New administrateur area
     Given I am logged in as an admin
-    Given I am on "/admin/user/"
+    Given I am on "/fr/admin/user/"
     Then I follow "jules@domain.be"
     And I follow "Autorisations"
     And I follow "Ajouter"
@@ -17,7 +17,7 @@ Feature: Gestion des droits depuis un utilisateur
 
   Scenario: New room manger
     Given I am logged in as an admin
-    Given I am on "/admin/user/"
+    Given I am on "/fr/admin/user/"
     Then I follow "jules@domain.be"
     Then I follow "Autorisations"
     Then I follow "Ajouter"
