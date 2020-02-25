@@ -89,6 +89,7 @@ class EntryType extends AbstractType
                 [
                     'choices' => $this->userRepository->listReservedFor(),
                     'label' => 'label.entry.reservedFor',
+                    'required' => false
                 ]
             );
         }
