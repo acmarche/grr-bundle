@@ -62,6 +62,7 @@ class UserType extends AbstractType
                 'languageDefault',
                 ChoiceType::class,
                 [
+                    'required' => false,
                     'label' => 'label.user.languageDefault',
                     'choices' => $this->localHelper->getSupportedLocales(),
                 ]
