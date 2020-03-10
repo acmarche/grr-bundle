@@ -86,7 +86,7 @@ label:
     reservedFor: 'Réserver pour'
   periodicity:
     week_days: 'Jour(s)'
-    week_repeat: 'Tépétition par semaine'
+    week_repeat: 'Répétition par semaine'
     end_time: 'Fin de la périodicité'
     type: 'Type de périodicité'
   user:
