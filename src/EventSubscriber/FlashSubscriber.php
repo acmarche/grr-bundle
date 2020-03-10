@@ -98,7 +98,7 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag->add('success', 'flash.entry.updated');
     }
 
-    public function onEntryDeleted(EntryTypeEventDeleted $event): void
+    public function onEntryDeleted(EntryEventDeleted $event): void
     {
         $this->flashBag->add('success', 'flash.entry.deleted');
     }
