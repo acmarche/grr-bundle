@@ -186,6 +186,7 @@ class PeriodicityDaysProvider
      *
      * @todo replace for every week
      * https://stackoverflow.com/questions/57479939/php-carbon-every-monday-and-tuesday-every-2-weeks/57506714#57506714
+     * https://github.com/briannesbitt/Carbon/pull/1986
      */
     protected function brouillon(): void
     {

@@ -16,3 +16,5 @@ doctrine:
       Grr\Core\Contrat\Entity\PeriodicityInterface: Grr\GrrBundle\Entity\Periodicity
       Grr\Core\Contrat\Entity\Security\UserInterface: Grr\GrrBundle\Entity\Security\User
       Grr\Core\Contrat\Entity\Security\AuthorizationInterface: Grr\GrrBundle\Entity\Security\Authorization
+
+      #https://github.com/briannesbitt/Carbon/pull/2042
