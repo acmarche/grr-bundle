@@ -10,12 +10,21 @@
 
 namespace Grr\GrrBundle;
 
+use Grr\GrrBundle\DependencyInjection\Compiler\ModulesPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class GrrBundle extends Bundle
 {
     public function getPath(): string
     {
         return \dirname(__DIR__);
+    }
+
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new ModulesPass());
     }
 }

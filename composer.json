@@ -5,10 +5,9 @@
   "keywords": [],
   "homepage": "https://grr.com",
   "license": "MIT",
-  "minimum-stability": "dev",
   "authors": [
     {
-      "name": "Jfsenechal",
+      "name": "Jf Sénéchal",
       "email": "jfsenechal@gmail.com"
     }
   ],
@@ -16,14 +15,14 @@
     "php": "^7.3",
     "jfsenechal/grr-core": "@dev"
   },
-  "require-dev": {
-  },
   "autoload": {
     "psr-4": {
-      "Grr\\GrrBundle\\": "src"
-    },
-    "exclude-from-classmap": [
-      "/Tests/"
-    ]
+      "Grr\\GrrBundle\\": "src/Grr/GrrBundle/src"
+    }
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": "true"
+    }
   }
 }

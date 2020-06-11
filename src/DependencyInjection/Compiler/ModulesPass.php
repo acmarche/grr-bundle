@@ -6,7 +6,7 @@ use Grr\Core\Contrat\Modules\GrrModuleSenderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-
+//https://symfony.com/doc/current/service_container/tags.html
 class ModulesPass implements CompilerPassInterface
 {
     /**
