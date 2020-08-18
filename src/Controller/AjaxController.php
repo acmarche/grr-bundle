@@ -69,6 +69,6 @@ class AjaxController extends AbstractController
             $rooms = $this->authorizationHelper->getRoomsUserCanAdd($user, $area);
         }
 
-        return $this->render('ajax/_rooms_options.html.twig', ['rooms' => $rooms, 'required' => $required]);
+        return $this->render('@Grr/ajax/_rooms_options.html.twig', ['rooms' => $rooms, 'required' => $required]);
     }
 }
