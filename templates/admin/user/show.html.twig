@@ -35,6 +35,12 @@
                     <td>{{ user.isEnabled }}</td>
                 </tr>
                 <tr>
+                    <th>{{ 'label.user.roles.select'| trans }}</th>
+                    <td>
+                        {{ user.niceRoles|join(', ') }}
+                    </td>
+                </tr>
+                <tr>
                     <th>{{ 'user.area_default'| trans }}</th>
                     <td>{{ user.area }}</td>
                 </tr>

@@ -10,9 +10,11 @@ use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\Search\SearchUserType;
 use Grr\GrrBundle\Form\Security\UserAdvanceType;
 use Grr\GrrBundle\Form\Security\UserNewType;
+use Grr\GrrBundle\Form\Security\UserType;
 use Grr\GrrBundle\Manager\UserManager;
 use Grr\GrrBundle\Repository\Security\UserRepository;
 use Grr\GrrBundle\Security\UserFactory;
+use Grr\GrrBundle\User\Form\UserRoleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -102,7 +104,7 @@ class UserController extends AbstractController
 
             $this->eventDispatcher->dispatch(new UserEventCreated($user));
 
-            return $this->redirectToRoute('grr_admin_user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('grr_admin_user_roles', ['id' => $user->getId()]);
         }
 
         return $this->render(
@@ -148,6 +150,38 @@ class UserController extends AbstractController
 
         return $this->render(
             '@grr_admin/user/edit.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+
+    /**
+     * Displays a form to edit an existing User utilisateur.
+     *
+     * @Route("/{id}/roles", name="grr_admin_user_roles", methods={"GET","POST"})
+     */
+    public function roles(Request $request, User $user)
+    {
+        $form = $this->createForm(UserRoleType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userManager->flush();
+
+            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
+
+            return $this->redirectToRoute(
+                'grr_admin_user_show',
+                ['id' => $user->getId()]
+            );
+        }
+
+        return $this->render(
+            '@grr_admin/user/roles.html.twig',
             [
                 'user' => $user,
                 'form' => $form->createView(),

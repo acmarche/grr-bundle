@@ -88,6 +88,8 @@ user:
     title: 'Modification du mot de passe du compte'
   password:
     title: 'Mot de passe'
+  roles:
+    title: 'Rôle(s) de '
   index:
     title: 'Liste des utilisateurs'
   name: 'Nom'

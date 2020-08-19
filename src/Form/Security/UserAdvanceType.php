@@ -2,8 +2,10 @@
 
 namespace Grr\GrrBundle\Form\Security;
 
-use Grr\Core\Security\SecurityRole;
+use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Entity\Security\User;
+use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
+use Grr\GrrBundle\Form\Type\AreaSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -12,21 +14,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserAdvanceType extends AbstractType
 {
+    /**
+     * @var LocalHelper
+     */
+    private $localHelper;
+
+    public function __construct(LocalHelper $localHelper)
+    {
+        $this->localHelper = $localHelper;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'roles',
-                ChoiceType::class,
-                [
-                    'label' => 'label.user.roles.select',
-                    'choices' => SecurityRole::getRoles(),
-                    'required' => true,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'attr' => ['class' => 'custom-control custom-checkbox my-1 mr-sm-2'],
-                ]
-            )
             ->add(
                 'isEnabled',
                 CheckboxType::class,
@@ -35,6 +35,31 @@ class UserAdvanceType extends AbstractType
                     'label' => 'label.user.is_enabled',
                     'help' => 'help.user.is_enabled',
                 ]
+            )
+            ->add(
+                'languageDefault',
+                ChoiceType::class,
+                [
+                    'required' => false,
+                    'label' => 'label.user.languageDefault',
+                    'choices' => $this->localHelper->getSupportedLocales(),
+                ]
+            )
+            ->add(
+                'area',
+                AreaSelectType::class,
+                [
+                    'label' => 'label.user.area_select',
+                    'required' => false,
+                    'placeholder' => 'placeholder.area.select',
+                ]
+            )
+            ->addEventSubscriber(
+                new AddRoomFieldSubscriber(
+                    false,
+                    'label.user.room_select',
+                    'placeholder.room.select_empty'
+                )
             );
     }
 

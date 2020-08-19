@@ -13,10 +13,12 @@ Feature: Manage user
     And I fill in "user_new[email]" with "raoul@domain.com"
     And I fill in "user_new[username]" with "raoul"
     And I fill in "user_new[password]" with "12345"
-    And I check "ROLE_GRR_ADMINISTRATOR"
     And I press "Sauvegarder"
     Then I should see "L'utilisateur a bien été ajouté"
     Then I should see "raoul@domain.com"
+    And I check "ROLE_GRR_ADMINISTRATOR"
+    And I press "Sauvegarder"
+    Then I should see "Administrateur"
 
   Scenario: Edit fred user
     Given I am logged in as an admin

@@ -589,7 +589,7 @@ class SecurityHelperTest extends BaseTesting
         ];
 
         $user = new User();
-        $user->setRoles(SecurityRole::getRoles());
+        $user->setRoles(SecurityRole::ROLES);
         $user->removeRole(SecurityRole::ROLE_GRR_ADMINISTRATOR);
 
         yield 'not administrator' => [

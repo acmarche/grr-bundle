@@ -1,6 +1,9 @@
 <a href="{{ path('grr_admin_user_edit', { 'id': user.id }) }}" role="button"
    class="btn btn-primary"><i class="fas fa-user-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
 
+<a href="{{ path('grr_admin_user_roles', { 'id': user.id }) }}" role="button"
+   class="btn btn-primary"><i class="fas fa-user-shield"></i> Rôles</a>
+
 <a href="{{ path('grr_authorization_show_by_user', { 'id': user.id }) }}" role="button"
    class="btn btn-primary"><i class="fas fa-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
 

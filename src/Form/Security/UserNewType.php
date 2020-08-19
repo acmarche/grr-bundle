@@ -31,8 +31,8 @@ class UserNewType extends AbstractType
         );
     }
 
-    public function getParent(): string
+    public function getParent()
     {
-        return UserAdvanceType::class;
+        return UserType::class;
     }
 }

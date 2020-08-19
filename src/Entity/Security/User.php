@@ -12,6 +12,7 @@ namespace Grr\GrrBundle\Entity\Security;
 
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
+use Grr\Core\Security\SecurityRole;
 use Grr\Core\User\Entity\UserTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -29,4 +30,9 @@ use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
 class User implements UserInterface, UserInterfaceSf, TimestampableInterface
 {
     use UserTrait;
+
+    public function getNiceRoles(): array
+    {
+        return SecurityRole::niceName($this->getRoles());
+    }
 }

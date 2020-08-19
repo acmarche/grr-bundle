@@ -92,7 +92,7 @@ label:
   user:
     name: 'Nom'
     first_name: 'Prénom'
-    username: 'Nom d''utilistaeur'
+    username: 'Nom d''utilisateur'
     area_select: 'Domaine par défaut'
     room_select: 'Ressource par défaut'
     select: 'Sélectionnez un ou plusieurs utilisateurs'
