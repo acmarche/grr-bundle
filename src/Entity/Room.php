@@ -10,7 +10,7 @@ use Grr\Core\Room\Entity\RoomTrait;
  * Room.
  *
  * @ORM\Table(name="room")
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\RoomRepository")
+ * @ORM\Entity(repositoryClass="Grr\GrrBundle\Room\Repository\RoomRepository")
  */
 class Room implements RoomInterface
 {

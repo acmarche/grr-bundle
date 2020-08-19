@@ -13,9 +13,10 @@ namespace Grr\GrrBundle\Periodicity;
 use Grr\Core\Periodicity\GeneratorEntry;
 use Grr\Core\Periodicity\PeriodicityDaysProvider;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Manager\EntryManager;
-use Grr\GrrBundle\Manager\PeriodicityManager;
-use Grr\GrrBundle\Repository\EntryRepository;
+use Grr\GrrBundle\Entry\Factory\EntryFactory;
+use Grr\GrrBundle\Entry\Manager\EntryManager;
+use Grr\GrrBundle\Entry\Repository\EntryRepository;
+use Grr\GrrBundle\Periodicity\Manager\PeriodicityManager;
 
 class HandlerPeriodicity
 {
@@ -32,7 +33,7 @@ class HandlerPeriodicity
      */
     private $entryManager;
     /**
-     * @var GeneratorEntry
+     * @var EntryFactory
      */
     private $generatorEntry;
     /**

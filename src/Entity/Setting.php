@@ -11,7 +11,7 @@ use Grr\Core\Setting\Entity\SettingTrait;
  * Setting.
  *
  * @ORM\Table(name="setting")
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\SettingRepository")
+ * @ORM\Entity(repositoryClass="Grr\GrrBundle\Setting\Repository\SettingRepository")
  * @ApiResource
  */
 class Setting implements SettingInterface

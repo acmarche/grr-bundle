@@ -6,10 +6,12 @@ use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Security\PasswordHelper;
 use Grr\Core\User\Events\UserEventDeleted;
 use Grr\Core\User\Events\UserEventUpdated;
-use Grr\GrrBundle\Form\Security\UserPasswordType;
-use Grr\GrrBundle\Form\Security\UserType;
-use Grr\GrrBundle\Manager\UserManager;
-use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
+use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
+use Grr\GrrBundle\User\Form\UserAdvanceType;
+use Grr\GrrBundle\User\Form\UserFrontType;
+use Grr\GrrBundle\User\Form\UserPasswordType;
+use Grr\GrrBundle\User\Form\UserType;
+use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -82,7 +84,7 @@ class AccountController extends AbstractController
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserFrontType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

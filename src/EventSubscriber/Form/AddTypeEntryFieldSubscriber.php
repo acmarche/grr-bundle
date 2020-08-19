@@ -9,7 +9,7 @@
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Form\Type\EntryTypeSelectField;
+use Grr\GrrBundle\Entry\Form\Type\EntryTypeSelectField;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

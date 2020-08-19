@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Navigation;
 
-use Grr\GrrBundle\Form\AreaMenuSelectType;
+use Grr\GrrBundle\Area\Form\AreaMenuSelectType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 

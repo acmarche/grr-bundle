@@ -8,9 +8,9 @@
 
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
+use Grr\GrrBundle\Area\Form\Type\AreaSelectType;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Form\Type\AreaSelectType;
-use Grr\GrrBundle\Security\AuthorizationHelper;
 use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;

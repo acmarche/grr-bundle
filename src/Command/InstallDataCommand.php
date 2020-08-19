@@ -6,17 +6,17 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\SettingConstants;
-use Grr\GrrBundle\Area\AreaFactory;
+use Grr\GrrBundle\Area\Factory\AreaFactory;
+use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Repository\AreaRepository;
-use Grr\GrrBundle\Repository\EntryTypeRepository;
-use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\GrrBundle\Repository\Security\UserRepository;
-use Grr\GrrBundle\Repository\SettingRepository;
-use Grr\GrrBundle\Room\RoomFactory;
-use Grr\GrrBundle\Security\UserFactory;
-use Grr\GrrBundle\Setting\SettingFactory;
+use Grr\GrrBundle\Room\Factory\RoomFactory;
+use Grr\GrrBundle\Room\Repository\RoomRepository;
+use Grr\GrrBundle\Setting\Factory\SettingFactory;
+use Grr\GrrBundle\Setting\Repository\SettingRepository;
+use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
+use Grr\GrrBundle\User\Factory\UserFactory;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,9 +31,9 @@ class InstallDataCommand extends Command
      */
     protected static $defaultName = 'grr:install-data';
     /**
-     * @var EntryTypeRepository
+     * @var TypeEntryRepository
      */
-    private $entryTypeRepository;
+    private $typeEntryRepository;
     /**
      * @var TypeEntryFactory
      */
@@ -85,7 +85,7 @@ class InstallDataCommand extends Command
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        EntryTypeRepository $entryTypeRepository,
+        TypeEntryRepository $typeEntryRepository,
         RoomRepository $roomRepository,
         UserRepository $userRepository,
         SettingRepository $settingRepository,
@@ -98,7 +98,7 @@ class InstallDataCommand extends Command
         UserPasswordEncoderInterface $userPasswordEncoder
     ) {
         parent::__construct();
-        $this->entryTypeRepository = $entryTypeRepository;
+        $this->typeEntryRepository = $typeEntryRepository;
         $this->typeEntryFactory = $typeEntryFactory;
         $this->areaRepository = $areaRepository;
         $this->areaFactory = $areaFactory;
@@ -157,7 +157,7 @@ class InstallDataCommand extends Command
         $colors = ['#FFCCFF', '#99CCCC', '#FF9999', '#FFFF99', '#C0E0FF', '#FFCC99', '#FF6666', '#66FFFF', '#DDFFDD'];
 
         foreach ($types as $index => $nom) {
-            if (null !== $this->entryTypeRepository->findOneBy(['name' => $nom])) {
+            if (null !== $this->typeEntryRepository->findOneBy(['name' => $nom])) {
                 continue;
             }
             $type = $this->typeEntryFactory->createNew();

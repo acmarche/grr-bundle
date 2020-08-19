@@ -23,7 +23,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     @ORM\UniqueConstraint(columns={"user_id", "area_id"}),
  *     @ORM\UniqueConstraint(columns={"user_id", "room_id"})
  * })
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\Security\AuthorizationRepository")
+ * @ORM\Entity(repositoryClass="Grr\GrrBundle\Authorization\Repository\AuthorizationRepository")
  * @UniqueEntity(fields={"user", "area"}, message="Ce user est déjà lié au domaine")
  * @UniqueEntity(fields={"user", "room"}, message="Ce user est déjà lié à la room")
  */

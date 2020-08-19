@@ -3,13 +3,13 @@
 namespace Grr\GrrBundle\Tests\Periodicity;
 
 use DateTime;
-use Grr\GrrBundle\Area\AreaFactory;
+use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
-use Grr\GrrBundle\Entry\EntryFactory;
-use Grr\GrrBundle\Periodicity\PeriodicityFactory;
-use Grr\GrrBundle\Room\RoomFactory;
 use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Entry\Factory\EntryFactory;
+use Grr\GrrBundle\Periodicity\Factory\PeriodicityFactory;
+use Grr\GrrBundleRoom\Factory\RoomFactory;
 
 class PeriodicityFactoryTest extends BaseTesting
 {

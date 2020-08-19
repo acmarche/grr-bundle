@@ -13,7 +13,7 @@ namespace Grr\GrrBundle\Tests\Security;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Security\SecurityHelper;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\Core\Tests\BaseTesting;
 
 class SecurityHelperTest extends BaseTesting
@@ -31,19 +31,19 @@ class SecurityHelperTest extends BaseTesting
         $this->loadFixtures();
 
         $area = $this->getArea('Esquare');
-        $securityHelper = $this->initSecurityHelper();
+        $authorizationHelper = $this->initSecurityHelper();
         $user = $this->getUser($email);
 
-        self::assertSame($access1, $securityHelper->isAreaAdministrator($user, $area));
+        self::assertSame($access1, $authorizationHelper->isAreaAdministrator($user, $area));
 
         $room = $this->getRoom('Box');
-        self::assertSame($access2, $securityHelper->isRoomAdministrator($user, $room));
+        self::assertSame($access2, $authorizationHelper->isRoomAdministrator($user, $room));
 
         $room = $this->getRoom('Salle cafétaria');
-        self::assertSame($access3, $securityHelper->isRoomAdministrator($user, $room));
+        self::assertSame($access3, $authorizationHelper->isRoomAdministrator($user, $room));
 
         $area = $this->getArea('Hdv');
-        self::assertSame($access4, $securityHelper->isAreaAdministrator($user, $area));
+        self::assertSame($access4, $authorizationHelper->isAreaAdministrator($user, $area));
     }
 
     public function provideAdministrator(): iterable
@@ -112,20 +112,20 @@ class SecurityHelperTest extends BaseTesting
     {
         $this->loadFixtures();
 
-        $securityHelper = $this->initSecurityHelper();
+        $authorizationHelper = $this->initSecurityHelper();
         $user = $this->getUser($email);
 
         $area = $this->getArea('Esquare');
-        self::assertSame($access1, $securityHelper->isAreaManager($user, $area));
+        self::assertSame($access1, $authorizationHelper->isAreaManager($user, $area));
 
         $room = $this->getRoom('Box');
-        self::assertSame($access2, $securityHelper->isRoomManager($user, $room));
+        self::assertSame($access2, $authorizationHelper->isRoomManager($user, $room));
 
         $room = $this->getRoom('Salle cafétaria');
-        self::assertSame($access3, $securityHelper->isRoomManager($user, $room));
+        self::assertSame($access3, $authorizationHelper->isRoomManager($user, $room));
 
         $area = $this->getArea('Hdv');
-        self::assertSame($access4, $securityHelper->isAreaManager($user, $area));
+        self::assertSame($access4, $authorizationHelper->isAreaManager($user, $area));
     }
 
     public function provideManager(): iterable
@@ -194,14 +194,14 @@ class SecurityHelperTest extends BaseTesting
     {
         $this->loadFixtures();
 
-        $securityHelper = $this->initSecurityHelper();
+        $authorizationHelper = $this->initSecurityHelper();
         $user = $this->getUser($email);
 
         $room = $this->getRoom('Box');
-        self::assertSame($access1, $securityHelper->canAddEntry($room, $user));
+        self::assertSame($access1, $authorizationHelper->canAddEntry($room, $user));
 
         $room = $this->getRoom('Salle cafétaria');
-        self::assertSame($access2, $securityHelper->canAddEntry($room, $user));
+        self::assertSame($access2, $authorizationHelper->canAddEntry($room, $user));
     }
 
     public function provideAddEntry(): iterable
@@ -259,13 +259,13 @@ class SecurityHelperTest extends BaseTesting
     public function testAddEntryWithRule(string $name, array $users): void
     {
         $this->loadFixtures(true);
-        $securityHelper = $this->initSecurityHelper();
+        $authorizationHelper = $this->initSecurityHelper();
         $room = $this->getRoom($name);
 
         foreach ($users as $data) {
             $user = $this->getUser($data[0]);
             $access = $data[1];
-            self::assertSame($access, $securityHelper->canAddEntry($room, $user), $user->getEmail().' for '.$name);
+            self::assertSame($access, $authorizationHelper->canAddEntry($room, $user), $user->getEmail().' for '.$name);
         }
     }
 
@@ -570,9 +570,9 @@ class SecurityHelperTest extends BaseTesting
     public function testIsGrrAdministrator(User $user, bool $administrator): void
     {
         $this->loadFixtures();
-        $securityHelper = $this->initSecurityHelper();
+        $authorizationHelper = $this->initSecurityHelper();
 
-        self::assertSame($administrator, $securityHelper->isGrrAdministrator($user));
+        self::assertSame($administrator, $authorizationHelper->isGrrAdministrator($user));
     }
 
     /**
@@ -603,9 +603,9 @@ class SecurityHelperTest extends BaseTesting
         ];
     }
 
-    protected function initSecurityHelper(): SecurityHelper
+    protected function initSecurityHelper(): AuthorizationHelper
     {
-        return new SecurityHelper($this->entityManager->getRepository(Authorization::class));
+        return new AuthorizationHelper($this->entityManager->getRepository(Authorization::class));
     }
 
     protected function loadFixtures($rule = false): void

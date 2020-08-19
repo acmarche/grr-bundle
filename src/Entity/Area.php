@@ -11,7 +11,7 @@ use Grr\Core\Contrat\Entity\AreaInterface;
  * Area.
  *
  * @ORM\Table(name="area")
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\AreaRepository")
+ * @ORM\Entity(repositoryClass="Grr\GrrBundle\Area\Repository\AreaRepository")
  * @ApiResource
  */
 class Area implements AreaInterface

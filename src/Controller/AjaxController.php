@@ -8,9 +8,9 @@
 
 namespace Grr\GrrBundle\Controller;
 
-use Grr\GrrBundle\Repository\AreaRepository;
-use Grr\GrrBundle\Repository\RoomRepository;
-use Grr\GrrBundle\Security\AuthorizationHelper;
+use Grr\GrrBundle\Area\Repository\AreaRepository;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
+use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

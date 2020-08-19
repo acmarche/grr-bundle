@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
  *     @ORM\UniqueConstraint(columns={"email"}),
  *     @ORM\UniqueConstraint(columns={"username"})
  * })
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Repository\Security\UserRepository")
+ * @ORM\Entity(repositoryClass="Grr\GrrBundle\User\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="Un utilisateur a déjà cette adresse email")
  * @UniqueEntity(fields={"username"}, message="Un utilisateur a déjà ce nom d'utilisateur")
  */

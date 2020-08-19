@@ -12,7 +12,7 @@ namespace Grr\GrrBundle\Tests\Security\Voter;
 
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Security\SecurityHelper;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
 use Grr\Core\Tests\BaseTesting;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
@@ -194,9 +194,9 @@ class RoomVoterTest extends BaseTesting
         ];
     }
 
-    protected function initSecurityHelper(): SecurityHelper
+    protected function initSecurityHelper(): AuthorizationHelper
     {
-        return new SecurityHelper($this->entityManager->getRepository(Authorization::class));
+        return new AuthorizationHelper($this->entityManager->getRepository(Authorization::class));
     }
 
     private function initVoter(): RoomVoter

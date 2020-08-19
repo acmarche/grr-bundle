@@ -9,7 +9,7 @@
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Repository\Security\UserRepository;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;

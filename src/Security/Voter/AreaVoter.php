@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Security\Voter;
 
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Security\SecurityHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -38,9 +38,9 @@ class AreaVoter extends Voter
      */
     private $user;
     /**
-     * @var SecurityHelper
+     * @var AuthorizationHelper
      */
-    private $securityHelper;
+    private $authorizationHelper;
     /**
      * @var Area
      */
@@ -50,10 +50,10 @@ class AreaVoter extends Voter
      */
     private $token;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, SecurityHelper $securityHelper)
+    public function __construct(AccessDecisionManagerInterface $decisionManager, AuthorizationHelper $authorizationHelper)
     {
         $this->decisionManager = $decisionManager;
-        $this->securityHelper = $securityHelper;
+        $this->authorizationHelper = $authorizationHelper;
     }
 
     /**
@@ -130,7 +130,7 @@ class AreaVoter extends Voter
 
     private function canNewRoom(): bool
     {
-        return $this->securityHelper->isAreaAdministrator($this->user, $this->area);
+        return $this->authorizationHelper->isAreaAdministrator($this->user, $this->area);
     }
 
     /**
@@ -142,12 +142,12 @@ class AreaVoter extends Voter
             return true;
         }
 
-        return $this->securityHelper->isAreaManager($this->user, $this->area);
+        return $this->authorizationHelper->isAreaManager($this->user, $this->area);
     }
 
     private function canEdit(): bool
     {
-        return $this->securityHelper->isAreaAdministrator($this->user, $this->area);
+        return $this->authorizationHelper->isAreaAdministrator($this->user, $this->area);
     }
 
     private function canDelete(): bool

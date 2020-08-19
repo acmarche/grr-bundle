@@ -11,7 +11,7 @@
 namespace Grr\GrrBundle\Tests\Form;
 
 use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\Form\TypeEntryType;
+use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class TypeEntryTest extends TypeTestCase

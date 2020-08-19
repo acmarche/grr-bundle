@@ -5,9 +5,9 @@ namespace Grr\GrrBundle\Entry;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Manager\EntryManager;
+use Grr\GrrBundle\Entry\Manager\EntryManager;
+use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
-use Grr\GrrBundle\Repository\EntryRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Security;
 

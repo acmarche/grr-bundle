@@ -4,14 +4,14 @@ namespace Grr\GrrBundle\Tests\Entry;
 
 use Carbon\Carbon;
 use DateTimeInterface;
-use Grr\GrrBundle\Area\AreaFactory;
+use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entry\EntryFactory;
-use Grr\GrrBundle\Periodicity\PeriodicityFactory;
-use Grr\GrrBundle\Room\RoomFactory;
 use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Entry\Factory\EntryFactory;
+use Grr\GrrBundle\Periodicity\Factory\PeriodicityFactory;
+use Grr\GrrBundleRoom\Factory\RoomFactory;
 
 class EntryFactoryTest extends BaseTesting
 {

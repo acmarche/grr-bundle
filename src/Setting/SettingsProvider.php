@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Setting;
 
+use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Repository\AreaRepository;
-use Grr\GrrBundle\Repository\RoomRepository;
+use Grr\GrrBundle\Room\Repository\RoomRepository;
 
 class SettingsProvider
 {

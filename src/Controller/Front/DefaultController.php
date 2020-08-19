@@ -9,7 +9,7 @@ use Grr\Core\Helper\MonthHelperDataDisplay;
 use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Service\BindDataManager;
+use Grr\GrrBundle\Entry\Binder\BindDataManager;
 use Grr\GrrBundle\Setting\SettingsProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;

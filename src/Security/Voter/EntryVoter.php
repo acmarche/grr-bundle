@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Security\Voter;
 
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Security\SecurityHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -26,9 +26,9 @@ class EntryVoter extends Voter
      */
     private $user;
     /**
-     * @var SecurityHelper
+     * @var AuthorizationHelper
      */
-    private $securityHelper;
+    private $authorizationHelper;
     /**
      * @var Entry
      */
@@ -46,10 +46,10 @@ class EntryVoter extends Voter
      */
     private $area;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, SecurityHelper $securityHelper)
+    public function __construct(AccessDecisionManagerInterface $decisionManager, AuthorizationHelper $authorizationHelper)
     {
         $this->decisionManager = $decisionManager;
-        $this->securityHelper = $securityHelper;
+        $this->authorizationHelper = $authorizationHelper;
     }
 
     /**
@@ -111,18 +111,18 @@ class EntryVoter extends Voter
     private function canView(): bool
     {
         if ($this->isAnonyme()) {
-            if ($this->securityHelper->isAreaRestricted($this->area)) {
+            if ($this->authorizationHelper->isAreaRestricted($this->area)) {
                 return false;
             }
 
-            return $this->securityHelper->canSeeRoom($this->room, null);
+            return $this->authorizationHelper->canSeeRoom($this->room, null);
         }
 
-        if ($this->securityHelper->isAreaRestricted($this->area)) {
-            return $this->securityHelper->canSeeAreaRestricted($this->area, $this->user);
+        if ($this->authorizationHelper->isAreaRestricted($this->area)) {
+            return $this->authorizationHelper->canSeeAreaRestricted($this->area, $this->user);
         }
 
-        return $this->securityHelper->canSeeRoom($this->room, $this->user);
+        return $this->authorizationHelper->canSeeRoom($this->room, $this->user);
     }
 
     private function canEdit(): bool
@@ -131,7 +131,7 @@ class EntryVoter extends Voter
             return false;
         }
 
-        return $this->securityHelper->canAddEntry($this->room, $this->user);
+        return $this->authorizationHelper->canAddEntry($this->room, $this->user);
     }
 
     private function canDelete(): bool

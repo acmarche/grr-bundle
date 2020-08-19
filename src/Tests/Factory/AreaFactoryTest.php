@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Tests\Factory;
 
-use Grr\GrrBundle\Area\AreaFactory;
+use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
 use Grr\Core\Tests\BaseTesting;
 

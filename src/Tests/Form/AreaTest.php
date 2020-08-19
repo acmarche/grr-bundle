@@ -11,8 +11,8 @@
 namespace Grr\GrrBundle\Tests\Form;
 
 use Carbon\CarbonInterface;
+use Grr\GrrBundle\Area\Form\AreaType;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Form\AreaType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class AreaTest extends TypeTestCase

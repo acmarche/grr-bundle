@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Twig;
 
 use Grr\Core\Provider\DateProvider;
-use Grr\GrrBundle\Repository\EntryTypeRepository;
+use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -11,7 +11,7 @@ use Twig\TwigFilter;
 class GrrAdminExtension extends AbstractExtension
 {
     /**
-     * @var EntryTypeRepository
+     * @var TypeEntryRepository
      */
     private $TypeAreaRepository;
     /**
@@ -20,7 +20,7 @@ class GrrAdminExtension extends AbstractExtension
     private $twigEnvironment;
 
     public function __construct(
-        EntryTypeRepository $TypeAreaRepository,
+        TypeEntryRepository $TypeAreaRepository,
         Environment $twigEnvironment
     ) {
         $this->TypeAreaRepository = $TypeAreaRepository;

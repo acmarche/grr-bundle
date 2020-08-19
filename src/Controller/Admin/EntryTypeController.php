@@ -6,9 +6,9 @@ use Grr\Core\EntryType\Events\EntryTypeEventCreated;
 use Grr\Core\EntryType\Events\EntryTypeEventDeleted;
 use Grr\Core\EntryType\Events\EntryTypeEventUpdated;
 use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\Form\TypeEntryType;
-use Grr\GrrBundle\Manager\TypeEntryManager;
-use Grr\GrrBundle\Repository\EntryTypeRepository;
+use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
+use Grr\GrrBundle\TypeEntry\Manager\TypeEntryManager;
+use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,9 +24,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntryTypeController extends AbstractController
 {
     /**
-     * @var EntryTypeRepository
+     * @var TypeEntryRepository
      */
-    private $entryTypeRepository;
+    private $typeEntryRepository;
     /**
      * @var TypeEntryManager
      */
@@ -42,11 +42,11 @@ class EntryTypeController extends AbstractController
 
     public function __construct(
         TypeEntryFactory $typeEntryFactory,
-        EntryTypeRepository $entryTypeRepository,
+        TypeEntryRepository $typeEntryRepository,
         TypeEntryManager $typeEntryManager,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->entryTypeRepository = $entryTypeRepository;
+        $this->typeEntryRepository = $typeEntryRepository;
         $this->typeEntryManager = $typeEntryManager;
         $this->typeEntryFactory = $typeEntryFactory;
         $this->eventDispatcher = $eventDispatcher;
@@ -60,7 +60,7 @@ class EntryTypeController extends AbstractController
         return $this->render(
             '@grr_admin/type_entry/index.html.twig',
             [
-                'type_entries' => $this->entryTypeRepository->findAll(),
+                'type_entries' => $this->typeEntryRepository->findAll(),
             ]
         );
     }

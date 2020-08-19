@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Controller\Front;
 
 /**
- * Pour  @see MenuSelect::class
+ * Pour  @see MenuSelectDto::class
  * Interface FrontControllerInterface.
  */
 interface FrontControllerInterface

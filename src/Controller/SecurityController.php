@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Setting\SettingConstants;
-use Grr\GrrBundle\Repository\SettingRepository;
+use Grr\GrrBundle\Setting\Repository\SettingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -3,15 +3,14 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Authorization\Events\AuthorizationEventCreated;
+use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
+use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Manager\AuthorizationManager;
-use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

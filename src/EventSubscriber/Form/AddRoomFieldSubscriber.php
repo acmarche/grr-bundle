@@ -9,8 +9,8 @@
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
 use Doctrine\ORM\QueryBuilder;
-use Grr\GrrBundle\Form\Type\RoomSelectType;
-use Grr\GrrBundle\Repository\RoomRepository;
+use Grr\GrrBundle\Room\Form\Type\RoomSelectType;
+use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

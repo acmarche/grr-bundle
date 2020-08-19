@@ -18,8 +18,8 @@ use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
-use Grr\GrrBundle\Repository\EntryTypeRepository;
-use Grr\GrrBundle\Repository\SettingRepository;
+use Grr\GrrBundle\Setting\Repository\SettingRepository;
+use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Twig\Environment;
 
 class FrontHelper
@@ -29,9 +29,9 @@ class FrontHelper
      */
     private $twigEnvironment;
     /**
-     * @var EntryTypeRepository
+     * @var TypeEntryRepository
      */
-    private $entryTypeRepository;
+    private $typeEntryRepository;
     /**
      * @var SettingRepository
      */
@@ -39,11 +39,11 @@ class FrontHelper
 
     public function __construct(
         Environment $twigEnvironment,
-        EntryTypeRepository $entryTypeRepository,
+        TypeEntryRepository $typeEntryRepository,
         SettingRepository $settingRepository
     ) {
         $this->twigEnvironment = $twigEnvironment;
-        $this->entryTypeRepository = $entryTypeRepository;
+        $this->typeEntryRepository = $typeEntryRepository;
         $this->settingRepository = $settingRepository;
     }
 
@@ -106,7 +106,7 @@ class FrontHelper
 
     public function grrLegendEntryType(Area $area): string
     {
-        $types = $this->entryTypeRepository->findAll();
+        $types = $this->typeEntryRepository->findAll();
 
         return $this->twigEnvironment->render(
             '@grr_front/_legend_entry_type.html.twig',

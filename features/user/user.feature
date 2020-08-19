@@ -16,7 +16,7 @@ Feature: Manage user
     And I press "Sauvegarder"
     Then I should see "L'utilisateur a bien été ajouté"
     Then I should see "raoul@domain.com"
-    And I check "ROLE_GRR_ADMINISTRATOR"
+    And I check "Administrateur"
     And I press "Sauvegarder"
     Then I should see "Administrateur"
 

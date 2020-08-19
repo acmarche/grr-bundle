@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Area\Events\AreaEventAssociatedEntryType;
+use Grr\GrrBundle\Area\Form\AssocTypeForAreaType;
+use Grr\GrrBundle\Area\Manager\AreaManager;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Form\AssocTypeForAreaType;
-use Grr\GrrBundle\Manager\AreaManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

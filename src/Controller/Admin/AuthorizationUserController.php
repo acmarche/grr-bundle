@@ -3,11 +3,11 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Model\AuthorizationModel;
+use Grr\GrrBundle\Authorization\Form\AuthorizationUserType;
+use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
+use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
+use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Form\Security\AuthorizationUserType;
-use Grr\GrrBundle\Manager\AuthorizationManager;
-use Grr\GrrBundle\Repository\Security\AuthorizationRepository;
-use Grr\GrrBundle\Security\HandlerAuthorization;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

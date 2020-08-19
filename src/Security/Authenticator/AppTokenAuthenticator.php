@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Security\Authenticator;
 
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Repository\Security\UserRepository;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
