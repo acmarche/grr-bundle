@@ -28,16 +28,16 @@ class AccessRoomControllerTest extends BaseTesting
         switch ($action) {
             case 'new':
                 $area = $this->getArea('Esquare');
-                $url = '/admin/room/new/'.$area->getId();
+                $url = '/fr/admin/room/new/'.$area->getId();
                 break;
             case 'show':
-                $url = '/admin/room/'.$room->getId();
+                $url = '/fr/admin/room/'.$room->getId();
                 break;
             case 'edit':
-                $url = '/admin/room/'.$room->getId().'/edit';
+                $url = '/fr/admin/room/'.$room->getId().'/edit';
                 break;
             case 'delete':
-                $url = '/admin/room/'.$room->getId();
+                $url = '/fr/admin/room/'.$room->getId();
                 $method = 'DELETE';
                 break;
             default:

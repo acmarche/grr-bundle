@@ -28,19 +28,19 @@ class AccessEntryControllerTest extends BaseTesting
                 $today = new DateTime();
                 $esquare = $this->getArea('Esquare');
                 $room = $this->getRoom('Box');
-                $url = '/front/entry/new/area/'.$esquare->getId().'/room/'.$room->getId(
+                $url = '/fr/front/entry/new/area/'.$esquare->getId().'/room/'.$room->getId(
                     ).'/year/'.$today->format(
                         'Y'
                     ).'/month/'.$today->format('m').'/day/'.$today->format('d').'/hour/9/minute/30';
                 break;
             case 'show':
-                $url = '/front/entry/'.$entry->getId();
+                $url = '/fr/front/entry/'.$entry->getId();
                 break;
             case 'edit':
-                $url = '/front/entry/'.$entry->getId().'/edit';
+                $url = '/fr/front/entry/'.$entry->getId().'/edit';
                 break;
             case 'delete':
-                $url = '/front/entry/'.$entry->getId();
+                $url = '/fr/front/entry/'.$entry->getId();
                 $method = 'DELETE';
                 break;
             default:

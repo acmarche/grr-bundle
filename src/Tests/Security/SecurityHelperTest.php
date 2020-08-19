@@ -11,10 +11,14 @@
 namespace Grr\GrrBundle\Tests\Security;
 
 use Grr\Core\Security\SecurityRole;
+use Grr\GrrBundle\Entity\Area;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\Core\Tests\BaseTesting;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class SecurityHelperTest extends BaseTesting
 {
@@ -252,9 +256,8 @@ class SecurityHelperTest extends BaseTesting
     /**
      * @dataProvider provideRoom
      *
-     * @param string $email
-     * @param bool   $access1
-     * @param bool   $access2
+     * @param string $name
+     * @param array $users
      */
     public function testAddEntryWithRule(string $name, array $users): void
     {
@@ -576,7 +579,7 @@ class SecurityHelperTest extends BaseTesting
     }
 
     /**
-     * @return \Grr\GrrBundle\Entity\Security\User[][]|bool[][]
+     * @return User[]|bool[][]
      */
     public function provideGrrAdministrator(): iterable
     {
@@ -605,7 +608,15 @@ class SecurityHelperTest extends BaseTesting
 
     protected function initSecurityHelper(): AuthorizationHelper
     {
-        return new AuthorizationHelper($this->entityManager->getRepository(Authorization::class));
+        $container = $this->createMock(ContainerInterface::class);
+        $security = new Security($container);
+
+        return new AuthorizationHelper(
+            $security,
+            $this->entityManager->getRepository(Authorization::class),
+            $this->entityManager->getRepository(Area::class),
+            $this->entityManager->getRepository(Room::class)
+        );
     }
 
     protected function loadFixtures($rule = false): void

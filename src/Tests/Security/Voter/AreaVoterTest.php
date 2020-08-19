@@ -11,15 +11,19 @@
 namespace Grr\GrrBundle\Tests\Security\Voter;
 
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
+use Grr\GrrBundle\Entity\Area;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\Core\Tests\BaseTesting;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
 class AreaVoterTest extends BaseTesting
 {
@@ -192,7 +196,15 @@ class AreaVoterTest extends BaseTesting
 
     protected function initSecurityHelper(): AuthorizationHelper
     {
-        return new AuthorizationHelper($this->entityManager->getRepository(Authorization::class));
+        $container = $this->createMock(ContainerInterface::class);
+        $security = new Security($container);
+
+        return new AuthorizationHelper(
+            $security,
+            $this->entityManager->getRepository(Authorization::class),
+            $this->entityManager->getRepository(Area::class),
+            $this->entityManager->getRepository(Room::class)
+        );
     }
 
     private function initVoter(): AreaVoter

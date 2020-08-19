@@ -8,12 +8,6 @@ class MailerControllerTest extends WebTestCase
 {
     public function te2stSomething()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/');
-
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Hello World');
-
         /* Symfony 4.4:
         $this->assertEmailCount(1);
         $email = $this->getMailerMessage(0);

@@ -122,6 +122,6 @@ class CreateuserCommand extends Command
 
         $io->success("L'utilisateur a bien été créé");
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
