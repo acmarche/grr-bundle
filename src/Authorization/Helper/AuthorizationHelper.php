@@ -241,8 +241,11 @@ class AuthorizationHelper
 
         return false;
     }
+
     /**
-     * @param User|null $user
+     * @param Room $room
+     * @param UserInterface|null $user
+     * @return bool
      */
     public function canAddEntry(Room $room, ?UserInterface $user = null): bool
     {

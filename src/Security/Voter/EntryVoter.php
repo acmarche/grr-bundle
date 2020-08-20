@@ -4,7 +4,9 @@ namespace Grr\GrrBundle\Security\Voter;
 
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
+use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
@@ -34,11 +36,11 @@ class EntryVoter extends Voter
      */
     private $entry;
     /**
-     * @var \Grr\GrrBundle\Entity\Room|null
+     * @var Room|null
      */
     private $room;
     /**
-     * @var \Grr\GrrBundle\Entity\Area
+     * @var Area
      */
     private $area;
 
@@ -73,13 +75,6 @@ class EntryVoter extends Voter
 
         if (!$this->isAnonyme() && $user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             return true;
-        }
-
-        /*
-         * not work with test
-         */
-        if ($this->accessDecisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
-            // return true;
         }
 
         switch ($attribute) {
