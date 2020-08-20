@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Room\Entity\RoomTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Room.

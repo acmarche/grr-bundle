@@ -8,6 +8,7 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Entry\Entity\EntryTrait;
 use Grr\GrrBundle\Entry\Validator as GrrEntryAssert;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="entry")
