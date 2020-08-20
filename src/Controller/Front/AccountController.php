@@ -25,10 +25,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $userPasswordEncoder;
-    /**
      * @var UserManager
      */
     private $userManager;
@@ -39,26 +35,18 @@ class AccountController extends AbstractController
     /**
      * @var PasswordHelper
      */
-    private $passwordEncoder;
+    private $passwordHelper;
     /**
      * @var AuthorizationRepository
      */
     private $authorizationRepository;
-
-    public function __construct(
-        UserManager $userManager,
-        PasswordHelper $passwordEncoder,
-        UserPasswordEncoderInterface $userPasswordEncoder,
-        EventDispatcherInterface $eventDispatcher,
-        AuthorizationRepository $authorizationRepository
-    ) {
-        $this->userPasswordEncoder = $userPasswordEncoder;
+    public function __construct(UserManager $userManager, PasswordHelper $passwordHelper, EventDispatcherInterface $eventDispatcher, \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository)
+    {
         $this->userManager = $userManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHelper = $passwordHelper;
         $this->authorizationRepository = $authorizationRepository;
     }
-
     /**
      * @Route("/show", name="grr_account_show", methods={"GET"})
      */
@@ -75,7 +63,6 @@ class AccountController extends AbstractController
             ]
         );
     }
-
     /**
      * @Route("/edit", name="grr_account_edit", methods={"GET", "POST"})
      */
@@ -101,7 +88,6 @@ class AccountController extends AbstractController
             ]
         );
     }
-
     /**
      * @Route("/password", name="grr_account_edit_password", methods={"GET", "POST"})
      */
@@ -115,7 +101,7 @@ class AccountController extends AbstractController
             $data = $form->getData();
             $password = $data->getPassword();
 
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+            $user->setPassword($this->passwordHelper->encodePassword($user, $password));
 
             $this->userManager->flush();
 
@@ -132,7 +118,6 @@ class AccountController extends AbstractController
             ]
         );
     }
-
     /**
      * @Route("/delete", name="grr_user_account_delete", methods={"DELETE"})
      */

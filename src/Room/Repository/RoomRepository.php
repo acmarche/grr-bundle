@@ -17,9 +17,9 @@ use Grr\GrrBundle\Entity\Room;
  */
 class RoomRepository extends ServiceEntityRepository implements RoomRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Room::class);
+        parent::__construct($managerRegistry, Room::class);
     }
 
     public function getRoomsByAreaQueryBuilder(Area $area): QueryBuilder

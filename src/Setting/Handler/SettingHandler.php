@@ -32,7 +32,7 @@ class SettingHandler
 
     public function __construct(
         SettingFactory $settingFactory,
-        SettingRepository $settingRepository,
+        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository,
         SettingManager $settingManager
     ) {
         $this->settingFactory = $settingFactory;

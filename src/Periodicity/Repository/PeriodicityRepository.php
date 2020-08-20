@@ -15,8 +15,8 @@ use Grr\GrrBundle\Entity\Periodicity;
  */
 class PeriodicityRepository extends ServiceEntityRepository implements PeriodicityRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Periodicity::class);
+        parent::__construct($managerRegistry, Periodicity::class);
     }
 }

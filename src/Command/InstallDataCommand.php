@@ -73,7 +73,7 @@ class InstallDataCommand extends Command
     /**
      * @var SymfonyStyle
      */
-    private $io;
+    private $symfonyStyle;
     /**
      * @var SettingFactory
      */
@@ -85,12 +85,12 @@ class InstallDataCommand extends Command
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        TypeEntryRepository $typeEntryRepository,
-        RoomRepository $roomRepository,
-        UserRepository $userRepository,
-        SettingRepository $settingRepository,
+        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
+        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
+        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository,
+        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository,
         TypeEntryFactory $typeEntryFactory,
-        AreaRepository $areaRepository,
+        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
         SettingFactory $settingFactory,
         AreaFactory $areaFactory,
         RoomFactory $roomFactory,
@@ -120,17 +120,17 @@ class InstallDataCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->io = new SymfonyStyle($input, $output);
+        $this->symfonyStyle = new SymfonyStyle($input, $output);
         $helper = $this->getHelper('question');
 
-        $questionPurge = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
-        $purge = $helper->ask($input, $output, $questionPurge);
+        $confirmationQuestion = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
+        $purge = $helper->ask($input, $output, $confirmationQuestion);
 
         if ($purge) {
-            $purger = new ORMPurger($this->entityManager);
-            $purger->purge();
+            $ormPurger = new ORMPurger($this->entityManager);
+            $ormPurger->purge();
 
-            $this->io->success('La base de données a bien été vidée.');
+            $this->symfonyStyle->success('La base de données a bien été vidée.');
         }
 
         $this->loadType();
@@ -138,7 +138,7 @@ class InstallDataCommand extends Command
         $this->loadUser();
         $this->loadSetting();
 
-        $this->io->success('Les données ont bien été initialisées.');
+        $this->symfonyStyle->success('Les données ont bien été initialisées.');
 
         return 0;
     }
@@ -228,7 +228,6 @@ class InstallDataCommand extends Command
     public function loadUser(): void
     {
         $email = 'grr@domain.be';
-        $password = random_int(100000, 999999);
 
         if (null !== $this->userRepository->findOneBy(['email' => $email])) {
             return;
@@ -248,7 +247,7 @@ class InstallDataCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->io->success("L'utilisateur $email avec le mot de passe $password a bien été créé");
+        $this->symfonyStyle->success("L'utilisateur $email avec le mot de passe $password a bien été créé");
     }
 
     private function loadSetting(): void

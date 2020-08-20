@@ -42,8 +42,8 @@ class BindDataManager
     private $roomRepository;
 
     public function __construct(
-        EntryRepository $entryRepository,
-        RoomRepository $roomRepository,
+        \Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository,
+        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
         EntryLocationService $entryLocationService,
         DayFactory $dayFactory
     ) {
@@ -59,39 +59,39 @@ class BindDataManager
      * Crée une instance Day et set les entrées.
      * Ajouts des ces days au model Month.
      */
-    public function bindMonth(Month $monthModel, Area $area, Room $room = null): void
+    public function bindMonth(Month $month, Area $area, Room $room = null): void
     {
-        $entries = $this->entryRepository->findForMonth($monthModel->firstOfMonth(), $area, $room);
+        $entries = $this->entryRepository->findForMonth($month->firstOfMonth(), $area, $room);
 
-        foreach ($monthModel->getCalendarDays() as $date) {
+        foreach ($month->getCalendarDays() as $date) {
             $day = $this->dayFactory->createFromCarbon($date);
             $events = $this->extractByDate($day, $entries);
             $day->addEntries($events);
-            $monthModel->addDataDay($day);
+            $month->addDataDay($day);
         }
     }
 
     /**
-     * @param Room $roomSelected
+     * @param Room $room
      *
      * @return RoomModel[]
      *
      * @throws \Exception
      */
-    public function bindWeek(Week $weekModel, Area $area, Room $roomSelected = null): array
+    public function bindWeek(Week $week, Area $area, Room $room = null): array
     {
-        if (null !== $roomSelected) {
-            $rooms = [$roomSelected];
+        if (null !== $room) {
+            $rooms = [$room];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
         }
 
-        $days = $weekModel->getCalendarDays();
+        $carbonPeriod = $week->getCalendarDays();
         $data = [];
 
         foreach ($rooms as $room) {
             $roomModel = new RoomModel($room);
-            foreach ($days as $dayCalendar) {
+            foreach ($carbonPeriod as $dayCalendar) {
                 $dataDay = $this->dayFactory->createFromCarbon($dayCalendar);
                 $entries = $this->entryRepository->findForDay($dayCalendar, $room);
                 $dataDay->addEntries($entries);
@@ -112,19 +112,19 @@ class BindDataManager
      *
      * @return RoomModel[]
      */
-    public function bindDay(CarbonInterface $day, Area $area, array $timeSlots, Room $roomSelected = null): array
+    public function bindDay(CarbonInterface $carbon, Area $area, array $timeSlots, Room $room = null): array
     {
         $roomsModel = [];
 
-        if (null !== $roomSelected) {
-            $rooms = [$roomSelected];
+        if (null !== $room) {
+            $rooms = [$room];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
         }
 
         foreach ($rooms as $room) {
             $roomModel = new RoomModel($room);
-            $entries = $this->entryRepository->findForDay($day, $room);
+            $entries = $this->entryRepository->findForDay($carbon, $room);
             $roomModel->setEntries($entries);
             $roomsModel[] = $roomModel;
         }

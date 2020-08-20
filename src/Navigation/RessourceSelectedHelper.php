@@ -45,8 +45,8 @@ class RessourceSelectedHelper
         SessionInterface $session,
         Security $security,
         SettingsProvider $settingsProvider,
-        AreaRepository $areaRepository,
-        RoomRepository $roomRepository
+        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
+        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository
     ) {
         $this->session = $session;
         $this->security = $security;
@@ -72,10 +72,8 @@ class RessourceSelectedHelper
          * @var User
          */
         $user = $this->security->getUser();
-        if (null !== $user) {
-            if (null !== ($area = $user->getArea())) {
-                return $area;
-            }
+        if (null !== $user && null !== ($area = $user->getArea())) {
+            return $area;
         }
 
         if (null !== ($area = $this->settingsProvider->getDefaultArea())) {
@@ -109,10 +107,8 @@ class RessourceSelectedHelper
          * @var User
          */
         $user = $this->security->getUser();
-        if (null !== $user) {
-            if (null !== ($room = $user->getRoom())) {
-                return $room;
-            }
+        if (null !== $user && null !== ($room = $user->getRoom())) {
+            return $room;
         }
 
         if (null !== ($room = $this->settingsProvider->getDefaulRoom())) {

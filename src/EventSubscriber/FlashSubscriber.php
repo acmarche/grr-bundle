@@ -38,32 +38,32 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    public function onTypeEntryDeleted(TypeEntryEventDeleted $typeEntryEvent): void
+    public function onTypeEntryDeleted(): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.deleted');
     }
 
-    public function onTypeEntryUpdated(TypeEntryEventUpdated $typeEntryEvent): void
+    public function onTypeEntryUpdated(): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.updated');
     }
 
-    public function onTypeEntryCreated(TypeEntryEventCreated $typeEntryEvent): void
+    public function onTypeEntryCreated(): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.created');
     }
 
-    public function onRoomDeleted(RoomEventDeleted $roomEvent): void
+    public function onRoomDeleted(): void
     {
         $this->flashBag->add('success', 'flash.room.deleted');
     }
 
-    public function onRoomUpdated(RoomEventUpdated $roomEvent): void
+    public function onRoomUpdated(): void
     {
         $this->flashBag->add('success', 'flash.room.updated');
     }
 
-    public function onRoomCreated(RoomEventCreated $roomEvent): void
+    public function onRoomCreated(): void
     {
         $this->flashBag->add('success', 'flash.room.created');
     }
@@ -73,57 +73,57 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag->add('success', 'flash.setting.updated');
     }
 
-    public function onUserDeleted(UserEventDeleted $userEvent): void
+    public function onUserDeleted(): void
     {
         $this->flashBag->add('success', 'flash.user.deleted');
     }
 
-    public function onUserUpdated(UserEventUpdated $userEvent): void
+    public function onUserUpdated(): void
     {
         $this->flashBag->add('success', 'flash.user.updated');
     }
 
-    public function onUserCreated(UserEventCreated $userEvent): void
+    public function onUserCreated(): void
     {
         $this->flashBag->add('success', 'flash.user.created');
     }
 
-    public function onEntryCreated(EntryEventCreated $event): void
+    public function onEntryCreated(): void
     {
         $this->flashBag->add('success', 'flash.entry.created');
     }
 
-    public function onEntryUpdated(EntryEventUpdated $event): void
+    public function onEntryUpdated(): void
     {
         $this->flashBag->add('success', 'flash.entry.updated');
     }
 
-    public function onEntryDeleted(EntryEventDeleted $event): void
+    public function onEntryDeleted(): void
     {
         $this->flashBag->add('success', 'flash.entry.deleted');
     }
 
-    public function onAreaDeleted(AreaEventDeleted $areaEvent): void
+    public function onAreaDeleted(): void
     {
         $this->flashBag->add('success', 'flash.area.deleted');
     }
 
-    public function onAreaUpdated(AreaEventUpdated $areaEvent): void
+    public function onAreaUpdated(): void
     {
         $this->flashBag->add('success', 'flash.area.updated');
     }
 
-    public function onAreaCreated(AreaEventCreated $areaEvent): void
+    public function onAreaCreated(): void
     {
         $this->flashBag->add('success', 'flash.area.created');
     }
 
-    public function onAuthorizationDeleted(AuthorizationEventDeleted $event): void
+    public function onAuthorizationDeleted(): void
     {
         $this->flashBag->add('success', 'flash.authorization.deleted');
     }
 
-    public function onAuthorizationCreated(AuthorizationEventUpdated $event): void
+    public function onAuthorizationCreated(): void
     {
         $this->flashBag->add('success', 'flash.authorization.created');
     }
@@ -133,7 +133,7 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag->add('success', 'flash.area.setTypeEntry');
     }
 
-    public function onPasswordUpdated(PasswordEventUpdated $userEvent): void
+    public function onPasswordUpdated(): void
     {
         $this->flashBag->add('success', 'flash.password.updated');
     }

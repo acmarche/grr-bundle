@@ -22,7 +22,7 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -37,10 +37,10 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPreSetData(FormEvent $formEvent): void
     {
-        $entry = $event->getData();
-        $form = $event->getForm();
+        $entry = $formEvent->getData();
+        $form = $formEvent->getForm();
         $user = $entry->getUsers();
 
         if ($user) {

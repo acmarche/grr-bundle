@@ -3,13 +3,12 @@
 namespace Grr\GrrBundle\Entry;
 
 use Grr\Core\Contrat\Entity\EntryInterface;
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entry\Manager\EntryManager;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Security\Core\Security;
 
 class HandlerEntry
 {
@@ -22,10 +21,6 @@ class HandlerEntry
      */
     private $entryManager;
     /**
-     * @var Security
-     */
-    private $security;
-    /**
      * @var HandlerPeriodicity
      */
     private $handlerPeriodicity;
@@ -35,20 +30,18 @@ class HandlerEntry
     private $propertyUtil;
 
     public function __construct(
-        EntryRepository $entryRepository,
+        EntryRepositoryInterface $entryRepository,
         EntryManager $entryManager,
         HandlerPeriodicity $handlerPeriodicity,
-        Security $security,
         PropertyUtil $propertyUtil
     ) {
         $this->entryRepository = $entryRepository;
         $this->entryManager = $entryManager;
-        $this->security = $security;
         $this->handlerPeriodicity = $handlerPeriodicity;
         $this->propertyUtil = $propertyUtil;
     }
 
-    public function handleNewEntry(FormInterface $form, EntryInterface $entry): void
+    public function handleNewEntry(EntryInterface $entry): void
     {
         $this->fullDay($entry);
         $periodicity = $entry->getPeriodicity();
@@ -72,7 +65,7 @@ class HandlerEntry
     public function handleEditEntryWithPeriodicity(EntryInterface $oldEntry, EntryInterface $entry): void
     {
         if ($this->handlerPeriodicity->periodicityHasChange($oldEntry, $entry)) {
-            $this->handlerPeriodicity->handleEditPeriodicity($oldEntry, $entry);
+            $this->handlerPeriodicity->handleEditPeriodicity($entry);
         } else {
             $this->updateEntriesWithSamePeriodicity($entry);
             $this->entryManager->flush();
@@ -84,16 +77,13 @@ class HandlerEntry
      */
     protected function fullDay(EntryInterface $entry): void
     {
-        $duration = $entry->getDuration();
-        if (null !== $duration) {
-            if ($duration->isFullDay()) {
-                $area = $entry->getArea();
-                $hourStart = $area->getStartTime();
-                $hourEnd = $area->getEndTime();
-
-                $entry->getStartTime()->setTime($hourStart, 0);
-                $entry->getEndTime()->setTime($hourEnd, 0);
-            }
+        $durationModel = $entry->getDuration();
+        if (null !== $durationModel && $durationModel->isFullDay()) {
+            $area = $entry->getArea();
+            $startTime = $area->getStartTime();
+            $endTime = $area->getEndTime();
+            $entry->getStartTime()->setTime($startTime, 0);
+            $entry->getEndTime()->setTime($endTime, 0);
         }
     }
 

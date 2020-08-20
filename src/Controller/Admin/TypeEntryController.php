@@ -42,7 +42,7 @@ class TypeEntryController extends AbstractController
 
     public function __construct(
         TypeEntryFactory $typeEntryFactory,
-        TypeEntryRepository $typeEntryRepository,
+        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
         TypeEntryManager $typeEntryManager,
         EventDispatcherInterface $eventDispatcher
     ) {
@@ -95,12 +95,12 @@ class TypeEntryController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_type_entry_show", methods={"GET"})
      */
-    public function show(TypeEntry $typeArea): Response
+    public function show(TypeEntry $typeEntry): Response
     {
         return $this->render(
             '@grr_admin/type_entry/show.html.twig',
             [
-                'type_entry' => $typeArea,
+                'type_entry' => $typeEntry,
             ]
         );
     }

@@ -16,7 +16,7 @@ class SecurityController extends AbstractController
      */
     private $settingRepository;
 
-    public function __construct(SettingRepository $settingRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository)
     {
         $this->settingRepository = $settingRepository;
     }
@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): void
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }

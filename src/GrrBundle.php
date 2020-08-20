@@ -21,10 +21,10 @@ class GrrBundle extends Bundle
         return \dirname(__DIR__);
     }
 
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $containerBuilder): void
     {
-        parent::build($container);
+        parent::build($containerBuilder);
 
-        $container->addCompilerPass(new ModulesPass());
+        $containerBuilder->addCompilerPass(new ModulesPass());
     }
 }

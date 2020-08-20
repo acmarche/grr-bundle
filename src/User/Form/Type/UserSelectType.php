@@ -15,14 +15,14 @@ class UserSelectType extends AbstractType
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'label' => 'label.user.select',
                 'class' => User::class,

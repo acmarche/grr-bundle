@@ -50,13 +50,13 @@ class AddRoomFieldSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPreSetData(FormEvent $formEvent): void
     {
-        $object = $event->getData();
+        $object = $formEvent->getData();
 
         $area = is_array($object) ? null : $object->getArea();
 
-        $form = $event->getForm();
+        $form = $formEvent->getForm();
 
         $default = [
             'required' => $this->required,

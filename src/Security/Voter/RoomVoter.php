@@ -20,7 +20,7 @@ class RoomVoter extends Voter
     /**
      * @var AccessDecisionManagerInterface
      */
-    private $decisionManager;
+    private $accessDecisionManager;
     /**
      * @var User
      */
@@ -33,14 +33,10 @@ class RoomVoter extends Voter
      * @var Room
      */
     private $room;
-    /**
-     * @var TokenInterface
-     */
-    private $token;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, AuthorizationHelper $authorizationHelper)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
     {
-        $this->decisionManager = $decisionManager;
+        $this->accessDecisionManager = $accessDecisionManager;
         $this->authorizationHelper = $authorizationHelper;
     }
 
@@ -49,10 +45,8 @@ class RoomVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject) {
-            if (!$subject instanceof Room) {
-                return false;
-            }
+        if ($subject && !$subject instanceof Room) {
+            return false;
         }
 
         return in_array(
@@ -75,7 +69,6 @@ class RoomVoter extends Voter
 
         $this->user = $user;
         $this->room = $room;
-        $this->token = $token;
 
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             return true;
@@ -84,7 +77,7 @@ class RoomVoter extends Voter
         /*
          * not work with test
          */
-        if ($this->decisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
+        if ($this->accessDecisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
             //    return true;
         }
 

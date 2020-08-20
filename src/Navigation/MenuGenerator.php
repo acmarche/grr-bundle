@@ -36,10 +36,10 @@ class MenuGenerator
         $area = $this->ressourceSelectedHelper->getArea();
         $room = $this->ressourceSelectedHelper->getRoom();
 
-        $menuSelect = $this->menuSelectFactory->createNew();
-        $menuSelect->setArea($area);
-        $menuSelect->setRoom($room);
+        $menuSelectDto = $this->menuSelectFactory->createNew();
+        $menuSelectDto->setArea($area);
+        $menuSelectDto->setRoom($room);
 
-        return $this->formFactory->create(AreaMenuSelectType::class, $menuSelect);
+        return $this->formFactory->create(AreaMenuSelectType::class, $menuSelectDto);
     }
 }

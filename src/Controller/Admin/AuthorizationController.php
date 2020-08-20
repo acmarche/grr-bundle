@@ -35,7 +35,7 @@ class AuthorizationController extends AbstractController
 
     public function __construct(
         AuthorizationManager $authorizationManager,
-        AuthorizationRepository $authorizationRepository,
+        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->authorizationRepository = $authorizationRepository;

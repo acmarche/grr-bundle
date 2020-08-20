@@ -1,7 +1,0 @@
-# config/packages/routing.yaml sf 5.1
-framework:
-    router:
-        # ...
-        host: 'example.org'
-        scheme: 'https'
-        base_url: 'my/path'

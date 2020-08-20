@@ -10,13 +10,6 @@ class PeriodicityConstant
     const EVERY_YEAR = 4;
     const EVERY_MONTH_SAME_DAY = 3;
     const EVERY_MONTH_SAME_WEEK_DAY = 5;
-    const LIST_WEEKS_REPEAT = [
-        1 => 'periodicity.every_week_repeat',
-        2 => 'periodicity.every_week_repeat_2',
-        3 => 'periodicity.every_week_repeat_3',
-        4 => 'periodicity.every_week_repeat_4',
-        5 => 'periodicity.every_week_repeat_5',
-    ];
 
     /**
      * clef de type rep_type_0,rep_type_1,...

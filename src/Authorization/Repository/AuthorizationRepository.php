@@ -20,9 +20,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class AuthorizationRepository extends ServiceEntityRepository implements AuthorizationRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Authorization::class);
+        parent::__construct($managerRegistry, Authorization::class);
     }
 
     /**

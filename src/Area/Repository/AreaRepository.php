@@ -16,9 +16,9 @@ use Grr\GrrBundle\Entity\Area;
  */
 class AreaRepository extends ServiceEntityRepository implements AreaRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Area::class);
+        parent::__construct($managerRegistry, Area::class);
     }
 
     public function getQueryBuilder(): QueryBuilder

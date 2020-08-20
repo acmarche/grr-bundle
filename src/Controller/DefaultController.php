@@ -45,9 +45,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
      */
-    public function home()
+    public function home(): Response
     {
-        $locale = $this->localHelper->getDefaultLocal();
+        $defaultLocal = $this->localHelper->getDefaultLocal();
 
         $today = $this->carbonFactory->getToday();
 
@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
 
         $room = $this->ressourceSelectedHelper->getRoom();
 
-        $params = ['_locale' => $locale, 'area' => $area->getId(), 'year' => $today->year, 'month' => $today->month];
+        $params = ['_locale' => $defaultLocal, 'area' => $area->getId(), 'year' => $today->year, 'month' => $today->month];
 
         if (null !== $room) {
             $params['room'] = $room->getId();

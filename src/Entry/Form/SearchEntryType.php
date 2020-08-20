@@ -13,19 +13,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class SearchEntryType extends AbstractType
 {
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
-
-    public function __construct(RoomRepository $roomRepository)
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $this->roomRepository = $roomRepository;
-    }
-
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
+        $formBuilder
             ->add(
                 'name',
                 SearchType::class,

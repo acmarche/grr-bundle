@@ -3,10 +3,11 @@
 namespace Grr\GrrBundle\DependencyInjection;
 
 use Doctrine\Common\EventSubscriber;
+use Grr\Core\Contrat\Modules\GrrModuleInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -17,65 +18,63 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class GrrExtension extends Extension implements PrependExtensionInterface
 {
     /**
-     * @var Loader\YamlFileLoader
-     */
-    private $loader;
-
-    /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $this->loader = $loader;
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/../../config'));
 
         // @see https://github.com/doctrine/DoctrineBundle/issues/674
         /*   $container->registerForAutoconfiguration(EventSubscriber::class)
                ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
 */
-        $loader->load('services.yaml');
-        $loader->load('services_dev.yaml');
-        $loader->load('services_test.yaml');
+        $phpFileLoader->load('services.php');
+        $phpFileLoader->load('services_dev.php');
+        $phpFileLoader->load('services_test.php');
+
+        //auto tag GrrModuleInterface
+        $containerBuilder->registerForAutoconfiguration(GrrModuleInterface::class)
+            ->addTag('grr.module');
     }
 
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $containerBuilder): void
     {
         // get all bundles
-        $bundles = $container->getParameter('kernel.bundles');
+        $bundles = $containerBuilder->getParameter('kernel.bundles');
 
         if (isset($bundles['DoctrineBundle'])) {
-            foreach ($container->getExtensions() as $name => $extension) {
+            foreach (array_keys($containerBuilder->getExtensions()) as $name) {
                 switch ($name) {
                     case 'doctrine':
-                        $this->loadConfig($container, 'doctrine');
-                        $this->loadConfig($container, 'doctrine_extension');
+                        $this->loadConfig($containerBuilder, 'doctrine');
+                        $this->loadConfig($containerBuilder, 'doctrine_extension');
                         break;
                     case 'twig':
-                        $this->loadConfig($container, 'twig');
+                        $this->loadConfig($containerBuilder, 'twig');
                         break;
                     case 'framework':
-                        $this->loadConfig($container, 'security');
+                        $this->loadConfig($containerBuilder, 'security');
                         break;
                 }
             }
         }
     }
 
-    protected function loadConfig(ContainerBuilder $container, string $name)
+    protected function loadConfig(ContainerBuilder $containerBuilder, string $name): void
     {
-        $configs = $this->loadYamlFile($container);
+        $configs = $this->loadYamlFile($containerBuilder);
 
-        $configs->load($name.'.yaml');
+        $configs->load($name.'.php');
         //  $container->prependExtensionConfig('doctrine', $configs);
     }
 
-    protected function loadYamlFile(ContainerBuilder $container): Loader\YamlFileLoader
+    protected function loadYamlFile(ContainerBuilder $containerBuilder): PhpFileLoader
     {
-        return new Loader\YamlFileLoader(
-            $container,
+        return new PhpFileLoader(
+            $containerBuilder,
             new FileLocator(__DIR__.'/../../config/packages/')
         );
     }

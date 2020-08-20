@@ -63,7 +63,7 @@ class CreateuserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $symfonyStyle = new SymfonyStyle($input, $output);
         $helper = $this->getHelper('question');
         $role = SecurityRole::ROLE_GRR_ADMINISTRATOR;
 
@@ -72,13 +72,13 @@ class CreateuserCommand extends Command
         $password = $input->getArgument('password');
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $io->error('Adresse email non valide');
+            $symfonyStyle->error('Adresse email non valide');
 
             return 1;
         }
 
         if (strlen($name) < 1) {
-            $io->error('Name minium 1');
+            $symfonyStyle->error('Name minium 1');
 
             return 1;
         }
@@ -100,13 +100,13 @@ class CreateuserCommand extends Command
         }
 
         if (null !== $this->userRepository->findOneBy(['email' => $email])) {
-            $io->error('Un utilisateur existe déjà avec cette adresse email');
+            $symfonyStyle->error('Un utilisateur existe déjà avec cette adresse email');
 
             return 1;
         }
 
-        $questionAdministrator = new ConfirmationQuestion("Administrateur de Grr ? [Y,n] \n", true);
-        $administrator = $helper->ask($input, $output, $questionAdministrator);
+        $confirmationQuestion = new ConfirmationQuestion("Administrateur de Grr ? [Y,n] \n", true);
+        $administrator = $helper->ask($input, $output, $confirmationQuestion);
 
         $user = $this->userFactory->createNew();
         $user->setEmail($email);
@@ -120,7 +120,7 @@ class CreateuserCommand extends Command
 
         $this->userManager->insert($user);
 
-        $io->success("L'utilisateur a bien été créé");
+        $symfonyStyle->success("L'utilisateur a bien été créé");
 
         return Command::SUCCESS;
     }

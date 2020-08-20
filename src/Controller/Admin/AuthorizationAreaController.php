@@ -27,19 +27,13 @@ class AuthorizationAreaController extends AbstractController
      * @var AuthorizationRepository
      */
     private $authorizationRepository;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
     public function __construct(
         HandlerAuthorization $handlerAuthorization,
-        AuthorizationRepository $authorizationRepository,
-        EventDispatcherInterface $eventDispatcher
+        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository
     ) {
         $this->handlerAuthorization = $handlerAuthorization;
         $this->authorizationRepository = $authorizationRepository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -49,13 +43,13 @@ class AuthorizationAreaController extends AbstractController
      */
     public function new(Request $request, Area $area = null): Response
     {
-        $authorizationAreaModel = new AuthorizationModel();
+        $authorizationModel = new AuthorizationModel();
 
         if (null !== $area) {
-            $authorizationAreaModel->setArea($area);
+            $authorizationModel->setArea($area);
         }
 
-        $form = $this->createForm(AuthorizationAreaType::class, $authorizationAreaModel);
+        $form = $this->createForm(AuthorizationAreaType::class, $authorizationModel);
 
         $form->handleRequest($request);
 

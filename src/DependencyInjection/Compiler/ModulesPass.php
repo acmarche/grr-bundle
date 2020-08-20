@@ -13,19 +13,19 @@ class ModulesPass implements CompilerPassInterface
     /**
      * You can modify the container here before it is dumped to PHP code.
      */
-    public function process(ContainerBuilder $container): void
+    public function process(ContainerBuilder $containerBuilder): void
     {
         // always first check if the primary service is defined
-        if (!$container->has(GrrModuleSenderInterface::class)) {
+        if (!$containerBuilder->has(GrrModuleSenderInterface::class)) {
             return;
         }
 
-        $definition = $container->findDefinition(GrrModuleSenderInterface::class);
+        $definition = $containerBuilder->findDefinition(GrrModuleSenderInterface::class);
 
         // find all service IDs with the grr_module tag
-        $taggedServices = $container->findTaggedServiceIds('grr_module');
+        $taggedServices = $containerBuilder->findTaggedServiceIds('grr.module');
 
-        foreach ($taggedServices as $id => $module) {
+        foreach (array_keys($taggedServices) as $id) {
             // add the transport service to the TransportChain service
             $definition->addMethodCall('addModule', [new Reference($id)]);
         }

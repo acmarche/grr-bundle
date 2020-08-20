@@ -34,10 +34,6 @@ class AreaController extends AbstractController
      */
     private $areaManager;
     /**
-     * @var AreaRepository
-     */
-    private $areaRepository;
-    /**
      * @var RoomRepository
      */
     private $roomRepository;
@@ -52,15 +48,13 @@ class AreaController extends AbstractController
 
     public function __construct(
         AreaFactory $areaFactory,
-        AreaRepository $areaRepository,
         AreaManager $areaManager,
-        RoomRepository $roomRepository,
+        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
         EventDispatcherInterface $eventDispatcher,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaFactory = $areaFactory;
         $this->areaManager = $areaManager;
-        $this->areaRepository = $areaRepository;
         $this->roomRepository = $roomRepository;
         $this->eventDispatcher = $eventDispatcher;
         $this->authorizationHelper = $authorizationHelper;

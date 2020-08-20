@@ -9,9 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoomSelectType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver
+        $optionsResolver
             ->setDefaults(
                 [
                     'label' => 'label.room.select',

@@ -29,10 +29,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
      */
     private $bindDataManager;
     /**
-     * @var SettingsProvider
-     */
-    private $settingsProvider;
-    /**
      * @var MonthHelperDataDisplay
      */
     private $monthHelperDataDisplay;
@@ -53,17 +49,9 @@ class DefaultController extends AbstractController implements FrontControllerInt
      */
     private $weekFactory;
 
-    public function __construct(
-        SettingsProvider $settingservice,
-        MonthHelperDataDisplay $monthHelperDataDisplay,
-        BindDataManager $calendarDataManager,
-        TimeSlotsProvider $timeSlotsProvider,
-        DayFactory $dayFactory,
-        MonthFactory $monthFactory,
-        WeekFactory $weekFactory
-    ) {
-        $this->bindDataManager = $calendarDataManager;
-        $this->settingsProvider = $settingservice;
+    public function __construct(MonthHelperDataDisplay $monthHelperDataDisplay, BindDataManager $bindDataManager, TimeSlotsProvider $timeSlotsProvider, DayFactory $dayFactory, MonthFactory $monthFactory, WeekFactory $weekFactory)
+    {
+        $this->bindDataManager = $bindDataManager;
         $this->monthHelperDataDisplay = $monthHelperDataDisplay;
         $this->timeSlotsProvider = $timeSlotsProvider;
         $this->dayFactory = $dayFactory;

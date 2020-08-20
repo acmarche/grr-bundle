@@ -40,7 +40,7 @@ class EntryType extends AbstractType
     private $userRepository;
 
     public function __construct(
-        UserRepository $userRepository,
+        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository,
         DurationFactory $durationFactory,
         Security $security,
         AuthorizationHelper $authorizationHelper
@@ -51,9 +51,9 @@ class EntryType extends AbstractType
         $this->userRepository = $userRepository;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add(
                 'startTime',
                 DateTimeType::class,
@@ -83,7 +83,7 @@ class EntryType extends AbstractType
             ->addEventSubscriber(new AddRoomFieldSubscriber(true));
 
         if ($this->security->isGranted(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
-            $builder->add(
+            $formBuilder->add(
                 'reservedFor',
                 ChoiceType::class,
                 [
@@ -95,9 +95,9 @@ class EntryType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'data_class' => Entry::class,
             ]

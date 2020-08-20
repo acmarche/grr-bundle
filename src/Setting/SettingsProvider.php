@@ -13,15 +13,10 @@ class SettingsProvider
      * @var AreaRepository
      */
     private $areaRepository;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
 
-    public function __construct(AreaRepository $areaRepository, RoomRepository $roomRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository)
     {
         $this->areaRepository = $areaRepository;
-        $this->roomRepository = $roomRepository;
     }
 
     /**
@@ -38,7 +33,5 @@ class SettingsProvider
     public function getDefaulRoom(): ?Room
     {
         return null;
-
-        return $this->roomRepository->findOneBy([], ['id' => 'ASC']);
     }
 }

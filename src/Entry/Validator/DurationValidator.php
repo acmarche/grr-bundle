@@ -30,11 +30,9 @@ class DurationValidator extends ConstraintValidator
         $whole = (int) ($time);
         $fraction = $time - $whole;
 
-        if (DurationModel::UNIT_TIME_HOURS !== $unit) {
-            if (0.0 !== $fraction) {
-                $this->context->buildViolation($constraint->message)
-                    ->addViolation();
-            }
+        if (DurationModel::UNIT_TIME_HOURS !== $unit && 0.0 !== $fraction) {
+            $this->context->buildViolation($constraint->message)
+                ->addViolation();
         }
     }
 }

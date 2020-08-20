@@ -39,7 +39,7 @@ class HandlerAuthorization
     private $error;
 
     public function __construct(
-        AuthorizationRepository $authorizationRepository,
+        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository,
         AuthorizationManager $authorizationManager,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator
@@ -70,7 +70,7 @@ class HandlerAuthorization
         /**
          * @var Room[]|array
          */
-        $rooms = $data->getRooms();
+        $arrayCollection = $data->getRooms();
 
         /**
          * @var int
@@ -90,8 +90,8 @@ class HandlerAuthorization
                 $authorization->setIsResourceAdministrator(true);
             }
 
-            if (count($rooms) > 0) {
-                $this->executeForRooms($authorization, $area, $rooms, $user);
+            if (count($arrayCollection) > 0) {
+                $this->executeForRooms($authorization, $area, $arrayCollection, $user);
             } else {
                 $this->executeForArea($authorization, $area, $user);
             }

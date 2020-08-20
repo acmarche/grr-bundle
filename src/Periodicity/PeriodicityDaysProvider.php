@@ -41,11 +41,11 @@ class PeriodicityDaysProvider
      */
     public function getDaysByPeriodicity(
         Periodicity $periodicity,
-        DateTimeInterface $startTime
+        DateTimeInterface $dateTime
     ) {
         $typePeriodicity = $periodicity->getType();
 
-        $this->entry_start = Carbon::instance($startTime);
+        $this->entry_start = Carbon::instance($dateTime);
         $this->periodicity_end = Carbon::instance($periodicity->getEndTime());
 
         if (PeriodicityConstant::EVERY_DAY === $typePeriodicity) {
@@ -73,22 +73,22 @@ class PeriodicityDaysProvider
 
     protected function forEveryDays(): CarbonPeriod
     {
-        $period = CarbonPeriod::create(
+        $carbonPeriod = CarbonPeriod::create(
             $this->entry_start->toDateString(),
             $this->periodicity_end->toDateString(),
             CarbonPeriod::EXCLUDE_START_DATE
         );
 
-        return $this->applyFilter($period);
+        return $this->applyFilter($carbonPeriod);
     }
 
     protected function forEveryYears(): CarbonPeriod
     {
-        $period = Carbon::parse($this->entry_start->toDateString())->yearsUntil(
+        $carbonPeriod = Carbon::parse($this->entry_start->toDateString())->yearsUntil(
             $this->periodicity_end->toDateString()
         );
 
-        return $this->applyFilter($period);
+        return $this->applyFilter($carbonPeriod);
     }
 
     /**
@@ -96,7 +96,7 @@ class PeriodicityDaysProvider
      */
     protected function forEveryMonthSameDay(): CarbonPeriod
     {
-        $period = Carbon::parse($this->entry_start->toDateString())->daysUntil(
+        $carbonPeriod = Carbon::parse($this->entry_start->toDateString())->daysUntil(
             $this->periodicity_end->toDateString()
         );
 
@@ -104,7 +104,7 @@ class PeriodicityDaysProvider
             return $date->day === $this->entry_start->day;
         };
 
-        return $this->applyFilter($period, $filter);
+        return $this->applyFilter($carbonPeriod, $filter);
     }
 
     /**
@@ -190,25 +190,25 @@ class PeriodicityDaysProvider
      */
     protected function brouillon(): void
     {
-        $start = new DateTime('now');
-        $end = clone $start;
+        $dateTime = new DateTime('now');
+        $end = clone $dateTime;
         $end->modify('+4 month');
         $days = ['Monday', 'Tuesday'];
-        foreach (CarbonPeriod::create($start, CarbonInterval::weeks(2), $end, CarbonPeriod::IMMUTABLE) as $baseDate) {
+        foreach (CarbonPeriod::create($dateTime, CarbonInterval::weeks(2), $end, CarbonPeriod::IMMUTABLE) as $baseDate) {
             foreach ($days as $dayName) {
                 $date = $baseDate->is($dayName) ? $baseDate : $baseDate->next($dayName);
             }
         }
     }
 
-    protected function applyFilter(CarbonPeriod $period, callable $filter = null): CarbonPeriod
+    protected function applyFilter(CarbonPeriod $carbonPeriod, callable $filter = null): CarbonPeriod
     {
-        $period->excludeStartDate();
+        $carbonPeriod->excludeStartDate();
 
         if ($filter) {
-            $period->addFilter($filter);
+            $carbonPeriod->addFilter($filter);
         }
 
-        return $period;
+        return $carbonPeriod;
     }
 }

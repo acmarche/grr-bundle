@@ -11,23 +11,6 @@ use Twig\TwigFilter;
 class GrrAdminExtension extends AbstractExtension
 {
     /**
-     * @var TypeEntryRepository
-     */
-    private $TypeAreaRepository;
-    /**
-     * @var Environment
-     */
-    private $twigEnvironment;
-
-    public function __construct(
-        TypeEntryRepository $TypeAreaRepository,
-        Environment $twigEnvironment
-    ) {
-        $this->TypeAreaRepository = $TypeAreaRepository;
-        $this->twigEnvironment = $twigEnvironment;
-    }
-
-    /**
      * @return \Twig\TwigFilter[]
      */
     public function getFilters(): array
@@ -45,14 +28,12 @@ class GrrAdminExtension extends AbstractExtension
             ),
         ];
     }
-
     public function joursSemaine(string $value): string
     {
         $jours = DateProvider::getNamesDaysOfWeek();
 
         return $jours[$value] ?? $value;
     }
-
     public function displayColor(string $value): string
     {
         return '<span style="background-color: '.$value.';"></span>';

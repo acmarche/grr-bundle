@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Events\EntryEventCreated;
 use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventInitialized;
@@ -16,7 +17,6 @@ use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
-use Grr\GrrBundle\Periodicity\PeriodicityDaysProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,10 +39,6 @@ class EntryController extends AbstractController
      */
     private $entryFactory;
     /**
-     * @var PeriodicityDaysProvider
-     */
-    private $periodicityService;
-    /**
      * @var HandlerEntry
      */
     private $handlerEntry;
@@ -57,15 +53,13 @@ class EntryController extends AbstractController
 
     public function __construct(
         EntryFactory $entryFactory,
-        EntryRepository $entryRepository,
-        PeriodicityDaysProvider $periodicityService,
+        EntryRepositoryInterface $entryRepository,
         HandlerEntry $handlerEntry,
         EventDispatcherInterface $eventDispatcher,
         FrontRouterHelper $frontRouterHelper
     ) {
         $this->entryRepository = $entryRepository;
         $this->entryFactory = $entryFactory;
-        $this->periodicityService = $periodicityService;
         $this->handlerEntry = $handlerEntry;
         $this->eventDispatcher = $eventDispatcher;
         $this->frontRouterHelper = $frontRouterHelper;
@@ -122,7 +116,7 @@ class EntryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->handlerEntry->handleNewEntry($form, $entry);
+            $this->handlerEntry->handleNewEntry($entry);
 
             $this->eventDispatcher->dispatch(new EntryEventCreated($entry));
 

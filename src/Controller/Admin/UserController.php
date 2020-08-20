@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Security\PasswordHelper;
 use Grr\Core\User\Events\UserEventCreated;
 use Grr\Core\User\Events\UserEventDeleted;
@@ -30,7 +31,7 @@ class UserController extends AbstractController
     /**
      * @var UserRepository
      */
-    private $utilisateurRepository;
+    private $userRepository;
 
     /**
      * @var UserManager
@@ -47,20 +48,20 @@ class UserController extends AbstractController
     /**
      * @var PasswordHelper
      */
-    private $passwordEncoder;
+    private $passwordHelper;
 
     public function __construct(
-        UserRepository $utilisateurRepository,
+        UserRepositoryInterface $userRepository,
         UserFactory $userFactory,
         UserManager $userManager,
-        PasswordHelper $passwordEncoder,
+        PasswordHelper $passwordHelper,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->utilisateurRepository = $utilisateurRepository;
+        $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->userFactory = $userFactory;
         $this->eventDispatcher = $eventDispatcher;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHelper = $passwordHelper;
     }
 
     /**
@@ -77,7 +78,7 @@ class UserController extends AbstractController
             $args = $form->getData();
         }
 
-        $users = $this->utilisateurRepository->search($args);
+        $users = $this->userRepository->search($args);
 
         return $this->render(
             '@grr_admin/user/index.html.twig',
@@ -98,7 +99,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($this->passwordHelper->encodePassword($user, $user->getPassword()));
             $this->userManager->insert($user);
 
             $this->eventDispatcher->dispatch(new UserEventCreated($user));
@@ -118,12 +119,12 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_user_show", methods={"GET"})
      */
-    public function show(User $utilisateur): Response
+    public function show(User $user): Response
     {
         return $this->render(
             '@grr_admin/user/show.html.twig',
             [
-                'user' => $utilisateur,
+                'user' => $user,
             ]
         );
     }
@@ -161,7 +162,7 @@ class UserController extends AbstractController
      *
      * @Route("/{id}/roles", name="grr_admin_user_roles", methods={"GET","POST"})
      */
-    public function roles(Request $request, User $user)
+    public function roles(Request $request, User $user): Response
     {
         $form = $this->createForm(UserRoleType::class, $user);
 

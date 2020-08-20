@@ -31,7 +31,7 @@ class AreaVoter extends Voter
     /**
      * @var AccessDecisionManagerInterface
      */
-    private $decisionManager;
+    private $accessDecisionManager;
 
     /**
      * @var User
@@ -45,14 +45,10 @@ class AreaVoter extends Voter
      * @var Area
      */
     private $area;
-    /**
-     * @var TokenInterface
-     */
-    private $token;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, AuthorizationHelper $authorizationHelper)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
     {
-        $this->decisionManager = $decisionManager;
+        $this->accessDecisionManager = $accessDecisionManager;
         $this->authorizationHelper = $authorizationHelper;
     }
 
@@ -61,10 +57,8 @@ class AreaVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject) {
-            if (!$subject instanceof Area) {
-                return false;
-            }
+        if ($subject && !$subject instanceof Area) {
+            return false;
         }
 
         return in_array(
@@ -87,7 +81,6 @@ class AreaVoter extends Voter
 
         $this->user = $user;
         $this->area = $area;
-        $this->token = $token;
 
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             return true;
@@ -96,7 +89,7 @@ class AreaVoter extends Voter
         /*
          * not work with test
          */
-        if ($this->decisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
+        if ($this->accessDecisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
             //   return true;
         }
 

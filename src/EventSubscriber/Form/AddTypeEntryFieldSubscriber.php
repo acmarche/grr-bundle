@@ -28,13 +28,13 @@ class AddTypeEntryFieldSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPreSetData(FormEvent $formEvent): void
     {
         /**
          * @var Entry
          */
-        $entry = $event->getData();
-        $form = $event->getForm();
+        $entry = $formEvent->getData();
+        $form = $formEvent->getForm();
         /**
          * @var AreaInterface $area
          */
@@ -58,10 +58,10 @@ class AddTypeEntryFieldSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onPreSubmit(FormEvent $event): void
+    public function onPreSubmit(FormEvent $formEvent): void
     {
-        $entry = $event->getData();
-        $form = $event->getForm();
+        $entry = $formEvent->getData();
+        $form = $formEvent->getForm();
 
         if (!$entry) {
             return;

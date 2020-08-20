@@ -41,7 +41,7 @@ class SettingController extends AbstractController
 
     public function __construct(
         SettingManager $settingManager,
-        SettingRepository $settingRepository,
+        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository,
         SettingHandler $settingHandler,
         EventDispatcherInterface $eventDispatcher
     ) {

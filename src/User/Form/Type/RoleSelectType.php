@@ -24,23 +24,23 @@ class RoleSelectType extends AbstractType
     /**
      * @var StdClassToNumberTransformer
      */
-    private $transformer;
+    private $stdClassToNumberTransformer;
 
-    public function __construct(StdClassToNumberTransformer $transformer)
+    public function __construct(StdClassToNumberTransformer $stdClassToNumberTransformer)
     {
-        $this->transformer = $transformer;
+        $this->stdClassToNumberTransformer = $stdClassToNumberTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder->addModelTransformer($this->transformer);
+        $formBuilder->addModelTransformer($this->stdClassToNumberTransformer);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $roles = SecurityRole::getRolesForAuthorization();
 
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'choices' => $roles,
                 'label' => 'label.role.select',
@@ -66,7 +66,7 @@ class RoleSelectType extends AbstractType
         );
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    public function buildView(FormView $formView, FormInterface $form, array $options): void
     {
         //j'essaie d'afficher la description
     }

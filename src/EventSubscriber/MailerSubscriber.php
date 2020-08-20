@@ -65,7 +65,7 @@ class MailerSubscriber implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             EntryEventCreated::class => 'sendMail',
@@ -95,10 +95,10 @@ class MailerSubscriber implements EventSubscriberInterface
         $this->settingRepository = $settingRepository;
     }
 
-    public function sendMail(BaseEntryEvent $entryEvent)
+    public function sendMail(BaseEntryEvent $baseEntryEvent): void
     {
         $this->currentUser = $this->security->getUser();
-        $this->entry = $entryEvent->getEntry();
+        $this->entry = $baseEntryEvent->getEntry();
         $this->username = $this->entry->getReservedFor();
         $this->autosendChangeByOtherUser();
         $this->AutosendChangeBySelf();
@@ -129,7 +129,7 @@ class MailerSubscriber implements EventSubscriberInterface
         }
     }
 
-    protected function sendEmail()
+    protected function sendEmail(): void
     {
         $subject = $this->translator->trans('mail.change.subject');
         $to = $this->userRepository->findOneBy(['username' => $this->username]);
@@ -157,20 +157,7 @@ class MailerSubscriber implements EventSubscriberInterface
         }
     }
 
-    protected function niceEmail()
+    protected function niceEmail(): void
     {
-        $email = (new NotificationEmail())
-            ->from('fabien@example.com')
-            ->to('jf@marche.be')
-            ->subject('My first notification email via Symfony')
-            ->markdown(
-                <<<EOF
-        There is a **problem** on your website, you should investigate it
-        right now. Or just wait, the problem might solves itself automatically,
-        we never know.
-        EOF
-            )
-            ->action('More info?', 'https://example.com/')
-            ->importance(NotificationEmail::IMPORTANCE_HIGH);
     }
 }

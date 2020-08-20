@@ -20,7 +20,7 @@ class EntryVoter extends Voter
     /**
      * @var AccessDecisionManagerInterface
      */
-    private $decisionManager;
+    private $accessDecisionManager;
     /**
      * @var User
      */
@@ -34,10 +34,6 @@ class EntryVoter extends Voter
      */
     private $entry;
     /**
-     * @var TokenInterface
-     */
-    private $token;
-    /**
      * @var \Grr\GrrBundle\Entity\Room|null
      */
     private $room;
@@ -46,9 +42,9 @@ class EntryVoter extends Voter
      */
     private $area;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, AuthorizationHelper $authorizationHelper)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
     {
-        $this->decisionManager = $decisionManager;
+        $this->accessDecisionManager = $accessDecisionManager;
         $this->authorizationHelper = $authorizationHelper;
     }
 
@@ -57,10 +53,8 @@ class EntryVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject) {
-            if (!$subject instanceof Entry) {
-                return false;
-            }
+        if ($subject && !$subject instanceof Entry) {
+            return false;
         }
 
         return in_array($attribute, [self::INDEX, self::NEW, self::SHOW, self::EDIT, self::DELETE], true);
@@ -74,7 +68,6 @@ class EntryVoter extends Voter
         $user = $token->getUser();
         $this->user = $user;
         $this->entry = $entry;
-        $this->token = $token;
         $this->room = $this->entry->getRoom();
         $this->area = $this->room->getArea();
 
@@ -85,7 +78,7 @@ class EntryVoter extends Voter
         /*
          * not work with test
          */
-        if ($this->decisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
+        if ($this->accessDecisionManager->decide($token, [SecurityRole::ROLE_GRR_ADMINISTRATOR])) {
             // return true;
         }
 
@@ -115,14 +108,14 @@ class EntryVoter extends Voter
                 return false;
             }
 
-            return $this->authorizationHelper->canSeeRoom($this->room, null);
+            return $this->authorizationHelper->canSeeRoom();
         }
 
         if ($this->authorizationHelper->isAreaRestricted($this->area)) {
-            return $this->authorizationHelper->canSeeAreaRestricted($this->area, $this->user);
+            return $this->authorizationHelper->canSeeAreaRestricted();
         }
 
-        return $this->authorizationHelper->canSeeRoom($this->room, $this->user);
+        return $this->authorizationHelper->canSeeRoom();
     }
 
     private function canEdit(): bool

@@ -15,7 +15,7 @@ class NumberToRoomTransformer implements DataTransformerInterface
      */
     private $roomRepository;
 
-    public function __construct(RoomRepository $roomRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository)
     {
         $this->roomRepository = $roomRepository;
     }
@@ -52,15 +52,15 @@ class NumberToRoomTransformer implements DataTransformerInterface
             return null;
         }
 
-        $area = $this->roomRepository->find($areaNumber);
+        $room = $this->roomRepository->find($areaNumber);
 
-        if (null === $area) {
+        if (null === $room) {
             // causes a validation error
             // this message is not shown to the user
             // see the invalid_message option
             throw new TransformationFailedException(sprintf('An area with number "%s" does not exist!', $areaNumber));
         }
 
-        return $area;
+        return $room;
     }
 }

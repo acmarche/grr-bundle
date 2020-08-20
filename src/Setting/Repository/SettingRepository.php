@@ -17,9 +17,9 @@ use Grr\GrrBundle\Entity\Setting;
  */
 class SettingRepository extends ServiceEntityRepository implements SettingRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, Setting::class);
+        parent::__construct($managerRegistry, Setting::class);
     }
 
     public function getValueByName(string $name): ?string

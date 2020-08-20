@@ -30,7 +30,7 @@ class NavigationManager
     /**
      * @var CarbonInterface
      */
-    private $today;
+    private $carbon;
     /**
      * @var RequestStack
      */
@@ -66,7 +66,7 @@ class NavigationManager
         Assert::greaterThan($number, 0);
 
         $navigation = $this->navigationFactory->createNew();
-        $this->today = $navigation->getToday();
+        $this->carbon = $navigation->getToday();
 
         $navigation->setNextButton($this->nextButtonRender());
         $navigation->setPreviousButton($this->previousButtonRender());
@@ -125,7 +125,7 @@ class NavigationManager
                 'weeks' => $weeks,
                 'weekSelected' => $weekSelected,
                 'daySelected' => $daySelected,
-                'today' => $this->today,
+                'today' => $this->carbon,
                 'previousButton' => $this->previousButtonRender(),
                 'nextButton' => $this->nextButtonRender(),
             ]

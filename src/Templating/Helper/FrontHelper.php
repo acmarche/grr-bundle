@@ -15,7 +15,6 @@ use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Model\Week;
 use Grr\Core\Setting\SettingConstants;
-use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
 use Grr\GrrBundle\Setting\Repository\SettingRepository;
@@ -39,8 +38,8 @@ class FrontHelper
 
     public function __construct(
         Environment $twigEnvironment,
-        TypeEntryRepository $typeEntryRepository,
-        SettingRepository $settingRepository
+        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
+        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository
     ) {
         $this->twigEnvironment = $twigEnvironment;
         $this->typeEntryRepository = $typeEntryRepository;
@@ -52,7 +51,7 @@ class FrontHelper
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function grrGenerateCellDataDay(TimeSlot $hour, RoomModel $roomModel, Day $day): string
+    public function grrGenerateCellDataDay(TimeSlot $timeSlot, RoomModel $roomModel, Day $day): string
     {
         /**
          * @var Entry[]
@@ -65,7 +64,7 @@ class FrontHelper
             $locations = $entry->getLocations();
             $position = 0;
             foreach ($locations as $location) {
-                if ($location === $hour) {
+                if ($location === $timeSlot) {
                     if (0 === $position) {
                         return $this->twigEnvironment->render(
                             '@grr_front/daily/_cell_day_data.html.twig',
@@ -84,7 +83,7 @@ class FrontHelper
 
         return $this->twigEnvironment->render(
             '@grr_front/daily/_cell_day_empty.html.twig',
-            ['position' => 999, 'area' => $area, 'room' => $room, 'day' => $day, 'hourModel' => $hour]
+            ['position' => 999, 'area' => $area, 'room' => $room, 'day' => $day, 'hourModel' => $timeSlot]
         );
     }
 
@@ -104,7 +103,7 @@ class FrontHelper
         );
     }
 
-    public function grrLegendTypeEntry(Area $area): string
+    public function grrLegendTypeEntry(): string
     {
         $types = $this->typeEntryRepository->findAll();
 

@@ -58,24 +58,24 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
      * Remplis les champs jours, heures, minutes
      * donne le bon label au submit.
      */
-    public function OnPreSetData(FormEvent $event): void
+    public function OnPreSetData(FormEvent $formEvent): void
     {
         /**
          * @var Entry
          */
-        $entry = $event->getData();
-        $form = $event->getForm();
+        $entry = $formEvent->getData();
+        $form = $formEvent->getForm();
         $room = $entry->getRoom();
         $type = null !== $room ? $room->getTypeAffichageReser() : 0;
 
         if (0 === $type) {
-            $duration = $this->durationFactory->createByEntry($entry);
+            $durationModel = $this->durationFactory->createByEntry($entry);
             $form->add(
                 'duration',
                 DurationTimeTypeField::class,
                 [
                     'label' => false,
-                    'data' => $duration,
+                    'data' => $durationModel,
                     'constraints' => [
                         new DurationConstraint(),
                     ],
@@ -100,9 +100,9 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
      *
      * @throws \Exception
      */
-    public function OnSubmit(FormEvent $event): void
+    public function OnSubmit(FormEvent $formEvent): void
     {
-        $form = $event->getForm();
+        $form = $formEvent->getForm();
 
         /**
          * @var DurationModel
@@ -113,7 +113,7 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
             /**
              * @var Entry
              */
-            $entry = $event->getData();
+            $entry = $formEvent->getData();
 
             $endTime = Carbon::instance($entry->getStartTime());
 

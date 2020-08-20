@@ -29,25 +29,11 @@ class AuthorizationUserController extends AbstractController
      * @var AuthorizationRepository
      */
     private $authorizationRepository;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
-     * @var AuthorizationManager
-     */
-    private $authorizationManager;
 
-    public function __construct(
-        AuthorizationManager $authorizationManager,
-        HandlerAuthorization $handlerAuthorization,
-        AuthorizationRepository $authorizationRepository,
-        EventDispatcherInterface $eventDispatcher
-    ) {
+    public function __construct(HandlerAuthorization $handlerAuthorization, \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository)
+    {
         $this->handlerAuthorization = $handlerAuthorization;
         $this->authorizationRepository = $authorizationRepository;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->authorizationManager = $authorizationManager;
     }
 
     /**

@@ -31,14 +31,14 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
         $endPeriodicity = Carbon::instance($value->getEndTime());
         $entry = $value->getEntryReference();
         $entryEndTime = Carbon::instance($entry->getEndTime());
-        $daysSelected = $value->getWeekDays();
+        $weekDays = $value->getWeekDays();
         $weekRepeat = $value->getWeekRepeat();
         $entryStartTime = Carbon::instance($entry->getStartTime());
 
         /*
          * Si aucun jour de la semaine sélectionné
          */
-        if (count($daysSelected) < 1) {
+        if (count($weekDays) < 1) {
             $this->context->buildViolation('constraint.periodicity.every_weeks.no_day')
                 ->addViolation();
         }

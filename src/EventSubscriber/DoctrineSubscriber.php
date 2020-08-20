@@ -26,7 +26,7 @@ class DoctrineSubscriber implements EventSubscriber
 
     // this method can only return the event names; you cannot define a
     // custom method name to execute when each event triggers
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             //  Events::postPersist,
@@ -38,41 +38,41 @@ class DoctrineSubscriber implements EventSubscriber
     // callback methods must be called exactly like the events they listen to;
     // they receive an argument of type LifecycleEventArgs, which gives you access
     // to both the entity object of the event and the entity manager itself
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $lifecycleEventArgs): void
     {
-        $entity = $args->getObject();
-        if (!$entity instanceof Entry) {
+        $object = $lifecycleEventArgs->getObject();
+        if (!$object instanceof Entry) {
             return;
         }
 
-        $entity->setCreatedAt(new \DateTime());
-        $entity->setUpdatedAt(new \DateTime());
+        $object->setCreatedAt(new \DateTime());
+        $object->setUpdatedAt(new \DateTime());
 
         $username = $this->getUsername();
 
-        if (!$entity->getCreatedBy()) {
-            $entity->setCreatedBy($username);
+        if (!$object->getCreatedBy()) {
+            $object->setCreatedBy($username);
         }
 
-        if (!$entity->getReservedFor()) {
-            $entity->setReservedFor($username);
+        if (null === $object->getReservedFor()) {
+            $object->setReservedFor($username);
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $lifecycleEventArgs): void
     {
-        $entity = $args->getObject();
-        if (!$entity instanceof Entry) {
+        $object = $lifecycleEventArgs->getObject();
+        if (!$object instanceof Entry) {
             return;
         }
-        $entity->setUpdatedAt(new \DateTime());
+        $object->setUpdatedAt(new \DateTime());
     }
 
     protected function getUsername(): string
     {
         $user = $this->security->getUser();
 
-        if (!$user) {
+        if (null === $user) {
             /*
              * avec behat trouve pas user, pourtant le met bien dans db
              */

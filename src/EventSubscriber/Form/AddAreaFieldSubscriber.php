@@ -45,7 +45,7 @@ class AddAreaFieldSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPreSetData(FormEvent $formEvent): void
     {
         /**
          * @var User
@@ -63,7 +63,7 @@ class AddAreaFieldSubscriber implements EventSubscriberInterface
         /**
          * @var FormInterface
          */
-        $form = $event->getForm();
+        $form = $formEvent->getForm();
 
         $form->add(
             'area',

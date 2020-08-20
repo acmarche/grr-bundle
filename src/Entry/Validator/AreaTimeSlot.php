@@ -12,15 +12,14 @@ use Symfony\Component\Validator\Constraint;
 class AreaTimeSlot extends Constraint
 {
     /**
-     * Any public properties become valid options for the annotation.
-     * Then, use these in your validator class.
-     *
+     * end time exceeds opening time
+     * @var string
+     * */
+    public $message_exceeds = 'constraint.entry.area.exceeds';
+    /**
+     * Start time must be greater than room opening time
      * @var string
      */
-
-    //end time exceeds opening time
-    public $message_exceeds = 'constraint.entry.area.exceeds';
-    //Start time must be greater than room opening time
     public $message_greater = 'constraint.entry.area.greater';
 
     public function getTargets(): string

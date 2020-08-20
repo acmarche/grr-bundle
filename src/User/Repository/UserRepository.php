@@ -16,9 +16,9 @@ use Grr\GrrBundle\Entity\Security\User;
  */
 class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($managerRegistry, User::class);
     }
 
     public function getQueryBuilder(): QueryBuilder
@@ -27,7 +27,12 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
             ->orderBy('user.name', 'ASC');
     }
 
-    public function loadByUserNameOrEmail(string $username)
+    /**
+     * @param string $username
+     * @return User|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function loadByUserNameOrEmail(string $username): User
     {
         return $this->createQueryBuilder('user')
             ->andWhere('user.email = :username')
@@ -42,24 +47,24 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
      */
     public function search(array $args): array
     {
-        $qb = $this->createQueryBuilder('user')
+        $queryBuilder = $this->createQueryBuilder('user')
             ->orderBy('user.name', 'ASC');
 
         $name = $args['name'] ?? null;
         if ($name) {
-            $qb->andWhere('user.email LIKE :name OR user.name LIKE :name OR user.username LIKE :name')
+            $queryBuilder->andWhere('user.email LIKE :name OR user.name LIKE :name OR user.username LIKE :name')
                 ->setParameter('name', '%'.$name.'%');
         }
 
-        return $qb->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function listReservedFor(): array
     {
-        $qb = $this->createQueryBuilder('user')
+        $queryBuilder = $this->createQueryBuilder('user')
             ->orderBy('user.name', 'ASC');
         $users = [];
-        foreach ($qb->getQuery()->getResult() as $user) {
+        foreach ($queryBuilder->getQuery()->getResult() as $user) {
             $users[$user->getName()] = $user->getUsername();
         }
 

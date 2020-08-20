@@ -24,22 +24,16 @@ class AuthorizationType extends AbstractType
      * @var UserRepository
      */
     public $userRepository;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
 
     public function __construct(
-        UserRepository $userRepository,
-        RoomRepository $roomRepository
+        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository
     ) {
         $this->userRepository = $userRepository;
-        $this->roomRepository = $roomRepository;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder
+        $formBuilder
             ->add('role', RoleSelectType::class, )
             ->add(
                 'area',
@@ -77,7 +71,7 @@ class AuthorizationType extends AbstractType
          * Sert à valider les ressources sélectionnées lors de l'envoie du form
          * Nécessaire car à l'init du form, la liste est vide.
          */
-        $builder->addEventListener(
+        $formBuilder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
                 $data = $event->getData();
@@ -85,7 +79,7 @@ class AuthorizationType extends AbstractType
             }
         );
 
-        $builder->get('area')->addEventListener(
+        $formBuilder->get('area')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
                 // It's important here to fetch $event->getForm()->getData(), as
@@ -99,17 +93,17 @@ class AuthorizationType extends AbstractType
         );
     }
 
-    public function onPresetData(FormEvent $event): void
+    public function onPresetData(): void
     {
     }
 
-    public function onPostSubmit(FormEvent $event): void
+    public function onPostSubmit(): void
     {
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults(
+        $optionsResolver->setDefaults(
             [
                 'data_class' => AuthorizationModel::class,
             ]

@@ -15,7 +15,7 @@ class BusyRoomValidator extends ConstraintValidator
      */
     private $entryRepository;
 
-    public function __construct(EntryRepository $entryRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository)
     {
         $this->entryRepository = $entryRepository;
     }

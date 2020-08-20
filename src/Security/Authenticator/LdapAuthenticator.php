@@ -43,27 +43,15 @@ class LdapAuthenticator extends AbstractFormLoginAuthenticator
      * @var CsrfTokenManagerInterface
      */
     private $csrfTokenManager;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
-    /**
-     * @var GrrLdap
-     */
-    private $grrLdap;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserPasswordEncoderInterface $passwordEncoder,
-        GrrLdap $grrLdap
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->passwordEncoder = $passwordEncoder;
-        $this->grrLdap = $grrLdap;
     }
 
     public function supports(Request $request): bool
@@ -92,8 +80,8 @@ class LdapAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        $csrfToken = new CsrfToken('authenticate', $credentials['csrf_token']);
+        if (!$this->csrfTokenManager->isTokenValid($csrfToken)) {
             throw new InvalidCsrfTokenException();
         }
 
@@ -111,23 +99,6 @@ class LdapAuthenticator extends AbstractFormLoginAuthenticator
     {
         var_dump(12345);
         exit();
-        try {
-            $entry = $this->grrLdap->getEntry($user->getUsername());
-            var_dump($entry);
-            exit();
-            if ($entry instanceof Entry) {
-                $dn = $entry->getDn();
-
-                try {
-                    $this->grrLdap->bind($dn, $credentials['password']);
-
-                    return true;
-                } catch (Exception $exception) {
-                    //throw new BadCredentialsException($exception->getMessage());
-                }
-            }
-        } catch (Exception $exception) {
-        }
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse

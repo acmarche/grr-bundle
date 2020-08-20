@@ -43,7 +43,7 @@ class PeriodicityController extends AbstractController
     public function __construct(
         PeriodicityManager $periodicityManager,
         HandlerEntry $handlerEntry,
-        EntryRepository $entryRepository,
+        \Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->periodicityManager = $periodicityManager;
@@ -78,10 +78,7 @@ class PeriodicityController extends AbstractController
             $this->handlerEntry->handleEditEntryWithPeriodicity($oldEntry, $entry);
             $this->eventDispatcher->dispatch(new PeriodicityEventUpdated($periodicity));
 
-            return $this->redirectToRoute(
-                'grr_front_entry_show',
-                ['id' => $entry->getId()]
-            );
+            return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
         }
 
         return $this->render(

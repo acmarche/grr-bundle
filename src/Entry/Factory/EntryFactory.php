@@ -22,19 +22,19 @@ class EntryFactory
         $this->periodicityFactory = $periodicityFactory;
     }
 
-    public function generateEntry(Entry $entry, CarbonInterface $day): Entry
+    public function generateEntry(Entry $entry, CarbonInterface $carbon): Entry
     {
         $newEntry = clone $entry;
 
         $startTime = Carbon::instance($entry->getStartTime());
-        $startTime->setYear($day->year);
-        $startTime->setMonth($day->month);
-        $startTime->setDay($day->day);
+        $startTime->setYear($carbon->year);
+        $startTime->setMonth($carbon->month);
+        $startTime->setDay($carbon->day);
 
         $endTime = Carbon::instance($entry->getEndTime());
-        $endTime->setYear($day->year);
-        $endTime->setMonth($day->month);
-        $endTime->setDay($day->day);
+        $endTime->setYear($carbon->year);
+        $endTime->setMonth($carbon->month);
+        $endTime->setDay($carbon->day);
 
         $newEntry->setStartTime($startTime->toDateTime());
         $newEntry->setEndTime($endTime->toDateTime());

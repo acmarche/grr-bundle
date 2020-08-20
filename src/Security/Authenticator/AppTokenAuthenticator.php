@@ -20,7 +20,7 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -43,11 +43,11 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      *     return new Response('Auth header required', 401);
      *
      * @param Request                 $request       The request that resulted in an AuthenticationException
-     * @param AuthenticationException $authException The exception that started the authentication process
+     * @param AuthenticationException $authenticationException The exception that started the authentication process
      *
      * @return Response
      */
-    public function start(Request $request, AuthenticationException $authException = null): JsonResponse
+    public function start(Request $request, AuthenticationException $authenticationException = null): JsonResponse
     {
         $data = [
             // you might translate this message
@@ -155,10 +155,10 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
+    public function onAuthenticationFailure(Request $request, AuthenticationException $authenticationException): JsonResponse
     {
         $data = [
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
+            'message' => strtr($authenticationException->getMessageKey(), $authenticationException->getMessageData()),
 
             // or to translate this message
             // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())

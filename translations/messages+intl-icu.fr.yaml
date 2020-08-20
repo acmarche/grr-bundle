@@ -266,7 +266,7 @@ periodicity:
   delete:
     confirm: 'Êtes vous sur de supprimer la périodicité ?'
   title: 'Périodicité'
-  endtime: 'Fin temps'
+  endtime: 'Fin de la périodicité'
   type: 'Type'
   repeatWeek: 'Répétition semaine'
   days: 'Jours'

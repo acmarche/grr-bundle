@@ -15,8 +15,8 @@ use Grr\GrrBundle\Entity\TypeEntry;
  */
 class TypeEntryRepository extends ServiceEntityRepository implements TypeEntryRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($registry, TypeEntry::class);
+        parent::__construct($managerRegistry, TypeEntry::class);
     }
 }

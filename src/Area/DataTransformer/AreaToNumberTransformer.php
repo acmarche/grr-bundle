@@ -14,7 +14,7 @@ class AreaToNumberTransformer implements DataTransformerInterface
      */
     private $areaRepository;
 
-    public function __construct(AreaRepository $areaRepository)
+    public function __construct(\Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository)
     {
         $this->areaRepository = $areaRepository;
     }

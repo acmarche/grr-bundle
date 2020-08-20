@@ -21,9 +21,9 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
         $this->ressourceSelectedHelper = $ressourceSelectedHelper;
     }
 
-    public function onControllerEvent(ControllerEvent $event): void
+    public function onControllerEvent(ControllerEvent $controllerEvent): void
     {
-        $controller = $event->getController();
+        $controller = $controllerEvent->getController();
 
         /**
          * $controller passed can be either a class or a Closure.
@@ -35,8 +35,8 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
         }
 
         if ($controller[0] instanceof FrontControllerInterface) {
-            $area = $event->getRequest()->get('area');
-            $room = $event->getRequest()->get('room');
+            $area = $controllerEvent->getRequest()->get('area');
+            $room = $controllerEvent->getRequest()->get('room');
             /*
              * if not set in url, force by user all ressources
              */

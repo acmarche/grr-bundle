@@ -33,8 +33,8 @@ class AjaxController extends AbstractController
     private $authorizationHelper;
 
     public function __construct(
-        AreaRepository $areaRepository,
-        RoomRepository $roomRepository,
+        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
+        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaRepository = $areaRepository;

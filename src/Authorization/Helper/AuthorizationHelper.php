@@ -26,10 +26,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthorizationHelper
 {
     /**
-     * @var Security
-     */
-    private $security;
-    /**
      * @var AuthorizationRepository
      */
     private $authorizationRepository;
@@ -41,19 +37,12 @@ class AuthorizationHelper
      * @var AreaRepository
      */
     private $areaRepository;
-
-    public function __construct(
-        Security $security,
-        AuthorizationRepository $authorizationRepository,
-        AreaRepository $areaRepository,
-        RoomRepository $roomRepository
-    ) {
-        $this->security = $security;
+    public function __construct(\Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository, \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository, \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository)
+    {
         $this->authorizationRepository = $authorizationRepository;
         $this->roomRepository = $roomRepository;
         $this->areaRepository = $areaRepository;
     }
-
     /**
      * @throws \Exception
      *
@@ -81,7 +70,6 @@ class AuthorizationHelper
 
         return $areas;
     }
-
     /**
      * @throws \Exception
      *
@@ -119,7 +107,6 @@ class AuthorizationHelper
 
         return array_merge(...$rooms);
     }
-
     /**
      * Tous les droits sur l'Area et ses ressources modifier ses paramètres, la supprimer
      * Peux encoder des entry dans toutes les ressources de l'Area.
@@ -130,7 +117,6 @@ class AuthorizationHelper
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => true]
         );
     }
-
     /**
      * Peux gérer les ressources mais pas modifier l'Area
      * Peux encoder des entry dans toutes les ressources de l'Area.
@@ -145,7 +131,6 @@ class AuthorizationHelper
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => false]
         );
     }
-
     /**
      * Peux gérer la room (modifier les paramètres) et pas de contraintes pour encoder les entry.
      */
@@ -159,7 +144,6 @@ class AuthorizationHelper
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => true]
         );
     }
-
     /**
      * Peux gérer toutes les entrées sans contraintes.
      */
@@ -177,12 +161,10 @@ class AuthorizationHelper
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => false]
         );
     }
-
     public function isGrrAdministrator(UserInterface $user): bool
     {
         return $user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR);
     }
-
     /**
      * @param User|null $user
      */
@@ -259,19 +241,18 @@ class AuthorizationHelper
 
         return false;
     }
-
     /**
      * @param User|null $user
      */
     public function canAddEntry(Room $room, ?UserInterface $user = null): bool
     {
-        $rule = $room->getRuleToAdd();
+        $ruleToAdd = $room->getRuleToAdd();
 
         if ($user && $this->isGrrAdministrator($user)) {
             return true;
         }
 
-        if (!$user || $rule > SettingsRoom::CAN_ADD_NO_RULE) {
+        if (!$user || $ruleToAdd > SettingsRoom::CAN_ADD_NO_RULE) {
             return $this->checkAuthorizationRoomToAddEntry($room, $user);
         }
 
@@ -292,29 +273,25 @@ class AuthorizationHelper
 
         return $this->isRoomManager($user, $room);
     }
-
-    public function canSeeRoom(Room $room, UserInterface $user = null): bool
+    public function canSeeRoom(): bool
     {
         return true;
     }
-
     public function isAreaRestricted(Area $area): bool
     {
         return $area->getIsRestricted();
     }
-
     /**
      * @todo
      */
-    public function canSeeArea(Area $area, UserInterface $user): bool
+    public function canSeeArea(): bool
     {
         return true;
     }
-
     /**
      * @todo
      */
-    public function canSeeAreaRestricted(Area $area, UserInterface $user): bool
+    public function canSeeAreaRestricted(): bool
     {
         return true;
     }

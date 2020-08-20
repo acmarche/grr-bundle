@@ -31,16 +31,16 @@ class PasswordController extends AbstractController
     /**
      * @var PasswordHelper
      */
-    private $passwordEncoder;
+    private $passwordHelper;
 
     public function __construct(
         UserManager $userManager,
-        PasswordHelper $passwordEncoder,
+        PasswordHelper $passwordHelper,
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->userManager = $userManager;
         $this->eventDispatcher = $eventDispatcher;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHelper = $passwordHelper;
     }
 
     /**
@@ -54,7 +54,7 @@ class PasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $password = $data->getPassword();
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+            $user->setPassword($this->passwordHelper->encodePassword($user, $password));
             $this->userManager->flush();
 
             $this->eventDispatcher->dispatch(new PasswordEventUpdated($user));

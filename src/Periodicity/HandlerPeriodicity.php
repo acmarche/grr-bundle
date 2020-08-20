@@ -10,12 +10,11 @@
 
 namespace Grr\GrrBundle\Periodicity;
 
+use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Periodicity\GeneratorEntry;
 use Grr\Core\Periodicity\PeriodicityDaysProvider;
-use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entry\Factory\EntryFactory;
 use Grr\GrrBundle\Entry\Manager\EntryManager;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Periodicity\Manager\PeriodicityManager;
 
 class HandlerPeriodicity
@@ -35,33 +34,27 @@ class HandlerPeriodicity
     /**
      * @var EntryFactory
      */
-    private $generatorEntry;
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
+    private $entryFactory;
 
     public function __construct(
         PeriodicityManager $periodicityManager,
         PeriodicityDaysProvider $periodicityDaysProvider,
         EntryManager $entryManager,
-        EntryRepository $entryRepository,
         GeneratorEntry $generatorEntry
     ) {
         $this->periodicityManager = $periodicityManager;
         $this->periodicityDaysProvider = $periodicityDaysProvider;
         $this->entryManager = $entryManager;
-        $this->generatorEntry = $generatorEntry;
-        $this->entryRepository = $entryRepository;
+        $this->entryFactory = $generatorEntry;
     }
 
-    public function handleNewPeriodicity(Entry $entry): void
+    public function handleNewPeriodicity(EntryInterface $entry): void
     {
         $periodicity = $entry->getPeriodicity();
         if (null !== $periodicity) {
             $days = $this->periodicityDaysProvider->getDaysByEntry($entry);
             foreach ($days as $day) {
-                $newEntry = $this->generatorEntry->generateEntry($entry, $day);
+                $newEntry = $this->entryFactory->generateEntry($entry, $day);
                 $this->entryManager->persist($newEntry);
             }
             $this->entryManager->flush();
@@ -73,7 +66,7 @@ class HandlerPeriodicity
      *
      * @return null
      */
-    public function handleEditPeriodicity(Entry $oldEntry, Entry $entry)
+    public function handleEditPeriodicity(EntryInterface $entry)
     {
         $periodicity = $entry->getPeriodicity();
         if (null === $periodicity) {
@@ -101,8 +94,7 @@ class HandlerPeriodicity
         $this->entryManager->removeEntriesByPeriodicity($periodicity, $entry);
         $days = $this->periodicityDaysProvider->getDaysByEntry($entry);
         foreach ($days as $day) {
-            $newEntry = $this->generatorEntry->generateEntry($entry, $day);
-            //  $this->entryRepository->findPeriodicityEntry($entry);
+            $newEntry = $this->entryFactory->generateEntry($entry, $day);
             $this->entryManager->persist($newEntry);
         }
         $this->entryManager->flush();
@@ -110,7 +102,7 @@ class HandlerPeriodicity
         return null;
     }
 
-    public function periodicityHasChange(Entry $oldEntry, Entry $entry): bool
+    public function periodicityHasChange(EntryInterface $oldEntry, EntryInterface $entry): bool
     {
         if ($oldEntry->getStartTime() !== $entry->getStartTime()) {
             return true;

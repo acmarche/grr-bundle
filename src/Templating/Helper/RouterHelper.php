@@ -22,21 +22,15 @@ class RouterHelper
      */
     private $requestStack;
     /**
-     * @var Environment
-     */
-    private $twigEnvironment;
-    /**
      * @var RouterInterface
      */
     private $router;
 
     public function __construct(
         RequestStack $requestStack,
-        Environment $twigEnvironment,
         RouterInterface $router
     ) {
         $this->requestStack = $requestStack;
-        $this->twigEnvironment = $twigEnvironment;
         $this->router = $router;
     }
 
@@ -91,7 +85,7 @@ class RouterHelper
         return $this->router->generate('grr_front_week', $params);
     }
 
-    public function generateRouteDayView(int $day, CarbonInterface $date = null): string
+    public function generateRouteDayView(int $day, CarbonInterface $carbon = null): string
     {
         $request = $this->requestStack->getMasterRequest();
         if (null === $request) {
@@ -106,9 +100,9 @@ class RouterHelper
         $year = $attributes['year'] ?? 0;
         $month = $attributes['month'] ?? 0;
 
-        if (null !== $date) {
-            $year = $date->year;
-            $month = $date->month;
+        if (null !== $carbon) {
+            $year = $carbon->year;
+            $month = $carbon->month;
         }
 
         $params = ['area' => $area, 'year' => $year, 'month' => $month, 'day' => $day];
