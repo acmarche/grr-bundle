@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\EntryType\Events\EntryTypeEventCreated;
-use Grr\Core\EntryType\Events\EntryTypeEventDeleted;
-use Grr\Core\EntryType\Events\EntryTypeEventUpdated;
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\Core\TypeEntry\Events\TypeEntryEventCreated;
+use Grr\Core\TypeEntry\Events\TypeEntryEventDeleted;
+use Grr\Core\TypeEntry\Events\TypeEntryEventUpdated;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Grr\GrrBundle\TypeEntry\Manager\TypeEntryManager;
 use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
@@ -21,7 +21,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @Route("/admin/entrytype")
  * @IsGranted("ROLE_GRR_ADMINISTRATOR")
  */
-class EntryTypeController extends AbstractController
+class TypeEntryController extends AbstractController
 {
     /**
      * @var TypeEntryRepository
@@ -70,15 +70,15 @@ class EntryTypeController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $entryType = $this->typeEntryFactory->createNew();
+        $typeEntry = $this->typeEntryFactory->createNew();
 
-        $form = $this->createForm(TypeEntryType::class, $entryType);
+        $form = $this->createForm(TypeEntryType::class, $typeEntry);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->typeEntryManager->insert($entryType);
+            $this->typeEntryManager->insert($typeEntry);
 
-            $this->eventDispatcher->dispatch(new EntryTypeEventCreated($entryType));
+            $this->eventDispatcher->dispatch(new TypeEntryEventCreated($typeEntry));
 
             return $this->redirectToRoute('grr_admin_type_entry_index');
         }
@@ -86,7 +86,7 @@ class EntryTypeController extends AbstractController
         return $this->render(
             '@grr_admin/type_entry/new.html.twig',
             [
-                'type_entry' => $entryType,
+                'type_entry' => $typeEntry,
                 'form' => $form->createView(),
             ]
         );
@@ -95,7 +95,7 @@ class EntryTypeController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_type_entry_show", methods={"GET"})
      */
-    public function show(EntryType $typeArea): Response
+    public function show(TypeEntry $typeArea): Response
     {
         return $this->render(
             '@grr_admin/type_entry/show.html.twig',
@@ -108,20 +108,20 @@ class EntryTypeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="grr_admin_type_entry_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, EntryType $entryType): Response
+    public function edit(Request $request, TypeEntry $typeEntry): Response
     {
-        $form = $this->createForm(TypeEntryType::class, $entryType);
+        $form = $this->createForm(TypeEntryType::class, $typeEntry);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryManager->flush();
 
-            $this->eventDispatcher->dispatch(new EntryTypeEventUpdated($entryType));
+            $this->eventDispatcher->dispatch(new TypeEntryEventUpdated($typeEntry));
 
             return $this->redirectToRoute(
                 'grr_admin_type_entry_index',
                 [
-                    'id' => $entryType->getId(),
+                    'id' => $typeEntry->getId(),
                 ]
             );
         }
@@ -129,7 +129,7 @@ class EntryTypeController extends AbstractController
         return $this->render(
             '@grr_admin/type_entry/edit.html.twig',
             [
-                'type_entry' => $entryType,
+                'type_entry' => $typeEntry,
                 'form' => $form->createView(),
             ]
         );
@@ -138,13 +138,13 @@ class EntryTypeController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_type_entry_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, EntryType $entryType): Response
+    public function delete(Request $request, TypeEntry $typeEntry): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entryType->getId(), $request->request->get('_token'))) {
-            $this->typeEntryManager->remove($entryType);
+        if ($this->isCsrfTokenValid('delete'.$typeEntry->getId(), $request->request->get('_token'))) {
+            $this->typeEntryManager->remove($typeEntry);
             $this->typeEntryManager->flush();
 
-            $this->eventDispatcher->dispatch(new EntryTypeEventDeleted($entryType));
+            $this->eventDispatcher->dispatch(new TypeEntryEventDeleted($typeEntry));
         }
 
         return $this->redirectToRoute('grr_admin_type_entry_index');

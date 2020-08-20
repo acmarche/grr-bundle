@@ -1,4 +1,4 @@
-Grr\GrrBundle\Entity\EntryType:
+Grr\GrrBundle\Entity\TypeEntry:
   type_entry_A:
     name: 'Cours'
     letter (unique): 'A'

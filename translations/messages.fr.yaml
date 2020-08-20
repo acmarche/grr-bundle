@@ -174,7 +174,7 @@ flash:
     created: 'Le domaine a bien été ajouté'
     updated: 'Le domaine a bien été modifié'
     deleted: 'Le domaine a bien été supprimé'
-    setEntryType: 'Les types de réservation ont bien été associés'
+    setTypeEntry: 'Les types de réservation ont bien été associés'
   room:
     created: 'La ressource a bien été ajoutée'
     updated: 'La ressource a bien été modifiée'

@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use Grr\Core\Area\Events\AreaEventAssociatedEntryType;
+use Grr\Core\Area\Events\AreaEventAssociatedTypeEntry;
 use Grr\Core\Area\Events\AreaEventCreated;
 use Grr\Core\Area\Events\AreaEventDeleted;
 use Grr\Core\Area\Events\AreaEventUpdated;
@@ -12,9 +12,9 @@ use Grr\Core\Authorization\Events\AuthorizationEventUpdated;
 use Grr\Core\Entry\Events\EntryEventCreated;
 use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventUpdated;
-use Grr\Core\EntryType\Events\EntryTypeEventCreated;
-use Grr\Core\EntryType\Events\EntryTypeEventDeleted;
-use Grr\Core\EntryType\Events\EntryTypeEventUpdated;
+use Grr\Core\TypeEntry\Events\TypeEntryEventCreated;
+use Grr\Core\TypeEntry\Events\TypeEntryEventDeleted;
+use Grr\Core\TypeEntry\Events\TypeEntryEventUpdated;
 use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Room\Events\RoomEventCreated;
 use Grr\Core\Room\Events\RoomEventDeleted;
@@ -38,17 +38,17 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    public function onEntryTypeDeleted(EntryTypeEventDeleted $entryTypeEvent): void
+    public function onTypeEntryDeleted(TypeEntryEventDeleted $typeEntryEvent): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.deleted');
     }
 
-    public function onEntryTypeUpdated(EntryTypeEventUpdated $entryTypeEvent): void
+    public function onTypeEntryUpdated(TypeEntryEventUpdated $typeEntryEvent): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.updated');
     }
 
-    public function onEntryTypeCreated(EntryTypeEventCreated $entryTypeEvent): void
+    public function onTypeEntryCreated(TypeEntryEventCreated $typeEntryEvent): void
     {
         $this->flashBag->add('success', 'flash.typeEntry.created');
     }
@@ -128,9 +128,9 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag->add('success', 'flash.authorization.created');
     }
 
-    public function onAreaAssociatedEntryType(): void
+    public function onAreaAssociatedTypeEntry(): void
     {
-        $this->flashBag->add('success', 'flash.area.setEntryType');
+        $this->flashBag->add('success', 'flash.area.setTypeEntry');
     }
 
     public function onPasswordUpdated(PasswordEventUpdated $userEvent): void
@@ -151,15 +151,15 @@ class FlashSubscriber implements EventSubscriberInterface
             AreaEventCreated::class => 'onAreaCreated',
             AreaEventUpdated::class => 'onAreaUpdated',
             AreaEventDeleted::class => 'onAreaDeleted',
-            AreaEventAssociatedEntryType::class => 'onAreaAssociatedEntryType',
+            AreaEventAssociatedTypeEntry::class => 'onAreaAssociatedTypeEntry',
 
             RoomEventCreated::class => 'onRoomCreated',
             RoomEventUpdated::class => 'onRoomUpdated',
             RoomEventDeleted::class => 'onRoomDeleted',
 
-            EntryTypeEventCreated::class => 'onEntryTypeCreated',
-            EntryTypeEventUpdated::class => 'onEntryTypeUpdated',
-            EntryTypeEventDeleted::class => 'onEntryTypeDeleted',
+            TypeEntryEventCreated::class => 'onTypeEntryCreated',
+            TypeEntryEventUpdated::class => 'onTypeEntryUpdated',
+            TypeEntryEventDeleted::class => 'onTypeEntryDeleted',
 
             UserEventCreated::class => 'onUserCreated',
             UserEventUpdated::class => 'onUserUpdated',

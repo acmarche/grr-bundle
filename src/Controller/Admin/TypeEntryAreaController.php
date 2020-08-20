@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Area\Events\AreaEventAssociatedEntryType;
+use Grr\Core\Area\Events\AreaEventAssociatedTypeEntry;
 use Grr\GrrBundle\Area\Form\AssocTypeForAreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
 use Grr\GrrBundle\Entity\Area;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/type/area")
  */
-class EntryTypeAreaController extends AbstractController
+class TypeEntryAreaController extends AbstractController
 {
     /**
      * @var AreaManager
@@ -46,7 +46,7 @@ class EntryTypeAreaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->flush();
 
-            $this->eventDispatcher->dispatch(new AreaEventAssociatedEntryType($area));
+            $this->eventDispatcher->dispatch(new AreaEventAssociatedTypeEntry($area));
 
             return $this->redirectToRoute(
                 'grr_admin_area_show',

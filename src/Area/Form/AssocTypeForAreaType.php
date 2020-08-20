@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Area\Form;
 
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,10 +15,10 @@ class AssocTypeForAreaType extends AbstractType
     {
         $builder
             ->add(
-                'entryTypes',
+                'typesEntry',
                 EntityType::class,
                 [
-                    'class' => EntryType::class,
+                    'class' => TypeEntry::class,
                     'multiple' => true,
                     'expanded' => true,
                     'label' => 'label.area.entryTypes',

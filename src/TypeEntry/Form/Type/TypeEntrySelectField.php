@@ -6,20 +6,20 @@
  * Time: 21:57.
  */
 
-namespace Grr\GrrBundle\Entry\Form\Type;
+namespace Grr\GrrBundle\TypeEntry\Form\Type;
 
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EntryTypeSelectField extends AbstractType
+class TypeEntrySelectField extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
             [
-                'class' => EntryType::class,
+                'class' => TypeEntry::class,
                 'label' => 'label.entry.type_select',
                 'help' => 'help.entry.type_select',
             ]

@@ -83,8 +83,8 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'grrLegendEntryType', function (Area $area): string {
-                    return $this->frontHelper->grrLegendEntryType($area);
+                'grrLegendTypeEntry', function (Area $area): string {
+                    return $this->frontHelper->grrLegendTypeEntry($area);
                 }, [
                     'is_safe' => ['html'],
                 ]

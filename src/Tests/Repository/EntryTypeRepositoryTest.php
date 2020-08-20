@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Tests\Repository;
 
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\Core\Tests\BaseTesting;
 
 class TypeEntryRepositoryTest extends BaseTesting
@@ -10,12 +10,12 @@ class TypeEntryRepositoryTest extends BaseTesting
     public function testFindByName(): void
     {
         $this->loadFixtures();
-        $entryType = $this->entityManager
-            ->getRepository(EntryType::class)
+        $typeEntry = $this->entityManager
+            ->getRepository(TypeEntry::class)
             ->findOneBy(['name' => 'Cours']);
 
-        $this->assertEquals('Cours', $entryType->getName());
-        $this->assertEquals('A', $entryType->getLetter());
+        $this->assertEquals('Cours', $typeEntry->getName());
+        $this->assertEquals('A', $typeEntry->getLetter());
     }
 
     protected function loadFixtures(): void

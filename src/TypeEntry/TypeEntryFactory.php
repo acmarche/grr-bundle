@@ -8,12 +8,12 @@
 
 namespace Grr\GrrBundle\TypeEntry;
 
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 
 class TypeEntryFactory
 {
-    public function createNew(): EntryType
+    public function createNew(): TypeEntry
     {
-        return new EntryType();
+        return new TypeEntry();
     }
 }

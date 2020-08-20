@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Entry\Form;
 
 use Grr\GrrBundle\Area\Form\Type\AreaSelectType;
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -36,10 +36,10 @@ class SearchEntryType extends AbstractType
                 ]
             )
             ->add(
-                'entry_type',
+                'type_entry',
                 EntityType::class,
                 [
-                    'class' => EntryType::class,
+                    'class' => TypeEntry::class,
                     'required' => false,
                     'label' => false,
                     'help' => null,

@@ -120,7 +120,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         $name = $args['name'] ?? null;
         $area = $args['area'] ?? null;
         $room = $args['room'] ?? null;
-        $entryType = $args['entry_type'] ?? null;
+        $typeEntry = $args['entry_type'] ?? null;
         $type = $args['type'] ?? null;
 
         $qb = $this->createQueryBuilder('entry');
@@ -141,9 +141,9 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
                 ->setParameter('room', $room);
         }
 
-        if ($entryType) {
+        if ($typeEntry) {
             $qb->andWhere('entry.entryType = :entryType')
-                ->setParameter('entryType', $entryType);
+                ->setParameter('entryType', $typeEntry);
         }
 
         if ($type) {

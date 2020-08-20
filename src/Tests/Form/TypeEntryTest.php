@@ -10,8 +10,8 @@
 
 namespace Grr\GrrBundle\Tests\Form;
 
-use Grr\GrrBundle\Entity\EntryType;
-use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
+use Grr\GrrBundle\TypeEntry\Form\TypeTypeEntry;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class TypeEntryTest extends TypeTestCase
@@ -26,11 +26,11 @@ class TypeEntryTest extends TypeTestCase
             'available' => 2,
         ];
 
-        $objectToCompare = new EntryType();
+        $objectToCompare = new TypeEntry();
 
-        $form = $this->factory->create(TypeEntryType::class, $objectToCompare);
+        $form = $this->factory->create(TypeTypeEntry::class, $objectToCompare);
 
-        $object = new EntryType();
+        $object = new TypeEntry();
         $object->setName($formData['name']);
         $object->setOrderDisplay($formData['orderDisplay']);
         $object->setColor($formData['color']);

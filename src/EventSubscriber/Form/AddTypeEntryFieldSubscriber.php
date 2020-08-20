@@ -8,8 +8,9 @@
 
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
+use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entry\Form\Type\EntryTypeSelectField;
+use Grr\GrrBundle\TypeEntry\Form\Type\TypeEntrySelectField;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -34,20 +35,23 @@ class AddTypeEntryFieldSubscriber implements EventSubscriberInterface
          */
         $entry = $event->getData();
         $form = $event->getForm();
+        /**
+         * @var AreaInterface $area
+         */
         $area = $entry->getArea();
 
-        if ($area->getEntryTypes()->count() > 0) {
+        if ($area->getTypesEntry()->count() > 0) {
             $form->add(
                 'type',
-                EntryTypeSelectField::class,
+                TypeEntrySelectField::class,
                 [
-                    'choices' => $area->getEntryTypes(),
+                    'choices' => $area->getTypesEntry(),
                 ]
             );
         } else {
             $form->add(
                 'type',
-                EntryTypeSelectField::class,
+                TypeEntrySelectField::class,
                 [
                 ]
             );

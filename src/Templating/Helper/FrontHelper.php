@@ -104,7 +104,7 @@ class FrontHelper
         );
     }
 
-    public function grrLegendEntryType(Area $area): string
+    public function grrLegendTypeEntry(Area $area): string
     {
         $types = $this->typeEntryRepository->findAll();
 

@@ -12,7 +12,7 @@ doctrine:
       Grr\Core\Contrat\Entity\AreaInterface: Grr\GrrBundle\Entity\Area
       Grr\Core\Contrat\Entity\RoomInterface: Grr\GrrBundle\Entity\Room
       Grr\Core\Contrat\Entity\EntryInterface: Grr\GrrBundle\Entity\Entry
-      Grr\Core\Contrat\Entity\EntryTypeInterface: Grr\GrrBundle\Entity\EntryType
+      Grr\Core\Contrat\Entity\TypeEntryInterface: Grr\GrrBundle\Entity\TypeEntry
       Grr\Core\Contrat\Entity\PeriodicityInterface: Grr\GrrBundle\Entity\Periodicity
       Grr\Core\Contrat\Entity\Security\UserInterface: Grr\GrrBundle\Entity\Security\User
       Grr\Core\Contrat\Entity\Security\AuthorizationInterface: Grr\GrrBundle\Entity\Security\Authorization

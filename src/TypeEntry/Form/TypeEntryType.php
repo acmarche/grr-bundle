@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\TypeEntry\Form;
 
 use Grr\Core\Setting\SettingsTypeEntry;
-use Grr\GrrBundle\Entity\EntryType;
+use Grr\GrrBundle\Entity\TypeEntry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -61,7 +61,7 @@ class TypeEntryType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => EntryType::class,
+                'data_class' => TypeEntry::class,
             ]
         );
     }

@@ -4,8 +4,8 @@ namespace Grr\GrrBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Grr\Core\Contrat\Entity\EntryTypeInterface;
-use Grr\Core\EntryType\Entity\EntryTypeTrait;
+use Grr\Core\Contrat\Entity\TypeEntryInterface;
+use Grr\Core\TypeEntry\Entity\TypeEntryTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"letter"}, message="constraint.entryType.alreadyUse")
  * @ApiResource
  */
-class EntryType implements EntryTypeInterface
+class TypeEntry implements TypeEntryInterface
 {
-    use EntryTypeTrait;
+    use TypeEntryTrait;
 }
