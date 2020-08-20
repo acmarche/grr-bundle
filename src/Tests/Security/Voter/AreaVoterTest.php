@@ -10,13 +10,13 @@
 
 namespace Grr\GrrBundle\Tests\Security\Voter;
 
+use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
-use Grr\Core\Tests\BaseTesting;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

@@ -101,7 +101,7 @@ class PeriodicityController extends AbstractController
     {
         $entry = $this->entryRepository->getBaseEntryForPeriodicity($periodicity);
 
-        if ($this->isCsrfTokenValid('delete' . $periodicity->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$periodicity->getId(), $request->request->get('_token'))) {
             $this->periodicityManager->remove($periodicity);
 
             $this->eventDispatcher->dispatch(new PeriodicityEventDeleted($periodicity));

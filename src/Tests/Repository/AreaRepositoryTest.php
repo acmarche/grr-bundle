@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Tests\Repository;
 
-use Grr\GrrBundle\Entity\Area;
 use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Entity\Area;
 
 class AreaRepositoryTest extends BaseTesting
 {

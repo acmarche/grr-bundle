@@ -10,7 +10,6 @@ use Grr\GrrBundle\EventSubscriber\Form\AddAreaFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddDurationFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddTypeEntryFieldSubscriber;
-
 use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

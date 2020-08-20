@@ -11,12 +11,12 @@
 namespace Grr\GrrBundle\Tests\Security;
 
 use Grr\Core\Security\SecurityRole;
+use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Grr\Core\Tests\BaseTesting;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -255,9 +255,6 @@ class SecurityHelperTest extends BaseTesting
 
     /**
      * @dataProvider provideRoom
-     *
-     * @param string $name
-     * @param array $users
      */
     public function testAddEntryWithRule(string $name, array $users): void
     {

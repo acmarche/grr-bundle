@@ -97,7 +97,7 @@ class SettingController extends AbstractController
      */
     public function delete(Request $request, Setting $setting): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $setting->getName(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {
             $this->settingManager->remove($setting);
             $this->settingManager->flush();
         }

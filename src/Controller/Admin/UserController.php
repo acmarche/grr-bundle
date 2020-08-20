@@ -156,7 +156,6 @@ class UserController extends AbstractController
         );
     }
 
-
     /**
      * Displays a form to edit an existing User utilisateur.
      *

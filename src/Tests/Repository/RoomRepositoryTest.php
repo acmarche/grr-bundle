@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Tests\Repository;
 
 use Doctrine\ORM\QueryBuilder;
+use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\Core\Tests\BaseTesting;
 
 class RoomRepositoryTest extends BaseTesting
 {

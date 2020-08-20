@@ -14,7 +14,6 @@ use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

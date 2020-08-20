@@ -14,7 +14,6 @@ class SettingFactory
 {
     /**
      * @param string|array $value
-     * @return Setting
      */
     public function createNew(string $name, $value): Setting
     {

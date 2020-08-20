@@ -15,7 +15,7 @@ use Symfony\Component\Mime\Email;
 
 class EmailFactory
 {
-      public static function createNew(): Email
+    public static function createNew(): Email
     {
         return new Email();
     }

@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Tests\Repository;
 
-use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Entity\TypeEntry;
 
 class TypeEntryRepositoryTest extends BaseTesting
 {

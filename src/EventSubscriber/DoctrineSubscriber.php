@@ -73,11 +73,11 @@ class DoctrineSubscriber implements EventSubscriber
         $user = $this->security->getUser();
 
         if (!$user) {
-            /**
+            /*
              * avec behat trouve pas user, pourtant le met bien dans db
              */
             return 'no user';
-         //   throw new \Exception('To add entry, you must login');
+            //   throw new \Exception('To add entry, you must login');
         }
 
         return $user->getUsername();

@@ -2,9 +2,9 @@
 
 namespace Grr\GrrBundle\Tests\Factory;
 
+use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Entity\Area;
-use Grr\Core\Tests\BaseTesting;
 
 class AreaFactoryTest extends BaseTesting
 {

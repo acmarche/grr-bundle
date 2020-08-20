@@ -12,14 +12,14 @@ use Grr\Core\Authorization\Events\AuthorizationEventUpdated;
 use Grr\Core\Entry\Events\EntryEventCreated;
 use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventUpdated;
-use Grr\Core\TypeEntry\Events\TypeEntryEventCreated;
-use Grr\Core\TypeEntry\Events\TypeEntryEventDeleted;
-use Grr\Core\TypeEntry\Events\TypeEntryEventUpdated;
 use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Room\Events\RoomEventCreated;
 use Grr\Core\Room\Events\RoomEventDeleted;
 use Grr\Core\Room\Events\RoomEventUpdated;
 use Grr\Core\Setting\Events\SettingEventUpdated;
+use Grr\Core\TypeEntry\Events\TypeEntryEventCreated;
+use Grr\Core\TypeEntry\Events\TypeEntryEventDeleted;
+use Grr\Core\TypeEntry\Events\TypeEntryEventUpdated;
 use Grr\Core\User\Events\UserEventCreated;
 use Grr\Core\User\Events\UserEventDeleted;
 use Grr\Core\User\Events\UserEventUpdated;
@@ -172,5 +172,4 @@ class FlashSubscriber implements EventSubscriberInterface
             SettingEventUpdated::class => 'onSettingUpdated',
         ];
     }
-
 }

@@ -56,9 +56,6 @@ class AjaxController extends AbstractController
             throw new InvalidParameterException('Area not found');
         }
 
-        /*
-         *
-         */
         if (!$restricted) {
             $rooms = $this->roomRepository->findByArea($area);
         } else {

@@ -124,7 +124,7 @@ class MailerSubscriber implements EventSubscriberInterface
      */
     protected function AutosendChangeBySelf(): void
     {
-        if (true === (bool)$this->settingRepository->getValueByName('send_always_mail_to_creator')) {
+        if (true === (bool) $this->settingRepository->getValueByName('send_always_mail_to_creator')) {
             $this->sendEmail();
         }
     }
@@ -153,7 +153,7 @@ class MailerSubscriber implements EventSubscriberInterface
         try {
             $this->mailer->send($message);
         } catch (TransportExceptionInterface $e) {
-            $this->flashBag->add('error', 'flash.mail.error ' . $e->getMessage());
+            $this->flashBag->add('error', 'flash.mail.error '.$e->getMessage());
         }
     }
 

@@ -10,8 +10,8 @@
 
 namespace Grr\GrrBundle\Tests\Handler;
 
-use Grr\GrrBundle\Entry\HandlerEntry;
 use Grr\Core\Tests\BaseTesting;
+use Grr\GrrBundle\Entry\HandlerEntry;
 
 /**
  * todo test  handler
