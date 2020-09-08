@@ -162,8 +162,8 @@ help:
 page:
   admin:
     title: 'Administration'
-  notauthorized: 'Non autorisé'
-  not_found: 'Non trouvé'
+  notauthorized: 'Accès non autorisé'
+  not_found: 'Page non trouvée'
 grr:
   title: 'Grr'
 setting:

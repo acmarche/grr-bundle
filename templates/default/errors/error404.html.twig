@@ -5,14 +5,15 @@
 {% block body %}
     <div class="card bg-light mb-3">
         <div class="card-header">
-            <h2>{{'page.not_found'|trans}}: {{ status_text }}</h2>
+            <h2>{{'page.not_found'|trans}}</h2>
         </div>
         <div class="card-body">
-
+            {{ status_text }}
             <p>
                 <a href="{{ path('grr_homepage') }}">{{'return.homepage'|trans}}</a>
             </p>
-
+            <br />
+            <br />
             <img src="{{ asset('bundles/grr/images/totem_grr.png') }}" alt="grr">
         </div>
     </div>
