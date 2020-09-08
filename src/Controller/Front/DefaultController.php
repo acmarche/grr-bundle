@@ -10,7 +10,6 @@ use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Binder\BindDataManager;
-use Grr\GrrBundle\Setting\SettingsProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,8 +48,14 @@ class DefaultController extends AbstractController implements FrontControllerInt
      */
     private $weekFactory;
 
-    public function __construct(MonthHelperDataDisplay $monthHelperDataDisplay, BindDataManager $bindDataManager, TimeSlotsProvider $timeSlotsProvider, DayFactory $dayFactory, MonthFactory $monthFactory, WeekFactory $weekFactory)
-    {
+    public function __construct(
+        MonthHelperDataDisplay $monthHelperDataDisplay,
+        BindDataManager $bindDataManager,
+        TimeSlotsProvider $timeSlotsProvider,
+        DayFactory $dayFactory,
+        MonthFactory $monthFactory,
+        WeekFactory $weekFactory
+    ) {
         $this->bindDataManager = $bindDataManager;
         $this->monthHelperDataDisplay = $monthHelperDataDisplay;
         $this->timeSlotsProvider = $timeSlotsProvider;

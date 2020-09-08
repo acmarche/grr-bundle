@@ -12,16 +12,30 @@ class ModuleSender implements GrrModuleSenderInterface
      */
     public $modules = [];
 
+    public function construct(iterable $modules)
+    {
+        /**
+         * pour dans services.php
+         * $services->set(ModuleSender::class)
+         * ->arg('$modules', tagged_iterator('grr.module'));
+         */
+    }
+
     public function addModule(GrrModuleInterface $grrModule): void
     {
         $this->modules[] = $grrModule;
     }
 
-    public function postContent(): void
+    public function __invoke(): void
     {
         dump($this->modules);
         foreach ($this->modules as $module) {
             $module->doSomething();
         }
+    }
+
+    public function postContent()
+    {
+        dump($this->modules);
     }
 }

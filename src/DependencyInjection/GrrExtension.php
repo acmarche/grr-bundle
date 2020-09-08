@@ -33,6 +33,8 @@ class GrrExtension extends Extension implements PrependExtensionInterface
         $phpFileLoader->load('services_test.php');
 
         //auto tag GrrModuleInterface
+        //@see ModulesPass.php
+        //pourrait aussi etre dans services.php
         $containerBuilder->registerForAutoconfiguration(GrrModuleInterface::class)
             ->addTag('grr.module');
     }
@@ -42,7 +44,6 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function prepend(ContainerBuilder $containerBuilder): void
     {
-        // get all bundles
         $bundles = $containerBuilder->getParameter('kernel.bundles');
 
         if (isset($bundles['DoctrineBundle'])) {
