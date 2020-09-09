@@ -1,8 +1,14 @@
 body {
-  padding-top: 4rem;
+    padding-top: 4rem;
 }
 
 label.required:after {
-  content: " *";
-  color: red;
+    content: " *";
+    color: red;
+}
+
+.alert-notification {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
 }

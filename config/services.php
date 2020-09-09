@@ -1,9 +1,9 @@
 <?php
 
+use Grr\GrrBundle\Notification\BrowserGrrChannel;
 use Grr\GrrBundle\Security\Voter\CriterionInterface;
 use Grr\GrrBundle\Security\Voter\PostVoter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_locator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -20,6 +20,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $services->instanceof(CriterionInterface::class)
         ->tag('entry.voter');
+
+    $services = $services->set(BrowserGrrChannel::class)
+        ->tag('notifier.channel', ['channel' => 'browsergrr']);
 
     $services
         ->load('Grr\GrrBundle\\', __DIR__.'/../src/*')

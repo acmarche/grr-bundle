@@ -3,7 +3,6 @@
 namespace Grr\GrrBundle\Controller\Front;
 
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\Core\Entry\Events\EntryEventCreated;
 use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventInitialized;
 use Grr\Core\Entry\Events\EntryEventUpdated;
@@ -16,6 +15,7 @@ use Grr\GrrBundle\Entry\Form\EntryType;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
+use Grr\GrrBundle\Entry\Message\EntryCreated;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -118,7 +118,7 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleNewEntry($entry);
 
-            $this->eventDispatcher->dispatch(new EntryEventCreated($entry));
+            $this->dispatchMessage(new EntryCreated($entry->getId()));
 
             return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
         }

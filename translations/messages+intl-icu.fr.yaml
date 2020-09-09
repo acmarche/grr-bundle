@@ -297,3 +297,4 @@ flash:
 mail:
   change:
     subject: 'Un changement dans votre réservation'
+consult: 'Consulter'
