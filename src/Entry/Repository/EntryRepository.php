@@ -4,9 +4,9 @@ namespace Grr\GrrBundle\Entry\Repository;
 
 use Carbon\CarbonInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;

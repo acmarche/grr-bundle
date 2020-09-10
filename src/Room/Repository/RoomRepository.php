@@ -3,10 +3,10 @@
 namespace Grr\GrrBundle\Room\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
-use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 
 /**
@@ -22,7 +22,7 @@ class RoomRepository extends ServiceEntityRepository implements RoomRepositoryIn
         parent::__construct($managerRegistry, Room::class);
     }
 
-    public function getRoomsByAreaQueryBuilder(Area $area): QueryBuilder
+    public function getRoomsByAreaQueryBuilder(AreaInterface $area): QueryBuilder
     {
         return $this->createQueryBuilder('room')
             ->andWhere('room.area = :area')
@@ -41,7 +41,7 @@ class RoomRepository extends ServiceEntityRepository implements RoomRepositoryIn
     /**
      * @return Room[] Returns an array of Room objects
      */
-    public function findByArea(Area $area): iterable
+    public function findByArea(AreaInterface $area): iterable
     {
         return $this->createQueryBuilder('room')
             ->andWhere('room.area = :area')

@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\User\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\User;
@@ -28,11 +28,9 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
     }
 
     /**
-     * @param string $username
      * @return User|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function loadByUserNameOrEmail(string $username): User
+    public function loadByUserNameOrEmail(string $username): ?User
     {
         return $this->createQueryBuilder('user')
             ->andWhere('user.email = :username')

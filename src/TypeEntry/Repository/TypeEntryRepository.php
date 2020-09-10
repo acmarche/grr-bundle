@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\TypeEntry\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\GrrBundle\Entity\TypeEntry;
 

@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Periodicity\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\PeriodicityRepositoryInterface;
 use Grr\GrrBundle\Entity\Periodicity;
 
