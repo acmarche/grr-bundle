@@ -52,6 +52,11 @@ class GrrFrontExtension extends AbstractExtension
                     'is_safe' => ['html'],
                 ]
             ),
+            new TwigFilter(
+                'grrBoolToArrow',  [$this, 'grrBoolToArrow'], [
+                    'is_safe' => ['html'],
+                ]
+            ),
         ];
     }
 
@@ -95,5 +100,14 @@ class GrrFrontExtension extends AbstractExtension
                 }
             ),
         ];
+    }
+
+    public function grrBoolToArrow(bool $value): string
+    {
+        if (true === $value) {
+            return '<i class="fas fa-chevron-down"></i>';
+        }
+
+        return '';
     }
 }

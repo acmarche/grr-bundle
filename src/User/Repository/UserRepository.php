@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Security\User;
 
 /**
@@ -67,5 +68,16 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         }
 
         return $users;
+    }
+
+    /**
+     * @return UserRepositoryInterface[]
+     */
+    public function getGrrAdministrators(): array
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.roles LIKE :role ')
+            ->setParameter('role', '%'.SecurityRole::ROLE_GRR_ADMINISTRATOR.'%')
+            ->getQuery()->getResult();
     }
 }

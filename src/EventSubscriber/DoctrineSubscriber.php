@@ -3,8 +3,8 @@
 namespace Grr\GrrBundle\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Grr\GrrBundle\Entity\Entry;
 use Symfony\Component\Security\Core\Security;
 

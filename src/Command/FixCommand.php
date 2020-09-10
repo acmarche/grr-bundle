@@ -2,12 +2,20 @@
 
 namespace Grr\GrrBundle\Command;
 
+use Grr\GrrBundle\Entity\Entry;
+use Grr\GrrBundle\Entry\Repository\EntryRepository;
+use Grr\GrrBundle\Notification\EntryCreatedNotification;
+use Grr\GrrBundle\Notification\FlashNotification;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
+use Symfony\Component\Notifier\Recipient\AdminRecipient;
+use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -17,6 +25,21 @@ class FixCommand extends Command
      * @var string
      */
     protected static $defaultName = 'app:fix';
+    /**
+     * @var NotifierInterface
+     */
+    private $notifier;
+    /**
+     * @var EntryRepository
+     */
+    private $entryRepository;
+
+    public function __construct(NotifierInterface $notifier, EntryRepository  $entryRepository,string $name = null)
+    {
+        parent::__construct($name);
+        $this->notifier = $notifier;
+        $this->entryRepository = $entryRepository;
+    }
 
     protected function configure(): void
     {
@@ -28,16 +51,33 @@ class FixCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $symfonyStyle = new SymfonyStyle($input, $output);
-        try {
-            $value = Yaml::parseFile('/var/www/grr5/src/Grr/GrrBundle/translations/messages.fr.yaml');
-            ksort($value);
+        $noti = new Notification('super', ['email']);
+        $noti->content('coucou');
+        $noti->importance('low');
 
-            $yaml = Yaml::dump($value, 4);
-            file_put_contents('/var/www/grr5/src/Grr/GrrBundle/translations/messages22.fr.yaml', $yaml);
-        } catch (ParseException $exception) {
-            $symfonyStyle->writeln('error: %s', $exception->getMessage());
-        }
+        $entry = $this->entryRepository->find(2818);
+        $notification = new FlashNotification('super','danger');
+
+        $recipient = new Recipient(
+            'jf@marche.be',
+        );
+
+        $this->notifier->send($notification, ...$this->notifier->getAdminRecipients());
+        $this->notifier->send($notification);
+        $this->notifier->send($noti, $recipient);
+
+        $symfonyStyle = new SymfonyStyle($input, $output);
+
+        /*     try {
+                 $value = Yaml::parseFile('/var/www/grr5/src/Grr/GrrBundle/translations/messages.fr.yaml');
+                 ksort($value);
+
+                 $yaml = Yaml::dump($value, 4);
+                 file_put_contents('/var/www/grr5/src/Grr/GrrBundle/translations/messages22.fr.yaml', $yaml);
+             } catch (ParseException $exception) {
+                 $symfonyStyle->writeln('error: %s', $exception->getMessage());
+             }
+     */
 
         return 0;
     }

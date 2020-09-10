@@ -1,0 +1,23 @@
+{% extends '@email/default/notification/body.html.twig' %}
+
+{% block content %}
+    <p>
+        {{ entry.description | u.truncate(20, '...') }}
+    </p>
+    <p>
+       Du {{ entry.startTime|format_datetime('full', 'short') }} <br />
+      au  {{ entry.endTime|format_datetime('full', 'short') }}
+    </p>
+    <p>
+        {{ entry.room }}
+    </p>
+{% endblock %}
+
+{% block action %}
+    <spacer size="16"></spacer>
+    <button href="{{ url('grr_front_entry_show', { id: entry.id }) }}">{{ 'consult'|trans }}</button>
+{% endblock %}
+
+{% block footer_content %}
+    <p><small>Notification e-mail de Esquare planning</small></p>
+{% endblock %}

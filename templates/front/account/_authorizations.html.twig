@@ -1,4 +1,4 @@
-<h3>{{ 'authorization.title'|trans }}</h3>
+<h4 class="text-success">{{ 'authorization.title'|trans }}</h4>
 
 {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
     {{ 'You are a director of Grr'|trans }}

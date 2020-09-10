@@ -3,14 +3,16 @@
 namespace Grr\GrrBundle\Authorization\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use Grr\Core\Contrat\Entity\AreaInterface;
+use Grr\Core\Contrat\Entity\RoomInterface;
+use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
+use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
-use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Authorization|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,7 +34,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @throws \Exception
      */
-    public function findByArea(Area $area): array
+    public function findByArea(AreaInterface $area): array
     {
         return $this->findByUserAndArea(null, $area);
     }
@@ -58,7 +60,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @throws \Exception
      */
-    public function findByUserAndArea(?UserInterface $user, ?Area $area): array
+    public function findByUserAndArea(?UserInterface $user, ?AreaInterface $area): array
     {
         if (!$user && !$area) {
             throw new Exception('At least one parameter is needed');
@@ -88,7 +90,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
             ->setParameter('user', $user);
     }
 
-    protected function setCriteriaArea(QueryBuilder $queryBuilder, Area $area): void
+    protected function setCriteriaArea(QueryBuilder $queryBuilder, AreaInterface $area): void
     {
         $repository = $this->getEntityManager()->getRepository(Room::class);
         $rooms = $repository->findByArea($area);
@@ -104,13 +106,11 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @return Authorization[]
      */
-    public function findByRoom(Room $room): array
+    public function findByRoom(RoomInterface $room): array
     {
-        $queryBuilder = $this->createQueryBuilder('authorization')
+        return $this->createQueryBuilder('authorization')
             ->andWhere('authorization.room = :room')
-            ->setParameter('room', $room);
-
-        return $queryBuilder
+            ->setParameter('room', $room)
             ->addOrderBy('authorization.user', 'ASC')
             ->orderBy('authorization.area', 'ASC')
             ->orderBy('authorization.room', 'ASC')
@@ -147,7 +147,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOneByUserAndRoom(UserInterface $user, Room $room): Authorization
+    public function findOneByUserAndRoom(UserInterface $user, RoomInterface $room): Authorization
     {
         $queryBuilder = $this->createQueryBuilder('authorization');
 
@@ -159,5 +159,20 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
         return $queryBuilder->orderBy('authorization.user', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param AreaInterface $area
+     * @param RoomInterface $room
+     * @return AuthorizationInterface[]
+     */
+    public function findByAreaOrRoom(AreaInterface $area, RoomInterface $room): array
+    {
+        return $this->createQueryBuilder('authorization')
+            ->orWhere('authorization.room = :room')
+            ->setParameter('room', $room)
+            ->orWhere('authorization.area = :area')
+            ->setParameter('area', $area)
+            ->getQuery()->getResult();
     }
 }

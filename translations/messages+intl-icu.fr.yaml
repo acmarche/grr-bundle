@@ -39,10 +39,17 @@ label:
       entry: 'Ajouter une entrée'
     new: 'Ajouter'
     login: 'S''identifier'
+    preference:
+      email: 'Notifications'
   setting:
     edit: 'Modifier les paramètres'
   user:
     new: 'new user'
+  preference:
+    email:
+      onCreated: 'Lors de la création'
+      onUpdated: 'Lors de la modification'
+      onDeleted: 'Lors de la suppression'
 back:
   to_list: 'Retour à la liste'
 delete:
@@ -298,3 +305,7 @@ mail:
   change:
     subject: 'Un changement dans votre réservation'
 consult: 'Consulter'
+preference:
+  email:
+    title: 'Notifications par email'
+

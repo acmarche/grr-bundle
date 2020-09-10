@@ -2,10 +2,13 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Message\EntryCreated;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Notification\EntryCreatedNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
+use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
@@ -20,16 +23,37 @@ class EntryCreatedHandler implements MessageHandlerInterface
      * @var EntryRepository
      */
     private $entryRepository;
+    /**
+     * @var AuthorizationHelper
+     */
+    private $authorizationHelper;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+    /**
+     * @var EmailPreferenceRepository
+     */
+    private $emailPreferenceRepository;
 
-    public function __construct(NotifierInterface $notifier, EntryRepository $entryRepository)
-    {
+    public function __construct(
+        NotifierInterface $notifier,
+        EntryRepository $entryRepository,
+        UserRepository $userRepository,
+        AuthorizationHelper $authorizationHelper,
+        EmailPreferenceRepository $emailPreferenceRepository
+    ) {
         $this->notifier = $notifier;
         $this->entryRepository = $entryRepository;
+        $this->authorizationHelper = $authorizationHelper;
+        $this->userRepository = $userRepository;
+        $this->emailPreferenceRepository = $emailPreferenceRepository;
     }
 
     public function __invoke(EntryCreated $entryCreated): void
     {
         $this->sendNotificationToBrowser();
+        $this->sendNotificationByEmailForReservedBy($entryCreated);
         $this->sendNotificationByEmail($entryCreated);
     }
 
@@ -42,12 +66,55 @@ class EntryCreatedHandler implements MessageHandlerInterface
     private function sendNotificationByEmail(EntryCreated $entryCreated)
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
-        $notification = new EntryCreatedNotification($entry, 'str');
+        $notification = new EntryCreatedNotification('Nouvelle réservation: ', $entry);
 
-        $recipients = [new Recipient(
-            'jf@marche.be',
-        )];
+        $room = $entry->getRoom();
+        $area = $room->getArea();
 
-        $this->notifier->send($notification, ...$recipients);
+        $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
+        $users = array_map(
+            function ($authorization) {
+                return $authorization->getUser();
+            },
+            $authorizations
+        );
+
+        $administrators = $this->userRepository->getGrrAdministrators();
+        $users = array_merge($users, $administrators);
+        $recipients = [];
+
+        foreach ($users as $user) {
+            $preference = $this->emailPreferenceRepository->findOneByUser($user);
+            if ($preference && true === $preference->getOnCreated()) {
+                $recipients[] =
+                    new Recipient(
+                        $user->getEmail()
+                    );
+            }
+        }
+
+        if (count($recipients) > 0) {
+            $this->notifier->send($notification, ...$recipients);
+        }
+    }
+
+    /**
+     * Lorsqu'un utilisateur réserve une ressource, modifie ou bien supprime une réservation au nom d'un autre utilisateur,
+     * ce dernier en est averti automatiquement par un message e-mail.
+     */
+    private function sendNotificationByEmailForReservedBy(EntryCreated $entryCreated): void
+    {
+        $entry = $this->entryRepository->find($entryCreated->getEntryId());
+        if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
+            $notification = new EntryCreatedNotification('Une réservation a été faire pour vous : ', $entry);
+            $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
+            if ($user) {
+                $recipient = new Recipient(
+                    $user->getEmail()
+                );
+
+                $this->notifier->send($notification, $recipient);
+            }
+        }
     }
 }

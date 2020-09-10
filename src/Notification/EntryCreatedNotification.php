@@ -11,14 +11,14 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 class EntryCreatedNotification extends Notification implements EmailNotificationInterface
 {
     private $entry;
-    private $reviewUrl;
+    private $sujet;
 
-    public function __construct(Entry $entry, string $reviewUrl)
+    public function __construct( string $sujet,Entry $entry)
     {
         $this->entry = $entry;
-        $this->reviewUrl = $reviewUrl;
+        $this->sujet = $sujet;
 
-        parent::__construct($entry->getName().' a été ajouté');
+        parent::__construct($sujet.$entry->getName());
     }
 
     /**
@@ -28,7 +28,7 @@ class EntryCreatedNotification extends Notification implements EmailNotification
     {
         $message = EmailMessage::fromNotification($this, $recipient);
         $message->getMessage()
-            ->htmlTemplate('@Grr/emails/comment_notification.html.twig')
+            ->htmlTemplate('@Grr/emails/notification/entry_created_notification.html.twig')
             ->context(['entry' => $this->entry]);
 
         return $message;

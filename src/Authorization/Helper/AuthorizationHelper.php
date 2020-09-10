@@ -12,16 +12,17 @@ namespace Grr\GrrBundle\Authorization\Helper;
 
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
+use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\SettingsRoom;
 use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Grr\Core\Contrat\Entity\Security\UserInterface;
 
 class AuthorizationHelper
 {
@@ -37,15 +38,18 @@ class AuthorizationHelper
      * @var AreaRepository
      */
     private $areaRepository;
-    public function __construct(\Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository, \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository, \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository)
-    {
+
+    public function __construct(
+        AuthorizationRepositoryInterface $authorizationRepository,
+        AreaRepositoryInterface $areaRepository,
+        RoomRepositoryInterface $roomRepository
+    ) {
         $this->authorizationRepository = $authorizationRepository;
         $this->roomRepository = $roomRepository;
         $this->areaRepository = $areaRepository;
     }
+
     /**
-     * @throws \Exception
-     *
      * @return AreaInterface[]
      */
     public function getAreasUserCanAdd(UserInterface $user): array
@@ -70,12 +74,11 @@ class AuthorizationHelper
 
         return $areas;
     }
+
     /**
-     * @throws \Exception
-     *
-     * @return RoomInterface[]|mixed[]
+     * @return RoomInterface[]
      */
-    public function getRoomsUserCanAdd(UserInterface $user, ?Area $area = null): iterable
+    public function getRoomsUserCanAdd(UserInterface $user, ?AreaInterface $area = null): iterable
     {
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             if (null !== $area) {
@@ -107,47 +110,51 @@ class AuthorizationHelper
 
         return array_merge(...$rooms);
     }
+
     /**
      * Tous les droits sur l'Area et ses ressources modifier ses paramètres, la supprimer
      * Peux encoder des entry dans toutes les ressources de l'Area.
      */
-    public function isAreaAdministrator(UserInterface $user, Area $area): bool
+    public function isAreaAdministrator(UserInterface $user, AreaInterface $area): bool
     {
-        return (bool) $this->authorizationRepository->findOneBy(
+        return (bool)$this->authorizationRepository->findOneBy(
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => true]
         );
     }
+
     /**
      * Peux gérer les ressources mais pas modifier l'Area
      * Peux encoder des entry dans toutes les ressources de l'Area.
      */
-    public function isAreaManager(UserInterface $user, Area $area): bool
+    public function isAreaManager(UserInterface $user, AreaInterface $area): bool
     {
         if ($this->isAreaAdministrator($user, $area)) {
             return true;
         }
 
-        return (bool) $this->authorizationRepository->findOneBy(
+        return (bool)$this->authorizationRepository->findOneBy(
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => false]
         );
     }
+
     /**
      * Peux gérer la room (modifier les paramètres) et pas de contraintes pour encoder les entry.
      */
-    public function isRoomAdministrator(UserInterface $user, Room $room): bool
+    public function isRoomAdministrator(UserInterface $user, RoomInterface $room): bool
     {
         if ($this->isAreaAdministrator($user, $room->getArea())) {
             return true;
         }
 
-        return (bool) $this->authorizationRepository->findOneBy(
+        return (bool)$this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => true]
         );
     }
+
     /**
      * Peux gérer toutes les entrées sans contraintes.
      */
-    public function isRoomManager(UserInterface $user, Room $room): bool
+    public function isRoomManager(UserInterface $user, RoomInterface $room): bool
     {
         if ($this->isRoomAdministrator($user, $room)) {
             return true;
@@ -157,18 +164,17 @@ class AuthorizationHelper
             return true;
         }
 
-        return (bool) $this->authorizationRepository->findOneBy(
+        return (bool)$this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => false]
         );
     }
+
     public function isGrrAdministrator(UserInterface $user): bool
     {
         return $user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR);
     }
-    /**
-     * @param User|null $user
-     */
-    public function checkAuthorizationRoomToAddEntry(Room $room, UserInterface $user = null): bool
+
+    public function checkAuthorizationRoomToAddEntry(RoomInterface $room, UserInterface $user = null): bool
     {
         $ruleToAdd = $room->getRuleToAdd();
 
@@ -242,12 +248,7 @@ class AuthorizationHelper
         return false;
     }
 
-    /**
-     * @param Room $room
-     * @param UserInterface|null $user
-     * @return bool
-     */
-    public function canAddEntry(Room $room, ?UserInterface $user = null): bool
+    public function canAddEntry(RoomInterface $room, ?UserInterface $user = null): bool
     {
         $ruleToAdd = $room->getRuleToAdd();
 
@@ -276,14 +277,17 @@ class AuthorizationHelper
 
         return $this->isRoomManager($user, $room);
     }
+
     public function canSeeRoom(): bool
     {
         return true;
     }
+
     public function isAreaRestricted(Area $area): bool
     {
         return $area->getIsRestricted();
     }
+
     /**
      * @todo
      */
@@ -291,6 +295,7 @@ class AuthorizationHelper
     {
         return true;
     }
+
     /**
      * @todo
      */
@@ -298,4 +303,15 @@ class AuthorizationHelper
     {
         return true;
     }
+
+    /**
+     * @param AreaInterface $area
+     * @param RoomInterface $room
+     * @return AuthorizationInterface[]
+     */
+    public function findByAreaOrRoom(AreaInterface $area, RoomInterface $room): array
+    {
+        return $this->authorizationRepository->findByAreaOrRoom($area, $room);
+    }
+
 }

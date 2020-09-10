@@ -9,8 +9,8 @@ use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 
 class EntryVoter extends Voter
 {
@@ -19,10 +19,7 @@ class EntryVoter extends Voter
     const SHOW = 'grr.entry.show';
     const EDIT = 'grr.entry.edit';
     const DELETE = 'grr.entry.delete';
-    /**
-     * @var AccessDecisionManagerInterface
-     */
-    private $accessDecisionManager;
+
     /**
      * @var User
      */
@@ -43,11 +40,15 @@ class EntryVoter extends Voter
      * @var Area
      */
     private $area;
+    /**
+     * @var Security
+     */
+    private $security;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
+    public function __construct(Security $security, AuthorizationHelper $authorizationHelper)
     {
-        $this->accessDecisionManager = $accessDecisionManager;
         $this->authorizationHelper = $authorizationHelper;
+        $this->security = $security;
     }
 
     /**
@@ -67,13 +68,13 @@ class EntryVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $entry, TokenInterface $token): bool
     {
-        $user = $token->getUser();
+        $user = $this->security->getUser();
         $this->user = $user;
         $this->entry = $entry;
         $this->room = $this->entry->getRoom();
         $this->area = $this->room->getArea();
 
-        if (!$this->isAnonyme() && $user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
+        if (!$this->isAnonyme() && $this->security->isGranted(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             return true;
         }
 
