@@ -4,15 +4,15 @@
     <tbody>
     <tr>
         <th> {{ 'label.preference.email.onCreated'|trans }}</th>
-        <td> {{ preference.onCreated|grrBoolToArrow }}</td>
+        <td> {{ preference ? preference.onCreated|grrBoolToArrow }}</td>
     </tr>
     <tr>
         <th> {{ 'label.preference.email.onUpdated'|trans }}</th>
-        <td> {{ preference.onUpdated|grrBoolToArrow }}</td>
+        <td> {{ preference ? preference.onUpdated|grrBoolToArrow }}</td>
     </tr>
     <tr>
         <th> {{ 'label.preference.email.onDeleted'|trans }}</th>
-        <td> {{ preference.onDeleted|grrBoolToArrow }}</td>
+        <td> {{ preference ? preference.onDeleted|grrBoolToArrow }}</td>
     </tr>
     </tbody>
 </table>
