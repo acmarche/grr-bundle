@@ -1,6 +1,9 @@
 {% extends '@email/default/notification/body.html.twig' %}
 
 {% block content %}
+
+    Fait par: {{ entry.createdBy }}<br />
+
     <p>
         {{ entry.description | u.truncate(20, '...') }}
     </p>

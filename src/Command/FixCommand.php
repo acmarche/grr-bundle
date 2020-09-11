@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Command;
 
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
-use Grr\GrrBundle\Notification\EntryCreatedNotification;
+use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

@@ -3,9 +3,7 @@
 namespace Grr\GrrBundle\Controller\Front;
 
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\Core\Entry\Events\EntryEventDeleted;
 use Grr\Core\Entry\Events\EntryEventInitialized;
-use Grr\Core\Entry\Events\EntryEventUpdated;
 use Grr\Core\Router\FrontRouterHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
@@ -16,6 +14,8 @@ use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Grr\GrrBundle\Entry\Message\EntryCreated;
+use Grr\GrrBundle\Entry\Message\EntryDeleted;
+use Grr\GrrBundle\Entry\Message\EntryUpdated;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -174,7 +174,7 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntry();
 
-            $this->eventDispatcher->dispatch(new EntryEventUpdated($entry));
+            $this->dispatchMessage(new EntryUpdated($entry->getId()));
 
             return $this->redirectToRoute(
                 'grr_front_entry_show',
@@ -199,8 +199,8 @@ class EntryController extends AbstractController
     public function delete(Request $request, Entry $entry): Response
     {
         if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
+            $this->dispatchMessage(new EntryDeleted($entry->getId()));
             $this->handlerEntry->handleDeleteEntry($entry);
-            $this->eventDispatcher->dispatch(new EntryEventDeleted($entry));
         }
 
         return $this->redirectToRoute('grr_homepage');

@@ -2,18 +2,18 @@
 
 namespace Grr\GrrBundle\Notification;
 
-use Grr\GrrBundle\Entity\Entry;
+use Grr\Core\Contrat\Entity\EntryInterface;
 use Symfony\Component\Notifier\Message\EmailMessage;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\Recipient;
 
-class EntryCreatedNotification extends Notification implements EmailNotificationInterface
+class EntryEmailNotification extends Notification implements EmailNotificationInterface
 {
     private $entry;
     private $sujet;
 
-    public function __construct( string $sujet,Entry $entry)
+    public function __construct(string $sujet, EntryInterface $entry)
     {
         $this->entry = $entry;
         $this->sujet = $sujet;
@@ -36,7 +36,7 @@ class EntryCreatedNotification extends Notification implements EmailNotification
 
     public function getChannels(Recipient $recipient): array
     {
-        $this->importance(Notification::IMPORTANCE_MEDIUM);
+        $this->importance(Notification::IMPORTANCE_LOW);
 
         return ['email'];
     }

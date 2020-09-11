@@ -8,8 +8,6 @@ use Grr\Core\Area\Events\AreaEventDeleted;
 use Grr\Core\Area\Events\AreaEventUpdated;
 use Grr\Core\Authorization\Events\AuthorizationEventCreated;
 use Grr\Core\Authorization\Events\AuthorizationEventDeleted;
-use Grr\Core\Entry\Events\EntryEventDeleted;
-use Grr\Core\Entry\Events\EntryEventUpdated;
 use Grr\Core\Password\Events\PasswordEventUpdated;
 use Grr\Core\Room\Events\RoomEventCreated;
 use Grr\Core\Room\Events\RoomEventDeleted;
@@ -86,16 +84,6 @@ class FlashSubscriber implements EventSubscriberInterface
         $this->flashBag->add('success', 'flash.user.created');
     }
 
-    public function onEntryUpdated(): void
-    {
-        $this->flashBag->add('success', 'flash.entry.updated');
-    }
-
-    public function onEntryDeleted(): void
-    {
-        $this->flashBag->add('success', 'flash.entry.deleted');
-    }
-
     public function onAreaDeleted(): void
     {
         $this->flashBag->add('success', 'flash.area.deleted');
@@ -137,9 +125,6 @@ class FlashSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EntryEventUpdated::class => 'onEntryUpdated',
-            EntryEventDeleted::class => 'onEntryDeleted',
-
             AreaEventCreated::class => 'onAreaCreated',
             AreaEventUpdated::class => 'onAreaUpdated',
             AreaEventDeleted::class => 'onAreaDeleted',

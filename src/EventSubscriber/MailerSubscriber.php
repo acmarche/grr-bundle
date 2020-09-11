@@ -6,8 +6,6 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Entry\Events\BaseEntryEvent;
-use Grr\Core\Entry\Events\EntryEventDeleted;
-use Grr\Core\Entry\Events\EntryEventUpdated;
 use Grr\GrrBundle\Mailer\EmailFactory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -19,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Émettre un courrier quand je modifie mon agenda
  * Émettre un courrier quand quelqu'un d'autre modifie mon agenda
- * Quand je modifie mon agenda, émettre un courrier à
+ * Quand je modifie mon agenda, émettre un courrier à.
  */
 /**
  * Auto : Par ailleurs, lorsqu'un utilisateur réserve une ressource, modifie ou bien supprime une réservation,
@@ -71,9 +69,6 @@ class MailerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-
-            EntryEventUpdated::class => 'sendMail',
-            EntryEventDeleted::class => 'sendMail',
         ];
     }
 
@@ -127,7 +122,7 @@ class MailerSubscriber implements EventSubscriberInterface
      */
     protected function AutosendChangeBySelf(): void
     {
-        if (true === (bool)$this->settingRepository->getValueByName('send_always_mail_to_creator')) {
+        if (true === (bool) $this->settingRepository->getValueByName('send_always_mail_to_creator')) {
             $this->sendEmail();
         }
     }

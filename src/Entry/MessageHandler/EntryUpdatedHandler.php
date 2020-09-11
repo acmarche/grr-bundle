@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Grr\GrrBundle\Entry\Message\EntryCreated;
+use Grr\GrrBundle\Entry\Message\EntryUpdated;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 
-class EntryCreatedHandler implements MessageHandlerInterface
+class EntryUpdatedHandler implements MessageHandlerInterface
 {
     /**
      * @var NotifierInterface
@@ -50,7 +50,7 @@ class EntryCreatedHandler implements MessageHandlerInterface
         $this->emailPreferenceRepository = $emailPreferenceRepository;
     }
 
-    public function __invoke(EntryCreated $entryCreated): void
+    public function __invoke(EntryUpdated $entryCreated): void
     {
         $this->sendNotificationToBrowser();
         $this->sendNotificationByEmailForReservedBy($entryCreated);
@@ -59,14 +59,14 @@ class EntryCreatedHandler implements MessageHandlerInterface
 
     private function sendNotificationToBrowser()
     {
-        $notification = new FlashNotification('success', 'flash.entry.created');
+        $notification = new FlashNotification('success', 'flash.entry.updated');
         $this->notifier->send($notification);
     }
 
-    private function sendNotificationByEmail(EntryCreated $entryCreated)
+  private function sendNotificationByEmail(EntryUpdated $entryCreated)
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
-        $notification = new EntryEmailNotification('Nouvelle réservation: ', $entry);
+        $notification = new EntryEmailNotification('Réservation mise à jour: ', $entry);
 
         $room = $entry->getRoom();
         $area = $room->getArea();
@@ -102,11 +102,11 @@ class EntryCreatedHandler implements MessageHandlerInterface
      * Lorsqu'un utilisateur réserve une ressource, modifie ou bien supprime une réservation au nom d'un autre utilisateur,
      * ce dernier en est averti automatiquement par un message e-mail.
      */
-    private function sendNotificationByEmailForReservedBy(EntryCreated $entryCreated): void
+    private function sendNotificationByEmailForReservedBy(EntryUpdated $entryCreated): void
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
         if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
-            $notification = new EntryEmailNotification('Une réservation a été faire pour vous : ', $entry);
+            $notification = new EntryEmailNotification('Une réservation a été modifiée pour vous : ', $entry);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
             if ($user) {
                 $recipient = new Recipient(

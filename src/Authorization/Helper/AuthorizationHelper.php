@@ -314,4 +314,17 @@ class AuthorizationHelper
         return $this->authorizationRepository->findByAreaOrRoom($area, $room);
     }
 
+    public function getUsersCanAdd(AreaInterface $area, RoomInterface $room) {
+        $area = $room->getArea();
+
+        $authorizations = $this->findByAreaOrRoom($area, $room);
+        $users = array_map(
+            function ($authorization) {
+                return $authorization->getUser();
+            },
+            $authorizations
+        );
+
+        $administrators = $this->userRepository->getGrrAdministrators();
+        return array_merge($users, $administrators);      }
 }
