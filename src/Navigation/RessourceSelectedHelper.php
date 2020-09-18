@@ -3,12 +3,14 @@
 namespace Grr\GrrBundle\Navigation;
 
 use Exception;
+use Grr\Core\Contrat\Entity\AreaInterface;
+use Grr\Core\Contrat\Entity\RoomInterface;
+use Grr\Core\Contrat\Entity\Security\UserInterface;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
+use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Area\Repository\AreaRepository;
-use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
-use Grr\GrrBundle\Setting\SettingsProvider;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -29,10 +31,6 @@ class RessourceSelectedHelper
      */
     private $security;
     /**
-     * @var SettingsProvider
-     */
-    private $settingsProvider;
-    /**
      * @var AreaRepository
      */
     private $areaRepository;
@@ -44,13 +42,13 @@ class RessourceSelectedHelper
     public function __construct(
         SessionInterface $session,
         Security $security,
-        SettingsProvider $settingsProvider,
-        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
-        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository
+        SettingProvider $settingProvider,
+        AreaRepositoryInterface $areaRepository,
+        RoomRepositoryInterface $roomRepository
     ) {
         $this->session = $session;
         $this->security = $security;
-        $this->settingsProvider = $settingsProvider;
+        $this->settingProvider = $settingProvider;
         $this->areaRepository = $areaRepository;
         $this->roomRepository = $roomRepository;
     }
@@ -58,7 +56,7 @@ class RessourceSelectedHelper
     /**
      * @throws \Exception
      */
-    public function getArea(): Area
+    public function getArea(): AreaInterface
     {
         if ($this->session->has(self::AREA_DEFAULT_SESSION)) {
             $areaId = $this->session->get(self::AREA_DEFAULT_SESSION);
@@ -69,20 +67,22 @@ class RessourceSelectedHelper
         }
 
         /**
-         * @var User
+         * @var UserInterface $user
          */
         $user = $this->security->getUser();
         if (null !== $user && null !== ($area = $user->getArea())) {
             return $area;
         }
 
-        if (null !== ($area = $this->settingsProvider->getDefaultArea())) {
+        if (null !== ($area = $this->settingProvider->getDefaultArea())) {
             return $area;
         }
 
         $area = $this->areaRepository->findOneBy([], ['id' => 'ASC']);
         if (null === $area) {
-            throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
+            throw new Exception(
+                'No area in database, populate database with this command: php bin/console grr:install-data'
+            );
         }
 
         return $area;
@@ -91,7 +91,7 @@ class RessourceSelectedHelper
     /**
      * -1 = force all ressource.
      */
-    public function getRoom(): ?Room
+    public function getRoom(): ?RoomInterface
     {
         if ($this->session->has(self::ROOM_DEFAULT_SESSION)) {
             $roomId = $this->session->get(self::ROOM_DEFAULT_SESSION);
@@ -104,14 +104,14 @@ class RessourceSelectedHelper
         }
 
         /**
-         * @var User
+         * @var UserInterface $user
          */
         $user = $this->security->getUser();
         if (null !== $user && null !== ($room = $user->getRoom())) {
             return $room;
         }
 
-        if (null !== ($room = $this->settingsProvider->getDefaulRoom())) {
+        if (null !== ($room = $this->settingProvider->getDefaulRoom())) {
             return $room;
         }
 

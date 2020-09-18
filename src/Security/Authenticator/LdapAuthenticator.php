@@ -3,15 +3,11 @@
 namespace Grr\GrrBundle\Security\Authenticator;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Grr\Core\Security\Ldap\GrrLdap;
 use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Ldap\Entry;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;

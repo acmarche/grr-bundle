@@ -1,64 +1,18 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
-
-{{ form_row(form.title_home_page) }}
-{{ form_row(form.message_home_page) }}
-{{ form_row(form.company) }}
-{{ form_row(form.webmaster_name) }}
-
-{{ form_label(form.webmaster_email) }}
-{{ form_help(form.webmaster_email) }}
-<div class="row">
-    <div class="col-6">
-        <ul class="list-group" id="email-webmaster-fields-list"
-            data-prototype="{{ form_widget(form.webmaster_email.vars.prototype)|e }}"
-            data-widget-tags="{{ '<li class="list-group-item"></li>'|e }}"
-            data-widget-counter="{{ form.webmaster_email|length }}">
-            {% for emailField in form.webmaster_email %}
-                <li class="list-group-item">
-                    {{ form_errors(emailField) }}
-                    {{ form_widget(emailField) }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-6">
-        <button type="button"
-                class="btn btn-sm btn-success add-another-collection-widget"
-                data-list-selector="#email-webmaster-fields-list"><i class="fas fa-plus"></i> {{ 'btn.add.email'|trans }}
-        </button>
-    </div>
-</div>
-
-{{ form_label(form.technical_support_email) }}
-<div class="row">
-    <div class="col-6">
-        <ul class="list-group" id="email-support-fields-list"
-            data-prototype="{{ form_widget(form.technical_support_email.vars.prototype)|e }}"
-            data-widget-tags="{{ '<li class="list-group-item"></li>'|e }}"
-            data-widget-counter="{{ form.technical_support_email|length }}">
-            {% for emailField in form.technical_support_email %}
-                <li class="list-group-item">
-                    {{ form_errors(emailField) }}
-                    {{ form_widget(emailField) }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-6">
-        <button type="button"
-                class="btn btn-sm btn-success add-another-collection-widget"
-                data-list-selector="#email-support-fields-list"><i class="fas fa-plus"></i> {{ 'btn.add.email'|trans }}
-        </button>
-    </div>
-</div>
-
-{{ form_row(form.nb_calendar) }}
-{{ form_row(form.message_accueil) }}
-{{ form_row(form.begin_bookings) }}
-{{ form_row(form.end_bookings) }}
-{{ form_row(form.default_language) }}
-{{ form_row(form.send_always_mail_to_creator) }}
+{{ form_row(form.grr_title_home_page) }}
+{{ form_row(form.grr_message_home_page) }}
+{{ form_row(form.grr_company) }}
+{{ form_row(form.grr_webmaster_email) }}
+{{ form_row(form.grr_technical_support_email) }}
+{{ form_row(form.grr_nb_calendar) }}
+{{ form_row(form.grr_message_accueil) }}
+{{ form_row(form.grr_begin_bookings) }}
+{{ form_row(form.grr_end_bookings) }}
+{{ form_row(form.grr_default_language) }}
+{{ form_row(form.grr_send_always_mail_to_creator) }}
+{{ form_row(form.grr_fullday) }}
+{{ form_row(form.grr_area_default) }}
 
 <button class="btn btn-primary"><i
             class="far fa-save"></i> {{ 'label.btn.save' | trans({}) }}</button>

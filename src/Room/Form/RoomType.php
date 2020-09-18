@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Room\Form;
 
-use Grr\Core\Setting\SettingsRoom;
+use Grr\Core\Setting\Room\SettingsRoom;
 use Grr\GrrBundle\Entity\Room;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

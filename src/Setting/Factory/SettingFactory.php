@@ -8,15 +8,15 @@
 
 namespace Grr\GrrBundle\Setting\Factory;
 
-use Grr\GrrBundle\Entity\Setting;
+use Grr\GrrBundle\Entity\SettingEntity;
 
 class SettingFactory
 {
     /**
      * @param string|array $value
      */
-    public function createNew(string $name, $value): Setting
+    public function createNew(string $name, $value): SettingEntity
     {
-        return new Setting($name, $value);
+        return new SettingEntity($name, $value);
     }
 }

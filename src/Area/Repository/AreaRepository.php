@@ -31,4 +31,5 @@ class AreaRepository extends ServiceEntityRepository implements AreaRepositoryIn
         return $this->createQueryBuilder('area')
             ->orderBy('area.name', 'ASC');
     }
+
 }

@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Grr\Core\Contrat\Entity\SettingInterface;
+use Grr\Core\Contrat\Entity\SettingEntityInterface;
 use Grr\Core\Setting\Entity\SettingTrait;
 
 /**
@@ -14,7 +14,7 @@ use Grr\Core\Setting\Entity\SettingTrait;
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Setting\Repository\SettingRepository")
  * @ApiResource
  */
-class Setting implements SettingInterface
+class SettingEntity implements SettingEntityInterface
 {
     use SettingTrait;
 }

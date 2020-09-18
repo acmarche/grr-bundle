@@ -13,16 +13,16 @@ namespace Grr\GrrBundle\Authorization\Helper;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
+use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
-use Grr\Core\Setting\SettingsRoom;
+use Grr\Core\Setting\Room\SettingsRoom;
 use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
-use Grr\Core\Contrat\Entity\Security\UserInterface;
 
 class AuthorizationHelper
 {
@@ -117,7 +117,7 @@ class AuthorizationHelper
      */
     public function isAreaAdministrator(UserInterface $user, AreaInterface $area): bool
     {
-        return (bool)$this->authorizationRepository->findOneBy(
+        return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => true]
         );
     }
@@ -132,7 +132,7 @@ class AuthorizationHelper
             return true;
         }
 
-        return (bool)$this->authorizationRepository->findOneBy(
+        return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'area' => $area, 'isAreaAdministrator' => false]
         );
     }
@@ -146,7 +146,7 @@ class AuthorizationHelper
             return true;
         }
 
-        return (bool)$this->authorizationRepository->findOneBy(
+        return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => true]
         );
     }
@@ -164,7 +164,7 @@ class AuthorizationHelper
             return true;
         }
 
-        return (bool)$this->authorizationRepository->findOneBy(
+        return (bool) $this->authorizationRepository->findOneBy(
             ['user' => $user, 'room' => $room, 'isResourceAdministrator' => false]
         );
     }
@@ -305,8 +305,6 @@ class AuthorizationHelper
     }
 
     /**
-     * @param AreaInterface $area
-     * @param RoomInterface $room
      * @return AuthorizationInterface[]
      */
     public function findByAreaOrRoom(AreaInterface $area, RoomInterface $room): array
@@ -314,7 +312,8 @@ class AuthorizationHelper
         return $this->authorizationRepository->findByAreaOrRoom($area, $room);
     }
 
-    public function getUsersCanAdd(AreaInterface $area, RoomInterface $room) {
+    public function getUsersCanAdd(AreaInterface $area, RoomInterface $room)
+    {
         $area = $room->getArea();
 
         $authorizations = $this->findByAreaOrRoom($area, $room);
@@ -326,5 +325,7 @@ class AuthorizationHelper
         );
 
         $administrators = $this->userRepository->getGrrAdministrators();
-        return array_merge($users, $administrators);      }
+
+        return array_merge($users, $administrators);
+    }
 }

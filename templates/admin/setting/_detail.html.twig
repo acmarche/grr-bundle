@@ -1,0 +1,7 @@
+<tr>
+    <th style="width: 70%">
+        {{ setting.label|trans }}<br/>
+        <span class="text-muted">{{ setting.help|trans }}</span>
+    </th>
+    <td>{% block setting_value %}{{ setting.value }}{% endblock %}</td>
+</tr>

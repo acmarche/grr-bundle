@@ -1,0 +1,7 @@
+{% extends '@grr_admin/setting/_detail.html.twig' %}
+
+{% block setting_value %}
+    {% if setting.value == true %}
+        <i class="fa fa-check"></i>
+    {% endif %}
+{% endblock %}

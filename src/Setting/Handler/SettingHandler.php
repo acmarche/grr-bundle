@@ -10,7 +10,9 @@
 
 namespace Grr\GrrBundle\Setting\Handler;
 
-use Grr\GrrBundle\Entity\Setting;
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
+use Grr\Core\Setting\Repository\SettingProvider;
+use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Factory\SettingFactory;
 use Grr\GrrBundle\Setting\Manager\SettingManager;
 use Grr\GrrBundle\Setting\Repository\SettingRepository;
@@ -29,15 +31,21 @@ class SettingHandler
      * @var SettingManager
      */
     private $settingManager;
+    /**
+     * @var SettingProvider
+     */
+    private $settingProvider;
 
     public function __construct(
         SettingFactory $settingFactory,
-        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository,
-        SettingManager $settingManager
+        SettingRepositoryInterface $settingRepository,
+        SettingManager $settingManager,
+        SettingProvider $settingProvider
     ) {
         $this->settingFactory = $settingFactory;
         $this->settingRepository = $settingRepository;
         $this->settingManager = $settingManager;
+        $this->settingProvider = $settingProvider;
     }
 
     public function handleEdit($data): void
@@ -55,31 +63,39 @@ class SettingHandler
         $this->settingManager->flush();
     }
 
-    protected function handleNewSetting($name, $value): void
+    protected function handleNewSetting(string $name, $value): void
     {
         if (null === $value) {
             return;
         }
 
-        $value = $this->handleValue($value);
+        $value = $this->handleValue($name, $value);
 
         $setting = $this->settingFactory->createNew($name, $value);
         $this->settingManager->persist($setting);
     }
 
-    protected function handleExistSetting(Setting $setting, $value): void
+    protected function handleExistSetting(SettingEntity $setting, $value): void
     {
         if (null === $value) {
             $this->settingManager->remove($setting);
 
             return;
         }
-        $value = $this->handleValue($value);
+        $name = $setting->getName();
+        $value = $this->handleValue($name, $value);
         $setting->setValue($value);
     }
 
-    protected function handleValue($value)
+    protected function handleValue(string $name, $value)
     {
+        try {
+            $service = $this->settingProvider->loadInterfaceByKey($name);
+            dump($service);
+            $value=   $service->bindValue($value);
+        } catch (\Exception $exception) {
+        }
+
         if (is_array($value)) {
             $value = serialize($value);
         }

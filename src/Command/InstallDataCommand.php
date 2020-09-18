@@ -4,6 +4,11 @@ namespace Grr\GrrBundle\Command;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
+use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
@@ -18,6 +23,7 @@ use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Grr\GrrBundle\User\Factory\UserFactory;
 use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -85,12 +91,12 @@ class InstallDataCommand extends Command
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
-        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
-        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository,
-        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository,
+        TypeEntryRepositoryInterface $typeEntryRepository,
+        RoomRepositoryInterface $roomRepository,
+        UserRepositoryInterface $userRepository,
+        SettingRepositoryInterface $settingRepository,
         TypeEntryFactory $typeEntryFactory,
-        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
+        AreaRepositoryInterface $areaRepository,
         SettingFactory $settingFactory,
         AreaFactory $areaFactory,
         RoomFactory $roomFactory,
@@ -115,16 +121,22 @@ class InstallDataCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Initialize les données dans la base de données lors de l\'installation');
+            ->setDescription('Initialize les données dans la base de données lors de l\'installation')
+            ->addArgument('purge', InputArgument::OPTIONAL, 'purger les tables');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->symfonyStyle = new SymfonyStyle($input, $output);
-        $helper = $this->getHelper('question');
+        $purge = false;
 
-        $confirmationQuestion = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
-        $purge = $helper->ask($input, $output, $confirmationQuestion);
+        if (!$input->getArgument('purge')) {
+            $helper = $this->getHelper('question');
+            $confirmationQuestion = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
+            $purge = $helper->ask($input, $output, $confirmationQuestion);
+        } else {
+            $purge = true;
+        }
 
         if ($purge) {
             $ormPurger = new ORMPurger($this->entityManager);

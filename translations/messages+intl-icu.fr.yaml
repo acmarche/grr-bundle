@@ -301,6 +301,8 @@ Minute: 'Minute'
 flash:
   mail:
     error: 'Une erreur est survenue lors de l''envoie du mail'
+  notification:
+    updated: 'Les notifications ont bien été modifiées'
 mail:
   change:
     subject: 'Un changement dans votre réservation'
@@ -308,4 +310,3 @@ consult: 'Consulter'
 preference:
   email:
     title: 'Notifications par email'
-

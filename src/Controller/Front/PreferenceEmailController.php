@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\GrrBundle\Notification\Message\NotificationUpdated;
 use Grr\GrrBundle\Preference\Factory\PreferenceFactory;
 use Grr\GrrBundle\Preference\Form\EmailPreferenceType;
 use Grr\GrrBundle\Preference\Manager\PreferenceManager;
@@ -40,18 +41,6 @@ class PreferenceEmailController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="grr_front_preference_email_show", methods={"GET"})
-     */
-    public function show(): Response
-    {
-        return $this->render(
-            '@grr_front/preference/show.html.twig',
-            [
-            ]
-        );
-    }
-
-    /**
      * @Route("/edit", name="grr_front_preference_email_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request): Response
@@ -66,6 +55,9 @@ class PreferenceEmailController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->preferenceManager->persist($preference);
             $this->preferenceManager->flush();
+
+            $this->dispatchMessage(new NotificationUpdated($preference->getId()));
+
             return $this->redirectToRoute('grr_account_show');
         }
 

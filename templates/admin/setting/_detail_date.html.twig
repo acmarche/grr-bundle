@@ -1,0 +1,5 @@
+{% extends '@grr_admin/setting/_detail.html.twig' %}
+
+{% block setting_value %}
+    {{ setting.value|format_date('full') }}
+{% endblock %}

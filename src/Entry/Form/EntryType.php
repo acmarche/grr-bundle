@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Entry\Form;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Factory\DurationFactory;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
@@ -40,7 +41,7 @@ class EntryType extends AbstractType
     private $userRepository;
 
     public function __construct(
-        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository,
+        UserRepositoryInterface $userRepository,
         DurationFactory $durationFactory,
         Security $security,
         AuthorizationHelper $authorizationHelper

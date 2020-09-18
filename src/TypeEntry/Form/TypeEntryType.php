@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\TypeEntry\Form;
 
-use Grr\Core\Setting\SettingsTypeEntry;
+use Grr\Core\Setting\TypeEntry\SettingsTypeEntry;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
