@@ -1,15 +1,21 @@
 {% extends '@email/default/notification/body.html.twig' %}
 
+{% block lead %}
+    <p class="lead">
+        {{ email.subject }}
+    </p>
+{% endblock %}
+
 {% block content %}
 
-    Fait par: {{ entry.createdBy }}<br />
+    Fait par: {{ entry.createdBy }}<br/>
 
     <p>
         {{ entry.description | u.truncate(20, '...') }}
     </p>
     <p>
-       Du {{ entry.startTime|format_datetime('full', 'short') }} <br />
-      au  {{ entry.endTime|format_datetime('full', 'short') }}
+        Du {{ entry.startTime|format_datetime('full', 'short') }} <br/>
+        au {{ entry.endTime|format_datetime('full', 'short') }}
     </p>
     <p>
         {{ entry.room }}
