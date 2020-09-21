@@ -10,6 +10,8 @@ namespace Grr\GrrBundle\Entry\Binder;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Entry\EntryLocationService;
 use Grr\Core\Factory\DayFactory;
 use Grr\Core\Model\Month;
@@ -42,8 +44,8 @@ class BindDataManager
     private $roomRepository;
 
     public function __construct(
-        \Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository,
-        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
+        EntryRepositoryInterface $entryRepository,
+        RoomRepositoryInterface $roomRepository,
         EntryLocationService $entryLocationService,
         DayFactory $dayFactory
     ) {

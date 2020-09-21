@@ -91,13 +91,8 @@ class SettingHandler
     {
         try {
             $service = $this->settingProvider->loadInterfaceByKey($name);
-            dump($service);
-            $value=   $service->bindValue($value);
+            $value = $service->bindValue($value);
         } catch (\Exception $exception) {
-        }
-
-        if (is_array($value)) {
-            $value = serialize($value);
         }
 
         return $value;

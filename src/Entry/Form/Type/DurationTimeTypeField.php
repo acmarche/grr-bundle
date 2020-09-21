@@ -32,14 +32,6 @@ class DurationTimeTypeField extends AbstractType
                     'label' => ' ',
                     'help' => 'help.entry.duration_unit',
                 ]
-            )
-            ->add(
-                'full_day',
-                CheckboxType::class,
-                [
-                    'label' => 'label.entry.full_day',
-                    'required' => false,
-                ]
             );
     }
 }
