@@ -6,10 +6,5 @@
         <div class="col-4">
             {{ form_row(form.duration.unit) }}
         </div>
-        {% if form.duration.full_day is defined %}
-            <div class="col-4">
-                {{ form_row(form.duration.full_day) }}
-            </div>
-        {% endif %}
     </div>
 {% endif %}
