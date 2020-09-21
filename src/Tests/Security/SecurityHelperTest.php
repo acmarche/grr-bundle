@@ -12,13 +12,7 @@ namespace Grr\GrrBundle\Tests\Security;
 
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Tests\BaseTesting;
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
-use Psr\Container\ContainerInterface;
-use Symfony\Component\Security\Core\Security;
 
 class SecurityHelperTest extends BaseTesting
 {
@@ -601,19 +595,6 @@ class SecurityHelperTest extends BaseTesting
             new User(),
             false,
         ];
-    }
-
-    protected function initSecurityHelper(): AuthorizationHelper
-    {
-        $container = $this->createMock(ContainerInterface::class);
-        $security = new Security($container);
-
-        return new AuthorizationHelper(
-            $security,
-            $this->entityManager->getRepository(Authorization::class),
-            $this->entityManager->getRepository(Area::class),
-            $this->entityManager->getRepository(Room::class)
-        );
     }
 
     protected function loadFixtures($rule = false): void

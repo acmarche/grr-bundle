@@ -194,19 +194,6 @@ class AreaVoterTest extends BaseTesting
         ];
     }
 
-    protected function initSecurityHelper(): AuthorizationHelper
-    {
-        $container = $this->createMock(ContainerInterface::class);
-        $security = new Security($container);
-
-        return new AuthorizationHelper(
-            $security,
-            $this->entityManager->getRepository(Authorization::class),
-            $this->entityManager->getRepository(Area::class),
-            $this->entityManager->getRepository(Room::class)
-        );
-    }
-
     private function initVoter(): AreaVoter
     {
         $mock = $this->createMock(AccessDecisionManager::class);

@@ -11,17 +11,12 @@
 namespace Grr\GrrBundle\Tests\Security\Voter;
 
 use Grr\Core\Tests\BaseTesting;
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\Voter\EntryVoter;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
@@ -162,24 +157,14 @@ class EntryVoterTest extends BaseTesting
         ];
     }
 
-    protected function initSecurityHelper(): AuthorizationHelper
+    private function initVoter(): EntryVoter
     {
         $container = $this->createMock(ContainerInterface::class);
         $security = new Security($container);
 
-        return new AuthorizationHelper(
-            $security,
-            $this->entityManager->getRepository(Authorization::class),
-            $this->entityManager->getRepository(Area::class),
-            $this->entityManager->getRepository(Room::class)
-        );
-    }
+        //$mock = $this->createMock(AccessDecisionManager::class);
 
-    private function initVoter(): EntryVoter
-    {
-        $mock = $this->createMock(AccessDecisionManager::class);
-
-        return new EntryVoter($mock, $this->initSecurityHelper());
+        return new EntryVoter($security, $this->initSecurityHelper());
     }
 
     private function initToken(?User $user): TokenInterface
@@ -192,14 +177,13 @@ class EntryVoterTest extends BaseTesting
             ->method('isAuthenticated')
             ->willReturn(true);
 
-        $token = new AnonymousToken('secret', 'anonymous');
         if (null !== $user) {
-            $token = new UsernamePasswordToken(
+            return new UsernamePasswordToken(
                 $user, 'homer', 'app_user_provider'
             );
         }
 
-        return $token;
+        return $token = new AnonymousToken('secret', 'anonymous');
     }
 
     protected function loadFixtures(): void

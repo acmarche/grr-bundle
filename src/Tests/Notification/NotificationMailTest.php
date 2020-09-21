@@ -23,8 +23,22 @@ class NotificationMailTest extends BaseTesting
         $crawler = $client->followRedirect();
         $crawler = $client->followRedirect();
 
-        $crawler = $client->click($crawler->selectLink('15')->link());
+        $links = $crawler->filter('a')->each(
+            function ($node) {
+                $href = $node->attr('href');
+                $title = $node->attr('title');
+                $text = $node->text();
+
+                return compact('href', 'title', 'text');
+            }
+        );
+
+        $link = $crawler->filter('a[title="Ajouter une réservation"]');
+        var_dump($link->link());
+        $client->click($link->link());
         print_r($client->getResponse()->getContent());
+        $crawler = $client->click($crawler->selectLink('15')->link());
+        // print_r($client->getResponse()->getContent());
 
         $crawler = $crawler->filter('#sign-up')->link();
 
