@@ -13,7 +13,21 @@
   ],
   "require": {
     "php": "^7.3",
-    "jfsenechal/grr-core": "@dev"
+    "jfsenechal/grr-core": "@dev",
+    "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+    "knplabs/doctrine-behaviors": "^2.0",
+    "knplabs/knp-snappy-bundle": "^1.7",
+    "nesbot/carbon": "^2.40",
+    "api-platform/core": "^2.5",
+    "beberlei/doctrineextensions": "^1.2",
+    "twig/intl-extra": "^3.0",
+    "twig/string-extra": "^3.0",
+    "symfony/messenger": "5.1.*",
+    "twig/cssinliner-extra": "^3.0",
+    "twig/inky-extra": "^3.0"
+  },
+  "require_dev": {
+    "doctrine/doctrine-fixtures-bundle": "^3.3"
   },
   "autoload": {
     "psr-4": {
