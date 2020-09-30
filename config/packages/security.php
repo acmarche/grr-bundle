@@ -5,11 +5,29 @@ use Grr\GrrBundle\Security\Authenticator\GrrAuthenticator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->extension('security', ['encoders' => [User::class => ['algorithm' => 'auto']]]);
+    $containerConfigurator->extension(
+        'security',
+        [
+            'encoders' => [
+                User::class => [
+                    'algorithm' => 'auto',
+                ],
+            ],
+        ]
+    );
 
     $containerConfigurator->extension(
         'security',
-        ['providers' => ['grr_user_provider' => ['entity' => ['class' => User::class, 'property' => 'username']]]]
+        [
+            'providers' => [
+                'grr_user_provider' => [
+                    'entity' => [
+                        'class' => User::class,
+                        'property' => 'username',
+                    ],
+                ],
+            ],
+        ]
     );
 
     $containerConfigurator->extension(

@@ -29,7 +29,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->tag('grr.setting');
 
     $services = $services->set(BrowserGrrChannel::class)
-        ->tag('notifier.channel', ['channel' => 'browsergrr']);
+        ->tag(
+            'notifier.channel',
+            [
+                'channel' => 'browsergrr',
+            ]
+        );
 
     $services
         ->load('Grr\GrrBundle\\', __DIR__.'/../src/*')

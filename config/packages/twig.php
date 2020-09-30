@@ -5,9 +5,17 @@ declare(strict_types=1);
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->extension('twig', ['form_themes' => ['bootstrap_4_layout.html.twig']]);
+    $containerConfigurator->extension(
+        'twig',
+        [
+            'form_themes' => [
+                'bootstrap_4_layout.html.twig',
+            ],
+        ]
+    );
 
-    $containerConfigurator->extension('twig',
+    $containerConfigurator->extension(
+        'twig',
         [
             'paths' => [
                 '%kernel.project_dir%/src/Grr/GrrBundle/templates/admin' => 'grr_admin',

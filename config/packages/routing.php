@@ -5,6 +5,12 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension(
         'framework',
-        ['router' => ['host' => 'example.org', 'scheme' => 'https', 'base_url' => 'my/path']]
+        [
+            'router' => [
+                'host' => 'example.org',
+                'scheme' => 'https',
+                'base_url' => 'my/path',
+            ],
+        ]
     );
 };
