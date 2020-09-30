@@ -10,6 +10,8 @@
 
 namespace Grr\GrrBundle\Templating\Helper;
 
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
+use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
@@ -38,8 +40,8 @@ class FrontHelper
 
     public function __construct(
         Environment $twigEnvironment,
-        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
-        \Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository
+        TypeEntryRepositoryInterface $typeEntryRepository,
+        SettingRepositoryInterface $settingRepository
     ) {
         $this->twigEnvironment = $twigEnvironment;
         $this->typeEntryRepository = $typeEntryRepository;
