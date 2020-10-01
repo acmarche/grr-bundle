@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Setting\Repository\SettingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ class SecurityController extends AbstractController
      */
     private $settingRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\SettingRepositoryInterface $settingRepository)
+    public function __construct(SettingRepositoryInterface $settingRepository)
     {
         $this->settingRepository = $settingRepository;
     }

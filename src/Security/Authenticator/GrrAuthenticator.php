@@ -25,19 +25,19 @@ class GrrAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     use TargetPathTrait;
 
     /**
-     * @var \Doctrine\ORM\EntityManagerInterface
+     * @var EntityManagerInterface
      */
     private $entityManager;
     /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
+     * @var UrlGeneratorInterface
      */
     private $urlGenerator;
     /**
-     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
+     * @var CsrfTokenManagerInterface
      */
     private $csrfTokenManager;
     /**
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     * @var UserPasswordEncoderInterface
      */
     private $userPasswordEncoder;
 
