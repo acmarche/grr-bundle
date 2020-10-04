@@ -75,7 +75,7 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
             $passport->addBadge(new PasswordUpgradeBadge($credentials['password'], $this->userProvider));
         }
 
-        $passport->addBadge(new LdapBadge('jflsap', 'modn', 'searchdn', 'searchpwd', 'myquey'));
+     //   $passport->addBadge(new LdapBadge('jflsap', 'modn', 'searchdn', 'searchpwd', 'myquey'));
 
         return $passport;
     }

@@ -27,7 +27,8 @@ class EntryEmailNotification extends Notification implements EmailNotificationIn
     public function asEmailMessage(Recipient $recipient, string $transport = null): ?EmailMessage
     {
         $message = EmailMessage::fromNotification($this, $recipient);
-        $message->getMessage()
+        $message
+            ->getMessage()
             ->htmlTemplate('@Grr/emails/notification/entry_created_notification.html.twig')
             ->context(['entry' => $this->entry]);
 
