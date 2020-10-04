@@ -2,7 +2,6 @@
 
 namespace Grr\GrrBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Entry\Entity\EntryTrait;
@@ -15,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\Entry\Repository\EntryRepository")
  * @GrrEntryAssert\BusyRoom
  * @GrrEntryAssert\AreaTimeSlot
- * @ApiResource
  */
 class Entry implements EntryInterface, TimestampableInterface
 {
