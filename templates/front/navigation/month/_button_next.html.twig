@@ -1,7 +1,7 @@
-<a href="{{ grrGenerateRouteMonthView(month.year, month.nextMonth.month) }}" title="{{ 'label.btn.next.month'|trans({}) }}">
+<a href="{{ grrGenerateRouteMonthView(month.year, month.addMonth.month) }}" title="{{ 'label.btn.next.month'|trans({}) }}">
     <i class="fas fa-arrow-right"></i>
 </a>
 <br />
-<a href="{{ grrGenerateRouteMonthView(month.nextYear.year, month.month) }}" title="{{ 'label.btn.next.year'|trans({}) }}">
+<a href="{{ grrGenerateRouteMonthView(month.addYear.year, month.month) }}" title="{{ 'label.btn.next.year'|trans({}) }}">
     <i class="fas fa-forward"></i>
 </a>

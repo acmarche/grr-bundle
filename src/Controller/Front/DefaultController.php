@@ -66,29 +66,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
     }
 
     /**
-     * @Route("/view2/date/{date}/area/{area}/room/{room}", name="grr_front_view", methods={"GET"})
-     * @Entity("area", expr="repository.find(area)")
-     * @ParamConverter("room", options={"mapping": {"room": "id"}})
-     */
-    public function view(Area $area = null, \DateTime $date = null, Room $room = null): Response
-    {
-        if (!$date) {
-            $carbon = Carbon::today();
-        }
-
-        $carbon = Carbon::instance($date);
-
-        return $this->render(
-            '@grr_front/monthly/view.html.twig',
-            [
-                'date' => $date,
-                'firstDay' => $carbon,
-                'carbon' => $carbon,
-            ]
-        );
-    }
-
-    /**
      * @Route("/monthview/area/{area}/year/{year}/month/{month}/room/{room}", name="grr_front_month", methods={"GET"})
      * @Entity("area", expr="repository.find(area)")
      * @ParamConverter("room", options={"mapping": {"room": "id"}})

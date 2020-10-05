@@ -8,6 +8,7 @@
 
 namespace Grr\GrrBundle\Navigation;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Grr\Core\Factory\MonthFactory;
 use Grr\Core\Model\Month;
@@ -104,30 +105,26 @@ class NavigationManager
 
     public function renderMonthByWeeks(Month $month): string
     {
-        $firstDay = $month->firstOfMonth();
-        /*  $year = $request->get('year') ?? 0;
-          $month = $request->get('month') ?? 0;
+        $today = Carbon::today()->toImmutable();
+        $firstDay = $today->firstOfMonth();
 
-          $monthModel = Month::init($year, $month);*/
-
-        //  $navigation = $this->createMonth($month);
-
-        $weeks = $this->month->getWeeksOfMonth();
+        $weeks = DateProvider::weeksOfMonth($today);
+        foreach ($weeks as $week) {
+            foreach ($week as $day) {
+         //       dump($day->day);
+            }
+        }
         $request = $this->requestStack->getMasterRequest();
         $weekSelected = null !== $request ? $request->get('week') : 0;
         $daySelected = null !== $request ? $request->get('day') : 0;
+      //  dump($today->toString());
 
         return $this->twigEnvironment->render(
             '@grr_front/navigation/month/_month_by_weeks.html.twig',
             [
-                'firstDay' => $firstDay,
+                'date' => $today,
                 'listDays' => DateProvider::getNamesDaysOfWeek(),
                 'weeks' => $weeks,
-                'weekSelected' => $weekSelected,
-                'daySelected' => $daySelected,
-                'today' => $this->carbon,
-                'previousButton' => $this->previousButtonRender(),
-                'nextButton' => $this->nextButtonRender(),
             ]
         );
     }

@@ -1,21 +1,21 @@
 <div class="row">
     <div class="col-3 text-left">
-        {{ previousButton | raw }}
+        <a href="">Previous</a>
     </div>
 
     <div class="col-6 text-center">
-        <a href="{{ grrGenerateRouteMonthView() }}" class="font-weight-bold">
-            {{ firstDay.monthName|upper }} {{ firstDay.year }}
+        <a href="" class="font-weight-bold">
+
         </a>
         <hr>
         <p class="font-weight-bold">
-            <a href="{{ grrGenerateRouteDayView(today.day, today) }}">
+            <a href="">
                 {{ 'Today' | trans }}
             </a>
         </p>
     </div>
     <div class="col-3 text-right">
-        {{ nextButton | raw }}
+        <a href="">Next</a>
     </div>
 </div>
 <div class="table-responsive">
@@ -37,7 +37,7 @@
         <tbody>
         {% for week in weeks %}
 
-            {% if week.startDate.week == weekSelected %}
+            {% if week.startDate.week == date.week %}
                 {% set class = "table-info" %}
             {% else %}
                 {% set class = "" %}
