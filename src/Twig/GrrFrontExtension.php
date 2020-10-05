@@ -53,7 +53,7 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFilter(
-                'grrBoolToArrow',  [$this, 'grrBoolToArrow'], [
+                'grrBoolToArrow', [$this, 'grrBoolToArrow'], [
                     'is_safe' => ['html'],
                 ]
             ),

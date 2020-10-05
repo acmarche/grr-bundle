@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Carbon\Carbon;
 use Grr\Core\Factory\DayFactory;
 use Grr\Core\Factory\MonthFactory;
 use Grr\Core\Factory\WeekFactory;
@@ -62,6 +63,29 @@ class DefaultController extends AbstractController implements FrontControllerInt
         $this->dayFactory = $dayFactory;
         $this->monthFactory = $monthFactory;
         $this->weekFactory = $weekFactory;
+    }
+
+    /**
+     * @Route("/view2/date/{date}/area/{area}/room/{room}", name="grr_front_view", methods={"GET"})
+     * @Entity("area", expr="repository.find(area)")
+     * @ParamConverter("room", options={"mapping": {"room": "id"}})
+     */
+    public function view(Area $area = null, \DateTime $date = null, Room $room = null): Response
+    {
+        if (!$date) {
+            $carbon = Carbon::today();
+        }
+
+        $carbon = Carbon::instance($date);
+
+        return $this->render(
+            '@grr_front/monthly/view.html.twig',
+            [
+                'date' => $date,
+                'firstDay' => $carbon,
+                'carbon' => $carbon,
+            ]
+        );
     }
 
     /**
