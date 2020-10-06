@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use DateTimeInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Events\EntryEventInitialized;
 use Grr\Core\Router\FrontRouterHelper;
@@ -91,7 +92,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("/new/area/{area}/room/{room}/year/{year}/month/{month}/day/{day}/hour/{hour}/minute/{minute}", name="grr_front_entry_new", methods={"GET", "POST"})
+     * @Route("/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}", name="grr_front_entry_new", methods={"GET", "POST"})
      * @Entity("area", expr="repository.find(area)")
      * @Entity("room", expr="repository.find(room)")
      *
@@ -101,13 +102,11 @@ class EntryController extends AbstractController
         Request $request,
         Area $area,
         Room $room,
-        int $year,
-        int $month,
-        int $day,
+        DateTimeInterface $date,
         int $hour,
         int $minute
     ): Response {
-        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day, $hour, $minute);
+        $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
 
         $this->eventDispatcher->dispatch(new EntryEventInitialized($entry));
 

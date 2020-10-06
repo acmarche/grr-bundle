@@ -8,10 +8,10 @@
     </div>
     <div class="col-5 text-right">
         <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
-            <i class="fas fa-long-arrow-alt-left" title="{{ 'btn.previous'|trans }}"></i>
+            <i class="fas fa-long-arrow-alt-left" title="{{ 'label.btn.previous.month'|trans }}"></i>
         </a>
         <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
-            <i class="fas fa-long-arrow-alt-right" title="{{ 'btn.next'|trans }}"></i>
+            <i class="fas fa-long-arrow-alt-right" title="{{ 'label.btn.next.month'|trans }}"></i>
         </a>
         <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(today, 'monthly') }}">
             <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
@@ -36,13 +36,11 @@
         </thead>
         <tbody>
         {% for week in weeks %}
-
-            {% if week.startDate.week == dateSelected.week %}
+            {% if week.startDate.week == dateSelected.week and view == 'weekly' %}
                 {% set class = "table-info" %}
             {% else %}
                 {% set class = "" %}
             {% endif %}
-
             <tr class="{{ class }}">
                 {% include '@grr_front/navigation/date_selector/_cell_week.html.twig' %}
                 {% for day in week %}

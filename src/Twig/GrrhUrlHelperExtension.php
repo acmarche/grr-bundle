@@ -2,7 +2,6 @@
 
 namespace Grr\GrrBundle\Twig;
 
-use Carbon\CarbonInterface;
 use Grr\GrrBundle\Templating\Helper\RouterHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -33,8 +32,14 @@ class GrrhUrlHelperExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'grrGenerateRouteAddEntry',
-                function (int $area, int $room, int $day, int $hour = null, int $minute = null): string {
-                    return $this->routerHelper->generateRouteAddEntry($area, $room, $day, $hour, $minute);
+                function (
+                    int $area,
+                    int $room,
+                    \DateTimeInterface $date,
+                    int $hour = null,
+                    int $minute = null
+                ): string {
+                    return $this->routerHelper->generateRouteAddEntry($area, $room, $date, $hour, $minute);
                 }
             ),
         ];

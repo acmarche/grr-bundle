@@ -141,7 +141,7 @@ room:
   showFicRoom: 'Montrer l''image'
   statutRoom: 'Statut'
   title: 'Liste des ressources'
-  all: 'Toutes les ressources'
+  all: 'Toutes les réservertions'
   back_to_area: 'Retour au domaine'
   back_to_room: 'Retour à la ressource'
   back_to_user: 'Retout à l''utilisateur'
@@ -281,7 +281,7 @@ periodicity:
   days: 'Jours'
   repeats:
     title: 'Répétitions'
-ressources: 'ressources'
+ressources: 'Ressources'
 actions: 'Actions'
 login:
   title: 'Authentification'

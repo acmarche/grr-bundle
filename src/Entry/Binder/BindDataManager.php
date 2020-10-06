@@ -17,7 +17,7 @@ use Grr\Core\Factory\DayFactory;
 use Grr\Core\Model\Month;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
-use Grr\Core\Model\Week;
+use Grr\Core\Provider\DateProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Room;
@@ -80,7 +80,7 @@ class BindDataManager
      *
      * @throws \Exception
      */
-    public function bindWeek(Week $week, Area $area, Room $room = null): array
+    public function bindWeek(DateTimeInterface $week, Area $area, Room $room = null): array
     {
         if (null !== $room) {
             $rooms = [$room];
@@ -88,7 +88,7 @@ class BindDataManager
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
         }
 
-        $carbonPeriod = $week->getCalendarDays();
+        $carbonPeriod = DateProvider::daysOfWeek($week);
         $data = [];
 
         foreach ($rooms as $room) {

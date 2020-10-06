@@ -23,8 +23,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     *
-     * Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
+     * @Route("/login", name="app_login_loc")
      * @Route("/{_locale<%grr.supported_locales%>}/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response

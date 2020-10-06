@@ -6,7 +6,6 @@ use Carbon\CarbonInterface;
 use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
-use Grr\Core\Model\Week;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Navigation\AreaSelector;
 use Grr\GrrBundle\Navigation\DateSelectorRender;

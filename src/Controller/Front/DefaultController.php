@@ -2,16 +2,11 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Factory\DayFactory;
-use Grr\Core\Factory\MonthFactory;
-use Grr\Core\Factory\WeekFactory;
 use Grr\Core\Helper\MonthHelperDataDisplay;
 use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Binder\BindDataManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,33 +30,15 @@ class DefaultController extends AbstractController implements FrontControllerInt
      * @var TimeSlotsProvider
      */
     private $timeSlotsProvider;
-    /**
-     * @var DayFactory
-     */
-    private $dayFactory;
-    /**
-     * @var MonthFactory
-     */
-    private $monthFactory;
-    /**
-     * @var WeekFactory
-     */
-    private $weekFactory;
 
     public function __construct(
         MonthHelperDataDisplay $monthHelperDataDisplay,
         BindDataManager $bindDataManager,
-        TimeSlotsProvider $timeSlotsProvider,
-        DayFactory $dayFactory,
-        MonthFactory $monthFactory,
-        WeekFactory $weekFactory
+        TimeSlotsProvider $timeSlotsProvider
     ) {
         $this->bindDataManager = $bindDataManager;
         $this->monthHelperDataDisplay = $monthHelperDataDisplay;
         $this->timeSlotsProvider = $timeSlotsProvider;
-        $this->dayFactory = $dayFactory;
-        $this->monthFactory = $monthFactory;
-        $this->weekFactory = $weekFactory;
     }
 
     public function monthly(Area $area, int $year, int $month, Room $room = null): Response
@@ -79,21 +56,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
                 'area' => $area,
                 'room' => $room,
                 'monthData' => $monthData,
-            ]
-        );
-    }
-
-    public function weekly(Area $area, int $year, int $month, int $week, Room $room = null): Response
-    {
-        $weekModel = $this->weekFactory->create($year, $week);
-        $roomModels = $this->bindDataManager->bindWeek($weekModel, $area, $room);
-
-        return $this->render(
-            '@grr_front/weekly/week.html.twig',
-            [
-                'week' => $weekModel,
-                'area' => $area, //pour lien add entry
-                'roomModels' => $roomModels,
             ]
         );
     }

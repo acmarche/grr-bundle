@@ -50,18 +50,19 @@ class EntryFactory
     public function initEntryForNew(
         Area $area,
         Room $room,
-        int $year,
-        int $month,
-        int $day,
+        \DateTimeInterface $date,
         int $hour,
         int $minute
     ): Entry {
-        $date = Carbon::create($year, $month, $day, $hour, $minute);
+        $dateSelected = Carbon::instance($date);
+        
+        $dateSelected->hour($hour);
+        $dateSelected->minute($minute);
         $entry = $this->createNew();
         $entry->setArea($area);
         $entry->setRoom($room);
-        $entry->setStartTime($date);
-        $endTime = $date->copy()->addMinutes($area->getDurationDefaultEntry());
+        $entry->setStartTime($dateSelected);
+        $endTime = $dateSelected->copy()->addMinutes($area->getDurationDefaultEntry());
         $entry->setEndTime($endTime);
         $entry->setPeriodicity($this->initPeriodicity($entry));
 

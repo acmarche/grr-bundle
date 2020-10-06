@@ -54,10 +54,7 @@ class DateSelectorRender
         $weeks = DateProvider::weeksOfMonth($dateSelected);
 
         $request = $this->requestStack->getMasterRequest();
-        $weekSelected = null !== $request ? $request->get('week') : 0;
-        $daySelected = null !== $request ? $request->get('day') : 0;
-
-        //  dump($today->toString());
+        $view = null !== $request ? $request->get('view') : null;
 
         return $this->twigEnvironment->render(
             '@grr_front/navigation/date_selector/_index.html.twig',
@@ -66,6 +63,7 @@ class DateSelectorRender
                 'dateSelected' => $dateSelected,
                 'listDays' => DateProvider::getNamesDaysOfWeek(),
                 'weeks' => $weeks,
+                'view' => $view,
             ]
         );
     }

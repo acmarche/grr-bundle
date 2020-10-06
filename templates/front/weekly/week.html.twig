@@ -8,24 +8,23 @@
 
     <h3 class="text-center text-success">{{ dateSelected|grrWeekNiceName }}</h3>
 
-    {#
     <div class="table-responsive">
         <table class="table table-bordered table-sm">
             <thead>
             <tr>
                 <th>{{ 'ressources'|trans }}</th>
-                {% for day in week.calendarDays %}
-                    <th>{{ day.dayName|capitalize }} {{ day.day }}</th>
+                {% for day in days %}
+                    <th class="text-center">{{ day.dayName|capitalize }} {{ day.day }}</th>
                 {% endfor %}
             </tr>
             </thead>
             <tbody>
-            {% set pourcent = (100/(week.calendarDays|length)+1)|round(2) %}
+            {% set pourcent = (100/(days|length)+1)|round(2) %}
             {% for roomModel in roomModels %}
                 {% set room = roomModel.room %}
                 <tr>
                     <td>{{ room.name }}</td>
-                    {% for day in roomModel.dataDays %}
+                    {% for day in days %}
                         {% include '@grr_front/weekly/_cell_day_data.html.twig' %}
                     {% endfor %}
                 </tr>
@@ -33,7 +32,6 @@
             </tbody>
         </table>
     </div>
-   #}
 
     {{ grrLegendTypeEntry(area) }}
 {% endblock %}

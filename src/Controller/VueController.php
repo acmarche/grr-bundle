@@ -8,6 +8,7 @@ use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Provider\DateProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
+use Grr\GrrBundle\Entry\Binder\BindDataManager;
 use Grr\GrrBundle\Navigation\Navigation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -29,48 +30,21 @@ class VueController extends AbstractController
      * @var DateProvider
      */
     private $dateProvider;
+    /**
+     * @var BindDataManager
+     */
+    private $bindDataManager;
 
     public function __construct(
         EntryRepositoryInterface $entryRepository,
         AreaRepositoryInterface $areaRepository,
-        DateProvider $dateProvider
+        DateProvider $dateProvider,
+        BindDataManager $bindDataManager
     ) {
         $this->entryRepository = $entryRepository;
         $this->areaRepository = $areaRepository;
         $this->dateProvider = $dateProvider;
-    }
-
-    /**
-     * @Route("/vue", name="vue")
-     */
-    public function index()
-    {
-        $carbon = Carbon::today();
-        $weeks = $this->dateProvider->weeksOfMonth($carbon);
-
-        return $this->render(
-            'vue/index.html.twig',
-            [
-                'areas' => $this->areaRepository->findAll(),
-            ]
-        );
-    }
-
-    /**
-     * @Route("/viewreidrect", name="grr_front_view_redirect")
-     */
-    public function viewRedirect()
-    {
-        $today = new \DateTime();
-
-        return $this->redirectToRoute(
-            'grr_front_view',
-            [
-                'area' => 4273,
-                'date' => $today->format('Y-m-d'),
-                'view' => Navigation::VIEW_MONTHLY,
-            ]
-        );
+        $this->bindDataManager = $bindDataManager;
     }
 
     /**
@@ -78,17 +52,18 @@ class VueController extends AbstractController
      * @Entity("area", expr="repository.find(area)")
      * @ParamConverter("room", options={"mapping": {"room": "id"}})
      *
-     * @param Area|null   $area
-     * @param string|null $date
+     * @param Area|null $area
+     *
+     * @throws \Exception
      */
     public function view(Area $area, \DateTime $date, string $view, ?Room $room = null): Response
     {
         if (!$date) {
-            $date = Carbon::today();
+            $date = Carbon::today(); //todo carbonfactory
         }
 
-        $carbon = Carbon::instance($date);
-        $carbon->locale('fr');
+        $dateSelected = Carbon::createFromFormat('Y-m-d', $date->format('Y-m-d'));
+        $dateSelected->locale('fr'); //todo carbonfactory
 
         if (Navigation::VIEW_MONTHLY == $view) {
             return $this->render(
@@ -96,20 +71,28 @@ class VueController extends AbstractController
                 [
                     'area' => $area,
                     'room' => $room,
-                    'dateSelected' => $carbon,
+                    'dateSelected' => $dateSelected,
                     'monthData' => '',
+                    'view' => $view,
                 ]
             );
         }
 
         if (Navigation::VIEW_WEEKLY == $view) {
+
+            $days = DateProvider::daysOfWeek($dateSelected);
+            $roomModels = $this->bindDataManager->bindWeek($dateSelected, $area, $room);
+
             return $this->render(
                 '@grr_front/weekly/week.html.twig',
                 [
-                    'area' => $area,
+                    'days' => $days,
+                    'area' => $area, //pour lien add entry
+                    'roomModels' => $roomModels,
                     'room' => $room,
-                    'dateSelected' => $carbon,
-                    'week' => $carbon->week(),
+                    'dateSelected' => $dateSelected,
+                    'week' => $dateSelected->week(),
+                    'view' => $view,
                 ]
             );
         }
@@ -120,7 +103,8 @@ class VueController extends AbstractController
                 [
                     'area' => $area,
                     'room' => $room,
-                    'dateSelected' => $carbon,
+                    'dateSelected' => $dateSelected,
+                    'view' => $view,
                 ]
             );
         }
@@ -131,7 +115,7 @@ class VueController extends AbstractController
                 'area' => $area,
                 'room' => $room,
                 'date' => $date,
-                'carbon' => $carbon,
+                'carbon' => $dateSelected,
             ]
         );
     }

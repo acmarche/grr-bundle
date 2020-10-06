@@ -1,6 +1,8 @@
 {% set classDay = "" %}
 
-{% if dateSelected.day == day.day %}
+{% if dateSelected == day and view == 'daily' %}
+    {% set classDay = "table-info" %}
+{% elseif today == day and view == 'monthly' %}
     {% set classDay = "table-info" %}
 {% endif %}
 
