@@ -11,9 +11,9 @@
 namespace Grr\GrrBundle\Templating\Helper;
 
 use Carbon\CarbonInterface;
+use Grr\GrrBundle\Navigation\Navigation;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
-use Twig\Environment;
 
 class RouterHelper
 {
@@ -32,6 +32,35 @@ class RouterHelper
     ) {
         $this->requestStack = $requestStack;
         $this->router = $router;
+    }
+
+    public function generateRouteView(?\DateTimeInterface $dateSelected = null, ?string $viewSelected = null): string
+    {
+        $request = $this->requestStack->getMasterRequest();
+        if (null === $request) {
+            return '';
+        }
+
+        $attributes = $request->attributes->get('_route_params');
+
+        $area = $attributes['area'] ?? 0;
+        $room = $attributes['room'] ?? 0;
+
+        if (!$dateSelected) {
+            $dateSelected = new \DateTime();
+        }
+
+        if (!$viewSelected) {
+            $viewSelected = Navigation::VIEW_MONTHLY;
+        }
+
+        $params = ['area' => $area, 'date' => $dateSelected->format('Y-m-d'), 'view' => $viewSelected];
+
+        if ($room) {
+            $params['room'] = $room;
+        }
+
+        return $this->router->generate('grr_front_view', $params);
     }
 
     public function generateRouteMonthView(int $year = null, int $month = null): string

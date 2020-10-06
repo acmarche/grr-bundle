@@ -10,12 +10,12 @@
 
 namespace Grr\GrrBundle\Templating\Helper;
 
+use Carbon\CarbonInterface;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
-use Grr\Core\Model\Week;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
@@ -97,11 +97,14 @@ class FrontHelper
         return PeriodicityConstant::getTypePeriodicite($type);
     }
 
-    public function grrWeekNiceName(Week $week): string
+    public function grrWeekNiceName(CarbonInterface $date): string
     {
         return $this->twigEnvironment->render(
             '@grr_front/weekly/_nice_name.html.twig',
-            ['week' => $week]
+            [
+                'firstDay' => $firstDayWeek = $date->copy()->startOfWeek()->toMutable(),
+                'lastDay' => $firstDayWeek = $date->copy()->endOfWeek()->toMutable(),
+            ]
         );
     }
 

@@ -2,13 +2,15 @@
 
 namespace Grr\GrrBundle\Twig;
 
+use Carbon\CarbonInterface;
 use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Model\Week;
 use Grr\GrrBundle\Entity\Area;
+use Grr\GrrBundle\Navigation\AreaSelector;
+use Grr\GrrBundle\Navigation\DateSelectorRender;
 use Grr\GrrBundle\Templating\Helper\FrontHelper;
-use Grr\GrrBundle\Templating\Helper\NavigationHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -20,16 +22,22 @@ class GrrFrontExtension extends AbstractExtension
      */
     private $frontHelper;
     /**
-     * @var NavigationHelper
+     * @var DateSelectorRender
      */
-    private $navigationHelper;
+    private $dateSelectorRender;
+    /**
+     * @var AreaSelector
+     */
+    private $areaSelector;
 
     public function __construct(
         FrontHelper $frontHelper,
-        NavigationHelper $navigationHelper
+        DateSelectorRender $dateSelectorRender,
+        AreaSelector $areaSelector
     ) {
         $this->frontHelper = $frontHelper;
-        $this->navigationHelper = $navigationHelper;
+        $this->dateSelectorRender = $dateSelectorRender;
+        $this->areaSelector = $areaSelector;
     }
 
     /**
@@ -46,7 +54,7 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFilter(
-                'grrWeekNiceName', function (Week $week): string {
+                'grrWeekNiceName', function (CarbonInterface $week): string {
                     return $this->frontHelper->grrWeekNiceName($week);
                 }, [
                     'is_safe' => ['html'],
@@ -67,15 +75,15 @@ class GrrFrontExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'grrMonthNavigationRender', function (): string {
-                    return $this->navigationHelper->monthNavigationRender();
+                'grrDateSelector', function (): string {
+                    return $this->dateSelectorRender->render();
                 }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'grrMenuNavigationRender', function (): string {
-                    return $this->navigationHelper->menuNavigationRender();
+                'grrAreaSelector', function (): string {
+                    return $this->areaSelector->render();
                 }, [
                     'is_safe' => ['html'],
                 ]

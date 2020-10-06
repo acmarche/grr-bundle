@@ -8,6 +8,7 @@ use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Provider\DateProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
+use Grr\GrrBundle\Navigation\Navigation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,39 +57,82 @@ class VueController extends AbstractController
     }
 
     /**
-     * @Route("/view2/date/{date}/area/{area}/room/{room}", name="grr_front_view", methods={"GET"})
-     * @Entity("area", expr="repository.find(area)")
-     * @ParamConverter("room", options={"mapping": {"room": "id"}})
+     * @Route("/viewreidrect", name="grr_front_view_redirect")
      */
-    public function view(Area $area = null, \DateTime $date = null, Room $room = null): Response
+    public function viewRedirect()
     {
-        if (!$date) {
-            $carbon = Carbon::today();
-        }
+        $today = new \DateTime();
 
-        $carbon = Carbon::instance($date);
-        $this->getDays();
-
-        $weeks = $this->dateProvider->weeksOfMonth($carbon);
-        foreach ($weeks as $week) {
-            foreach ($week as $day) {
-                dump($day->day);
-            }
-        }
-
-        return $this->render(
-            '@grr_front/monthly/view.html.twig',
+        return $this->redirectToRoute(
+            'grr_front_view',
             [
-                'date' => $date,
-                'firstDay' => $carbon,
-                'carbon' => $carbon,
+                'area' => 4273,
+                'date' => $today->format('Y-m-d'),
+                'view' => Navigation::VIEW_MONTHLY,
             ]
         );
     }
 
-    protected function getDays()
+    /**
+     * @Route("/view2/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
+     * @Entity("area", expr="repository.find(area)")
+     * @ParamConverter("room", options={"mapping": {"room": "id"}})
+     *
+     * @param Area|null   $area
+     * @param string|null $date
+     */
+    public function view(Area $area, \DateTime $date, string $view, ?Room $room = null): Response
     {
-        $carbon = Carbon::today();
-        dump($carbon->day);
+        if (!$date) {
+            $date = Carbon::today();
+        }
+
+        $carbon = Carbon::instance($date);
+        $carbon->locale('fr');
+
+        if (Navigation::VIEW_MONTHLY == $view) {
+            return $this->render(
+                '@grr_front/monthly/month.html.twig',
+                [
+                    'area' => $area,
+                    'room' => $room,
+                    'dateSelected' => $carbon,
+                    'monthData' => '',
+                ]
+            );
+        }
+
+        if (Navigation::VIEW_WEEKLY == $view) {
+            return $this->render(
+                '@grr_front/weekly/week.html.twig',
+                [
+                    'area' => $area,
+                    'room' => $room,
+                    'dateSelected' => $carbon,
+                    'week' => $carbon->week(),
+                ]
+            );
+        }
+
+        if (Navigation::VIEW_DAILY == $view) {
+            return $this->render(
+                '@grr_front/daily/day.html.twig',
+                [
+                    'area' => $area,
+                    'room' => $room,
+                    'dateSelected' => $carbon,
+                ]
+            );
+        }
+
+        return $this->render(
+            '@grr_front/monthly/month.html.twig',
+            [
+                'area' => $area,
+                'room' => $room,
+                'date' => $date,
+                'carbon' => $carbon,
+            ]
+        );
     }
 }

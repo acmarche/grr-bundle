@@ -12,6 +12,7 @@ namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\I18n\LocalHelper;
+use Grr\GrrBundle\Navigation\Navigation;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,9 +66,15 @@ class DefaultController extends AbstractController
             $params['room'] = $room->getId();
         }
 
+        $today = new \DateTime();
+
         return $this->redirectToRoute(
-            'grr_front_month',
-            $params
+            'grr_front_view',
+            [
+                'area' => $area->getId(),
+                'date' => $today->format('Y-m-d'),
+                'view' => Navigation::VIEW_MONTHLY,
+            ]
         );
     }
 }

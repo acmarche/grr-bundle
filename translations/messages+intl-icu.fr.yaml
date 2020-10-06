@@ -179,6 +179,8 @@ setting:
 btn:
   add:
     email: 'Ajouter un email'
+  previous: 'Précédent'
+  next: 'Suivant'
 settings:
   title: 'Paramètres de Grr'
 typeArea:

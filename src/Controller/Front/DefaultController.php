@@ -2,7 +2,6 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Carbon\Carbon;
 use Grr\Core\Factory\DayFactory;
 use Grr\Core\Factory\MonthFactory;
 use Grr\Core\Factory\WeekFactory;
@@ -65,11 +64,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
         $this->weekFactory = $weekFactory;
     }
 
-    /**
-     * @Route("/monthview/area/{area}/year/{year}/month/{month}/room/{room}", name="grr_front_month", methods={"GET"})
-     * @Entity("area", expr="repository.find(area)")
-     * @ParamConverter("room", options={"mapping": {"room": "id"}})
-     */
     public function monthly(Area $area, int $year, int $month, Room $room = null): Response
     {
         $monthModel = $this->monthFactory->create($year, $month);
@@ -89,11 +83,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
         );
     }
 
-    /**
-     * @Route("/weekview/area/{area}/year/{year}/month/{month}/week/{week}/room/{room}", name="grr_front_week", methods={"GET"})
-     * @Entity("area", expr="repository.find(area)")
-     * @ParamConverter("room", options={"mapping": {"room": "id"}})
-     */
     public function weekly(Area $area, int $year, int $month, int $week, Room $room = null): Response
     {
         $weekModel = $this->weekFactory->create($year, $week);
@@ -109,11 +98,6 @@ class DefaultController extends AbstractController implements FrontControllerInt
         );
     }
 
-    /**
-     * @Route("/dayview/area/{area}/year/{year}/month/{month}/day/{day}/room/{room}", name="grr_front_day", methods={"GET"})
-     * @Entity("area", expr="repository.find(area)")
-     * @ParamConverter("room", options={"mapping": {"room": "id"}})
-     */
     public function daily(Area $area, int $year, int $month, int $day, Room $room = null): Response
     {
         $dayModel = $this->dayFactory->createImmutable($year, $month, $day);

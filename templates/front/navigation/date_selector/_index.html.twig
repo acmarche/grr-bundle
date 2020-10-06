@@ -1,0 +1,55 @@
+<div class="row mb-4">
+    <div class="col-7">
+        <h4>
+            <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}" class="font-weight-bold">
+                {{ dateSelected.monthName|trans }} {{ dateSelected.year }}
+            </a>
+        </h4>
+    </div>
+    <div class="col-5 text-right">
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
+            <i class="fas fa-long-arrow-alt-left" title="{{ 'btn.previous'|trans }}"></i>
+        </a>
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
+            <i class="fas fa-long-arrow-alt-right" title="{{ 'btn.next'|trans }}"></i>
+        </a>
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(today, 'monthly') }}">
+            <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
+        </a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th class="text-center">
+                <span class="d-none d-sm-block">{{ 'week.name'|trans }}</span> {# hidden xs #}
+                <span class="d-sm-none">{{ 'week.name'|trans[:1] }}</span>{# hidden wider than lg #}
+            </th>
+            {% for dayName in listDays %}
+                <th scope="col" class="text-center">
+                    <span class="d-none d-sm-block">{{ dayName|trans }}</span> {# hidden xs #}
+                    <span class="d-sm-none">{{ dayName|trans[:3] }}</span>{# hidden wider than lg #}
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for week in weeks %}
+
+            {% if week.startDate.week == dateSelected.week %}
+                {% set class = "table-info" %}
+            {% else %}
+                {% set class = "" %}
+            {% endif %}
+
+            <tr class="{{ class }}">
+                {% include '@grr_front/navigation/date_selector/_cell_week.html.twig' %}
+                {% for day in week %}
+                    {% include '@grr_front/navigation/date_selector/_cell_day.html.twig' %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
