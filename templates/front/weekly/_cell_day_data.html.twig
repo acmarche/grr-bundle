@@ -1,7 +1,10 @@
 <td class="align-top" style="width: {{ pourcent }}%;">
-
-        <a href="{{ grrGenerateRouteAddEntry(area.id,room.id, day) }}" class="float-right"
-           title="{{ 'label.btn.add.entry'|trans }}"> <i
-                    class="fas fa-plus"></i> </a>
-
+    {% for entry in dataDay.entries %}
+        {% include '@grr_front/weekly/_entry_line.html.twig' %}
+    {% else %}
+        <a href="{{ grrGenerateRouteAddEntry(area.id,room.id, dataDay.day) }}" class="float-right"
+           title="{{ 'label.btn.add.entry'|trans }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endfor %}
 </td>

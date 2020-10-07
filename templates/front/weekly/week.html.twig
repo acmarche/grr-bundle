@@ -24,7 +24,7 @@
                 {% set room = roomModel.room %}
                 <tr>
                     <td>{{ room.name }}</td>
-                    {% for day in days %}
+                    {% for dataDay in roomModel.dataDays %}
                         {% include '@grr_front/weekly/_cell_day_data.html.twig' %}
                     {% endfor %}
                 </tr>

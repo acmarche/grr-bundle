@@ -8,12 +8,14 @@
 
 namespace Grr\GrrBundle\Entry\Binder;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Entry\EntryLocationService;
 use Grr\Core\Factory\DayFactory;
+use Grr\Core\Model\DataDay;
 use Grr\Core\Model\Month;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
@@ -66,10 +68,10 @@ class BindDataManager
         $entries = $this->entryRepository->findForMonth($month->firstOfMonth(), $area, $room);
 
         foreach ($month->getCalendarDays() as $date) {
-            $day = $this->dayFactory->createFromCarbon($date);
-            $events = $this->extractByDate($day, $entries);
-            $day->addEntries($events);
-            $month->addDataDay($day);
+            $dataDay = new DataDay($date);
+            $events = $this->extractByDate($dataDay, $entries);
+            $dataDay->addEntries($events);
+            $month->addDataDay($dataDay);
         }
     }
 
@@ -88,13 +90,13 @@ class BindDataManager
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
         }
 
-        $carbonPeriod = DateProvider::daysOfWeek($week);
+        $carbonPeriod = DateProvider::daysOfWeek(Carbon::instance($week));
         $data = [];
 
         foreach ($rooms as $room) {
             $roomModel = new RoomModel($room);
             foreach ($carbonPeriod as $dayCalendar) {
-                $dataDay = $this->dayFactory->createFromCarbon($dayCalendar);
+                $dataDay = new DataDay($dayCalendar);
                 $entries = $this->entryRepository->findForDay($dayCalendar, $room);
                 $dataDay->addEntries($entries);
                 $roomModel->addDataDay($dataDay);

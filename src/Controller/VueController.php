@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\Controller;
 
 use Carbon\Carbon;
+use DateTime;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Provider\DateProvider;
@@ -48,6 +49,27 @@ class VueController extends AbstractController
     }
 
     /**
+     * @Route("/titi")
+     */
+    public function tii()
+    {
+        $today = new DateTime();
+        $weeks = DateProvider::weeksOfMonth($today);
+        foreach ($weeks as $week) {
+            foreach ($week as $day) {
+                dump($day->toDateString());
+            }
+            dump('1');
+        }
+
+
+        return $this->render(
+            '@grr_front/default/index.html.twig',
+            []
+        );
+    }
+
+    /**
      * @Route("/view2/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
      * @Entity("area", expr="repository.find(area)")
      * @ParamConverter("room", options={"mapping": {"room": "id"}})
@@ -56,7 +78,7 @@ class VueController extends AbstractController
      *
      * @throws \Exception
      */
-    public function view(Area $area, \DateTime $date, string $view, ?Room $room = null): Response
+    public function view(Area $area, DateTime $date, string $view, ?Room $room = null): Response
     {
         if (!$date) {
             $date = Carbon::today(); //todo carbonfactory
@@ -79,7 +101,6 @@ class VueController extends AbstractController
         }
 
         if (Navigation::VIEW_WEEKLY == $view) {
-
             $days = DateProvider::daysOfWeek($dateSelected);
             $roomModels = $this->bindDataManager->bindWeek($dateSelected, $area, $room);
 
@@ -89,9 +110,7 @@ class VueController extends AbstractController
                     'days' => $days,
                     'area' => $area, //pour lien add entry
                     'roomModels' => $roomModels,
-                    'room' => $room,
                     'dateSelected' => $dateSelected,
-                    'week' => $dateSelected->week(),
                     'view' => $view,
                 ]
             );
