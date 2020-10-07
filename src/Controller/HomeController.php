@@ -11,6 +11,7 @@
 namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Contrat\Front\ViewInterface;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,19 +28,25 @@ class HomeController extends AbstractController
      * @var LocalHelper
      */
     private $localHelper;
+    /**
+     * @var AreaRepositoryInterface
+     */
+    private $areaRepository;
 
     public function __construct(
         RessourceSelectedHelper $ressourceSelectedHelper,
-        LocalHelper $localHelper
+        LocalHelper $localHelper,
+        AreaRepositoryInterface $areaRepository
     ) {
         $this->ressourceSelectedHelper = $ressourceSelectedHelper;
         $this->localHelper = $localHelper;
+        $this->areaRepository = $areaRepository;
     }
 
     /**
      * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
      */
-    public function home(): Response
+    public function redirectToScheduler(): Response
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();
 
@@ -65,6 +72,19 @@ class HomeController extends AbstractController
                 'area' => $area->getId(),
                 'date' => $today->format('Y-m-d'),
                 'view' => ViewInterface::VIEW_MONTHLY,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/vuejs", name="vuejs")
+     */
+    public function index()
+    {
+        return $this->render(
+            'vue/index.html.twig',
+            [
+                'areas' => $this->areaRepository->findAll(),
             ]
         );
     }

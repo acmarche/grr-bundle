@@ -123,8 +123,10 @@ class RessourceSelectedHelper
         $this->session->set(self::AREA_DEFAULT_SESSION, $area);
         if ($room) {
             $this->session->set(self::ROOM_DEFAULT_SESSION, $room);
-        } else {
-            $this->session->remove(self::ROOM_DEFAULT_SESSION);
+
+            return;
         }
+
+        $this->session->remove(self::ROOM_DEFAULT_SESSION);
     }
 }
