@@ -55,9 +55,12 @@ class EntryFactory
         int $minute
     ): Entry {
         $dateSelected = Carbon::instance($date);
-        
-        $dateSelected->hour($hour);
-        $dateSelected->minute($minute);
+        if ($hour > 0) {
+            $dateSelected->hour($hour);
+            $dateSelected->minute($minute);
+        } else {
+            $dateSelected->hour($area->getStartTime());
+        }
         $entry = $this->createNew();
         $entry->setArea($area);
         $entry->setRoom($room);
