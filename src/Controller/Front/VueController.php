@@ -1,11 +1,11 @@
 <?php
 
-namespace Grr\GrrBundle\Controller;
+namespace Grr\GrrBundle\Controller\Front;
 
 use DateTime;
+use Grr\Core\View\ViewLocator;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Templating\Helper\RenderViewLocator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,13 +20,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class VueController extends AbstractController
 {
     /**
-     * @var RenderViewLocator
+     * @var ViewLocator
      */
-    private $renderViewLocator;
+    private $viewLocator;
 
-    public function __construct(RenderViewLocator $renderViewLocator)
+    public function __construct(ViewLocator $viewLocator)
     {
-        $this->renderViewLocator = $renderViewLocator;
+        $this->viewLocator = $viewLocator;
     }
 
     /**
@@ -40,7 +40,7 @@ class VueController extends AbstractController
      */
     public function view(Area $area, DateTime $date, string $view, ?Room $room = null): Response
     {
-        $renderService = $this->renderViewLocator->loadInterfaceByKey($view);
+        $renderService = $this->viewLocator->findViewerByView($view);
 
         return $renderService->render($date, $area, $room);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\Templating;
+namespace Grr\GrrBundle\View;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
@@ -12,16 +12,11 @@ use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Model\DataDay;
 use Grr\Core\Provider\DateProvider;
-use Grr\GrrBundle\Templating\Helper\RenderViewLocator;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class ViewMonthlyRender implements ViewInterface
 {
-    /**
-     * @var RenderViewLocator
-     */
-    private $renderFront;
     /**
      * @var Environment
      */
@@ -38,10 +33,8 @@ class ViewMonthlyRender implements ViewInterface
     public function __construct(
         Environment $environment,
         EntryRepositoryInterface $entryRepository,
-        RenderViewLocator $renderFront,
         CarbonFactory $carbonFactory
     ) {
-        $this->renderFront = $renderFront;
         $this->environment = $environment;
         $this->entryRepository = $entryRepository;
         $this->carbonFactory = $carbonFactory;

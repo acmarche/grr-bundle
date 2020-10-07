@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\Templating;
+namespace Grr\GrrBundle\View;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;

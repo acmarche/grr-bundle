@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Grr\GrrBundle\Templating;
+namespace Grr\GrrBundle\View;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
