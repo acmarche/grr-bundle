@@ -8,15 +8,23 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
+/**
+ * Class AjaxController
+ * @package Grr\GrrBundle\Controller
+ * @IsGranted("ROLE_GRR")
+ */
 class AjaxController extends AbstractController
 {
     /**
@@ -33,8 +41,8 @@ class AjaxController extends AbstractController
     private $authorizationHelper;
 
     public function __construct(
-        \Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository,
-        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
+        AreaRepositoryInterface $areaRepository,
+        RoomRepositoryInterface $roomRepository,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaRepository = $areaRepository;
