@@ -11,12 +11,12 @@ namespace Grr\GrrBundle\Entry\Binder;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
+use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Entry\EntryLocationService;
 use Grr\Core\Factory\DataDayFactory;
 use Grr\Core\Model\DataDay;
-use Grr\Core\Model\Month;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Provider\DateProvider;
@@ -62,17 +62,23 @@ class BindDataManager
      * Parcours tous les jours du mois
      * Crée une instance Day et set les entrées.
      * Ajouts des ces days au model Month.
+     *
+     * @return DataDay[]
      */
-    public function bindMonth(Month $month, Area $area, Room $room = null): void
+    public function bindMonth(DateTimeInterface $dateSelected, Area $area, Room $room = null): array
     {
-        $entries = $this->entryRepository->findForMonth($month->firstOfMonth(), $area, $room);
+        $dateCarbon = Carbon::instance($dateSelected);
+        $monthEntries = $this->entryRepository->findForMonth($dateCarbon->firstOfMonth(), $area, $room);
+        $dataDays = [];
 
-        foreach ($month->getCalendarDays() as $date) {
+        foreach (DateProvider::daysOfMonth($dateSelected) as $date) {
             $dataDay = new DataDay($date);
-            $events = $this->extractByDate($dataDay, $entries);
-            $dataDay->addEntries($events);
-            $month->addDataDay($dataDay);
+            $entries = $this->extractByDate($date, $monthEntries);
+            $dataDay->addEntries($entries);
+            $dataDays[$date->toDateString()] = $dataDay;
         }
+
+        return $dataDays;
     }
 
     /**
@@ -150,7 +156,7 @@ class BindDataManager
     }
 
     /**
-     * @return mixed[]
+     * @return EntryInterface[]
      */
     public function extractByDate(DateTimeInterface $dateTime, array $entries): array
     {

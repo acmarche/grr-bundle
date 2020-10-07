@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\TypeEntry\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\GrrBundle\Entity\TypeEntry;
 
@@ -18,5 +19,17 @@ class TypeEntryRepository extends ServiceEntityRepository implements TypeEntryRe
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, TypeEntry::class);
+    }
+
+    /**
+     * @param AreaInterface|null $area
+     * @return TypeEntry[]
+     */
+    public function findByArea(?AreaInterface $area): array
+    {
+        //todo filter area
+        $queryBuilder = $this->createQueryBuilder('type_entry');
+
+        return $this->findAll();
     }
 }

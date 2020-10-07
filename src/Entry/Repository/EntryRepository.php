@@ -29,19 +29,20 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
     }
 
     /**
-     * @param Area|null $area
-     *
+     * @param \DateTimeInterface $firstDayOfMonth
+     * @param AreaInterface $area
+     * @param RoomInterface|null $room
      * @return Entry[] Returns an array of Entry objects
      */
-    public function findForMonth(\DateTimeInterface $dateTime, AreaInterface $area, RoomInterface $room = null): array
+    public function findForMonth(\DateTimeInterface $firstDayOfMonth, AreaInterface $area, RoomInterface $room = null): array
     {
         $qb = $this->createQueryBuilder('entry');
-        $end = clone $dateTime;
-        $end->modify('last day of this month');
+        $endDayOfMonth = clone $firstDayOfMonth;
+        $endDayOfMonth->modify('last day of this month');
 
         $qb->andWhere('DATE(entry.startTime) >= :begin AND DATE(entry.endTime) <= :end')
-            ->setParameter('begin', $dateTime->format('Y-m-d'))
-            ->setParameter('end', $end->format('Y-m-d'));
+            ->setParameter('begin', $firstDayOfMonth->format('Y-m-d'))
+            ->setParameter('end', $endDayOfMonth->format('Y-m-d'));
 
         if (null !== $room) {
             $qb->andWhere('entry.room = :room')

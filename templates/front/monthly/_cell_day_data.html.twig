@@ -1,11 +1,15 @@
 {% if day.isSameMonth(firstDay) %}
-    <a href="{{ grrGenerateRouteDayView(day.day) }}" class="float-right">
-        {{ day.day }}
-    </a>
+    <td class="align-top" style="width: {{ pourcent }}%;">
+        <a href="{{ grrGenerateRouteView(day, 'daily') }} }}" class="float-right">
+            {{ day.day }}
+        </a>
+        <br/>
+        {% for entry in dataDays[day.toDateString] %}
+            {% include '@grr_front/monthly/_entry_line.html.twig' %}
+        {% endfor %}
+    </td>
 {% else %}
-
+    <td class="align-top text-muted bg-light" style="width: {{ pourcent }}%;">
+        <span class="float-right">{{ day.day }}</span>
+    </td>
 {% endif %}
-<br />
-{% for entry in day.entries %}
-    {% include '@grr_front/monthly/_entry_line.html.twig' %}
-{% endfor %}

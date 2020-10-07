@@ -10,7 +10,6 @@
 
 namespace Grr\GrrBundle\Controller;
 
-use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Navigation\Navigation;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
@@ -21,10 +20,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @var CarbonFactory
-     */
-    private $carbonFactory;
-    /**
      * @var RessourceSelectedHelper
      */
     private $ressourceSelectedHelper;
@@ -34,11 +29,9 @@ class DefaultController extends AbstractController
     private $localHelper;
 
     public function __construct(
-        CarbonFactory $carbonFactory,
         RessourceSelectedHelper $ressourceSelectedHelper,
         LocalHelper $localHelper
     ) {
-        $this->carbonFactory = $carbonFactory;
         $this->ressourceSelectedHelper = $ressourceSelectedHelper;
         $this->localHelper = $localHelper;
     }
@@ -50,8 +43,6 @@ class DefaultController extends AbstractController
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();
 
-        $today = $this->carbonFactory->getToday();
-
         try {
             $area = $this->ressourceSelectedHelper->getArea();
         } catch (\Exception $e) {
@@ -60,7 +51,7 @@ class DefaultController extends AbstractController
 
         $room = $this->ressourceSelectedHelper->getRoom();
 
-        $params = ['_locale' => $defaultLocal, 'area' => $area->getId(), 'year' => $today->year, 'month' => $today->month];
+        $params = ['_locale' => $defaultLocal, 'area' => $area->getId()];
 
         if (null !== $room) {
             $params['room'] = $room->getId();

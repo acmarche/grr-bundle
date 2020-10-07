@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Twig;
 
 use Carbon\CarbonInterface;
+use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
-use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Navigation\AreaSelector;
 use Grr\GrrBundle\Navigation\DateSelectorRender;
 use Grr\GrrBundle\Templating\Helper\FrontHelper;
@@ -94,7 +94,7 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'grrLegendTypeEntry', function (Area $area): string {
+                'grrLegendTypeEntry', function (): string {
                     return $this->frontHelper->legendTypeEntry();
                 }, [
                     'is_safe' => ['html'],

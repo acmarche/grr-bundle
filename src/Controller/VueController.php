@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DateTime;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Helper\MonthHelperDataDisplay;
 use Grr\Core\Provider\DateProvider;
 use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Area;
@@ -18,6 +19,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class VueController.
+ *
+ * @Route("/front")
+ */
 class VueController extends AbstractController
 {
     /**
@@ -40,19 +46,25 @@ class VueController extends AbstractController
      * @var TimeSlotsProvider
      */
     private $timeSlotsProvider;
+    /**
+     * @var MonthHelperDataDisplay
+     */
+    private $monthHelperDataDisplay;
 
     public function __construct(
         EntryRepositoryInterface $entryRepository,
         AreaRepositoryInterface $areaRepository,
         DateProvider $dateProvider,
         BindDataManager $bindDataManager,
-        TimeSlotsProvider $timeSlotsProvider
+        TimeSlotsProvider $timeSlotsProvider,
+        MonthHelperDataDisplay $monthHelperDataDisplay
     ) {
         $this->entryRepository = $entryRepository;
         $this->areaRepository = $areaRepository;
         $this->dateProvider = $dateProvider;
         $this->bindDataManager = $bindDataManager;
         $this->timeSlotsProvider = $timeSlotsProvider;
+        $this->monthHelperDataDisplay = $monthHelperDataDisplay;
     }
 
     /**
@@ -76,7 +88,7 @@ class VueController extends AbstractController
     }
 
     /**
-     * @Route("/view2/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
+     * @Route("/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
      * @Entity("area", expr="repository.find(area)")
      * @ParamConverter("room", options={"mapping": {"room": "id"}})
      *
@@ -94,13 +106,16 @@ class VueController extends AbstractController
         $dateSelected->locale('fr'); //todo carbonfactory
 
         if (Navigation::VIEW_MONTHLY == $view) {
+            $dataDays = $this->bindDataManager->bindMonth($dateSelected, $area, $room);
+            $monthData = $this->monthHelperDataDisplay->generateHtmlMonth($dateSelected, $dataDays);
+
             return $this->render(
                 '@grr_front/monthly/month.html.twig',
                 [
                     'area' => $area,
                     'room' => $room,
                     'dateSelected' => $dateSelected,
-                    'monthData' => '',
+                    'monthData' => $monthData,
                     'view' => $view,
                 ]
             );
@@ -129,7 +144,7 @@ class VueController extends AbstractController
             return $this->render(
                 '@grr_front/daily/day.html.twig',
                 [
-                    'area' => $area,//pour lien add entry
+                    'area' => $area, //pour lien add entry
                     'room' => $room,
                     'roomsModel' => $roomsModel,
                     'dateSelected' => $dateSelected,

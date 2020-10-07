@@ -11,6 +11,7 @@
 namespace Grr\GrrBundle\Templating\Helper;
 
 use Carbon\CarbonInterface;
+use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Model\RoomModel;
@@ -114,9 +115,9 @@ class FrontHelper
         );
     }
 
-    public function legendTypeEntry(): string
+    public function legendTypeEntry(?AreaInterface $area = null): string
     {
-        $types = $this->typeEntryRepository->findAll();
+        $types = $this->typeEntryRepository->findByArea($area);
 
         return $this->twigEnvironment->render(
             '@grr_front/_legend_entry_type.html.twig',
