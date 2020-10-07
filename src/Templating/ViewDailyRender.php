@@ -7,7 +7,7 @@ use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
-use Grr\Core\Contrat\Front\ViewerInterface;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
@@ -17,11 +17,10 @@ use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Navigation\Navigation;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class ViewDailyRender implements ViewerInterface
+class ViewDailyRender implements ViewInterface
 {
     /**
      * @var Environment
@@ -72,7 +71,7 @@ class ViewDailyRender implements ViewerInterface
 
     public static function getDefaultIndexName(): string
     {
-        return Navigation::VIEW_DAILY;
+        return ViewInterface::VIEW_DAILY;
     }
 
     public function bindData(): void
@@ -93,12 +92,12 @@ class ViewDailyRender implements ViewerInterface
         $roomsModel = $this->bindDay($carbon, $area, $timeSlots, $room);
 
         $content = $this->environment->render(
-            '@grr_front/daily/day.html.twig',
+            '@grr_front/view/daily/day.html.twig',
             [
                 'area' => $area, //pour lien add entry
                 'room' => $room,
                 'roomsModel' => $roomsModel,
-                'dateSelected' => $dateSelected,
+                'dateSelected' => $carbon,
                 'view' => self::getDefaultIndexName(),
                 'timeSlots' => $timeSlots,
             ]

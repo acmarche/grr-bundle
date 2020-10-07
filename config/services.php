@@ -1,6 +1,6 @@
 <?php
 
-use Grr\Core\Contrat\Front\ViewerInterface;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\Setting\General\SettingGeneralInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Notification\BrowserGrrChannel;
@@ -30,7 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $services->instanceof(SettingGeneralInterface::class)
         ->tag('grr.setting');
 
-    $services = $services->instanceof(ViewerInterface::class)
+    $services = $services->instanceof(ViewInterface::class)
         ->tag('grr.render');
 
     $services = $services->set(BrowserGrrChannel::class)

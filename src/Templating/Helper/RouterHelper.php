@@ -10,7 +10,7 @@
 
 namespace Grr\GrrBundle\Templating\Helper;
 
-use Grr\GrrBundle\Navigation\Navigation;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -50,7 +50,7 @@ class RouterHelper
         }
 
         if (!$viewSelected) {
-            $viewSelected = Navigation::VIEW_MONTHLY;
+            $viewSelected = ViewInterface::VIEW_MONTHLY;
         }
 
         $params = ['area' => $area, 'date' => $dateSelected->format('Y-m-d'), 'view' => $viewSelected];

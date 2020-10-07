@@ -69,7 +69,7 @@ class FrontHelper
                 if ($location === $timeSlot) {
                     if (0 === $position) {
                         return $this->twigEnvironment->render(
-                            '@grr_front/daily/_cell_day_data.html.twig',
+                            '@grr_front/view/daily/_cell_day_data.html.twig',
                             ['position' => $position, 'entry' => $entry]
                         );
                     }
@@ -84,7 +84,7 @@ class FrontHelper
         $area = $room->getArea();
 
         return $this->twigEnvironment->render(
-            '@grr_front/daily/_cell_day_empty.html.twig',
+            '@grr_front/view/daily/_cell_day_empty.html.twig',
             [
                 'position' => 999,
                 'area' => $area,
@@ -102,17 +102,6 @@ class FrontHelper
     public function periodicityTypeName(int $type)
     {
         return PeriodicityConstant::getTypePeriodicite($type);
-    }
-
-    public function weekNiceName(CarbonInterface $date): string
-    {
-        return $this->twigEnvironment->render(
-            '@grr_front/weekly/_nice_name.html.twig',
-            [
-                'firstDay' => $firstDayWeek = $date->copy()->startOfWeek()->toMutable(),
-                'lastDay' => $firstDayWeek = $date->copy()->endOfWeek()->toMutable(),
-            ]
-        );
     }
 
     public function legendTypeEntry(?AreaInterface $area = null): string

@@ -3,21 +3,21 @@
 namespace Grr\GrrBundle\Templating;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
-use Grr\Core\Contrat\Front\ViewerInterface;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Model\DataDay;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Provider\DateProvider;
-use Grr\GrrBundle\Navigation\Navigation;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class ViewWeeklyRender implements ViewerInterface
+class ViewWeeklyRender implements ViewInterface
 {
     /**
      * @var Environment
@@ -50,7 +50,7 @@ class ViewWeeklyRender implements ViewerInterface
 
     public static function getDefaultIndexName(): string
     {
-        return Navigation::VIEW_WEEKLY;
+        return ViewInterface::VIEW_WEEKLY;
     }
 
     public function bindData(): void
@@ -64,14 +64,16 @@ class ViewWeeklyRender implements ViewerInterface
 
         $days = DateProvider::daysOfWeek($carbon);
         $roomModels = $this->bindWeek($dateSelected, $area, $room);
+        $weekNiceName = $this->weekNiceName($carbon);
 
         $content = $this->environment->render(
-            '@grr_front/weekly/week.html.twig',
+            '@grr_front/view/weekly/week.html.twig',
             [
                 'days' => $days,
                 'area' => $area, //pour lien add entry
                 'roomModels' => $roomModels,
                 'dateSelected' => $carbon,
+                'weekNiceName' => $weekNiceName,
                 'view' => self::getDefaultIndexName(),
             ]
         );
@@ -105,5 +107,16 @@ class ViewWeeklyRender implements ViewerInterface
         }
 
         return $data;
+    }
+
+    private function weekNiceName(CarbonInterface $date): string
+    {
+        return $this->environment->render(
+            '@grr_front/view/weekly/_nice_name.html.twig',
+            [
+                'firstDay' => $firstDayWeek = $date->copy()->startOfWeek()->toMutable(),
+                'lastDay' => $firstDayWeek = $date->copy()->endOfWeek()->toMutable(),
+            ]
+        );
     }
 }

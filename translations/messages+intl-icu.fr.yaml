@@ -52,6 +52,7 @@ label:
       onDeleted: 'Lors de la suppression'
 back:
   to_list: 'Retour à la liste'
+  to_planning: 'Retour au planning'
 delete:
   confirm: 'Confirmer la suppression'
 area:

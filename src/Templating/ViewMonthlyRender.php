@@ -1,29 +1,23 @@
 <?php
 
-
 namespace Grr\GrrBundle\Templating;
 
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
-use Grr\Core\Contrat\Front\ViewerInterface;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\Core\Helper\MonthHelperDataDisplay;
+use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Model\DataDay;
 use Grr\Core\Provider\DateProvider;
-use Grr\GrrBundle\Navigation\Navigation;
 use Grr\GrrBundle\Templating\Helper\RenderViewLocator;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class ViewMonthlyRender implements ViewerInterface
+class ViewMonthlyRender implements ViewInterface
 {
-    /**
-     * @var MonthHelperDataDisplay
-     */
-    private $monthHelperDataDisplay;
     /**
      * @var RenderViewLocator
      */
@@ -36,22 +30,26 @@ class ViewMonthlyRender implements ViewerInterface
      * @var EntryRepositoryInterface
      */
     private $entryRepository;
+    /**
+     * @var CarbonFactory
+     */
+    private $carbonFactory;
 
     public function __construct(
         Environment $environment,
         EntryRepositoryInterface $entryRepository,
-        MonthHelperDataDisplay $monthHelperDataDisplay,
-        RenderViewLocator $renderFront
+        RenderViewLocator $renderFront,
+        CarbonFactory $carbonFactory
     ) {
-        $this->monthHelperDataDisplay = $monthHelperDataDisplay;
         $this->renderFront = $renderFront;
         $this->environment = $environment;
         $this->entryRepository = $entryRepository;
+        $this->carbonFactory = $carbonFactory;
     }
 
     public static function getDefaultIndexName(): string
     {
-        return Navigation::VIEW_MONTHLY;
+        return ViewInterface::VIEW_MONTHLY;
     }
 
     public function bindData(): void
@@ -61,15 +59,16 @@ class ViewMonthlyRender implements ViewerInterface
 
     public function render(DateTimeInterface $dateSelected, AreaInterface $area, ?RoomInterface $room = null): Response
     {
-        $dataDays = $this->bindMonth($dateSelected, $area, $room);
-        $monthData = $this->monthHelperDataDisplay->generateHtmlMonth($dateSelected, $dataDays);
+        $dateCarbon = $this->carbonFactory->instance($dateSelected);
+        $dataDays = $this->bindMonth($dateCarbon, $area, $room);
+        $monthData = $this->generateHtmlMonth($dateCarbon, $dataDays);
 
         $string = $this->environment->render(
-            '@grr_front/monthly/month.html.twig',
+            '@grr_front/view/monthly/month.html.twig',
             [
                 'area' => $area,
                 'room' => $room,
-                'dateSelected' => $dateSelected,
+                'dateSelected' => $dateCarbon,
                 'monthData' => $monthData,
                 'view' => self::getDefaultIndexName(),
             ]
@@ -86,10 +85,9 @@ class ViewMonthlyRender implements ViewerInterface
      *
      * @return DataDay[]
      */
-    private function bindMonth(DateTimeInterface $dateSelected, AreaInterface $area, RoomInterface $room = null): array
+    private function bindMonth(CarbonInterface $dateSelected, AreaInterface $area, RoomInterface $room = null): array
     {
-        $dateCarbon = Carbon::instance($dateSelected);
-        $monthEntries = $this->entryRepository->findForMonth($dateCarbon->firstOfMonth(), $area, $room);
+        $monthEntries = $this->entryRepository->findForMonth($dateSelected->firstOfMonth(), $area, $room);
         $dataDays = [];
 
         foreach (DateProvider::daysOfMonth($dateSelected) as $date) {
@@ -115,5 +113,27 @@ class ViewMonthlyRender implements ViewerInterface
         }
 
         return $data;
+    }
+
+    /**
+     * @param DataDay[] $dataDays
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    private function generateHtmlMonth(CarbonInterface $dateSelected, array $dataDays): string
+    {
+        $weeks = DateProvider::weeksOfMonth($dateSelected);
+
+        return $this->environment->render(
+            '@grr_front/view/monthly/_calendar_data.html.twig',
+            [
+                'days' => DateProvider::getNamesDaysOfWeek(),
+                'firstDay' => $dateSelected->copy()->firstOfMonth(),
+                'dataDays' => $dataDays,
+                'weeks' => $weeks,
+            ]
+        );
     }
 }

@@ -4,7 +4,7 @@
 namespace Grr\GrrBundle\Templating\Helper;
 
 
-use Grr\Core\Contrat\Front\ViewerInterface;
+use Grr\Core\Contrat\Front\ViewInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 class RenderViewLocator
@@ -34,7 +34,7 @@ class RenderViewLocator
     /**
      * @throws \Exception
      */
-    public function loadInterfaceByKey(string $key): ViewerInterface
+    public function loadInterfaceByKey(string $key): ViewInterface
     {
         if ($this->serviceLocator->get($key)) {
             return $this->serviceLocator->get($key);

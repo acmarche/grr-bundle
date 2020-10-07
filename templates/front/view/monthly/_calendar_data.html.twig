@@ -12,7 +12,7 @@
         {% for week in weeks %}
             <tr>
                 {% for day in week.days %}
-                    {% include '@grr_front/monthly/_cell_day_data.html.twig' %}
+                    {% include '@grr_front/view/monthly/_cell_day_data.html.twig' %}
                 {% endfor %}
             </tr>
         {% endfor %}

@@ -1,12 +1,12 @@
 {% extends '@grr_front/layout_front.html.twig' %}
 
-{% block title %}{{ dateSelected|grrWeekNiceName }}{% endblock %}
+{% block title %}{{ weekNiceName }}{% endblock %}
 
 {% block body %}
 
     {% include '@grr_front/navigation/_top_navigation.html.twig' %}
 
-    <h3 class="text-center text-success">{{ dateSelected|grrWeekNiceName }}</h3>
+    <h3 class="text-center text-success">{{ weekNiceName }}</h3>
 
     <div class="table-responsive">
         <table class="table table-bordered table-sm">
@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{ room.name }}</td>
                     {% for dataDay in roomModel.dataDays %}
-                        {% include '@grr_front/weekly/_cell_day_data.html.twig' %}
+                        {% include '@grr_front/view/weekly/_cell_day_data.html.twig' %}
                     {% endfor %}
                 </tr>
             {% endfor %}

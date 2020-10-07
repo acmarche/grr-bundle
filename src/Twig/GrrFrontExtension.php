@@ -2,8 +2,6 @@
 
 namespace Grr\GrrBundle\Twig;
 
-use Carbon\CarbonInterface;
-use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Navigation\AreaSelector;
@@ -52,13 +50,6 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFilter(
-                'grrWeekNiceName', function (CarbonInterface $week): string {
-                    return $this->frontHelper->weekNiceName($week);
-                }, [
-                    'is_safe' => ['html'],
-                ]
-            ),
-            new TwigFilter(
                 'grrBoolToArrow', [$this, 'grrBoolToArrow'], [
                     'is_safe' => ['html'],
                 ]
@@ -87,9 +78,11 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'grrGenerateCellDataDay', function (\DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string {
+                'grrGenerateCellDataDay',
+                function (\DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string {
                     return $this->frontHelper->renderCellDataDay($dateSelected, $hour, $roomModel);
-                }, [
+                },
+                [
                     'is_safe' => ['html'],
                 ]
             ),

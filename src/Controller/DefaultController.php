@@ -10,8 +10,8 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\I18n\LocalHelper;
-use Grr\GrrBundle\Navigation\Navigation;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,7 +64,7 @@ class DefaultController extends AbstractController
             [
                 'area' => $area->getId(),
                 'date' => $today->format('Y-m-d'),
-                'view' => Navigation::VIEW_MONTHLY,
+                'view' => ViewInterface::VIEW_MONTHLY,
             ]
         );
     }
