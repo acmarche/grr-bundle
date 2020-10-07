@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Grr\GrrBundle\Templating\Helper;
+namespace Grr\GrrBundle\Helper;
 
 use Grr\Core\Contrat\Front\ViewInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

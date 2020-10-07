@@ -8,7 +8,7 @@
 
 namespace Grr\GrrBundle\User\Manager;
 
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class UserManager extends BaseManager
 {

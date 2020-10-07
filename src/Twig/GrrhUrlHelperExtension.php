@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\Twig;
 
 use DateTimeInterface;
-use Grr\GrrBundle\Templating\Helper\RouterHelper;
+use Grr\GrrBundle\Helper\RouterHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

@@ -9,7 +9,7 @@
 namespace Grr\GrrBundle\Room\Manager;
 
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class RoomManager extends BaseManager
 {

@@ -8,7 +8,7 @@
 
 namespace Grr\GrrBundle\Setting\Manager;
 
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class SettingManager extends BaseManager
 {

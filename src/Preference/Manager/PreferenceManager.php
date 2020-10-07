@@ -8,7 +8,7 @@
 
 namespace Grr\GrrBundle\Preference\Manager;
 
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class PreferenceManager extends BaseManager
 {

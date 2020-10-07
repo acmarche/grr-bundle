@@ -15,7 +15,7 @@ use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class EntryManager extends BaseManager
 {

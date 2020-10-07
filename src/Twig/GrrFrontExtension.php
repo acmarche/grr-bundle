@@ -6,7 +6,7 @@ use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Navigation\AreaSelector;
 use Grr\GrrBundle\Navigation\DateSelectorRender;
-use Grr\GrrBundle\Templating\Helper\FrontHelper;
+use Grr\GrrBundle\Helper\FrontHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;

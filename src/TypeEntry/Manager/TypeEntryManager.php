@@ -8,7 +8,7 @@
 
 namespace Grr\GrrBundle\TypeEntry\Manager;
 
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class TypeEntryManager extends BaseManager
 {

@@ -8,9 +8,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Grr\GrrBundle\Templating\Helper;
+namespace Grr\GrrBundle\Helper;
 
-use Carbon\CarbonInterface;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;

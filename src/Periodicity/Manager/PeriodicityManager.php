@@ -8,7 +8,7 @@
 
 namespace Grr\GrrBundle\Periodicity\Manager;
 
-use Grr\GrrBundle\Manager\BaseManager;
+use Grr\Core\Manager\BaseManager;
 
 class PeriodicityManager extends BaseManager
 {
