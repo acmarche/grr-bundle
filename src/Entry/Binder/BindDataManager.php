@@ -14,7 +14,7 @@ use DateTimeInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Entry\EntryLocationService;
-use Grr\Core\Factory\DayFactory;
+use Grr\Core\Factory\DataDayFactory;
 use Grr\Core\Model\DataDay;
 use Grr\Core\Model\Month;
 use Grr\Core\Model\RoomModel;
@@ -37,7 +37,7 @@ class BindDataManager
      */
     private $entryLocationService;
     /**
-     * @var DayFactory
+     * @var DataDayFactory
      */
     private $dayFactory;
     /**
@@ -49,7 +49,7 @@ class BindDataManager
         EntryRepositoryInterface $entryRepository,
         RoomRepositoryInterface $roomRepository,
         EntryLocationService $entryLocationService,
-        DayFactory $dayFactory
+        DataDayFactory $dayFactory
     ) {
         $this->entryRepository = $entryRepository;
         $this->entryLocationService = $entryLocationService;

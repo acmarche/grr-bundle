@@ -59,24 +59,4 @@ class DefaultController extends AbstractController implements FrontControllerInt
             ]
         );
     }
-
-    public function daily(Area $area, int $year, int $month, int $day, Room $room = null): Response
-    {
-        $dayModel = $this->dayFactory->createImmutable($year, $month, $day);
-
-        $daySelected = $dayModel->toImmutable();
-
-        $timeSlots = $this->timeSlotsProvider->getTimeSlotsModelByAreaAndDaySelected($area, $daySelected);
-        $roomsModel = $this->bindDataManager->bindDay($daySelected, $area, $timeSlots, $room);
-
-        return $this->render(
-            '@grr_front/daily/day.html.twig',
-            [
-                'day' => $dayModel,
-                'roomsModel' => $roomsModel,
-                'area' => $area, //pour lien add entry
-                'hoursModel' => $timeSlots,
-            ]
-        );
-    }
 }

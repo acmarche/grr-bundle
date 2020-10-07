@@ -13,7 +13,6 @@ namespace Grr\GrrBundle\Templating\Helper;
 use Carbon\CarbonInterface;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
-use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\Core\Setting\SettingConstants;
@@ -53,7 +52,7 @@ class FrontHelper
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function grrGenerateCellDataDay(TimeSlot $timeSlot, RoomModel $roomModel, Day $day): string
+    public function renderCellDataDay(\DateTime $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
     {
         /**
          * @var Entry[]
@@ -85,19 +84,26 @@ class FrontHelper
 
         return $this->twigEnvironment->render(
             '@grr_front/daily/_cell_day_empty.html.twig',
-            ['position' => 999, 'area' => $area, 'room' => $room, 'day' => $day, 'hourModel' => $timeSlot]
+            [
+                'position' => 999,
+                'area' => $area,
+                'room' => $room,
+                'hourBegin' => $timeSlot->getBegin()->hour,
+                'minuteBegin' => $timeSlot->getBegin()->minute,
+                'day' => $dateSelected,
+            ]
         );
     }
 
     /**
      * @return int|string
      */
-    public function grrPeriodicityTypeName(int $type)
+    public function periodicityTypeName(int $type)
     {
         return PeriodicityConstant::getTypePeriodicite($type);
     }
 
-    public function grrWeekNiceName(CarbonInterface $date): string
+    public function weekNiceName(CarbonInterface $date): string
     {
         return $this->twigEnvironment->render(
             '@grr_front/weekly/_nice_name.html.twig',
@@ -108,7 +114,7 @@ class FrontHelper
         );
     }
 
-    public function grrLegendTypeEntry(): string
+    public function legendTypeEntry(): string
     {
         $types = $this->typeEntryRepository->findAll();
 
@@ -118,7 +124,7 @@ class FrontHelper
         );
     }
 
-    public function grrCompanyName(): string
+    public function companyName(): string
     {
         $company = $this->settingRepository->getValueByName(SettingConstants::COMPANY);
 

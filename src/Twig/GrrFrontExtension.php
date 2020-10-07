@@ -3,7 +3,6 @@
 namespace Grr\GrrBundle\Twig;
 
 use Carbon\CarbonInterface;
-use Grr\Core\Model\Day;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Entity\Area;
@@ -47,14 +46,14 @@ class GrrFrontExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'grrPeriodicityTypeName', function (int $type) {
-                    return $this->frontHelper->grrPeriodicityTypeName($type);
+                    return $this->frontHelper->periodicityTypeName($type);
                 }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFilter(
                 'grrWeekNiceName', function (CarbonInterface $week): string {
-                    return $this->frontHelper->grrWeekNiceName($week);
+                    return $this->frontHelper->weekNiceName($week);
                 }, [
                     'is_safe' => ['html'],
                 ]
@@ -88,22 +87,22 @@ class GrrFrontExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'grrGenerateCellDataDay', function (TimeSlot $hour, RoomModel $roomModel, Day $day): string {
-                    return $this->frontHelper->grrGenerateCellDataDay($hour, $roomModel, $day);
+                'grrGenerateCellDataDay', function (\DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string {
+                    return $this->frontHelper->renderCellDataDay($dateSelected, $hour, $roomModel);
                 }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
                 'grrLegendTypeEntry', function (Area $area): string {
-                    return $this->frontHelper->grrLegendTypeEntry();
+                    return $this->frontHelper->legendTypeEntry();
                 }, [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
                 'grrCompanyName', function (): string {
-                    return $this->frontHelper->grrCompanyName();
+                    return $this->frontHelper->companyName();
                 }
             ),
         ];

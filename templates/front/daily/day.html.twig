@@ -10,7 +10,7 @@
         {{ dateSelected.dayName|title }} {{ dateSelected.day }} {{ dateSelected.monthName }} {{ dateSelected.year }}
     </h3>
 
-   {# <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover">
         <thead>
         <tr>
             <th scope="col">{{ 'Hours'|trans }}</th>
@@ -20,16 +20,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for hourModel in hoursModel %}
+        {% for timeSlot in timeSlots %}
             <tr>
-                <td>{{ hourModel.begin|date('H:i') }} - {{ hourModel.end|date('H:i') }}</td>
+                <td>{{ timeSlot.begin|date('H:i') }} - {{ timeSlot.end|date('H:i') }}</td>
                 {% for roomModel in roomsModel %}
-                        {{ grrGenerateCellDataDay(hourModel, roomModel, day) }}
+                    {{ grrGenerateCellDataDay(dateSelected, timeSlot, roomModel) }}
                 {% endfor %}
             </tr>
         {% endfor %}
         </tbody>
-    </table> #}
+    </table>
 
     {{ grrLegendTypeEntry(area) }}
 {% endblock %}

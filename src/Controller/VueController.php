@@ -7,6 +7,7 @@ use DateTime;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Provider\DateProvider;
+use Grr\Core\Provider\TimeSlotsProvider;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Binder\BindDataManager;
@@ -35,17 +36,23 @@ class VueController extends AbstractController
      * @var BindDataManager
      */
     private $bindDataManager;
+    /**
+     * @var TimeSlotsProvider
+     */
+    private $timeSlotsProvider;
 
     public function __construct(
         EntryRepositoryInterface $entryRepository,
         AreaRepositoryInterface $areaRepository,
         DateProvider $dateProvider,
-        BindDataManager $bindDataManager
+        BindDataManager $bindDataManager,
+        TimeSlotsProvider $timeSlotsProvider
     ) {
         $this->entryRepository = $entryRepository;
         $this->areaRepository = $areaRepository;
         $this->dateProvider = $dateProvider;
         $this->bindDataManager = $bindDataManager;
+        $this->timeSlotsProvider = $timeSlotsProvider;
     }
 
     /**
@@ -61,7 +68,6 @@ class VueController extends AbstractController
             }
             dump('1');
         }
-
 
         return $this->render(
             '@grr_front/default/index.html.twig',
@@ -117,13 +123,18 @@ class VueController extends AbstractController
         }
 
         if (Navigation::VIEW_DAILY == $view) {
+            $timeSlots = $this->timeSlotsProvider->getTimeSlotsModelByAreaAndDaySelected($area, $dateSelected);
+            $roomsModel = $this->bindDataManager->bindDay($dateSelected, $area, $timeSlots, $room);
+
             return $this->render(
                 '@grr_front/daily/day.html.twig',
                 [
-                    'area' => $area,
+                    'area' => $area,//pour lien add entry
                     'room' => $room,
+                    'roomsModel' => $roomsModel,
                     'dateSelected' => $dateSelected,
                     'view' => $view,
+                    'timeSlots' => $timeSlots,
                 ]
             );
         }
