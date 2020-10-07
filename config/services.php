@@ -1,10 +1,12 @@
 <?php
 
+use Grr\Core\Contrat\Front\ViewerInterface;
 use Grr\Core\Setting\General\SettingGeneralInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Notification\BrowserGrrChannel;
 use Grr\GrrBundle\Security\Voter\CriterionInterface;
 use Grr\GrrBundle\Security\Voter\PostVoter;
+use Grr\GrrBundle\Templating\Helper\RenderViewLocator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
@@ -27,6 +29,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $services->instanceof(SettingGeneralInterface::class)
         ->tag('grr.setting');
+
+    $services = $services->instanceof(ViewerInterface::class)
+        ->tag('grr.render');
 
     $services = $services->set(BrowserGrrChannel::class)
         ->tag(
@@ -51,6 +56,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             [
                 tagged_iterator('grr.setting', 'getDefaultIndexName'),
                 tagged_locator('grr.setting', 'key', 'getDefaultIndexName'),
+            ]
+        );
+
+    $services->set(RenderViewLocator::class)
+        ->args(
+            [
+                tagged_iterator('grr.render', 'getDefaultIndexName'),
+                tagged_locator('grr.render', 'key', 'getDefaultIndexName'),
             ]
         );
 
