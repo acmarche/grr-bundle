@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use DateTimeInterface;
+use DateTime;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Events\EntryEventInitialized;
 use Grr\Core\Router\FrontRouterHelper;
@@ -102,7 +102,7 @@ class EntryController extends AbstractController
         Request $request,
         Area $area,
         Room $room,
-        DateTimeInterface $date,
+        DateTime $date,
         int $hour,
         int $minute
     ): Response {
