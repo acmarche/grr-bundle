@@ -62,8 +62,13 @@ class RouterHelper
         return $this->router->generate('grr_front_view', $params);
     }
 
-    public function generateRouteAddEntry(int $area, int $room, \DateTimeInterface $dateSelected, int $hour = null, int $minute = null): string
-    {
+    public function generateRouteAddEntry(
+        int $area,
+        int $room,
+        \DateTimeInterface $dateSelected,
+        ?int $hour,
+        ?int $minute
+    ): string {
         $request = $this->requestStack->getMasterRequest();
         if (null === $request) {
             return '';
@@ -75,7 +80,7 @@ class RouterHelper
         $params = [
             'area' => $area,
             'room' => $room,
-            'date' => $dateSelected,
+            'date' => $dateSelected->format('Y-m-d'),
             'hour' => $hour,
             'minute' => $minute,
         ];
