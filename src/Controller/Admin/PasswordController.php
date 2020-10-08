@@ -2,14 +2,13 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Password\Events\PasswordEventUpdated;
-use Grr\Core\Security\PasswordHelper;
+use Grr\Core\Password\Message\PasswordUpdated;
+use Grr\Core\Password\PasswordHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\User\Form\UserPasswordType;
 use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,21 +24,15 @@ class PasswordController extends AbstractController
      */
     private $userManager;
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
      * @var PasswordHelper
      */
     private $passwordHelper;
 
     public function __construct(
         UserManager $userManager,
-        PasswordHelper $passwordHelper,
-        EventDispatcherInterface $eventDispatcher
+        PasswordHelper $passwordHelper
     ) {
         $this->userManager = $userManager;
-        $this->eventDispatcher = $eventDispatcher;
         $this->passwordHelper = $passwordHelper;
     }
 
@@ -57,7 +50,7 @@ class PasswordController extends AbstractController
             $user->setPassword($this->passwordHelper->encodePassword($user, $password));
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new PasswordEventUpdated($user));
+            $this->dispatchMessage(new PasswordUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',

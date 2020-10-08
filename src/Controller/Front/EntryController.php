@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Controller\Front;
 
 use DateTime;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\Core\Entry\Events\EntryEventInitialized;
+use Grr\Core\Entry\Message\EntryInitialized;
 use Grr\Core\Router\FrontRouterHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
@@ -14,9 +14,9 @@ use Grr\GrrBundle\Entry\Form\EntryType;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Entry\Message\EntryCreated;
-use Grr\GrrBundle\Entry\Message\EntryDeleted;
-use Grr\GrrBundle\Entry\Message\EntryUpdated;
+use Grr\Core\Entry\Message\EntryCreated;
+use Grr\Core\Entry\Message\EntryDeleted;
+use Grr\Core\Entry\Message\EntryUpdated;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -97,6 +97,13 @@ class EntryController extends AbstractController
      * @Entity("room", expr="repository.find(room)")
      *
      * @IsGranted("grr.addEntry", subject="room")
+     * @param Request $request
+     * @param Area $area
+     * @param Room $room
+     * @param DateTime $date
+     * @param int $hour
+     * @param int $minute
+     * @return Response
      */
     public function new(
         Request $request,
@@ -108,7 +115,7 @@ class EntryController extends AbstractController
     ): Response {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
 
-        $this->eventDispatcher->dispatch(new EntryEventInitialized($entry));
+        $this->dispatchMessage(new EntryInitialized($entry->getId()));
 
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
 

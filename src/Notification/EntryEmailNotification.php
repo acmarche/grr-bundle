@@ -8,6 +8,9 @@ use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\Recipient;
 
+/**
+ * Class EntryEmailNotification.
+ */
 class EntryEmailNotification extends Notification implements EmailNotificationInterface
 {
     private $entry;

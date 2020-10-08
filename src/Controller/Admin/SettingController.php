@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
-use Grr\Core\Setting\Events\SettingEventCreated;
-use Grr\Core\Setting\Events\SettingEventDeleted;
 use Grr\Core\Setting\Form\FormSettingFactory;
+use Grr\Core\Setting\Message\SettingDeleted;
+use Grr\Core\Setting\Message\SettingUpdated;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Handler\SettingHandler;
@@ -13,7 +13,6 @@ use Grr\GrrBundle\Setting\Manager\SettingManager;
 use Grr\GrrBundle\Setting\Repository\SettingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,10 +36,6 @@ class SettingController extends AbstractController
      */
     private $settingHandler;
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
      * @var FormSettingFactory
      */
     private $formSettingFactory;
@@ -53,13 +48,12 @@ class SettingController extends AbstractController
         SettingManager $settingManager,
         SettingRepositoryInterface $settingRepository,
         SettingHandler $settingHandler,
-        EventDispatcherInterface $eventDispatcher,
-        FormSettingFactory $formSettingFactory,SettingProvider $settingProvider
+        FormSettingFactory $formSettingFactory,
+        SettingProvider $settingProvider
     ) {
         $this->settingRepository = $settingRepository;
         $this->settingManager = $settingManager;
         $this->settingHandler = $settingHandler;
-        $this->eventDispatcher = $eventDispatcher;
         $this->formSettingFactory = $formSettingFactory;
         $this->settingProvider = $settingProvider;
     }
@@ -91,7 +85,7 @@ class SettingController extends AbstractController
             $data = $form->getData();
             $this->settingHandler->handleEdit($data);
 
-            $this->eventDispatcher->dispatch(new SettingEventCreated([]));
+            $this->dispatchMessage(new SettingUpdated([]));
 
             return $this->redirectToRoute('grr_admin_setting_index');
         }
@@ -114,7 +108,7 @@ class SettingController extends AbstractController
             $this->settingManager->flush();
         }
 
-        $this->eventDispatcher->dispatch(new SettingEventDeleted([]));
+        $this->dispatchMessage(new SettingDeleted([]));
 
         return $this->redirectToRoute('grr_admin_setting_index');
     }

@@ -4,10 +4,10 @@ namespace Grr\GrrBundle\Controller\Front;
 
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
-use Grr\Core\Password\Events\PasswordEventUpdated;
-use Grr\Core\Security\PasswordHelper;
-use Grr\Core\User\Events\UserEventDeleted;
-use Grr\Core\User\Events\UserEventUpdated;
+use Grr\Core\Password\Message\PasswordUpdated;
+use Grr\Core\Password\PasswordHelper;
+use Grr\Core\User\Message\UserDeleted;
+use Grr\Core\User\Message\UserUpdated;
 use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Grr\GrrBundle\User\Form\UserFrontType;
@@ -15,7 +15,6 @@ use Grr\GrrBundle\User\Form\UserPasswordType;
 use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,10 +29,6 @@ class AccountController extends AbstractController
      * @var UserManager
      */
     private $userManager;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
     /**
      * @var PasswordHelper
      */
@@ -50,12 +45,10 @@ class AccountController extends AbstractController
     public function __construct(
         UserManager $userManager,
         PasswordHelper $passwordHelper,
-        EventDispatcherInterface $eventDispatcher,
         AuthorizationRepositoryInterface $authorizationRepository,
         EmailPreferenceRepository $emailPreferenceRepository
     ) {
         $this->userManager = $userManager;
-        $this->eventDispatcher = $eventDispatcher;
         $this->passwordHelper = $passwordHelper;
         $this->authorizationRepository = $authorizationRepository;
         $this->emailPreferenceRepository = $emailPreferenceRepository;
@@ -78,7 +71,7 @@ class AccountController extends AbstractController
             [
                 'user' => $user,
                 'authorizations' => $authorizations,
-                'preference'=>$preferences
+                'preference' => $preferences,
             ]
         );
     }
@@ -95,7 +88,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
+            $this->dispatchMessage(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute('grr_account_show');
         }
@@ -126,7 +119,7 @@ class AccountController extends AbstractController
 
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new PasswordEventUpdated($user));
+            $this->dispatchMessage(new PasswordUpdated($user->getId()));
 
             return $this->redirectToRoute('grr_account_show');
         }
@@ -150,7 +143,7 @@ class AccountController extends AbstractController
             $this->userManager->remove($user);
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new UserEventDeleted($user));
+            $this->dispatchMessage(new UserDeleted($user->getId()));
         }
 
         return $this->redirectToRoute('grr_homepage');

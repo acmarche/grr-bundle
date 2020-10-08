@@ -2,7 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Authorization\Events\AuthorizationEventCreated;
+use Grr\Core\Authorization\Message\AuthorizationCreated;
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
 use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Room;
@@ -10,7 +11,6 @@ use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,21 +25,15 @@ class AuthorizationController extends AbstractController
      */
     private $authorizationRepository;
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
      * @var AuthorizationManager
      */
     private $authorizationManager;
 
     public function __construct(
         AuthorizationManager $authorizationManager,
-        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository,
-        EventDispatcherInterface $eventDispatcher
+        AuthorizationRepositoryInterface $authorizationRepository
     ) {
         $this->authorizationRepository = $authorizationRepository;
-        $this->eventDispatcher = $eventDispatcher;
         $this->authorizationManager = $authorizationManager;
     }
 
@@ -69,8 +63,8 @@ class AuthorizationController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$authorization->getId(), $token)) {
             $this->authorizationManager->remove($authorization);
             $this->authorizationManager->flush();
-
-            $this->eventDispatcher->dispatch(new AuthorizationEventCreated($authorization));
+            
+            $this->dispatchMessage(new AuthorizationCreated($room->getId()));
         } else {
             $this->addFlash('danger', 'authorization.flash.model.delete.error');
         }

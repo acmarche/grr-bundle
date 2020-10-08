@@ -2,7 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\GrrBundle\Notification\Message\NotificationUpdated;
+use Grr\Core\Preference\Message\PreferenceUpdated;
 use Grr\GrrBundle\Preference\Factory\PreferenceFactory;
 use Grr\GrrBundle\Preference\Form\EmailPreferenceType;
 use Grr\GrrBundle\Preference\Manager\PreferenceManager;
@@ -56,7 +56,7 @@ class PreferenceEmailController extends AbstractController
             $this->preferenceManager->persist($preference);
             $this->preferenceManager->flush();
 
-            $this->dispatchMessage(new NotificationUpdated($preference->getId()));
+            $this->dispatchMessage(new PreferenceUpdated($preference->getId()));
 
             return $this->redirectToRoute('grr_account_show');
         }

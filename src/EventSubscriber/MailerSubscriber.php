@@ -2,17 +2,8 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
-use Grr\Core\Contrat\Entity\EntryInterface;
-use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
-use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
-use Grr\Core\Entry\Events\BaseEntryEvent;
 use Grr\GrrBundle\Mailer\EmailFactory;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Émettre un courrier quand je modifie mon agenda
@@ -28,71 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class MailerSubscriber.
  */
-class MailerSubscriber implements EventSubscriberInterface
+class MailerSubscriber
 {
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var \Symfony\Component\Security\Core\User\UserInterface|null
-     */
-    private $currentUser;
-    /**
-     * @var FlashBagInterface
-     */
-    private $flashBag;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
-    /**
-     * @var EntryInterface
-     */
-    private $entry;
-    /**
-     * @var string
-     */
-    private $username;
-    /**
-     * @var SettingRepositoryInterface
-     */
-    private $settingRepository;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-        ];
-    }
-
-    /**
-     * @var MailerInterface
-     */
-    private $mailer;
-
-    public function __construct(
-        MailerInterface $mailer,
-        Security $security,
-        FlashBagInterface $flashBag,
-        TranslatorInterface $translator,
-        UserRepositoryInterface $userRepository,
-        SettingRepositoryInterface $settingRepository
-    ) {
-        $this->mailer = $mailer;
-        $this->security = $security;
-        $this->flashBag = $flashBag;
-        $this->translator = $translator;
-        $this->userRepository = $userRepository;
-        $this->settingRepository = $settingRepository;
-    }
-
     public function sendMail(BaseEntryEvent $baseEntryEvent): void
     {
         $this->currentUser = $this->security->getUser();
@@ -122,7 +50,7 @@ class MailerSubscriber implements EventSubscriberInterface
      */
     protected function AutosendChangeBySelf(): void
     {
-        if (true === (bool) $this->settingRepository->getValueByName('send_always_mail_to_creator')) {
+        if (true === (bool)$this->settingRepository->getValueByName('send_always_mail_to_creator')) {
             $this->sendEmail();
         }
     }

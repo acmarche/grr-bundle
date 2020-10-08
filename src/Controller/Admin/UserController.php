@@ -3,10 +3,10 @@
 namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
-use Grr\Core\Security\PasswordHelper;
-use Grr\Core\User\Events\UserEventCreated;
-use Grr\Core\User\Events\UserEventDeleted;
-use Grr\Core\User\Events\UserEventUpdated;
+use Grr\Core\Password\PasswordHelper;
+use Grr\Core\User\Message\UserCreated;
+use Grr\Core\User\Message\UserDeleted;
+use Grr\Core\User\Message\UserUpdated;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\User\Factory\UserFactory;
 use Grr\GrrBundle\User\Form\SearchUserType;
@@ -17,7 +17,6 @@ use Grr\GrrBundle\User\Manager\UserManager;
 use Grr\GrrBundle\User\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,10 +41,6 @@ class UserController extends AbstractController
      */
     private $userFactory;
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
      * @var PasswordHelper
      */
     private $passwordHelper;
@@ -54,13 +49,11 @@ class UserController extends AbstractController
         UserRepositoryInterface $userRepository,
         UserFactory $userFactory,
         UserManager $userManager,
-        PasswordHelper $passwordHelper,
-        EventDispatcherInterface $eventDispatcher
+        PasswordHelper $passwordHelper
     ) {
         $this->userRepository = $userRepository;
         $this->userManager = $userManager;
         $this->userFactory = $userFactory;
-        $this->eventDispatcher = $eventDispatcher;
         $this->passwordHelper = $passwordHelper;
     }
 
@@ -102,7 +95,7 @@ class UserController extends AbstractController
             $user->setPassword($this->passwordHelper->encodePassword($user, $user->getPassword()));
             $this->userManager->insert($user);
 
-            $this->eventDispatcher->dispatch(new UserEventCreated($user));
+            $this->dispatchMessage(new UserCreated($user->getId()));
 
             return $this->redirectToRoute('grr_admin_user_roles', ['id' => $user->getId()]);
         }
@@ -140,7 +133,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
+            $this->dispatchMessage(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
@@ -171,7 +164,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new UserEventUpdated($user));
+            $this->dispatchMessage(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
@@ -197,7 +190,7 @@ class UserController extends AbstractController
             $this->userManager->remove($user);
             $this->userManager->flush();
 
-            $this->eventDispatcher->dispatch(new UserEventDeleted($user));
+            $this->dispatchMessage(new UserDeleted($user->getId()));
         }
 
         return $this->redirectToRoute('grr_admin_user_index');

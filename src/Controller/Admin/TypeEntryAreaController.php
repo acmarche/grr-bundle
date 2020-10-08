@@ -2,13 +2,12 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Area\Events\AreaEventAssociatedTypeEntry;
+use Grr\Core\TypeEntry\Message\TypeEntryAreaAssociated;
 use Grr\GrrBundle\Area\Form\AssocTypeForAreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
 use Grr\GrrBundle\Entity\Area;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +21,10 @@ class TypeEntryAreaController extends AbstractController
      * @var AreaManager
      */
     private $areaManager;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
-    public function __construct(AreaManager $areaManager, EventDispatcherInterface $eventDispatcher)
+    public function __construct(AreaManager $areaManager)
     {
         $this->areaManager = $areaManager;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -46,7 +40,7 @@ class TypeEntryAreaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->flush();
 
-            $this->eventDispatcher->dispatch(new AreaEventAssociatedTypeEntry($area));
+            $this->dispatchMessage(new TypeEntryAreaAssociated($area->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_area_show',

@@ -2,8 +2,9 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Periodicity\Events\PeriodicityEventDeleted;
-use Grr\Core\Periodicity\Events\PeriodicityEventUpdated;
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Periodicity\Message\PeriodicityDeleted;
+use Grr\Core\Periodicity\Message\PeriodicityUpdated;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
@@ -16,7 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/periodicity")
@@ -35,21 +35,15 @@ class PeriodicityController extends AbstractController
      * @var EntryRepository
      */
     private $entryRepository;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
     public function __construct(
         PeriodicityManager $periodicityManager,
         HandlerEntry $handlerEntry,
-        \Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository,
-        EventDispatcherInterface $eventDispatcher
+        EntryRepositoryInterface $entryRepository
     ) {
         $this->periodicityManager = $periodicityManager;
         $this->handlerEntry = $handlerEntry;
         $this->entryRepository = $entryRepository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -76,7 +70,7 @@ class PeriodicityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntryWithPeriodicity($oldEntry, $entry);
-            $this->eventDispatcher->dispatch(new PeriodicityEventUpdated($periodicity));
+            $this->dispatchMessage(new PeriodicityUpdated($periodicity->getId()));
 
             return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
         }
@@ -101,7 +95,7 @@ class PeriodicityController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$periodicity->getId(), $request->request->get('_token'))) {
             $this->periodicityManager->remove($periodicity);
 
-            $this->eventDispatcher->dispatch(new PeriodicityEventDeleted($periodicity));
+            $this->dispatchMessage(new PeriodicityDeleted($periodicity->getId()));
         }
 
         return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);

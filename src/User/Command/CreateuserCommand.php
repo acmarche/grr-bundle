@@ -3,7 +3,7 @@
 namespace Grr\GrrBundle\User\Command;
 
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
-use Grr\Core\Security\PasswordHelper;
+use Grr\Core\Password\PasswordHelper;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\User\Factory\UserFactory;
 use Grr\GrrBundle\User\Manager\UserManager;

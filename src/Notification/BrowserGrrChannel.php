@@ -3,10 +3,16 @@
 namespace Grr\GrrBundle\Notification;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Notifier\Channel\BrowserChannel;
 use Symfony\Component\Notifier\Channel\ChannelInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\Recipient;
 
+/**
+ * Ajout de la propriete "type" pour success, danger,...
+ * @see BrowserChannel
+ * Class BrowserGrrChannel.
+ */
 final class BrowserGrrChannel implements ChannelInterface
 {
     private $stack;

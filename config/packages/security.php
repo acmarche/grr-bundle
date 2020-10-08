@@ -24,6 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'firewalls' => [
                 'main' => [
                     'custom_authenticators' => [NewAuthenticator::class],
+                    'entry_point' => NewAuthenticator::class,
                     'logout' => [
                         'path' => 'app_logout',
                     ],

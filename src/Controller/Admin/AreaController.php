@@ -2,20 +2,18 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\Area\Events\AreaEventCreated;
-use Grr\Core\Area\Events\AreaEventDeleted;
-use Grr\Core\Area\Events\AreaEventInitialized;
-use Grr\Core\Area\Events\AreaEventUpdated;
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Area\Form\AreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
-use Grr\GrrBundle\Area\Repository\AreaRepository;
+use Grr\Core\Area\Message\AreaCreated;
+use Grr\Core\Area\Message\AreaDeleted;
+use Grr\Core\Area\Message\AreaUpdated;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,10 +36,6 @@ class AreaController extends AbstractController
      */
     private $roomRepository;
     /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
      * @var AuthorizationHelper
      */
     private $authorizationHelper;
@@ -49,14 +43,12 @@ class AreaController extends AbstractController
     public function __construct(
         AreaFactory $areaFactory,
         AreaManager $areaManager,
-        \Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository,
-        EventDispatcherInterface $eventDispatcher,
+        RoomRepositoryInterface $roomRepository,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaFactory = $areaFactory;
         $this->areaManager = $areaManager;
         $this->roomRepository = $roomRepository;
-        $this->eventDispatcher = $eventDispatcher;
         $this->authorizationHelper = $authorizationHelper;
     }
 
@@ -85,15 +77,13 @@ class AreaController extends AbstractController
     {
         $area = $this->areaFactory->createNew();
 
-        $this->eventDispatcher->dispatch(new AreaEventInitialized($area));
-
         $form = $this->createForm(AreaType::class, $area);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->insert($area);
 
-            $this->eventDispatcher->dispatch(new AreaEventCreated($area));
+            $this->dispatchMessage(new AreaCreated($area->getId()));
 
             return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
         }
@@ -136,7 +126,7 @@ class AreaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaManager->flush();
 
-            $this->eventDispatcher->dispatch(new AreaEventUpdated($area));
+            $this->dispatchMessage(new AreaUpdated($area->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_area_show',
@@ -166,7 +156,7 @@ class AreaController extends AbstractController
             $this->areaManager->remove($area);
             $this->areaManager->flush();
 
-            $this->eventDispatcher->dispatch(new AreaEventDeleted($area));
+            $this->dispatchMessage(new AreaDeleted($area->getId()));
         }
 
         return $this->redirectToRoute('grr_admin_area_index');
