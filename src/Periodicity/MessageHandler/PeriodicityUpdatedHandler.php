@@ -21,7 +21,7 @@ class PeriodicityUpdatedHandler implements MessageHandlerInterface
 
     public function __invoke(PeriodicityUpdated $periodicityCreated): void
     {
-        $notification = new FlashNotification('success', 'flash.periodicity.updated');
+        $notification = new FlashNotification('success', 'flash.entry.updated');
         $this->notifier->send($notification);
     }
 }

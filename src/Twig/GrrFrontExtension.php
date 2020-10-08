@@ -2,8 +2,6 @@
 
 namespace Grr\GrrBundle\Twig;
 
-use Grr\Core\Model\RoomModel;
-use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Navigation\AreaSelector;
 use Grr\GrrBundle\Navigation\DateSelectorRender;
 use Grr\GrrBundle\Helper\FrontHelper;
@@ -74,15 +72,6 @@ class GrrFrontExtension extends AbstractExtension
                 'grrAreaSelector', function (): string {
                     return $this->areaSelector->render();
                 }, [
-                    'is_safe' => ['html'],
-                ]
-            ),
-            new TwigFunction(
-                'grrGenerateCellDataDay',
-                function (\DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string {
-                    return $this->frontHelper->renderCellDataDay($dateSelected, $hour, $roomModel);
-                },
-                [
                     'is_safe' => ['html'],
                 ]
             ),

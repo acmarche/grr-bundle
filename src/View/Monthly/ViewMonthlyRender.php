@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\View;
+namespace Grr\GrrBundle\View\Monthly;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
@@ -49,10 +49,6 @@ class ViewMonthlyRender implements ViewInterface
     public static function getDefaultIndexName(): string
     {
         return ViewInterface::VIEW_MONTHLY;
-    }
-
-    public function bindData(): void
-    {
     }
 
     public function render(DateTimeInterface $dateSelected, AreaInterface $area, ?RoomInterface $room = null): Response

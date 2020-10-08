@@ -197,6 +197,10 @@ flash:
     deleted: 'L''autorisation a bien été supprimée'
   setting:
     updated: 'Les paramètres ont bien été enregistrés'
+  mail:
+      error: 'Une erreur est survenue lors de l''envoie du mail'
+  notification:
+      updated: 'Les notifications ont bien été modifiées'
 setting:
  room:
    display.type_form_reservation_duree: 'La durée de la réservation'

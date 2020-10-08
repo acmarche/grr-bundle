@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\View;
+namespace Grr\GrrBundle\View\Weekly;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -57,11 +57,6 @@ class ViewWeeklyRender implements ViewInterface
     public static function getDefaultIndexName(): string
     {
         return ViewInterface::VIEW_WEEKLY;
-    }
-
-    public function bindData(): void
-    {
-        // TODO: Implement bindData() method.
     }
 
     public function render(DateTimeInterface $dateSelected, AreaInterface $area, ?RoomInterface $room = null): Response

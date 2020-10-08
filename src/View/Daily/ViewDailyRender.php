@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Grr\GrrBundle\View;
+namespace Grr\GrrBundle\View\Daily;
 
 use Carbon\CarbonInterface;
 use DateTimeInterface;
@@ -72,11 +72,6 @@ class ViewDailyRender implements ViewInterface
     public static function getDefaultIndexName(): string
     {
         return ViewInterface::VIEW_DAILY;
-    }
-
-    public function bindData(): void
-    {
-        // TODO: Implement bindData() method.
     }
 
     /**

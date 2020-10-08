@@ -21,7 +21,7 @@ class PreferenceUpdatedHandler implements MessageHandlerInterface
 
     public function __invoke(PreferenceUpdated $preferenceCreated): void
     {
-        $notification = new FlashNotification('success', 'flash.preference.updated');
+        $notification = new FlashNotification('success', 'flash.notification.updated');
         $this->notifier->send($notification);
     }
 }

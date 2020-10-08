@@ -5,7 +5,7 @@ Feature: Notification email
     Given I am logged in as an admin
     And I am on "/fr/account/show/"
 
-  Scenario: J'active les notifications
+  Scenario: J'active les notifications par email
     When I follow "Notifications"
     And I check "Lors de la création"
     And I check "Lors de la modification"

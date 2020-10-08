@@ -24,7 +24,7 @@ Feature: Edit entries with periodicity
     And I fill in "entry[name]" with "Tous les jours pendant 4 jours"
     And I press "Sauvegarder"
     Then I should see "Tous les jours pendant 4 jours"
-    Given I am on the page month view of month 10-2019 and area "Esquare"
+    Given I am on the page month view at "01-10-2019" and area "Esquare"
     Then I should see "Tous les jours pendant 3 jours"
     And I should see "Tous les jours pendant 4 jours"
 
@@ -34,7 +34,7 @@ Feature: Edit entries with periodicity
     And I select "0" from "entry_with_periodicity[periodicity][type]"
     And I press "Sauvegarder"
     Then should not see "Périodicité"
-    Given I am on the page month view of month 10-2019 and area "Esquare"
+    Given I am on the page month view at "01-10-2019" and area "Esquare"
     Then I should see "Tous les jours pendant 3 jours" exactly "1" times
 
   Scenario: Change end date periodicity
@@ -42,7 +42,7 @@ Feature: Edit entries with periodicity
     Then I follow "Modifier la périodicité"
     And I fill in "entry_with_periodicity[periodicity][endTime][day]" with "10"
     And I press "Sauvegarder"
-    Given I am on the page month view of month 10-2019 and area "Esquare"
+    Given I am on the page month view at "01-10-2019" and area "Esquare"
     Then I should see "Tous les jours pendant 3 jours" exactly "6" times
 
   Scenario: Change type periodicity
@@ -57,7 +57,7 @@ Feature: Edit entries with periodicity
     And I should see "lundi 5 octobre 2020"
     And I should see "mardi 5 octobre 2021"
     And I should see "mercredi 5 octobre 2022"
-    Given I am on the page month view of month 10-2019 and area "Esquare"
+    Given I am on the page month view at "01-10-2019" and area "Esquare"
     Then I should see "Tous les jours pendant 3 jours" exactly "1" times
 
   Scenario: Change type periodicity to every week
@@ -76,5 +76,5 @@ Feature: Edit entries with periodicity
     And I should see "mardi 15 octobre 2019"
     And I should see "lundi 21 octobre 2019"
     And I should see "mardi 22 octobre 2019"
-    Given I am on the page month view of month 10-2019 and area "Esquare"
+    Given I am on the page month view at "01-10-2019" and area "Esquare"
     Then I should see "Tous les jours pendant 3 jours" exactly "7" times
