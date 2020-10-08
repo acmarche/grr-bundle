@@ -123,7 +123,7 @@ class ViewMonthlyRender implements ViewInterface
     private function generateHtmlMonth(CarbonInterface $dateSelected, array $dataDays): string
     {
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
-dump($dataDays);
+
         return $this->environment->render(
             '@grr_front/view/monthly/_calendar_data.html.twig',
             [

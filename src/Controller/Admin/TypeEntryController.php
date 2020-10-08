@@ -2,9 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
-use Grr\Core\TypeEntry\Events\TypeEntryEventCreated;
-use Grr\Core\TypeEntry\Events\TypeEntryEventDeleted;
-use Grr\Core\TypeEntry\Events\TypeEntryEventUpdated;
+use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
+use Grr\Core\TypeEntry\Message\TypeEntryCreated;
+use Grr\Core\TypeEntry\Message\TypeEntryDeleted;
+use Grr\Core\TypeEntry\Message\TypeEntryUpdated;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Grr\GrrBundle\TypeEntry\Manager\TypeEntryManager;
@@ -15,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/admin/entrytype")
@@ -35,21 +35,15 @@ class TypeEntryController extends AbstractController
      * @var TypeEntryFactory
      */
     private $typeEntryFactory;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
 
     public function __construct(
         TypeEntryFactory $typeEntryFactory,
-        \Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface $typeEntryRepository,
-        TypeEntryManager $typeEntryManager,
-        EventDispatcherInterface $eventDispatcher
+        TypeEntryRepositoryInterface $typeEntryRepository,
+        TypeEntryManager $typeEntryManager
     ) {
         $this->typeEntryRepository = $typeEntryRepository;
         $this->typeEntryManager = $typeEntryManager;
         $this->typeEntryFactory = $typeEntryFactory;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -78,7 +72,7 @@ class TypeEntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryManager->insert($typeEntry);
 
-            $this->eventDispatcher->dispatch(new TypeEntryEventCreated($typeEntry));
+            $this->dispatchMessage(new TypeEntryCreated($typeEntry->getId()));
 
             return $this->redirectToRoute('grr_admin_type_entry_index');
         }
@@ -116,7 +110,7 @@ class TypeEntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryManager->flush();
 
-            $this->eventDispatcher->dispatch(new TypeEntryEventUpdated($typeEntry));
+            $this->dispatchMessage(new TypeEntryUpdated($typeEntry->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_type_entry_index',
@@ -144,7 +138,7 @@ class TypeEntryController extends AbstractController
             $this->typeEntryManager->remove($typeEntry);
             $this->typeEntryManager->flush();
 
-            $this->eventDispatcher->dispatch(new TypeEntryEventDeleted($typeEntry));
+            $this->dispatchMessage(new TypeEntryDeleted($typeEntry->getId()));
         }
 
         return $this->redirectToRoute('grr_admin_type_entry_index');

@@ -37,7 +37,7 @@ Feature: Verification des droits pour la gestion des entrées
 
   Scenario: Brenda ajoute une entrée dans la Salle du Conseil
     Given I am logged in as user "brenda@domain.be"
-    Given I am on the page month view at "10-2019" and area "Hdv"
+    Given I am on the page month view at "01-10-2019" and area "Hdv"
     Then I follow "15"
     And I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "My reservation"
