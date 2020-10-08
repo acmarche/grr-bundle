@@ -23,11 +23,11 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_front_entry_show',{'id': entry.id}) }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
     </div>
-
-    <br/>
-    <a href="{{ path('grr_front_entry_show',{'id': entry.id}) }}"><i
-                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 
 {% endblock %}
 {% block scripts %}

@@ -24,12 +24,13 @@
                         class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
             {{ form_end(form) }}
         </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_front_entry_index') }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
     </div>
-
-    <br/>
-    <a href="{{ path('grr_front_entry_index') }}"><i
-                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 {% endblock %}
+
 {% block scripts %}
     <script src="{{ asset('bundles/grr/js/periodicity_options_weeks.js') }}"></script>
     <script src="{{ asset('bundles/grr/js/full_day.js') }}"></script>

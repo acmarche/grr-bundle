@@ -19,7 +19,7 @@ Feature: Verification des droits pour la gestion des entrées
 
   Scenario: Bob modifie une entrée dans Esquare/Relax Room
     Given I am logged in as user "bob@domain.be"
-    Given I am on the page month view of month 08-2019 and area "Esquare"
+    Given I am on the page month view at "01-08-2019" and area "Esquare"
     And I follow "Réunion henalux"
     And I should see "Modifier la réservation"
     And I should see "Supprimer"
@@ -37,7 +37,7 @@ Feature: Verification des droits pour la gestion des entrées
 
   Scenario: Brenda ajoute une entrée dans la Salle du Conseil
     Given I am logged in as user "brenda@domain.be"
-    Given I am on the page month view of month 10-2019 and area "Hdv"
+    Given I am on the page month view at "10-2019" and area "Hdv"
     Then I follow "15"
     And I follow "Ajouter une réservation"
     And I fill in "entry_with_periodicity[name]" with "My reservation"

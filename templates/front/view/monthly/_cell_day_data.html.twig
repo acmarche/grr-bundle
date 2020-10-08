@@ -4,7 +4,9 @@
             {{ day.day }}
         </a>
         <br/>
-        {% for entry in dataDays[day.toDateString] %}
+        {% set key = day.toDateString %}
+        {% set data = day.toDateString %}<!-- pour phpstorm -->
+        {% for entry in data.entries %}
             {% include '@grr_front/view/monthly/_entry_line.html.twig' %}
         {% endfor %}
     </td>
