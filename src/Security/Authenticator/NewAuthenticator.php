@@ -2,14 +2,16 @@
 
 namespace Grr\GrrBundle\Security\Authenticator;
 
-use Symfony\Component\Ldap\Security\LdapBadge;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use function gettype;
 use function is_object;
 use function is_string;
+use function strlen;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Ldap\Security\LdapBadge;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -29,7 +31,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
-use function strlen;
 
 /**
  * @see FormLoginAuthenticator
@@ -39,14 +40,14 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     private $httpUtils;
-    private $userProvider;
+    private $userRepository;
 
     public function __construct(
         HttpUtils $httpUtils,
-        UserProviderInterface $userProvider
+        UserRepository $userRepository
     ) {
         $this->httpUtils = $httpUtils;
-        $this->userProvider = $userProvider;
+        $this->userRepository = $userRepository;
     }
 
     protected function getLoginUrl(Request $request): string
@@ -63,7 +64,7 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): PassportInterface
     {
         $credentials = $this->getCredentials($request);
-        $user = $this->userProvider->loadUserByUsername($credentials['username']);
+        $user = $this->userRepository->loadByUserNameOrEmail($credentials['username']);
         if (!$user instanceof UserInterface) {
             throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
         }
@@ -71,20 +72,15 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
         $passport = new Passport($user, new PasswordCredentials($credentials['password']), [new RememberMeBadge()]);
         $passport->addBadge(new CsrfTokenBadge('authenticate', $credentials['csrf_token']));
 
-        if ($this->userProvider instanceof PasswordUpgraderInterface) {
-            $passport->addBadge(new PasswordUpgradeBadge($credentials['password'], $this->userProvider));
+        if ($this->userRepository instanceof PasswordUpgraderInterface) {
+            $passport->addBadge(new PasswordUpgradeBadge($credentials['password'], $this->userRepository));
         }
 
-     //   $passport->addBadge(new LdapBadge('jflsap', 'modn', 'searchdn', 'searchpwd', 'myquey'));
+        //   $passport->addBadge(new LdapBadge('jflsap', 'modn', 'searchdn', 'searchpwd', 'myquey'));
 
         return $passport;
     }
 
-    /**
-     * @param PassportInterface $passport
-     * @param string $firewallName
-     * @return TokenInterface
-     */
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface
     {
         return new UsernamePasswordToken($passport->getUser(), null, $firewallName, $passport->getUser()->getRoles());
