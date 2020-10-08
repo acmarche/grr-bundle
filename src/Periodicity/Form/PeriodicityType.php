@@ -13,10 +13,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PeriodicityType extends AbstractType
 {
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
+
+    public function __construct(DateProvider $dateProvider)
+    {
+        $this->dateProvider = $dateProvider;
+    }
+
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
         $types = PeriodicityConstant::getTypesPeriodicite();
-        $days = DateProvider::getNamesDaysOfWeek();
+        $days = $this->dateProvider->weekDaysName();
         $weeks = PeriodicityConstant::LIST_WEEKS_REPEAT;
 
         $formBuilder

@@ -35,17 +35,23 @@ class ViewWeeklyRender implements ViewInterface
      * @var CarbonFactory
      */
     private $carbonFactory;
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
 
     public function __construct(
         Environment $environment,
         EntryRepositoryInterface $entryRepository,
         RoomRepositoryInterface $roomRepository,
-        CarbonFactory $carbonFactory
+        CarbonFactory $carbonFactory,
+        DateProvider $dateProvider
     ) {
         $this->environment = $environment;
         $this->entryRepository = $entryRepository;
         $this->roomRepository = $roomRepository;
         $this->carbonFactory = $carbonFactory;
+        $this->dateProvider = $dateProvider;
     }
 
     public static function getDefaultIndexName(): string
@@ -62,7 +68,7 @@ class ViewWeeklyRender implements ViewInterface
     {
         $carbon = $this->carbonFactory->instance($dateSelected);
 
-        $days = DateProvider::daysOfWeek($carbon);
+        $days = $this->dateProvider->daysOfWeek($carbon);
         $roomModels = $this->bindWeek($dateSelected, $area, $room);
         $weekNiceName = $this->weekNiceName($carbon);
 
@@ -92,7 +98,7 @@ class ViewWeeklyRender implements ViewInterface
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
         }
 
-        $carbonPeriod = DateProvider::daysOfWeek(Carbon::instance($week));
+        $carbonPeriod = $this->dateProvider->daysOfWeek(Carbon::instance($week));
         $data = [];
 
         foreach ($rooms as $room) {

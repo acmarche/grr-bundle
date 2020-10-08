@@ -20,7 +20,7 @@
             <th>{{ 'periodicity.days'|trans }}</th>
             <td>
                 {% for day in entry.periodicity.weekDays %}
-                    {{ day|grrJoursSemaine|trans }},
+                    {{ day|grrWeekDaysName|trans }},
                 {% endfor %}
             </td>
         <tr>

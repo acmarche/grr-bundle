@@ -14,8 +14,19 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AreaType extends AbstractType
 {
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
+
+    public function __construct(DateProvider $dateProvider)
+    {
+        $this->dateProvider = $dateProvider;
+    }
+
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
+        $daysName = $this->dateProvider->weekDaysName();
         $formBuilder
             ->add(
                 'name',
@@ -44,7 +55,7 @@ class AreaType extends AbstractType
                 'weekStart',
                 ChoiceType::class,
                 [
-                    'choices' => array_flip(DateProvider::getNamesDaysOfWeek()),
+                    'choices' => array_flip($daysName),
                     'label' => 'label.area.weekStart',
                 ]
             )
@@ -53,7 +64,7 @@ class AreaType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'label.area.displayDays',
-                    'choices' => array_flip(DateProvider::getNamesDaysOfWeek()),
+                    'choices' => array_flip($daysName),
                     'multiple' => true,
                     'expanded' => true,
                 ]
@@ -63,7 +74,7 @@ class AreaType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'label.area.startTime',
-                    'choices' => DateProvider::getHours(),
+                    'choices' => $this->dateProvider->getHours(),
                 ]
             )
             ->add(
@@ -71,7 +82,7 @@ class AreaType extends AbstractType
                 ChoiceType::class,
                 [
                     'label' => 'label.area.endTime',
-                    'choices' => DateProvider::getHours(),
+                    'choices' => $this->dateProvider->getHours(),
                 ]
             )
             ->add(

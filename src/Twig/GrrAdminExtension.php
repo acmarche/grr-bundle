@@ -3,13 +3,21 @@
 namespace Grr\GrrBundle\Twig;
 
 use Grr\Core\Provider\DateProvider;
-use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
-use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class GrrAdminExtension extends AbstractExtension
 {
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
+
+    public function __construct(DateProvider $dateProvider)
+    {
+        $this->dateProvider = $dateProvider;
+    }
+
     /**
      * @return \Twig\TwigFilter[]
      */
@@ -17,8 +25,8 @@ class GrrAdminExtension extends AbstractExtension
     {
         return [
             new TwigFilter(
-                'grrJoursSemaine', function ($value): string {
-                    return $this->joursSemaine($value);
+                'grrWeekDaysName', function ($value): string {
+                    return $this->weekDaysName($value);
                 }
             ),
             new TwigFilter(
@@ -28,12 +36,14 @@ class GrrAdminExtension extends AbstractExtension
             ),
         ];
     }
-    public function joursSemaine(string $value): string
+
+    public function weekDaysName(string $value): string
     {
-        $jours = DateProvider::getNamesDaysOfWeek();
+        $jours = $this->dateProvider->weekDaysName();
 
         return $jours[$value] ?? $value;
     }
+
     public function displayColor(string $value): string
     {
         return '<span style="background-color: '.$value.';"></span>';

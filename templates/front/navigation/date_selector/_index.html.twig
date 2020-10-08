@@ -26,10 +26,10 @@
                 <span class="d-none d-sm-block">{{ 'week.name'|trans }}</span> {# hidden xs #}
                 <span class="d-sm-none">{{ 'week.name'|trans[:1] }}</span>{# hidden wider than lg #}
             </th>
-            {% for dayName in listDays %}
+            {% for weekday in weekdays %}
                 <th scope="col" class="text-center">
-                    <span class="d-none d-sm-block">{{ dayName|trans }}</span> {# hidden xs #}
-                    <span class="d-sm-none">{{ dayName|trans[:3] }}</span>{# hidden wider than lg #}
+                    <span class="d-none d-sm-block">{{ weekday|trans }}</span> {# hidden xs #}
+                    <span class="d-sm-none">{{ weekday|trans[:3] }}</span>{# hidden wider than lg #}
                 </th>
             {% endfor %}
         </tr>

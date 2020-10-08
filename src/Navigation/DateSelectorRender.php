@@ -18,13 +18,19 @@ class DateSelectorRender
      * @var Environment
      */
     private $twigEnvironment;
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
 
     public function __construct(
         RequestStack $requestStack,
-        Environment $twigEnvironment
+        Environment $twigEnvironment,
+        DateProvider $dateProvider
     ) {
         $this->requestStack = $requestStack;
         $this->twigEnvironment = $twigEnvironment;
+        $this->dateProvider = $dateProvider;
     }
 
     /**
@@ -51,7 +57,7 @@ class DateSelectorRender
     {
         $today = Carbon::today();
         $dateSelected = Carbon::instance($dateSelected)->toImmutable();
-        $weeks = DateProvider::weeksOfMonth($dateSelected);
+        $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
         $request = $this->requestStack->getMasterRequest();
         $view = null !== $request ? $request->get('view') : null;
@@ -61,7 +67,7 @@ class DateSelectorRender
             [
                 'today' => $today,
                 'dateSelected' => $dateSelected,
-                'listDays' => DateProvider::getNamesDaysOfWeek(),
+                'weekdays' => $this->dateProvider->weekDaysName(),
                 'weeks' => $weeks,
                 'view' => $view,
             ]

@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <th>{{ 'area.weekStart'|trans }}</th>
-                            <td>{{ area.weekStart | grrJoursSemaine }}</td>
+                            <td>{{ area.weekStart | grrWeekDaysName }}</td>
                         </tr>
                         <tr>
                             <th>{{ 'area.startTime'|trans }}</th>
@@ -65,7 +65,7 @@
                             <th class="w-75">{{ 'area.daysOfWeekToDisplay'|trans }}</th>
                             <td>
                                 {% for jour in  area.daysOfWeekToDisplay %}
-                                    {{ jour | grrJoursSemaine | trans }},
+                                    {{ jour | grrWeekDaysName | trans }},
                                 {% endfor %}
                             </td>
                         </tr>

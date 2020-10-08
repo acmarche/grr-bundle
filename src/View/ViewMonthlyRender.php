@@ -29,15 +29,21 @@ class ViewMonthlyRender implements ViewInterface
      * @var CarbonFactory
      */
     private $carbonFactory;
+    /**
+     * @var DateProvider
+     */
+    private $dateProvider;
 
     public function __construct(
         Environment $environment,
         EntryRepositoryInterface $entryRepository,
-        CarbonFactory $carbonFactory
+        CarbonFactory $carbonFactory,
+        DateProvider $dateProvider
     ) {
         $this->environment = $environment;
         $this->entryRepository = $entryRepository;
         $this->carbonFactory = $carbonFactory;
+        $this->dateProvider = $dateProvider;
     }
 
     public static function getDefaultIndexName(): string
@@ -83,7 +89,7 @@ class ViewMonthlyRender implements ViewInterface
         $monthEntries = $this->entryRepository->findForMonth($dateSelected->firstOfMonth(), $area, $room);
         $dataDays = [];
 
-        foreach (DateProvider::daysOfMonth($dateSelected) as $date) {
+        foreach ($this->dateProvider->daysOfMonth($dateSelected) as $date) {
             $dataDay = new DataDay($date);
             $entries = $this->extractByDate($date, $monthEntries);
             $dataDay->addEntries($entries);
@@ -117,12 +123,12 @@ class ViewMonthlyRender implements ViewInterface
      */
     private function generateHtmlMonth(CarbonInterface $dateSelected, array $dataDays): string
     {
-        $weeks = DateProvider::weeksOfMonth($dateSelected);
+        $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
         return $this->environment->render(
             '@grr_front/view/monthly/_calendar_data.html.twig',
             [
-                'days' => DateProvider::getNamesDaysOfWeek(),
+                'days' => $this->dateProvider->weekDaysName(),
                 'firstDay' => $dateSelected->copy()->firstOfMonth(),
                 'dataDays' => $dataDays,
                 'weeks' => $weeks,
