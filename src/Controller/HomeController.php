@@ -82,7 +82,7 @@ class HomeController extends AbstractController
     public function index()
     {
         return $this->render(
-            'vue/index.html.twig',
+            '@Grr/vuejs/index.html.twig',
             [
                 'areas' => $this->areaRepository->findAll(),
             ]

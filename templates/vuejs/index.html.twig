@@ -1,0 +1,23 @@
+{% extends '@Grr/front/layout_front.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+
+    <ul class="list-group list-group-horizontal mb-4">
+        <li class="list-group-item"><a href="{{ path('vuejs') }}">Hello world</a></li>
+        <li class="list-group-item"><a href="{{ path('vuejs') }}">Search</a></li>
+    </ul>
+
+    <div id="app"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
+    <script>
+        window.areas = {{ areas|jsonld }};
+    </script>
+{% endblock %}
