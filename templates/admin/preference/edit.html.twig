@@ -1,0 +1,35 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block body %}
+    <div class="card bg-light mb-3">
+        <div class="card-header">
+            <h3>{{ 'preference.email.title' | trans }}</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="alert alert-info">
+                Lorsque vous ou un utilisateur crée, modifie ou bien supprime une réservation,
+                dans une salle dont vous avez les droits d'écriture,
+                <br/>
+                cochez les cases ci-contre pour qu'un email vous soit systématiquement envoyé.
+            </div>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.onCreated) }}
+            {{ form_row(form.onUpdated) }}
+            {{ form_row(form.onDeleted) }}
+
+            <button class="btn btn-primary"><i
+                        class="far fa-save"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
+
+            {{ form_end(form) }}
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_admin_user_show', {'id':user.id}) }}" class="mt-4">
+                <i class="fas fa-long-arrow-alt-left"></i> Annuler
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
