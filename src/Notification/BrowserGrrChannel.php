@@ -10,6 +10,7 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 
 /**
  * Ajout de la propriete "type" pour success, danger,...
+ *
  * @see BrowserChannel
  * Class BrowserGrrChannel.
  */

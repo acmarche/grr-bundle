@@ -11,19 +11,13 @@
 namespace Grr\GrrBundle\Tests\Security\Voter;
 
 use Grr\Core\Tests\BaseTesting;
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Security;
 
 class AreaVoterTest extends BaseTesting
 {

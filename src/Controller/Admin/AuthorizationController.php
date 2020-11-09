@@ -63,7 +63,7 @@ class AuthorizationController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$authorization->getId(), $token)) {
             $this->authorizationManager->remove($authorization);
             $this->authorizationManager->flush();
-            
+
             $this->dispatchMessage(new AuthorizationCreated($room->getId()));
         } else {
             $this->addFlash('danger', 'authorization.flash.model.delete.error');

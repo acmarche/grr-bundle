@@ -3,13 +3,8 @@
 namespace Grr\GrrBundle\Area\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\Purger\MongoDBPurger as DoctrineMongoDBPurger;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger as DoctrineOrmPurger;
-use Doctrine\Common\DataFixtures\Purger\PHPCRPurger as DoctrinePhpCrPurger;
-use Doctrine\Common\DataFixtures\Purger\PurgerInterface as DoctrinePurgerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 
@@ -31,5 +26,4 @@ class AreaRepository extends ServiceEntityRepository implements AreaRepositoryIn
         return $this->createQueryBuilder('area')
             ->orderBy('area.name', 'ASC');
     }
-
 }

@@ -8,8 +8,8 @@
 
 namespace Grr\GrrBundle\Room\Manager;
 
-use Grr\GrrBundle\Entity\Room;
 use Grr\Core\Manager\BaseManager;
+use Grr\GrrBundle\Entity\Room;
 
 class RoomManager extends BaseManager
 {

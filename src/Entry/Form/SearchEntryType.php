@@ -5,7 +5,6 @@ namespace Grr\GrrBundle\Entry\Form;
 use Grr\GrrBundle\Area\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;

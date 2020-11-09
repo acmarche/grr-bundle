@@ -21,8 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 /**
- * Class AjaxController
- * @package Grr\GrrBundle\Controller
+ * Class AjaxController.
+ *
  * @IsGranted("ROLE_GRR")
  */
 class AjaxController extends AbstractController

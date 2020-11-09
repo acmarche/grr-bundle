@@ -2,13 +2,13 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Area\Message\AreaCreated;
+use Grr\Core\Area\Message\AreaDeleted;
+use Grr\Core\Area\Message\AreaUpdated;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Area\Form\AreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
-use Grr\Core\Area\Message\AreaCreated;
-use Grr\Core\Area\Message\AreaDeleted;
-use Grr\Core\Area\Message\AreaUpdated;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Room\Repository\RoomRepository;

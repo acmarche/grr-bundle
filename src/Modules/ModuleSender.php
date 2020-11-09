@@ -14,7 +14,7 @@ class ModuleSender implements GrrModuleSenderInterface
 
     public function construct(iterable $modules)
     {
-        /**
+        /*
          * pour dans services.php
          * $services->set(ModuleSender::class)
          * ->arg('$modules', tagged_iterator('grr.module'));

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Grr\GrrBundle\View\Daily;
 
 use Carbon\CarbonInterface;
@@ -74,12 +73,6 @@ class ViewDailyRender implements ViewInterface
         return ViewInterface::VIEW_DAILY;
     }
 
-    /**
-     * @param DateTimeInterface $dateSelected
-     * @param AreaInterface $area
-     * @param RoomInterface|null $room
-     * @return Response
-     */
     public function render(DateTimeInterface $dateSelected, AreaInterface $area, ?RoomInterface $room = null): Response
     {
         $carbon = $this->carbonFactory->instance($dateSelected);
@@ -106,11 +99,8 @@ class ViewDailyRender implements ViewInterface
      * Puis pour chaque entrées en calcul le nbre de cellules qu'elle occupe
      * et sa localisation.
      *
-     * @param CarbonInterface $carbon
-     * @param AreaInterface $area
      * @param TimeSlot[] $timeSlots
      *
-     * @param RoomInterface|null $room
      * @return RoomModel[]
      */
     public function bindDay(

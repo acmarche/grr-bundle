@@ -2,6 +2,9 @@
 
 namespace Grr\GrrBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
@@ -9,10 +12,7 @@ use Grr\Core\Entry\Entity\EntryTrait;
 use Grr\GrrBundle\Entry\Validator as GrrEntryAssert;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Table(name="entry")

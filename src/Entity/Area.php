@@ -4,13 +4,12 @@ namespace Grr\GrrBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Area\Entity\AreaTrait;
 use Grr\Core\Contrat\Entity\AreaInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Area.
@@ -45,5 +44,4 @@ class Area implements AreaInterface
      * @Groups("area:read")
      */
     private $name;
-
 }

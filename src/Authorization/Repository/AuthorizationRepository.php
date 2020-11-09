@@ -162,8 +162,6 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
     }
 
     /**
-     * @param AreaInterface $area
-     * @param RoomInterface $room
      * @return AuthorizationInterface[]
      */
     public function findByAreaOrRoom(AreaInterface $area, RoomInterface $room): array

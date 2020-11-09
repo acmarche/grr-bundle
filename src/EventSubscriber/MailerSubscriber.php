@@ -50,7 +50,7 @@ class MailerSubscriber
      */
     protected function AutosendChangeBySelf(): void
     {
-        if (true === (bool)$this->settingRepository->getValueByName('send_always_mail_to_creator')) {
+        if (true === (bool) $this->settingRepository->getValueByName('send_always_mail_to_creator')) {
             $this->sendEmail();
         }
     }

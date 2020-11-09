@@ -16,7 +16,7 @@ class EmailPreference
 {
     use IdEntityTrait;
 
-        /**
+    /**
      * @ORM\ManyToOne(targetEntity="Grr\Core\Contrat\Entity\Security\UserInterface")
      * @ORM\JoinColumn(nullable=false)
      *

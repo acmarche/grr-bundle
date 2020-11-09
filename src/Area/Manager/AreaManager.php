@@ -9,8 +9,8 @@
 namespace Grr\GrrBundle\Area\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Grr\GrrBundle\Entity\Area;
 use Grr\Core\Manager\BaseManager;
+use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Room\Manager\RoomManager;
 
 class AreaManager extends BaseManager

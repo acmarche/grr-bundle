@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Grr\GrrBundle\Preference\Factory;
-
 
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\GrrBundle\Entity\Preference\EmailPreference;

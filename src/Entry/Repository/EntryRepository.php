@@ -4,9 +4,9 @@ namespace Grr\GrrBundle\Entry\Repository;
 
 use Carbon\CarbonInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
@@ -29,9 +29,6 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
     }
 
     /**
-     * @param \DateTimeInterface $firstDayOfMonth
-     * @param AreaInterface $area
-     * @param RoomInterface|null $room
      * @return Entry[] Returns an array of Entry objects
      */
     public function findForMonth(\DateTimeInterface $firstDayOfMonth, AreaInterface $area, RoomInterface $room = null): array

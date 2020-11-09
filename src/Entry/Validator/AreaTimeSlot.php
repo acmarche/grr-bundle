@@ -12,12 +12,14 @@ use Symfony\Component\Validator\Constraint;
 class AreaTimeSlot extends Constraint
 {
     /**
-     * end time exceeds opening time
+     * end time exceeds opening time.
+     *
      * @var string
      * */
     public $message_exceeds = 'constraint.entry.area.exceeds';
     /**
-     * Start time must be greater than room opening time
+     * Start time must be greater than room opening time.
+     *
      * @var string
      */
     public $message_greater = 'constraint.entry.area.greater';

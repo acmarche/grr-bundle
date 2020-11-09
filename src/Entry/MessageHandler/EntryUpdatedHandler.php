@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\Core\Entry\Message\EntryUpdated;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
@@ -63,7 +63,7 @@ class EntryUpdatedHandler implements MessageHandlerInterface
         $this->notifier->send($notification);
     }
 
-  private function sendNotificationByEmail(EntryUpdated $entryCreated)
+    private function sendNotificationByEmail(EntryUpdated $entryCreated)
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
         $notification = new EntryEmailNotification('Réservation mise à jour: ', $entry);

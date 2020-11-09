@@ -86,5 +86,4 @@ class DailyTwigFunction extends AbstractExtension
             ]
         );
     }
-
 }

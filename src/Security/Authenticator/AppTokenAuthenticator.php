@@ -42,7 +42,7 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      *
      *     return new Response('Auth header required', 401);
      *
-     * @param Request                 $request       The request that resulted in an AuthenticationException
+     * @param Request                 $request                 The request that resulted in an AuthenticationException
      * @param AuthenticationException $authenticationException The exception that started the authentication process
      *
      * @return Response

@@ -37,13 +37,13 @@ class NotificationMailTest extends BaseTesting
         $links = $crawler->filter('#entries-data a');
         var_dump($links->count());
 
-      //  print_r($client->getResponse()->getContent());
+        //  print_r($client->getResponse()->getContent());
 
         $link = $crawler->filter('#entries-data a[title="Ajouter une réservation"]');
 
         return;
         $client->click($link->link());
-     //   print_r($client->getResponse()->getContent());
+        //   print_r($client->getResponse()->getContent());
         $crawler = $client->click($crawler->selectLink('15')->link());
         // print_r($client->getResponse()->getContent());
 

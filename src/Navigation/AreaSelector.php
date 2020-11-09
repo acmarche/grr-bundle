@@ -66,5 +66,4 @@ class AreaSelector
 
         return $this->formFactory->create(AreaMenuSelectType::class, $menuSelectDto);
     }
-
 }

@@ -14,5 +14,4 @@ class EntryInitializedHandler implements MessageHandlerInterface
     public function __invoke(EntryInitialized $entryCreated): void
     {
     }
-
 }

@@ -3,8 +3,8 @@
 namespace Grr\GrrBundle\User\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Security\User;
@@ -28,9 +28,6 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
             ->orderBy('user.name', 'ASC');
     }
 
-    /**
-     * @return User|null
-     */
     public function loadByUserNameOrEmail(string $username): ?User
     {
         return $this->createQueryBuilder('user')

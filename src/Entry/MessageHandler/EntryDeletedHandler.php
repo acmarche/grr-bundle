@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
-use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\Core\Entry\Message\EntryDeleted;
+use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;

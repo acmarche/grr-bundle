@@ -22,7 +22,6 @@ class TypeEntryRepository extends ServiceEntityRepository implements TypeEntryRe
     }
 
     /**
-     * @param AreaInterface|null $area
      * @return TypeEntry[]
      */
     public function findByArea(?AreaInterface $area): array

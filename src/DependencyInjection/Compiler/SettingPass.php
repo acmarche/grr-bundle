@@ -20,7 +20,7 @@ class SettingPass implements CompilerPassInterface
             return;
         }
 
-    $services = $containerBuilder->conf();
+        $services = $containerBuilder->conf();
 
         $services = $services->instanceof(SettingGeneralInterface::class)
             ->tag('grr.setting');

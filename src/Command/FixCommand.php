@@ -2,9 +2,7 @@
 
 namespace Grr\GrrBundle\Command;
 
-use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
-use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,7 +12,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\NotifierInterface;
-use Symfony\Component\Notifier\Recipient\AdminRecipient;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -34,7 +31,7 @@ class FixCommand extends Command
      */
     private $entryRepository;
 
-    public function __construct(NotifierInterface $notifier, EntryRepository  $entryRepository,string $name = null)
+    public function __construct(NotifierInterface $notifier, EntryRepository $entryRepository, string $name = null)
     {
         parent::__construct($name);
         $this->notifier = $notifier;
@@ -56,7 +53,7 @@ class FixCommand extends Command
         $noti->importance('low');
 
         $entry = $this->entryRepository->find(2818);
-        $notification = new FlashNotification('super','danger');
+        $notification = new FlashNotification('super', 'danger');
 
         $recipient = new Recipient(
             'jf@marche.be',

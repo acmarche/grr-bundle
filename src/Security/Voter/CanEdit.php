@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Grr\GrrBundle\Security\Voter;
-
 
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Security\User;

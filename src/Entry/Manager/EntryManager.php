@@ -12,10 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entity\Periodicity;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\Core\Manager\BaseManager;
+use Grr\GrrBundle\Entry\Repository\EntryRepository;
 
 class EntryManager extends BaseManager
 {

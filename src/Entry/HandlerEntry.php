@@ -110,9 +110,7 @@ class HandlerEntry
 
     public function prepareToEditWithPeriodicity(EntryInterface $entry): EntryInterface
     {
-
-       $entryReference = $this->entryRepository->getBaseEntryForPeriodicity($entry->getPeriodicity());
-
+        $entryReference = $this->entryRepository->getBaseEntryForPeriodicity($entry->getPeriodicity());
 
         $entryReference->setArea($entryReference->getRoom()->getArea());
         $periodicity = $entryReference->getPeriodicity();

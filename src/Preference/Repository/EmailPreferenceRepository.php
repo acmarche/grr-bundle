@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Grr\GrrBundle\Preference\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -31,8 +30,6 @@ class EmailPreferenceRepository extends ServiceEntityRepository
 
     public function findByUser(UserInterface $user, string $action): ?EmailPreference
     {
-        $preference =  $this->findOneByUser($user);
-
+        $preference = $this->findOneByUser($user);
     }
-
 }

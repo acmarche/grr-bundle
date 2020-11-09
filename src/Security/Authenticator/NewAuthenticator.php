@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Security\Authenticator;
 
-use Grr\GrrBundle\User\Repository\UserRepository;
 use function gettype;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use function is_object;
 use function is_string;
 use function strlen;
@@ -20,7 +20,6 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
