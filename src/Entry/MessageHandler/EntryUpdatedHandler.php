@@ -85,7 +85,7 @@ class EntryUpdatedHandler implements MessageHandlerInterface
 
         foreach ($users as $user) {
             $preference = $this->emailPreferenceRepository->findOneByUser($user);
-            if ($preference && true === $preference->getOnCreated()) {
+            if ($preference && true === $preference->getOnUpdated()) {
                 $recipients[] =
                     new Recipient(
                         $user->getEmail()
