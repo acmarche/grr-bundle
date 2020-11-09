@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\Navigation;
 
 use Carbon\Carbon;
+use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Provider\DateProvider;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,15 +23,21 @@ class DateSelectorRender
      * @var DateProvider
      */
     private $dateProvider;
+    /**
+     * @var CarbonFactory
+     */
+    private $carbonFactory;
 
     public function __construct(
         RequestStack $requestStack,
         Environment $twigEnvironment,
-        DateProvider $dateProvider
+        DateProvider $dateProvider,
+        CarbonFactory $carbonFactory
     ) {
         $this->requestStack = $requestStack;
         $this->twigEnvironment = $twigEnvironment;
         $this->dateProvider = $dateProvider;
+        $this->carbonFactory = $carbonFactory;
     }
 
     /**
@@ -56,7 +63,8 @@ class DateSelectorRender
     private function renderMonthByWeeks(\DateTime $dateSelected): string
     {
         $today = Carbon::today();
-        $dateSelected = Carbon::instance($dateSelected)->toImmutable();
+        $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);
+        $dateSelected->locale('fr');
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
         $request = $this->requestStack->getMasterRequest();
