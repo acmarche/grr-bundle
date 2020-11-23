@@ -118,11 +118,12 @@ class RoomController extends AbstractController
     {
         $area = $room->getArea();
         if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+            $id = $room->getId();
             $this->roomManager->removeEntries($room);
             $this->roomManager->remove($room);
             $this->roomManager->flush();
 
-            $this->dispatchMessage(new RoomDeleted($room->getId()));
+            $this->dispatchMessage(new RoomDeleted($id));
         }
 
         return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
