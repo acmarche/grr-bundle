@@ -57,22 +57,22 @@ class HomeController extends AbstractController
         }
 
         $room = $this->ressourceSelectedHelper->getRoom();
+        $today = new \DateTime();
 
-        $params = ['_locale' => $defaultLocal, 'area' => $area->getId()];
+        $params = [
+            '_locale' => $defaultLocal,
+            'area' => $area->getId(),
+            'view' => ViewInterface::VIEW_MONTHLY,
+            'date' => $today->format('Y-m-d'),
+        ];
 
         if (null !== $room) {
             $params['room'] = $room->getId();
         }
 
-        $today = new \DateTime();
-
         return $this->redirectToRoute(
             'grr_front_view',
-            [
-                'area' => $area->getId(),
-                'date' => $today->format('Y-m-d'),
-                'view' => ViewInterface::VIEW_MONTHLY,
-            ]
+            $params
         );
     }
 

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/front")
  */
-class VueController extends AbstractController
+class VueController extends AbstractController implements FrontControllerInterface
 {
     /**
      * @var ViewLocator
