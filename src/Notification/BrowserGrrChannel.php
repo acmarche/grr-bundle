@@ -7,6 +7,7 @@ use Symfony\Component\Notifier\Channel\BrowserChannel;
 use Symfony\Component\Notifier\Channel\ChannelInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 /**
  * Ajout de la propriete "type" pour success, danger,...
@@ -23,7 +24,7 @@ final class BrowserGrrChannel implements ChannelInterface
         $this->stack = $stack;
     }
 
-    public function notify(Notification $notification, Recipient $recipient, string $transportName = null): void
+    public function notify(Notification $notification, RecipientInterface $recipient, string $transportName = null): void
     {
         if (null === $request = $this->stack->getCurrentRequest()) {
             return;
@@ -38,7 +39,7 @@ final class BrowserGrrChannel implements ChannelInterface
         $request->getSession()->getFlashBag()->add($type, $message);
     }
 
-    public function supports(Notification $notification, Recipient $recipient): bool
+    public function supports(Notification $notification, RecipientInterface $recipient): bool
     {
         return true;
     }

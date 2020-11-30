@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Notification;
 
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 class FlashNotification extends Notification
 {
@@ -18,7 +19,7 @@ class FlashNotification extends Notification
         $this->type = $type;
     }
 
-    public function getChannels(Recipient $recipient): array
+    public function getChannels(RecipientInterface $recipient): array
     {
         return ['browsergrr'];
     }

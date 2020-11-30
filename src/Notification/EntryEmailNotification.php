@@ -6,7 +6,9 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Symfony\Component\Notifier\Message\EmailMessage;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 /**
  * Class EntryEmailNotification.
@@ -27,7 +29,7 @@ class EntryEmailNotification extends Notification implements EmailNotificationIn
     /**
      * Permet de personnaliser l'email.
      */
-    public function asEmailMessage(Recipient $recipient, string $transport = null): ?EmailMessage
+    public function asEmailMessage(EmailRecipientInterface $recipient, string $transport = null): ?EmailMessage
     {
         $message = EmailMessage::fromNotification($this, $recipient);
         $message
@@ -38,7 +40,7 @@ class EntryEmailNotification extends Notification implements EmailNotificationIn
         return $message;
     }
 
-    public function getChannels(Recipient $recipient): array
+    public function getChannels(RecipientInterface $recipient): array
     {
         $this->importance(Notification::IMPORTANCE_LOW);
 
