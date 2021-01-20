@@ -29,9 +29,13 @@ class GrrExtension extends Extension implements PrependExtensionInterface
                ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
 */
         $phpFileLoader->load('services.php');
-        $phpFileLoader->load('services_dev.php');
-        $phpFileLoader->load('services_test.php');
 
+        $env = $containerBuilder->getParameter('kernel.environment');
+
+        if ('prod' !== $env) {
+            $phpFileLoader->load('services_dev.php');
+            $phpFileLoader->load('services_test.php');
+        }
         //auto tag GrrModuleInterface
         //@see ModulesPass.php
         //pourrait aussi etre dans services.php
