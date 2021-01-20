@@ -81,16 +81,20 @@ class EntryCreatedHandler implements MessageHandlerInterface
 
         $administrators = $this->userRepository->getGrrAdministrators();
         $users = array_merge($users, $administrators);
-        $recipients = [];
+        $emails = [];
 
         foreach ($users as $user) {
             $preference = $this->emailPreferenceRepository->findOneByUser($user);
             if ($preference && true === $preference->getOnCreated()) {
-                $recipients[] =
-                    new Recipient(
-                        $user->getEmail()
-                    );
+                if (!in_array($user->getEmail(), $emails)) {
+                    $emails[] = $user->getEmail();
+                }
             }
+        }
+
+        $recipients = [];
+        foreach ($emails as $email) {
+            $recipients[] = new Recipient($email);
         }
 
         if (count($recipients) > 0) {

@@ -3,11 +3,11 @@
 namespace Grr\GrrBundle\Notification;
 
 use Grr\Core\Contrat\Entity\EntryInterface;
+use Symfony\Bridge\Twig\Mime\NotificationEmail;
 use Symfony\Component\Notifier\Message\EmailMessage;
 use Symfony\Component\Notifier\Notification\EmailNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
-use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 /**
@@ -31,13 +31,17 @@ class EntryEmailNotification extends Notification implements EmailNotificationIn
      */
     public function asEmailMessage(EmailRecipientInterface $recipient, string $transport = null): ?EmailMessage
     {
-        $message = EmailMessage::fromNotification($this, $recipient);
+        // ici je ne sais pas retirer le LOW dans le sujet
+        // $message = EmailMessage::fromNotification($this, $recipient);
+        $message = NotificationEmail::asPublicEmail();
         $message
-            ->getMessage()
+            ->to($recipient->getEmail())
+            ->subject($this->getSubject())
+            ->content($this->getContent() ?: $this->getSubject())
             ->htmlTemplate('@Grr/emails/notification/entry_created_notification.html.twig')
-            ->context(['entry' => $this->entry]);
+            ->context(['entry' => $this->entry, 'importance' => self::IMPORTANCE_MEDIUM]);
 
-        return $message;
+        return new EmailMessage($message);
     }
 
     public function getChannels(RecipientInterface $recipient): array
