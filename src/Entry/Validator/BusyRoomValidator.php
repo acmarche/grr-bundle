@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\Entry\Validator;
 
 use Grr\Core\Contrat\Entity\EntryInterface;
+use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraint;
@@ -15,7 +16,7 @@ class BusyRoomValidator extends ConstraintValidator
      */
     private $entryRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\EntryRepositoryInterface $entryRepository)
+    public function __construct(EntryRepositoryInterface $entryRepository)
     {
         $this->entryRepository = $entryRepository;
     }
@@ -33,7 +34,7 @@ class BusyRoomValidator extends ConstraintValidator
         $room = $value->getRoom();
 
         $entries = $this->entryRepository->isBusy($value, $room);
-
+        //todo display entries conflit
         if (count($entries) > 0) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
