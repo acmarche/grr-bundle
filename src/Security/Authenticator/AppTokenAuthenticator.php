@@ -2,8 +2,8 @@
 
 namespace Grr\GrrBundle\Security\Authenticator;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,15 +12,13 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use UnexpectedValueException;
 
 class AppTokenAuthenticator extends AbstractGuardAuthenticator
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -84,7 +82,7 @@ class AppTokenAuthenticator extends AbstractGuardAuthenticator
      *
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
-     * @throws \UnexpectedValueException If null is returned
+     * @throws UnexpectedValueException If null is returned
      *
      * @return string[][]|null[][]
      */

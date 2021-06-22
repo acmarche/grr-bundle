@@ -2,10 +2,10 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Form\AuthorizationAreaType;
 use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Area;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,18 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AuthorizationAreaController extends AbstractController
 {
-    /**
-     * @var HandlerAuthorization
-     */
-    private $handlerAuthorization;
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
+    private HandlerAuthorization $handlerAuthorization;
+    private AuthorizationRepositoryInterface $authorizationRepository;
 
     public function __construct(
         HandlerAuthorization $handlerAuthorization,
-        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository
+        AuthorizationRepositoryInterface $authorizationRepository
     ) {
         $this->handlerAuthorization = $handlerAuthorization;
         $this->authorizationRepository = $authorizationRepository;

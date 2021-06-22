@@ -212,7 +212,9 @@ class RoomVoterTest extends BaseTesting
         $token = new AnonymousToken('secret', 'anonymous');
         if (null !== $user) {
             $token = new UsernamePasswordToken(
-                $user, 'homer', 'app_user_provider'
+                $user,
+                'homer',
+                'app_user_provider'
             );
         }
 
@@ -223,10 +225,10 @@ class RoomVoterTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'user.yaml',
-                $this->pathFixtures.'authorization.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'user.yaml',
+                $this->pathFixtures . 'authorization.yaml',
             ];
 
         $this->loader->load($files);

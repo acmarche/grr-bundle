@@ -17,18 +17,9 @@ use Symfony\Component\Form\FormEvents;
 
 class AddRoomFieldSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var bool
-     */
-    private $required;
-    /**
-     * @var string|null
-     */
-    private $label;
-    /**
-     * @var string|null
-     */
-    private $placeholder;
+    private bool $required;
+    private ?string $label;
+    private ?string $placeholder;
 
     public function __construct(
         bool $required = false,
@@ -63,9 +54,7 @@ class AddRoomFieldSubscriber implements EventSubscriberInterface
         ];
 
         if ($area) {
-            $default['query_builder'] = function (RoomRepository $roomRepository) use ($area): QueryBuilder {
-                return $roomRepository->getRoomsByAreaQueryBuilder($area);
-            };
+            $default['query_builder'] = fn (RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
         } else {
             $default['choices'] = [];
         }

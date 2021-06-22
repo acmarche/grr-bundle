@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Security\Voter;
 
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Security\User;
+use LogicException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -15,14 +16,14 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class PostVoter extends Voter
 {
-    private $criteria;
+    private ServiceLocator $criteria;
 
     public function __construct(ServiceLocator $criteria)
     {
         $this->criteria = $criteria;
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         /*   dump($attribute);
            dump($this->criteria->getProvidedServices());
@@ -50,6 +51,6 @@ class PostVoter extends Voter
             return $criterion->handle($post, $user);
         }
 
-        throw new \LogicException('This code should not be reached!');
+        throw new LogicException('This code should not be reached!');
     }
 }

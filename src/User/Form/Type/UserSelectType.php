@@ -2,20 +2,17 @@
 
 namespace Grr\GrrBundle\User\Form\Type;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserSelectType extends AbstractType
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

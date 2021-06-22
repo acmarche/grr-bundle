@@ -33,13 +33,13 @@ class AccessAreaControllerTest extends BaseTesting
                 $url = '/fr/admin/area/new';
                 break;
             case 'show':
-                $url = '/fr/admin/area/'.$area->getId();
+                $url = '/fr/admin/area/' . $area->getId();
                 break;
             case 'edit':
-                $url = '/fr/admin/area/'.$area->getId().'/edit';
+                $url = '/fr/admin/area/' . $area->getId() . '/edit';
                 break;
             case 'delete':
-                $url = '/fr/admin/area/'.$area->getId();
+                $url = '/fr/admin/area/' . $area->getId();
                 $method = 'DELETE';
                 break;
             default:
@@ -50,9 +50,9 @@ class AccessAreaControllerTest extends BaseTesting
         foreach ($datas as $data) {
             $email = $data[1];
             $code = $data[0];
-            $client = !$email ? $this->createAnonymousClient() : $this->createGrrClient($email);
+            $client = $email ? $this->createGrrClient($email) : $this->createAnonymousClient();
             $client->request($method, $url, ['_token' => $token]);
-            self::assertResponseStatusCodeSame($code, $email.' '.$url);
+            self::assertResponseStatusCodeSame($code, $email . ' ' . $url);
         }
     }
 
@@ -218,10 +218,10 @@ class AccessAreaControllerTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'user.yaml',
-                $this->pathFixtures.'authorization.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'user.yaml',
+                $this->pathFixtures . 'authorization.yaml',
             ];
 
         $this->loader->load($files);

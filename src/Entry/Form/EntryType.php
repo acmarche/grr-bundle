@@ -11,7 +11,6 @@ use Grr\GrrBundle\EventSubscriber\Form\AddAreaFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddDurationFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Grr\GrrBundle\EventSubscriber\Form\AddTypeEntryFieldSubscriber;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -23,22 +22,10 @@ use Symfony\Component\Security\Core\Security;
 
 class EntryType extends AbstractType
 {
-    /**
-     * @var DurationFactory
-     */
-    private $durationFactory;
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private DurationFactory $durationFactory;
+    private Security $security;
+    private AuthorizationHelper $authorizationHelper;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(
         UserRepositoryInterface $userRepository,

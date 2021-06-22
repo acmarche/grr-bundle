@@ -17,10 +17,7 @@ use Symfony\Component\Form\FormEvents;
 
 class AddDurationFieldSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var DurationFactory
-     */
-    private $durationFactory;
+    private DurationFactory $durationFactory;
 
     public function __construct(DurationFactory $durationFactory)
     {
@@ -98,7 +95,7 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
     /**
      * Modifie la date de fin de réservation suivant les données de la Duration.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function OnSubmit(FormEvent $formEvent): void
     {

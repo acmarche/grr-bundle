@@ -24,22 +24,10 @@ class GrrAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 {
     use TargetPathTrait;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $userPasswordEncoder;
+    private EntityManagerInterface $entityManager;
+    private UrlGeneratorInterface $urlGenerator;
+    private CsrfTokenManagerInterface $csrfTokenManager;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder)
     {
@@ -100,7 +88,7 @@ class GrrAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): RedirectResponse
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);

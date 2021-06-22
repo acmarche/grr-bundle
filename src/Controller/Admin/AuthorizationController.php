@@ -5,12 +5,12 @@ namespace Grr\GrrBundle\Controller\Admin;
 use Grr\Core\Authorization\Message\AuthorizationCreated;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,14 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AuthorizationController extends AbstractController
 {
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
-    /**
-     * @var AuthorizationManager
-     */
-    private $authorizationManager;
+    private AuthorizationRepositoryInterface $authorizationRepository;
+    private AuthorizationManager $authorizationManager;
 
     public function __construct(
         AuthorizationManager $authorizationManager,
@@ -40,7 +34,7 @@ class AuthorizationController extends AbstractController
     /**
      * @Route("/delete", name="grr_authorization_delete", methods={"DELETE"})
      */
-    public function delete(Request $request): Response
+    public function delete(Request $request): RedirectResponse
     {
         $id = $request->get('idauth');
         $token = $request->get('_tokenauth');
@@ -60,7 +54,7 @@ class AuthorizationController extends AbstractController
             $this->denyAccessUnlessGranted(RoomVoter::EDIT, $room);
         }
 
-        if ($this->isCsrfTokenValid('delete'.$authorization->getId(), $token)) {
+        if ($this->isCsrfTokenValid('delete' . $authorization->getId(), $token)) {
             $this->authorizationManager->remove($authorization);
             $this->authorizationManager->flush();
 

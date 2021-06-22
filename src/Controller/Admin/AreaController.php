@@ -11,9 +11,9 @@ use Grr\GrrBundle\Area\Form\AreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,22 +23,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AreaController extends AbstractController
 {
-    /**
-     * @var AreaFactory
-     */
-    private $areaFactory;
-    /**
-     * @var AreaManager
-     */
-    private $areaManager;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
+    private AreaFactory $areaFactory;
+    private AreaManager $areaManager;
+    private RoomRepositoryInterface $roomRepository;
+    private AuthorizationHelper $authorizationHelper;
 
     public function __construct(
         AreaFactory $areaFactory,
@@ -149,9 +137,9 @@ class AreaController extends AbstractController
      * @Route("/{id}", name="grr_admin_area_delete", methods={"DELETE"})
      * @IsGranted("grr.area.delete", subject="area")
      */
-    public function delete(Request $request, Area $area): Response
+    public function delete(Request $request, Area $area): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$area->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $area->getId(), $request->request->get('_token'))) {
             $this->areaManager->removeRooms($area);
             $this->areaManager->remove($area);
             $this->areaManager->flush();

@@ -2,20 +2,17 @@
 
 namespace Grr\GrrBundle\Room\DataTransformer;
 
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class NumberToRoomTransformer implements DataTransformerInterface
 {
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
+    private RoomRepositoryInterface $roomRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\RoomRepositoryInterface $roomRepository)
+    public function __construct(RoomRepositoryInterface $roomRepository)
     {
         $this->roomRepository = $roomRepository;
     }

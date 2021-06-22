@@ -8,8 +8,8 @@
 
 namespace Grr\GrrBundle\EventSubscriber\Form;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
@@ -17,12 +17,9 @@ use Symfony\Component\Form\FormEvents;
 
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

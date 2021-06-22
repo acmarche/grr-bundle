@@ -6,17 +6,17 @@ use Grr\Core\Tests\BaseTesting;
 
 class NotificationMailTest extends BaseTesting
 {
-    public function setNotificationMailTest()
+    public function setNotificationMailTest(): void
     {
         $url = '/fr/admin/area/';
         $email = 'grr@domain.be';
 
-        $client = !$email ? $this->createAnonymousClient() : $this->createGrrClient($email);
+        $client = $email === '' ? $this->createAnonymousClient() : $this->createGrrClient($email);
         $client->request('GET', $url);
-        self::assertResponseStatusCodeSame(200, $email.' '.$url);
+        self::assertResponseStatusCodeSame(200, $email . ' ' . $url);
     }
 
-    public function testSomething()
+    public function testSomething(): void
     {
         $client = $this->createGrrClient('grr@domain.be');
         $crawler = $client->request('GET', '/');
@@ -30,7 +30,7 @@ class NotificationMailTest extends BaseTesting
                 $text = $node->text();
                 print_r($title);
 
-                return compact('href');
+                return ['href' => $href];
             }
         );
         var_dump($links);

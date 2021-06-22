@@ -11,7 +11,7 @@ class AreaRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures . 'area.yaml',
             ]
         );
 
@@ -24,7 +24,7 @@ class AreaRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures . 'area.yaml',
             ]
         );
 

@@ -12,10 +12,7 @@ use Grr\GrrBundle\Entity\Security\User;
  */
 class CanView implements CriterionInterface
 {
-    /**
-     * @var CanEdit
-     */
-    private $canEdit;
+    private CanEdit $canEdit;
 
     public function __construct(CanEdit $canEdit)
     {

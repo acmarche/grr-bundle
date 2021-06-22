@@ -16,14 +16,8 @@ use Symfony\Component\Security\Http\HttpUtils;
 
 class New2 extends AbstractLoginFormAuthenticator
 {
-    /**
-     * @var HttpUtils
-     */
-    private $httpUtils;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private HttpUtils $httpUtils;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository, HttpUtils $httpUtils)
     {
@@ -43,9 +37,8 @@ class New2 extends AbstractLoginFormAuthenticator
         $csrf_token = $request->request->get('_csrf_token');
 
         $badge = new UserBadge(
-            $username, function ($username) {
-                return $this->userRepository->loadByUserNameOrEmail($username);
-            }
+            $username,
+            fn ($username) => $this->userRepository->loadByUserNameOrEmail($username)
         );
 
         $credentials = new PasswordCredentials($password);

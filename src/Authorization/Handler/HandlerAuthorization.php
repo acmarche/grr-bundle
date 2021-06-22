@@ -3,9 +3,9 @@
 namespace Grr\GrrBundle\Authorization\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
@@ -17,29 +17,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HandlerAuthorization
 {
-    /**
-     * @var AuthorizationManager
-     */
-    private $authorizationManager;
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
-    /**
-     * @var FlashBagInterface
-     */
-    private $flashBag;
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-    /**
-     * @var bool
-     */
-    private $error;
+    private AuthorizationManager $authorizationManager;
+    private AuthorizationRepositoryInterface $authorizationRepository;
+    private FlashBagInterface $flashBag;
+    private TranslatorInterface $translator;
+    private ?bool $error = null;
 
     public function __construct(
-        \Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface $authorizationRepository,
+        AuthorizationRepositoryInterface $authorizationRepository,
         AuthorizationManager $authorizationManager,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator

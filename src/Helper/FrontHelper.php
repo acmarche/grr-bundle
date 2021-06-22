@@ -15,24 +15,13 @@ use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
-use Grr\GrrBundle\Setting\Repository\SettingRepository;
-use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Twig\Environment;
 
 class FrontHelper
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
-    /**
-     * @var TypeEntryRepository
-     */
-    private $typeEntryRepository;
-    /**
-     * @var SettingRepository
-     */
-    private $settingRepository;
+    private Environment $environment;
+    private TypeEntryRepositoryInterface $typeEntryRepository;
+    private SettingRepositoryInterface $settingRepository;
 
     public function __construct(
         Environment $environment,

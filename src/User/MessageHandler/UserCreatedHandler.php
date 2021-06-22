@@ -9,10 +9,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 
 class UserCreatedHandler implements MessageHandlerInterface
 {
-    /**
-     * @var NotifierInterface
-     */
-    private $notifier;
+    private NotifierInterface $notifier;
 
     public function __construct(NotifierInterface $notifier)
     {

@@ -14,10 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserAdvanceType extends AbstractType
 {
-    /**
-     * @var LocalHelper
-     */
-    private $localHelper;
+    private LocalHelper $localHelper;
 
     public function __construct(LocalHelper $localHelper)
     {

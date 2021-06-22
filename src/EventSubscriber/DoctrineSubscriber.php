@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\EventSubscriber;
 
+use DateTime;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
@@ -14,10 +15,7 @@ use Symfony\Component\Security\Core\Security;
  */
 class DoctrineSubscriber implements EventSubscriber
 {
-    /**
-     * @var Security
-     */
-    private $security;
+    private Security $security;
 
     public function __construct(Security $security)
     {
@@ -45,8 +43,8 @@ class DoctrineSubscriber implements EventSubscriber
             return;
         }
 
-        $object->setCreatedAt(new \DateTime());
-        $object->setUpdatedAt(new \DateTime());
+        $object->setCreatedAt(new DateTime());
+        $object->setUpdatedAt(new DateTime());
 
         $username = $this->getUsername();
 
@@ -65,7 +63,7 @@ class DoctrineSubscriber implements EventSubscriber
         if (!$object instanceof Entry) {
             return;
         }
-        $object->setUpdatedAt(new \DateTime());
+        $object->setUpdatedAt(new DateTime());
     }
 
     protected function getUsername(): string

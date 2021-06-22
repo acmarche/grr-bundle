@@ -9,14 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class Periodicity extends Constraint
 {
-    /*
-     * Any public properties become valid options for the annotation.
-     * Then, use these in your validator class.
-     */
-    /**
-     * @var string
-     */
-    public $message = '{{ message }}';
+    public string $message = '{{ message }}';
 
     public function getTargets(): string
     {

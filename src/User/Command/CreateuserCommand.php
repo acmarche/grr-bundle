@@ -22,22 +22,10 @@ class CreateuserCommand extends Command
      * @var string
      */
     protected static $defaultName = 'grr:create-user';
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
-    /**
-     * @var UserFactory
-     */
-    private $userFactory;
-    /**
-     * @var PasswordHelper
-     */
-    private $passwordHelper;
-    /**
-     * @var UserManager
-     */
-    private $userManager;
+    private UserRepositoryInterface $userRepository;
+    private UserFactory $userFactory;
+    private PasswordHelper $passwordHelper;
+    private UserManager $userManager;
 
     public function __construct(
         UserFactory $userFactory,

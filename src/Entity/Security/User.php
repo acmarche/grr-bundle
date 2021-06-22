@@ -16,13 +16,10 @@ use Grr\Core\User\Entity\UserTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Table(name="user", uniqueConstraints={
- *     @ORM\UniqueConstraint(columns={"email"}),
- *     @ORM\UniqueConstraint(columns={"username"})
- * })
+ * @ORM\Table(name="user",uniqueConstraints ={
+ *     @ORM\UniqueConstraint(columns={"email","username"})})
  * @ORM\Entity(repositoryClass="Grr\GrrBundle\User\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="Un utilisateur a déjà cette adresse email")
  * @UniqueEntity(fields={"username"}, message="Un utilisateur a déjà ce nom d'utilisateur")
@@ -30,4 +27,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface, UserInterfaceSf, TimestampableInterface
 {
     use UserTrait;
+
+    public function getUserIdentifier()
+    {
+        return $this->username;
+    }
+
 }

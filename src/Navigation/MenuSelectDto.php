@@ -13,15 +13,9 @@ use Grr\GrrBundle\Entity\Room;
 
 class MenuSelectDto
 {
-    /**
-     * @var Area
-     */
-    private $area;
+    private ?Area $area = null;
 
-    /**
-     * @var Room|null
-     */
-    private $room;
+    private ?Room $room = null;
 
     public function getArea(): Area
     {

@@ -2,19 +2,22 @@
 
 namespace Grr\GrrBundle\View\Daily;
 
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Entity\Entry;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class DailyTwigFunction extends AbstractExtension
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
+    private Environment $environment;
 
     public function __construct(Environment $environment)
     {
@@ -22,16 +25,14 @@ class DailyTwigFunction extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
                 'grrGenerateCellDataDay',
-                function (\DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string {
-                    return $this->renderCellDataDay($dateSelected, $hour, $roomModel);
-                },
+                fn (DateTime $dateSelected, TimeSlot $hour, RoomModel $roomModel): string => $this->renderCellDataDay($dateSelected, $hour, $roomModel),
                 [
                     'is_safe' => ['html'],
                 ]
@@ -40,11 +41,12 @@ class DailyTwigFunction extends AbstractExtension
     }
 
     /**
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @param DateTime|DateTimeImmutable $dateSelected
      */
-    private function renderCellDataDay(\DateTime $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
+    private function renderCellDataDay(DateTimeInterface $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
     {
         /**
          * @var Entry[]

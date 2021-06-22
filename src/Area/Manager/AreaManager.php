@@ -15,10 +15,7 @@ use Grr\GrrBundle\Room\Manager\RoomManager;
 
 class AreaManager extends BaseManager
 {
-    /**
-     * @var RoomManager
-     */
-    private $roomManager;
+    private RoomManager $roomManager;
 
     public function __construct(EntityManagerInterface $entityManager, RoomManager $roomManager)
     {

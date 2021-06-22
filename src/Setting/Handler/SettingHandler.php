@@ -10,31 +10,19 @@
 
 namespace Grr\GrrBundle\Setting\Handler;
 
+use Exception;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Factory\SettingFactory;
 use Grr\GrrBundle\Setting\Manager\SettingManager;
-use Grr\GrrBundle\Setting\Repository\SettingRepository;
 
 class SettingHandler
 {
-    /**
-     * @var SettingFactory
-     */
-    private $settingFactory;
-    /**
-     * @var SettingRepository
-     */
-    private $settingRepository;
-    /**
-     * @var SettingManager
-     */
-    private $settingManager;
-    /**
-     * @var SettingProvider
-     */
-    private $settingProvider;
+    private SettingFactory $settingFactory;
+    private SettingRepositoryInterface $settingRepository;
+    private SettingManager $settingManager;
+    private SettingProvider $settingProvider;
 
     public function __construct(
         SettingFactory $settingFactory,
@@ -92,7 +80,7 @@ class SettingHandler
         try {
             $service = $this->settingProvider->loadInterfaceByKey($name);
             $value = $service->bindValue($value);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
         }
 
         return $value;

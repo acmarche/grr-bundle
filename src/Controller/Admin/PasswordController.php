@@ -19,14 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PasswordController extends AbstractController
 {
-    /**
-     * @var UserManager
-     */
-    private $userManager;
-    /**
-     * @var PasswordHelper
-     */
-    private $passwordHelper;
+    private UserManager $userManager;
+    private PasswordHelper $passwordHelper;
 
     public function __construct(
         UserManager $userManager,

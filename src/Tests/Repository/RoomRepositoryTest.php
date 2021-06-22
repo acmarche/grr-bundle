@@ -13,8 +13,8 @@ class RoomRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
             ]
         );
 
@@ -29,8 +29,8 @@ class RoomRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
             ]
         );
         $area = $this->entityManager
@@ -48,8 +48,8 @@ class RoomRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
             ]
         );
 

@@ -21,10 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleSelectType extends AbstractType
 {
-    /**
-     * @var StdClassToNumberTransformer
-     */
-    private $stdClassToNumberTransformer;
+    private StdClassToNumberTransformer $stdClassToNumberTransformer;
 
     public function __construct(StdClassToNumberTransformer $stdClassToNumberTransformer)
     {
@@ -45,9 +42,7 @@ class RoleSelectType extends AbstractType
                 'choices' => $roles,
                 'label' => 'label.role.select',
                 'placeholder' => 'none.male',
-                'choice_label' => function ($role) {
-                    return $role->name;
-                },
+                'choice_label' => fn ($role) => $role->name,
                 'choice_value' => function ($role) {
                     if (null == $role) {
                         return null;
@@ -55,9 +50,7 @@ class RoleSelectType extends AbstractType
 
                     return $role->value;
                 },
-                'description' => function ($role) {
-                    return $role->description;
-                },
+                'description' => fn ($role) => $role->description,
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,

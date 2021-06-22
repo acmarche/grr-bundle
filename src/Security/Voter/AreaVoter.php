@@ -22,25 +22,16 @@ class AreaVoter extends Voter
 {
     // Defining these constants is overkill for this simple application, but for real
     // applications, it's a recommended practice to avoid relying on "magic strings"
-    const INDEX = 'grr.area.index';
-    const NEW = 'grr.area.new';
-    const NEW_ROOM = 'grr.area.new.room';
-    const SHOW = 'grr.area.show';
-    const EDIT = 'grr.area.edit';
-    const DELETE = 'grr.area.delete';
-    /**
-     * @var AccessDecisionManagerInterface
-     */
-    private $accessDecisionManager;
+    public const INDEX = 'grr.area.index';
+    public const NEW = 'grr.area.new';
+    public const NEW_ROOM = 'grr.area.new.room';
+    public const SHOW = 'grr.area.show';
+    public const EDIT = 'grr.area.edit';
+    public const DELETE = 'grr.area.delete';
+    private AccessDecisionManagerInterface $accessDecisionManager;
 
-    /**
-     * @var User
-     */
-    private $user;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
+    private ?User $user = null;
+    private AuthorizationHelper $authorizationHelper;
     /**
      * @var Area
      */

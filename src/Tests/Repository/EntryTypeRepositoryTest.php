@@ -22,7 +22,7 @@ class TypeEntryRepositoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'entry_type.yaml',
+                $this->pathFixtures . 'entry_type.yaml',
             ];
 
         $this->loader->load($files);

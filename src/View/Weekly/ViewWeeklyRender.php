@@ -19,26 +19,11 @@ use Twig\Environment;
 
 class ViewWeeklyRender implements ViewInterface
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
-    /**
-     * @var EntryRepositoryInterface
-     */
-    private $entryRepository;
-    /**
-     * @var RoomRepositoryInterface
-     */
-    private $roomRepository;
-    /**
-     * @var CarbonFactory
-     */
-    private $carbonFactory;
-    /**
-     * @var DateProvider
-     */
-    private $dateProvider;
+    private Environment $environment;
+    private EntryRepositoryInterface $entryRepository;
+    private RoomRepositoryInterface $roomRepository;
+    private CarbonFactory $carbonFactory;
+    private DateProvider $dateProvider;
 
     public function __construct(
         Environment $environment,

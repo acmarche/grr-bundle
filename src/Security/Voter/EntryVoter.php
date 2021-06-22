@@ -11,23 +11,18 @@ use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class EntryVoter extends Voter
 {
-    const INDEX = 'grr.entry.index';
-    const NEW = 'grr.entry.new';
-    const SHOW = 'grr.entry.show';
-    const EDIT = 'grr.entry.edit';
-    const DELETE = 'grr.entry.delete';
+    public const INDEX = 'grr.entry.index';
+    public const NEW = 'grr.entry.new';
+    public const SHOW = 'grr.entry.show';
+    public const EDIT = 'grr.entry.edit';
+    public const DELETE = 'grr.entry.delete';
 
-    /**
-     * @var User
-     */
-    private $user;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
+    private ?UserInterface $user = null;
+    private AuthorizationHelper $authorizationHelper;
     /**
      * @var Entry
      */
@@ -40,10 +35,7 @@ class EntryVoter extends Voter
      * @var Area
      */
     private $area;
-    /**
-     * @var Security
-     */
-    private $security;
+    private Security $security;
 
     public function __construct(Security $security, AuthorizationHelper $authorizationHelper)
     {

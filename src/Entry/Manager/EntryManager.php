@@ -13,14 +13,10 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Manager\BaseManager;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 
 class EntryManager extends BaseManager
 {
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
+    private EntryRepositoryInterface $entryRepository;
 
     public function __construct(EntityManagerInterface $entityManager, EntryRepositoryInterface $entryRepository)
     {

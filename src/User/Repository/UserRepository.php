@@ -49,7 +49,7 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         $name = $args['name'] ?? null;
         if ($name) {
             $queryBuilder->andWhere('user.email LIKE :name OR user.name LIKE :name OR user.username LIKE :name')
-                ->setParameter('name', '%'.$name.'%');
+                ->setParameter('name', '%' . $name . '%');
         }
 
         return $queryBuilder->getQuery()->getResult();
@@ -74,7 +74,7 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
     {
         return $this->createQueryBuilder('user')
             ->andWhere('user.roles LIKE :role ')
-            ->setParameter('role', '%'.SecurityRole::ROLE_GRR_ADMINISTRATOR.'%')
+            ->setParameter('role', '%' . SecurityRole::ROLE_GRR_ADMINISTRATOR . '%')
             ->getQuery()->getResult();
     }
 }

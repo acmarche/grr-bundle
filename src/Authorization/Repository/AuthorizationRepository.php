@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\Authorization\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -32,7 +33,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @return Authorization[]
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByArea(AreaInterface $area): array
     {
@@ -44,7 +45,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @return Authorization[]
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByUser(UserInterface $user): array
     {
@@ -58,7 +59,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      *
      * @return Authorization[]
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByUserAndArea(?UserInterface $user, ?AreaInterface $area): array
     {
@@ -145,7 +146,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
     /**
      * Utilise dans migration checker.
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findOneByUserAndRoom(UserInterface $user, RoomInterface $room): Authorization
     {

@@ -9,11 +9,11 @@ use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Periodicity\Manager\PeriodicityManager;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,18 +23,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PeriodicityController extends AbstractController
 {
-    /**
-     * @var PeriodicityManager
-     */
-    private $periodicityManager;
-    /**
-     * @var HandlerEntry
-     */
-    private $handlerEntry;
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
+    private PeriodicityManager $periodicityManager;
+    private HandlerEntry $handlerEntry;
+    private EntryRepositoryInterface $entryRepository;
 
     public function __construct(
         PeriodicityManager $periodicityManager,
@@ -88,11 +79,11 @@ class PeriodicityController extends AbstractController
     /**
      * @Route("/{id}", name="periodicity_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Periodicity $periodicity): Response
+    public function delete(Request $request, Periodicity $periodicity): RedirectResponse
     {
         $entry = $this->entryRepository->getBaseEntryForPeriodicity($periodicity);
 
-        if ($this->isCsrfTokenValid('delete'.$periodicity->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $periodicity->getId(), $request->request->get('_token'))) {
             $this->periodicityManager->remove($periodicity);
 
             $this->dispatchMessage(new PeriodicityDeleted($periodicity->getId()));

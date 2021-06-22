@@ -12,23 +12,14 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class RoomVoter extends Voter
 {
-    const INDEX = 'grr.room.index';
-    const ADD_ENTRY = 'grr.addEntry';
-    const SHOW = 'grr.room.show';
-    const EDIT = 'grr.room.edit';
-    const DELETE = 'grr.room.delete';
-    /**
-     * @var AccessDecisionManagerInterface
-     */
-    private $accessDecisionManager;
-    /**
-     * @var User
-     */
-    private $user;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
+    public const INDEX = 'grr.room.index';
+    public const ADD_ENTRY = 'grr.addEntry';
+    public const SHOW = 'grr.room.show';
+    public const EDIT = 'grr.room.edit';
+    public const DELETE = 'grr.room.delete';
+    private AccessDecisionManagerInterface $accessDecisionManager;
+    private ?User $user = null;
+    private AuthorizationHelper $authorizationHelper;
     /**
      * @var Room
      */

@@ -10,31 +10,19 @@
 
 namespace Grr\GrrBundle\Periodicity;
 
+use Exception;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Periodicity\GeneratorEntry;
 use Grr\Core\Periodicity\PeriodicityDaysProvider;
-use Grr\GrrBundle\Entry\Factory\EntryFactory;
 use Grr\GrrBundle\Entry\Manager\EntryManager;
 use Grr\GrrBundle\Periodicity\Manager\PeriodicityManager;
 
 class HandlerPeriodicity
 {
-    /**
-     * @var PeriodicityManager
-     */
-    private $periodicityManager;
-    /**
-     * @var PeriodicityDaysProvider
-     */
-    private $periodicityDaysProvider;
-    /**
-     * @var EntryManager
-     */
-    private $entryManager;
-    /**
-     * @var EntryFactory
-     */
-    private $entryFactory;
+    private PeriodicityManager $periodicityManager;
+    private PeriodicityDaysProvider $periodicityDaysProvider;
+    private EntryManager $entryManager;
+    private GeneratorEntry $entryFactory;
 
     public function __construct(
         PeriodicityManager $periodicityManager,
@@ -62,7 +50,7 @@ class HandlerPeriodicity
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      *
      * @return null
      */

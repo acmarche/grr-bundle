@@ -20,14 +20,8 @@ use Symfony\Component\Security\Core\Security;
 
 class AddAreaFieldSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
+    private Security $security;
+    private AuthorizationHelper $authorizationHelper;
 
     public function __construct(Security $security, AuthorizationHelper $authorizationHelper)
     {

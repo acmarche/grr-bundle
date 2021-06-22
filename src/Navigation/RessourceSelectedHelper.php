@@ -19,8 +19,8 @@ use Symfony\Component\Security\Core\Security;
  */
 class RessourceSelectedHelper
 {
-    const AREA_DEFAULT_SESSION = 'area_seleted';
-    const ROOM_DEFAULT_SESSION = 'room_seleted';
+    public const AREA_DEFAULT_SESSION = 'area_seleted';
+    public const ROOM_DEFAULT_SESSION = 'room_seleted';
 
     /**
      * @var SessionInterface

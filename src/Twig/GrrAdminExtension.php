@@ -8,10 +8,7 @@ use Twig\TwigFilter;
 
 class GrrAdminExtension extends AbstractExtension
 {
-    /**
-     * @var DateProvider
-     */
-    private $dateProvider;
+    private DateProvider $dateProvider;
 
     public function __construct(DateProvider $dateProvider)
     {
@@ -19,20 +16,19 @@ class GrrAdminExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {
         return [
             new TwigFilter(
-                'grrWeekDaysName', function ($value): string {
-                    return $this->weekDaysName($value);
-                }
+                'grrWeekDaysName',
+                fn ($value): string => $this->weekDaysName($value)
             ),
             new TwigFilter(
-                'grrDisplayColor', function (string $value): string {
-                    return $this->displayColor($value);
-                }, ['is_safe' => ['html']]
+                'grrDisplayColor',
+                fn (string $value): string => $this->displayColor($value),
+                ['is_safe' => ['html']]
             ),
         ];
     }
@@ -46,6 +42,6 @@ class GrrAdminExtension extends AbstractExtension
 
     public function displayColor(string $value): string
     {
-        return '<span style="background-color: '.$value.';"></span>';
+        return '<span style="background-color: ' . $value . ';"></span>';
     }
 }

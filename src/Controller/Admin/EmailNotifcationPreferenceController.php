@@ -20,18 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EmailNotifcationPreferenceController extends AbstractController
 {
-    /**
-     * @var EmailPreferenceRepository
-     */
-    private $emailPreferenceRepository;
-    /**
-     * @var PreferenceFactory
-     */
-    private $preferenceFactory;
-    /**
-     * @var PreferenceManager
-     */
-    private $preferenceManager;
+    private EmailPreferenceRepository $emailPreferenceRepository;
+    private PreferenceFactory $preferenceFactory;
+    private PreferenceManager $preferenceManager;
 
     public function __construct(
         EmailPreferenceRepository $emailPreferenceRepository,

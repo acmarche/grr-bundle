@@ -14,25 +14,16 @@ use Grr\Core\Model\DataDay;
 use Grr\Core\Provider\DateProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class ViewMonthlyRender implements ViewInterface
 {
-    /**
-     * @var Environment
-     */
-    private $environment;
-    /**
-     * @var EntryRepositoryInterface
-     */
-    private $entryRepository;
-    /**
-     * @var CarbonFactory
-     */
-    private $carbonFactory;
-    /**
-     * @var DateProvider
-     */
-    private $dateProvider;
+    private Environment $environment;
+    private EntryRepositoryInterface $entryRepository;
+    private CarbonFactory $carbonFactory;
+    private DateProvider $dateProvider;
 
     public function __construct(
         Environment $environment,
@@ -112,9 +103,9 @@ class ViewMonthlyRender implements ViewInterface
     /**
      * @param DataDay[] $dataDays
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     private function generateHtmlMonth(CarbonInterface $dateSelected, array $dataDays): string
     {

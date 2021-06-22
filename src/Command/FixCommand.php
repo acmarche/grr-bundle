@@ -22,14 +22,8 @@ class FixCommand extends Command
      * @var string
      */
     protected static $defaultName = 'app:fix';
-    /**
-     * @var NotifierInterface
-     */
-    private $notifier;
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
+    private NotifierInterface $notifier;
+    private EntryRepository $entryRepository;
 
     public function __construct(NotifierInterface $notifier, EntryRepository $entryRepository, string $name = null)
     {

@@ -9,10 +9,10 @@ use Grr\Core\TypeEntry\Message\TypeEntryUpdated;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Grr\GrrBundle\TypeEntry\Manager\TypeEntryManager;
-use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,18 +23,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TypeEntryController extends AbstractController
 {
-    /**
-     * @var TypeEntryRepository
-     */
-    private $typeEntryRepository;
-    /**
-     * @var TypeEntryManager
-     */
-    private $typeEntryManager;
-    /**
-     * @var TypeEntryFactory
-     */
-    private $typeEntryFactory;
+    private TypeEntryRepositoryInterface $typeEntryRepository;
+    private TypeEntryManager $typeEntryManager;
+    private TypeEntryFactory $typeEntryFactory;
 
     public function __construct(
         TypeEntryFactory $typeEntryFactory,
@@ -132,9 +123,9 @@ class TypeEntryController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_type_entry_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, TypeEntry $typeEntry): Response
+    public function delete(Request $request, TypeEntry $typeEntry): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$typeEntry->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $typeEntry->getId(), $request->request->get('_token'))) {
             $this->typeEntryManager->remove($typeEntry);
             $this->typeEntryManager->flush();
 

@@ -50,7 +50,7 @@ class EmailPreference
         $this->onUpdated = false;
     }
 
-    public function getOnCreated(): ?bool
+    public function getOnCreated(): bool
     {
         return $this->onCreated;
     }
@@ -62,7 +62,7 @@ class EmailPreference
         return $this;
     }
 
-    public function getOnUpdated(): ?bool
+    public function getOnUpdated(): bool
     {
         return $this->onUpdated;
     }
@@ -74,7 +74,7 @@ class EmailPreference
         return $this;
     }
 
-    public function getOnDeleted(): ?bool
+    public function getOnDeleted(): bool
     {
         return $this->onDeleted;
     }
@@ -86,7 +86,7 @@ class EmailPreference
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): UserInterface
     {
         return $this->user;
     }

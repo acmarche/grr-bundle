@@ -3,15 +3,11 @@
 namespace Grr\GrrBundle\Notification;
 
 use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 class FlashNotification extends Notification
 {
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
     public function __construct(string $type, string $message)
     {

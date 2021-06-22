@@ -15,18 +15,9 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 
 class EntryFactoryTest extends BaseTesting
 {
-    /**
-     * @var EntryFactory
-     */
-    private $entryFactory;
-    /**
-     * @var AreaFactory
-     */
-    private $areaFactory;
-    /**
-     * @var RoomFactory
-     */
-    private $roomFactory;
+    private EntryFactory $entryFactory;
+    private AreaFactory $areaFactory;
+    private RoomFactory $roomFactory;
 
     protected function setUp(): void
     {
@@ -64,7 +55,7 @@ class EntryFactoryTest extends BaseTesting
         $date = Carbon::create($year, $month, $day, $hour, $minute);
         $endTime = $date->copy()->addMinutes($area->getDurationDefaultEntry());
 
-        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day, $hour, $minute);
+        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day);
 
         $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('Area1', $entry->getArea()->getName());

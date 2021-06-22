@@ -17,10 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TypeEntryAreaController extends AbstractController
 {
-    /**
-     * @var AreaManager
-     */
-    private $areaManager;
+    private AreaManager $areaManager;
 
     public function __construct(AreaManager $areaManager)
     {

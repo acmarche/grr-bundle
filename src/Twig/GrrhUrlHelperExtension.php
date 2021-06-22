@@ -9,10 +9,7 @@ use Twig\TwigFunction;
 
 class GrrhUrlHelperExtension extends AbstractExtension
 {
-    /**
-     * @var RouterHelper
-     */
-    private $routerHelper;
+    private RouterHelper $routerHelper;
 
     public function __construct(
         RouterHelper $routerHelper
@@ -27,21 +24,12 @@ class GrrhUrlHelperExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'grrGenerateRouteView', function (?DateTimeInterface $date = null, ?string $view = null): string {
-                    return $this->routerHelper->generateRouteView($date, $view);
-                }
+                'grrGenerateRouteView',
+                fn (?DateTimeInterface $date = null, ?string $view = null): string => $this->routerHelper->generateRouteView($date, $view)
             ),
             new TwigFunction(
                 'grrGenerateRouteAddEntry',
-                function (
-                    int $area,
-                    int $room,
-                    DateTimeInterface $date,
-                    int $hour = null,
-                    int $minute = null
-                ): string {
-                    return $this->routerHelper->generateRouteAddEntry($area, $room, $date, $hour, $minute);
-                }
+                fn (int $area, int $room, DateTimeInterface $date, int $hour = null, int $minute = null): string => $this->routerHelper->generateRouteAddEntry($area, $room, $date, $hour, $minute)
             ),
         ];
     }

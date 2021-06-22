@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Id;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Entry\Entity\EntryTrait;
@@ -20,12 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @GrrEntryAssert\BusyRoom
  * @GrrEntryAssert\AreaTimeSlot
  *
- * @ApiResource(
- *     normalizationContext={"groups"={"entry:read"}},
- *     denormalizationContext={"groups"={"entry:write"}},
- *     itemOperations={"get"}
- * )
- * @ApiFilter(SearchFilter::class, properties={"nom": "partial", "id": "exact", "room": "exact"})
+ * @ApiResource(normalizationContext={"groups"="entry:read"}, denormalizationContext={"groups"="entry:write"}, itemOperations={"get"})
+ * @ApiFilter(SearchFilter::class, properties={"nom"="partial", "id"="exact", "room"="exact"})
  */
 class Entry implements EntryInterface, TimestampableInterface
 {
@@ -36,24 +33,20 @@ class Entry implements EntryInterface, TimestampableInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups("entry:read")
-     *
-     * @var int
      */
-    private $id;
+    private int $id;
 
     /**
-     * @var string
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=80, nullable=false)
      * @Groups("entry:read")
      */
-    private $name;
+    private ?string $name;
 
     /**
-     * @var RoomInterface
      * @ORM\ManyToOne(targetEntity="Grr\Core\Contrat\Entity\RoomInterface", inversedBy="entries")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("entry:read")
      */
-    private $room;
+    private ?RoomInterface $room;
 }

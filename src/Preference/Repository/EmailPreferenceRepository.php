@@ -28,7 +28,7 @@ class EmailPreferenceRepository extends ServiceEntityRepository
             ->getQuery()->getOneOrNullResult();
     }
 
-    public function findByUser(UserInterface $user, string $action): ?EmailPreference
+    public function findByUser(UserInterface $user, string $action): void
     {
         $preference = $this->findOneByUser($user);
     }

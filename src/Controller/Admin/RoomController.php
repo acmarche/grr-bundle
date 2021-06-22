@@ -12,6 +12,7 @@ use Grr\GrrBundle\Room\Form\RoomType;
 use Grr\GrrBundle\Room\Manager\RoomManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,14 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RoomController extends AbstractController
 {
-    /**
-     * @var RoomFactory
-     */
-    private $roomFactory;
-    /**
-     * @var RoomManager
-     */
-    private $roomManager;
+    private RoomFactory $roomFactory;
+    private RoomManager $roomManager;
 
     public function __construct(
         RoomFactory $roomFactory,
@@ -114,10 +109,10 @@ class RoomController extends AbstractController
      * @Route("/{id}", name="grr_admin_room_delete", methods={"DELETE"})
      * @IsGranted("grr.room.delete", subject="room")
      */
-    public function delete(Request $request, Room $room): Response
+    public function delete(Request $request, Room $room): RedirectResponse
     {
         $area = $room->getArea();
-        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $room->getId(), $request->request->get('_token'))) {
             $id = $room->getId();
             $this->roomManager->removeEntries($room);
             $this->roomManager->remove($room);

@@ -11,11 +11,11 @@
 namespace Grr\GrrBundle\Authorization\Form;
 
 use Doctrine\ORM\QueryBuilder;
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Area\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Room\Repository\RoomRepository;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,13 +25,10 @@ use Symfony\Component\Form\FormInterface;
 
 class AuthorizationUserType extends AbstractType
 {
-    /**
-     * @var UserRepository
-     */
-    public $userRepository;
+    public UserRepositoryInterface $userRepository;
 
     public function __construct(
-        \Grr\Core\Contrat\Repository\Security\UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository
     ) {
         $this->userRepository = $userRepository;
     }
@@ -56,9 +53,7 @@ class AuthorizationUserType extends AbstractType
             ];
 
             if (null !== $area) {
-                $options['query_builder'] = function (RoomRepository $roomRepository) use ($area): QueryBuilder {
-                    return $roomRepository->getRoomsByAreaQueryBuilder($area);
-                };
+                $options['query_builder'] = fn (RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
             } else {
                 $options['choices'] = [];
             }

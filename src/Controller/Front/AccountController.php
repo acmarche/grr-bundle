@@ -8,13 +8,13 @@ use Grr\Core\Password\Message\PasswordUpdated;
 use Grr\Core\Password\PasswordHelper;
 use Grr\Core\User\Message\UserDeleted;
 use Grr\Core\User\Message\UserUpdated;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Grr\GrrBundle\User\Form\UserFrontType;
 use Grr\GrrBundle\User\Form\UserPasswordType;
 use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,22 +25,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccountController extends AbstractController
 {
-    /**
-     * @var UserManager
-     */
-    private $userManager;
-    /**
-     * @var PasswordHelper
-     */
-    private $passwordHelper;
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
-    /**
-     * @var EmailPreferenceRepository
-     */
-    private $emailPreferenceRepository;
+    private UserManager $userManager;
+    private PasswordHelper $passwordHelper;
+    private AuthorizationRepositoryInterface $authorizationRepository;
+    private EmailPreferenceRepository $emailPreferenceRepository;
 
     public function __construct(
         UserManager $userManager,
@@ -136,10 +124,10 @@ class AccountController extends AbstractController
     /**
      * @Route("/delete", name="grr_user_account_delete", methods={"DELETE"})
      */
-    public function delete(Request $request): Response
+    public function delete(Request $request): RedirectResponse
     {
         $user = $this->getUser();
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $this->userManager->remove($user);
             $this->userManager->flush();
 

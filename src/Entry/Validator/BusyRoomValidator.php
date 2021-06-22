@@ -4,17 +4,13 @@ namespace Grr\GrrBundle\Entry\Validator;
 
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class BusyRoomValidator extends ConstraintValidator
 {
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
+    private EntryRepositoryInterface $entryRepository;
 
     public function __construct(EntryRepositoryInterface $entryRepository)
     {

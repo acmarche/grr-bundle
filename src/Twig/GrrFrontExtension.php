@@ -11,18 +11,9 @@ use Twig\TwigFunction;
 
 class GrrFrontExtension extends AbstractExtension
 {
-    /**
-     * @var FrontHelper
-     */
-    private $frontHelper;
-    /**
-     * @var DateSelectorRender
-     */
-    private $dateSelectorRender;
-    /**
-     * @var AreaSelector
-     */
-    private $areaSelector;
+    private FrontHelper $frontHelper;
+    private DateSelectorRender $dateSelectorRender;
+    private AreaSelector $areaSelector;
 
     public function __construct(
         FrontHelper $frontHelper,
@@ -35,20 +26,24 @@ class GrrFrontExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {
         return [
             new TwigFilter(
-                'grrPeriodicityTypeName', function (int $type) {
-                    return $this->frontHelper->periodicityTypeName($type);
-                }, [
+                'grrPeriodicityTypeName',
+                fn (int $type) => $this->frontHelper->periodicityTypeName($type),
+                [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFilter(
-                'grrBoolToArrow', [$this, 'grrBoolToArrow'], [
+                'grrBoolToArrow',
+                function (bool $value): string {
+                    return $this->grrBoolToArrow($value);
+                },
+                [
                     'is_safe' => ['html'],
                 ]
             ),
@@ -56,43 +51,42 @@ class GrrFrontExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'grrDateSelector', function (): string {
-                    return $this->dateSelectorRender->render();
-                }, [
+                'grrDateSelector',
+                fn (): string => $this->dateSelectorRender->render(),
+                [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'grrAreaSelector', function (): string {
-                    return $this->areaSelector->render();
-                }, [
+                'grrAreaSelector',
+                fn (): string => $this->areaSelector->render(),
+                [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'grrLegendTypeEntry', function (): string {
-                    return $this->frontHelper->legendTypeEntry();
-                }, [
+                'grrLegendTypeEntry',
+                fn (): string => $this->frontHelper->legendTypeEntry(),
+                [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'grrCompanyName', function (): string {
-                    return $this->frontHelper->companyName();
-                }
+                'grrCompanyName',
+                fn (): string => $this->frontHelper->companyName()
             ),
         ];
     }
 
     public function grrBoolToArrow(bool $value): string
     {
-        if (true === $value) {
+        if ($value) {
             return '<i class="fas fa-chevron-down"></i>';
         }
 

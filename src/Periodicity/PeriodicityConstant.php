@@ -4,12 +4,12 @@ namespace Grr\GrrBundle\Periodicity;
 
 class PeriodicityConstant
 {
-    const NONE = 0;
-    const EVERY_DAY = 1;
-    const EVERY_WEEK = 2;
-    const EVERY_YEAR = 4;
-    const EVERY_MONTH_SAME_DAY = 3;
-    const EVERY_MONTH_SAME_WEEK_DAY = 5;
+    public const NONE = 0;
+    public const EVERY_DAY = 1;
+    public const EVERY_WEEK = 2;
+    public const EVERY_YEAR = 4;
+    public const EVERY_MONTH_SAME_DAY = 3;
+    public const EVERY_MONTH_SAME_WEEK_DAY = 5;
 
     /**
      * clef de type rep_type_0,rep_type_1,...

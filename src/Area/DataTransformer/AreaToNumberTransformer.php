@@ -2,19 +2,16 @@
 
 namespace Grr\GrrBundle\Area\DataTransformer;
 
-use Grr\GrrBundle\Area\Repository\AreaRepository;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class AreaToNumberTransformer implements DataTransformerInterface
 {
-    /**
-     * @var AreaRepository
-     */
-    private $areaRepository;
+    private AreaRepositoryInterface $areaRepository;
 
-    public function __construct(\Grr\Core\Contrat\Repository\AreaRepositoryInterface $areaRepository)
+    public function __construct(AreaRepositoryInterface $areaRepository)
     {
         $this->areaRepository = $areaRepository;
     }

@@ -10,6 +10,8 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use DateTime;
+use Exception;
 use Grr\Core\Contrat\Front\ViewInterface;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\I18n\LocalHelper;
@@ -20,18 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @var RessourceSelectedHelper
-     */
-    private $ressourceSelectedHelper;
-    /**
-     * @var LocalHelper
-     */
-    private $localHelper;
-    /**
-     * @var AreaRepositoryInterface
-     */
-    private $areaRepository;
+    private RessourceSelectedHelper $ressourceSelectedHelper;
+    private LocalHelper $localHelper;
+    private AreaRepositoryInterface $areaRepository;
 
     public function __construct(
         RessourceSelectedHelper $ressourceSelectedHelper,
@@ -45,7 +38,6 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
-     *
      */
     #[Route(path: '/path', name: 'action')]
     public function redirectToScheduler(): Response
@@ -54,12 +46,12 @@ class HomeController extends AbstractController
 
         try {
             $area = $this->ressourceSelectedHelper->getArea();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new Response($e->getMessage());
         }
 
         $room = $this->ressourceSelectedHelper->getRoom();
-        $today = new \DateTime();
+        $today = new DateTime();
 
         $params = [
             '_locale' => $defaultLocal,
@@ -81,7 +73,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/vuejs", name="vuejs")
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render(
             '@Grr/vuejs/index.html.twig',

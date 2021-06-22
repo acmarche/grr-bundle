@@ -27,18 +27,9 @@ class LdapAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
-    /**
-     * @var CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
+    private EntityManagerInterface $entityManager;
+    private UrlGeneratorInterface $urlGenerator;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(
         EntityManagerInterface $entityManager,

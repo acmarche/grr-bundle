@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\Tests\Security;
 
 use DateTime;
+use Exception;
 use Grr\Core\Tests\BaseTesting;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
@@ -12,7 +13,7 @@ class AccessEntryControllerTest extends BaseTesting
     /**
      * @dataProvider provideCases
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function testArea(string $action, string $entryName, array $datas): void
     {
@@ -28,19 +29,19 @@ class AccessEntryControllerTest extends BaseTesting
                 $today = new DateTime();
                 $esquare = $this->getArea('Esquare');
                 $room = $this->getRoom('Box');
-                $url = '/fr/front/entry/new/area/'.$esquare->getId().'/room/'.$room->getId(
-                    ).'/year/'.$today->format(
+                $url = '/fr/front/entry/new/area/' . $esquare->getId() . '/room/' . $room->getId(
+                    ) . '/year/' . $today->format(
                         'Y'
-                    ).'/month/'.$today->format('m').'/day/'.$today->format('d').'/hour/9/minute/30';
+                    ) . '/month/' . $today->format('m') . '/day/' . $today->format('d') . '/hour/9/minute/30';
                 break;
             case 'show':
-                $url = '/fr/front/entry/'.$entry->getId();
+                $url = '/fr/front/entry/' . $entry->getId();
                 break;
             case 'edit':
-                $url = '/fr/front/entry/'.$entry->getId().'/edit';
+                $url = '/fr/front/entry/' . $entry->getId() . '/edit';
                 break;
             case 'delete':
-                $url = '/fr/front/entry/'.$entry->getId();
+                $url = '/fr/front/entry/' . $entry->getId();
                 $method = 'DELETE';
                 break;
             default:
@@ -51,9 +52,9 @@ class AccessEntryControllerTest extends BaseTesting
         foreach ($datas as $data) {
             $email = $data[1];
             $code = $data[0];
-            $client = !$email ? $this->createAnonymousClient() : $this->createGrrClient($email);
+            $client = $email ? $this->createGrrClient($email) : $this->createAnonymousClient();
             $client->request($method, $url, ['_token' => $token]);
-            self::assertResponseStatusCodeSame($code, $email.' '.$url);
+            self::assertResponseStatusCodeSame($code, $email . ' ' . $url);
         }
     }
 
@@ -188,12 +189,12 @@ class AccessEntryControllerTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'user.yaml',
-                $this->pathFixtures.'authorization.yaml',
-                $this->pathFixtures.'entry_type.yaml',
-                $this->pathFixtures.'entry.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'user.yaml',
+                $this->pathFixtures . 'authorization.yaml',
+                $this->pathFixtures . 'entry_type.yaml',
+                $this->pathFixtures . 'entry.yaml',
             ];
 
         $this->loader->load($files);

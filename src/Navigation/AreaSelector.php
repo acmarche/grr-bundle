@@ -6,25 +6,16 @@ use Grr\GrrBundle\Area\Form\AreaMenuSelectType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class AreaSelector
 {
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-    /**
-     * @var RessourceSelectedHelper
-     */
-    private $ressourceSelectedHelper;
-    /**
-     * @var MenuSelectFactory
-     */
-    private $menuSelectFactory;
-    /**
-     * @var Environment
-     */
-    private $environment;
+    private FormFactoryInterface $formFactory;
+    private RessourceSelectedHelper $ressourceSelectedHelper;
+    private MenuSelectFactory $menuSelectFactory;
+    private Environment $environment;
 
     public function __construct(
         MenuSelectFactory $menuSelectFactory,
@@ -39,9 +30,9 @@ class AreaSelector
     }
 
     /**
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function render(): string
     {

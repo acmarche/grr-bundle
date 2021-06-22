@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Notifier\Channel\BrowserChannel;
 use Symfony\Component\Notifier\Channel\ChannelInterface;
 use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 /**
@@ -17,7 +16,7 @@ use Symfony\Component\Notifier\Recipient\RecipientInterface;
  */
 final class BrowserGrrChannel implements ChannelInterface
 {
-    private $stack;
+    private RequestStack $stack;
 
     public function __construct(RequestStack $stack)
     {
@@ -31,8 +30,8 @@ final class BrowserGrrChannel implements ChannelInterface
         }
 
         $message = $notification->getSubject();
-        if ($notification->getEmoji()) {
-            $message = $notification->getEmoji().' '.$message;
+        if ($notification->getEmoji() !== '') {
+            $message = $notification->getEmoji() . ' ' . $message;
         }
 
         $type = $notification->getType() ?? 'success';

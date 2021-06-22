@@ -15,15 +15,15 @@ use Symfony\Component\Notifier\Recipient\RecipientInterface;
  */
 class EntryEmailNotification extends Notification implements EmailNotificationInterface
 {
-    private $entry;
-    private $sujet;
+    private EntryInterface $entry;
+    private string $sujet;
 
     public function __construct(string $sujet, EntryInterface $entry)
     {
         $this->entry = $entry;
         $this->sujet = $sujet;
 
-        parent::__construct($sujet.$entry->getName());
+        parent::__construct($sujet . $entry->getName());
     }
 
     /**

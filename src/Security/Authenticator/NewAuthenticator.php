@@ -2,11 +2,7 @@
 
 namespace Grr\GrrBundle\Security\Authenticator;
 
-use function gettype;
 use Grr\GrrBundle\User\Repository\UserRepository;
-use function is_object;
-use function is_string;
-use function strlen;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +26,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use function gettype;
+use function is_object;
+use function is_string;
+use function strlen;
 
 /**
  * @see FormLoginAuthenticator
@@ -38,8 +38,8 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    private $httpUtils;
-    private $userRepository;
+    private HttpUtils $httpUtils;
+    private UserRepository $userRepository;
 
     public function __construct(
         HttpUtils $httpUtils,
@@ -114,9 +114,9 @@ class NewAuthenticator extends AbstractLoginFormAuthenticator
         ];
 
         if (!is_string($credentials['username']) && (!is_object($credentials['username']) || !method_exists(
-                    $credentials['username'],
-                    '__toString'
-                ))) {
+            $credentials['username'],
+            '__toString'
+        ))) {
             throw new BadRequestHttpException(sprintf('The key "%s" must be a string, "%s" given.', 'username', gettype($credentials['username'])));
         }
 

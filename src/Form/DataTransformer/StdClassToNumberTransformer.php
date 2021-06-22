@@ -14,7 +14,7 @@ class StdClassToNumberTransformer implements DataTransformerInterface
      *
      * @param int|null $value
      *
-     * @return string|\stdClass
+     * @return string|stdClass
      */
     public function transform($value)
     {
@@ -48,7 +48,7 @@ class StdClassToNumberTransformer implements DataTransformerInterface
      * By convention, reverseTransform() should return NULL if an empty string
      * is passed.
      *
-     * @param \stdClass $value The value in the transformed representation
+     * @param stdClass $value The value in the transformed representation
      *
      * @throws TransformationFailedException when the transformation fails
      *

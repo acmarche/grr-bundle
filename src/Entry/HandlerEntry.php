@@ -7,27 +7,14 @@ use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entry\Manager\EntryManager;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 
 class HandlerEntry
 {
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
-    /**
-     * @var EntryManager
-     */
-    private $entryManager;
-    /**
-     * @var HandlerPeriodicity
-     */
-    private $handlerPeriodicity;
-    /**
-     * @var PropertyUtil
-     */
-    private $propertyUtil;
+    private EntryRepositoryInterface $entryRepository;
+    private EntryManager $entryManager;
+    private HandlerPeriodicity $handlerPeriodicity;
+    private PropertyUtil $propertyUtil;
 
     public function __construct(
         EntryRepositoryInterface $entryRepository,

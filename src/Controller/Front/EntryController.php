@@ -3,6 +3,8 @@
 namespace Grr\GrrBundle\Controller\Front;
 
 use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Message\EntryCreated;
 use Grr\Core\Entry\Message\EntryDeleted;
@@ -17,10 +19,10 @@ use Grr\GrrBundle\Entry\Form\EntryType;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,26 +33,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class EntryController extends AbstractController
 {
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
-    /**
-     * @var EntryFactory
-     */
-    private $entryFactory;
-    /**
-     * @var HandlerEntry
-     */
-    private $handlerEntry;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-    /**
-     * @var FrontRouterHelper
-     */
-    private $frontRouterHelper;
+    private EntryRepositoryInterface $entryRepository;
+    private EntryFactory $entryFactory;
+    private HandlerEntry $handlerEntry;
+    private EventDispatcherInterface $eventDispatcher;
+    private FrontRouterHelper $frontRouterHelper;
 
     public function __construct(
         EntryFactory $entryFactory,
@@ -97,12 +84,13 @@ class EntryController extends AbstractController
      * @Entity("room", expr="repository.find(room)")
      *
      * @IsGranted("grr.addEntry", subject="room")
+     * @param DateTime|DateTimeImmutable $date
      */
     public function new(
         Request $request,
         Area $area,
         Room $room,
-        DateTime $date,
+        DateTimeInterface $date,
         int $hour,
         int $minute
     ): Response {
@@ -195,9 +183,9 @@ class EntryController extends AbstractController
      * @Route("/{id}", name="grr_front_entry_delete", methods={"DELETE"})
      * @IsGranted("grr.entry.delete", subject="entry")
      */
-    public function delete(Request $request, Entry $entry): Response
+    public function delete(Request $request, Entry $entry): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $entry->getId(), $request->request->get('_token'))) {
             $this->dispatchMessage(new EntryDeleted($entry->getId()));
             $this->handlerEntry->handleDeleteEntry($entry);
         }

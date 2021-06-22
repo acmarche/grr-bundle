@@ -10,9 +10,9 @@ class ModuleSender implements GrrModuleSenderInterface
     /**
      * @var GrrModuleInterface[]
      */
-    public $modules = [];
+    public array $modules = [];
 
-    public function construct(iterable $modules)
+    public function construct(iterable $modules): void
     {
         /*
          * pour dans services.php

@@ -6,7 +6,6 @@ use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Form\AuthorizationUserType;
 use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Security\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,14 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AuthorizationUserController extends AbstractController
 {
-    /**
-     * @var HandlerAuthorization
-     */
-    private $handlerAuthorization;
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
+    private HandlerAuthorization $handlerAuthorization;
+    private AuthorizationRepositoryInterface $authorizationRepository;
 
     public function __construct(
         HandlerAuthorization $handlerAuthorization,

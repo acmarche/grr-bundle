@@ -15,26 +15,11 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 
 class EntryUpdatedHandler implements MessageHandlerInterface
 {
-    /**
-     * @var NotifierInterface
-     */
-    private $notifier;
-    /**
-     * @var EntryRepository
-     */
-    private $entryRepository;
-    /**
-     * @var AuthorizationHelper
-     */
-    private $authorizationHelper;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-    /**
-     * @var EmailPreferenceRepository
-     */
-    private $emailPreferenceRepository;
+    private NotifierInterface $notifier;
+    private EntryRepository $entryRepository;
+    private AuthorizationHelper $authorizationHelper;
+    private UserRepository $userRepository;
+    private EmailPreferenceRepository $emailPreferenceRepository;
 
     public function __construct(
         NotifierInterface $notifier,
@@ -73,9 +58,7 @@ class EntryUpdatedHandler implements MessageHandlerInterface
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            function ($authorization) {
-                return $authorization->getUser();
-            },
+            fn ($authorization) => $authorization->getUser(),
             $authorizations
         );
 
@@ -85,10 +68,8 @@ class EntryUpdatedHandler implements MessageHandlerInterface
 
         foreach ($users as $user) {
             $preference = $this->emailPreferenceRepository->findOneByUser($user);
-            if ($preference && true === $preference->getOnUpdated()) {
-                if (!in_array($user->getEmail(), $emails)) {
-                    $emails[] = $user->getEmail();
-                }
+            if ($preference && true === $preference->getOnUpdated() && !in_array($user->getEmail(), $emails)) {
+                $emails[] = $user->getEmail();
             }
         }
 
@@ -111,7 +92,7 @@ class EntryUpdatedHandler implements MessageHandlerInterface
         if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
             $notification = new EntryEmailNotification('Une réservation a été modifiée pour vous : ', $entry);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
-            if ($user) {
+            if ($user !== null) {
                 $recipient = new Recipient(
                     $user->getEmail()
                 );

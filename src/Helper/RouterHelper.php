@@ -10,20 +10,16 @@
 
 namespace Grr\GrrBundle\Helper;
 
+use DateTime;
+use DateTimeInterface;
 use Grr\Core\Contrat\Front\ViewInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
 class RouterHelper
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private RequestStack $requestStack;
+    private RouterInterface $router;
 
     public function __construct(
         RequestStack $requestStack,
@@ -33,7 +29,7 @@ class RouterHelper
         $this->router = $router;
     }
 
-    public function generateRouteView(?\DateTimeInterface $dateSelected = null, ?string $viewSelected = null): string
+    public function generateRouteView(?DateTimeInterface $dateSelected = null, ?string $viewSelected = null): string
     {
         $request = $this->requestStack->getMasterRequest();
         if (null === $request) {
@@ -45,8 +41,8 @@ class RouterHelper
         $area = $attributes['area'] ?? 0;
         $room = $attributes['room'] ?? 0;
 
-        if (!$dateSelected) {
-            $dateSelected = new \DateTime();
+        if ($dateSelected === null) {
+            $dateSelected = new DateTime();
         }
 
         if (!$viewSelected) {
@@ -65,7 +61,7 @@ class RouterHelper
     public function generateRouteAddEntry(
         int $area,
         int $room,
-        \DateTimeInterface $dateSelected,
+        DateTimeInterface $dateSelected,
         ?int $hour,
         ?int $minute
     ): string {
@@ -74,8 +70,8 @@ class RouterHelper
             return '';
         }
 
-        $hour = $hour ?? 0;
-        $minute = $minute ?? 0;
+        $hour ??= 0;
+        $minute ??= 0;
 
         $params = [
             'area' => $area,

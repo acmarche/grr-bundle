@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Entry\Factory;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use DateTimeInterface;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
@@ -12,10 +13,7 @@ use Grr\GrrBundle\Periodicity\Factory\PeriodicityFactory;
 
 class EntryFactory
 {
-    /**
-     * @var PeriodicityFactory
-     */
-    private $periodicityFactory;
+    private PeriodicityFactory $periodicityFactory;
 
     public function __construct(PeriodicityFactory $periodicityFactory)
     {
@@ -50,7 +48,7 @@ class EntryFactory
     public function initEntryForNew(
         Area $area,
         Room $room,
-        \DateTimeInterface $date,
+        DateTimeInterface $date,
         int $hour,
         int $minute
     ): Entry {

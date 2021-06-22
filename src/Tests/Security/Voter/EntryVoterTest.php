@@ -179,7 +179,9 @@ class EntryVoterTest extends BaseTesting
 
         if (null !== $user) {
             return new UsernamePasswordToken(
-                $user, 'homer', 'app_user_provider'
+                $user,
+                'homer',
+                'app_user_provider'
             );
         }
 
@@ -190,12 +192,12 @@ class EntryVoterTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'user.yaml',
-                $this->pathFixtures.'authorization.yaml',
-                $this->pathFixtures.'entry_type.yaml',
-                $this->pathFixtures.'entry.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'user.yaml',
+                $this->pathFixtures . 'authorization.yaml',
+                $this->pathFixtures . 'entry_type.yaml',
+                $this->pathFixtures . 'entry.yaml',
             ];
 
         $this->loader->load($files);

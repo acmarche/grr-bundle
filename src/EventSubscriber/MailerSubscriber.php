@@ -79,7 +79,7 @@ class MailerSubscriber
         try {
             $this->mailer->send($message);
         } catch (TransportExceptionInterface $e) {
-            $this->flashBag->add('error', 'flash.mail.error '.$e->getMessage());
+            $this->flashBag->add('error', 'flash.mail.error ' . $e->getMessage());
         }
     }
 

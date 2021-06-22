@@ -41,11 +41,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         );
 
     $services
-        ->load('Grr\GrrBundle\\', __DIR__.'/../src/*')
-        ->exclude([__DIR__.'/../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
+        ->load('Grr\GrrBundle\\', __DIR__ . '/../src/*')
+        ->exclude([__DIR__ . '/../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
 
-    $services->load('Grr\Core\\', __DIR__.'/../../Core')
-        ->exclude([__DIR__.'/../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
+    $services->load('Grr\Core\\', __DIR__ . '/../../Core')
+        ->exclude([__DIR__ . '/../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
 
     /*   $services->set(ModuleSender::class)
            ->arg('$modules', tagged_iterator('grr.module'));*/

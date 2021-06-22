@@ -3,24 +3,18 @@
 namespace Grr\GrrBundle\Periodicity;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateTime;
 use DateTimeInterface;
+use Exception;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Periodicity;
 
 class PeriodicityDaysProvider
 {
-    /**
-     * @var CarbonInterface
-     */
-    private $periodicity_end;
-    /**
-     * @var CarbonInterface
-     */
-    private $entry_start;
+    private ?Carbon $periodicity_end = null;
+    private ?Carbon $entry_start = null;
 
     /**
      * @return array|CarbonPeriod
@@ -37,7 +31,7 @@ class PeriodicityDaysProvider
     }
 
     /**
-     * @return \Carbon\CarbonPeriod|mixed[]
+     * @return CarbonPeriod|mixed[]
      */
     public function getDaysByPeriodicity(
         Periodicity $periodicity,
@@ -100,9 +94,7 @@ class PeriodicityDaysProvider
             $this->periodicity_end->toDateString()
         );
 
-        $filter = function ($date): bool {
-            return $date->day === $this->entry_start->day;
-        };
+        $filter = fn ($date): bool => $date->day === $this->entry_start->day;
 
         return $this->applyFilter($carbonPeriod, $filter);
     }
@@ -116,9 +108,7 @@ class PeriodicityDaysProvider
             $this->periodicity_end->toDateString()
         );
 
-        $filter = function ($date): bool {
-            return $date->dayOfWeek === $this->entry_start->dayOfWeek && $date->weekOfMonth === $this->entry_start->weekOfMonth;
-        };
+        $filter = fn ($date): bool => $date->dayOfWeek === $this->entry_start->dayOfWeek && $date->weekOfMonth === $this->entry_start->weekOfMonth;
 
         return $this->applyFilter($period, $filter);
     }
@@ -147,9 +137,7 @@ class PeriodicityDaysProvider
          *
          * @return bool
          */
-        $filterDayOfWeek = function ($date) use ($days): bool {
-            return in_array($date->dayOfWeekIso, $days, true);
-        };
+        $filterDayOfWeek = fn ($date): bool => in_array($date->dayOfWeekIso, $days, true);
 
         /**
          * Carbon::class
@@ -167,9 +155,7 @@ class PeriodicityDaysProvider
          *
          * @return bool
          */
-        $filterWeek = function ($date) use ($repeat_week): bool {
-            return 0 === $date->weekOfYear % $repeat_week;
-        };
+        $filterWeek = fn ($date): bool => 0 === $date->weekOfYear % $repeat_week;
 
         $period->excludeStartDate();
         $period->addFilter($filterDayOfWeek);
@@ -182,7 +168,7 @@ class PeriodicityDaysProvider
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      *
      * @todo replace for every week
      * https://stackoverflow.com/questions/57479939/php-carbon-every-monday-and-tuesday-every-2-weeks/57506714#57506714

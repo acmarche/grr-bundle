@@ -3,6 +3,8 @@
 namespace Grr\GrrBundle\Tests\Periodicity;
 
 use DateTime;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Entity\Entry;
@@ -13,22 +15,10 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 
 class PeriodicityFactoryTest extends BaseTesting
 {
-    /**
-     * @var EntryFactory
-     */
-    private $entryFactory;
-    /**
-     * @var AreaFactory
-     */
-    private $areaFactory;
-    /**
-     * @var RoomFactory
-     */
-    private $roomFactory;
-    /**
-     * @var PeriodicityFactory
-     */
-    private $periodicityFactory;
+    private EntryFactory $entryFactory;
+    private AreaFactory $areaFactory;
+    private RoomFactory $roomFactory;
+    private PeriodicityFactory $periodicityFactory;
 
     protected function setUp(): void
     {
@@ -43,8 +33,8 @@ class PeriodicityFactoryTest extends BaseTesting
     /**
      * @dataProvider getData
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function testNew(
         int $year,
@@ -58,7 +48,7 @@ class PeriodicityFactoryTest extends BaseTesting
         $area = $this->getArea('Esquare');
         $room = $this->getRoom('Box');
 
-        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day, $hour, $minute);
+        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day);
         $entry->setName('Test');
         $entry->setCreatedBy('Test');
 
@@ -85,10 +75,10 @@ class PeriodicityFactoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'user.yaml',
-                $this->pathFixtures.'authorization.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'user.yaml',
+                $this->pathFixtures . 'authorization.yaml',
             ];
 
         $this->loader->load($files);

@@ -3,30 +3,24 @@
 namespace Grr\GrrBundle\Navigation;
 
 use Carbon\Carbon;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Provider\DateProvider;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class DateSelectorRender
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-    /**
-     * @var Environment
-     */
-    private $twigEnvironment;
-    /**
-     * @var DateProvider
-     */
-    private $dateProvider;
-    /**
-     * @var CarbonFactory
-     */
-    private $carbonFactory;
+    private RequestStack $requestStack;
+    private Environment $twigEnvironment;
+    private DateProvider $dateProvider;
+    private CarbonFactory $carbonFactory;
 
     public function __construct(
         RequestStack $requestStack,
@@ -41,11 +35,11 @@ class DateSelectorRender
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|string
+     * @return Response|string
      *
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     * @throws \Twig\Error\LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
      */
     public function render()
     {
@@ -55,12 +49,15 @@ class DateSelectorRender
             return new Response('');
         }
 
-        $dateSelected = $request->get('date') ?? new \DateTime();
+        $dateSelected = $request->get('date') ?? new DateTime();
 
         return $this->renderMonthByWeeks($dateSelected);
     }
 
-    private function renderMonthByWeeks(\DateTime $dateSelected): string
+    /**
+     * @param DateTime|DateTimeImmutable $dateSelected
+     */
+    private function renderMonthByWeeks(DateTimeInterface $dateSelected): string
     {
         $today = Carbon::today();
         $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);

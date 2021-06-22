@@ -12,16 +12,11 @@ use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\SettingConstants;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
-use Grr\GrrBundle\Area\Repository\AreaRepository;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Room\Factory\RoomFactory;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
 use Grr\GrrBundle\Setting\Factory\SettingFactory;
-use Grr\GrrBundle\Setting\Repository\SettingRepository;
-use Grr\GrrBundle\TypeEntry\Repository\TypeEntryRepository;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Grr\GrrBundle\User\Factory\UserFactory;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -36,58 +31,19 @@ class InstallDataCommand extends Command
      * @var string
      */
     protected static $defaultName = 'grr:install-data';
-    /**
-     * @var TypeEntryRepository
-     */
-    private $typeEntryRepository;
-    /**
-     * @var TypeEntryFactory
-     */
-    private $typeEntryFactory;
-    /**
-     * @var AreaRepository
-     */
-    private $areaRepository;
-    /**
-     * @var AreaFactory
-     */
-    private $areaFactory;
-    /**
-     * @var RoomFactory
-     */
-    private $roomFactory;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
-    /**
-     * @var UserFactory
-     */
-    private $userFactory;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $userPasswordEncoder;
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
-     * @var SettingFactory
-     */
-    private $settingFactory;
-    /**
-     * @var SettingRepository
-     */
-    private $settingRepository;
+    private TypeEntryRepositoryInterface $typeEntryRepository;
+    private TypeEntryFactory $typeEntryFactory;
+    private AreaRepositoryInterface $areaRepository;
+    private AreaFactory $areaFactory;
+    private RoomFactory $roomFactory;
+    private RoomRepositoryInterface $roomRepository;
+    private UserRepositoryInterface $userRepository;
+    private UserFactory $userFactory;
+    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private EntityManagerInterface $entityManager;
+    private ?SymfonyStyle $symfonyStyle = null;
+    private SettingFactory $settingFactory;
+    private SettingRepositoryInterface $settingRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,

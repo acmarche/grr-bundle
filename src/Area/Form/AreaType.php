@@ -14,10 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AreaType extends AbstractType
 {
-    /**
-     * @var DateProvider
-     */
-    private $dateProvider;
+    private DateProvider $dateProvider;
 
     public function __construct(DateProvider $dateProvider)
     {

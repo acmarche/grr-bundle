@@ -14,9 +14,9 @@ use Grr\GrrBundle\User\Form\UserAdvanceType;
 use Grr\GrrBundle\User\Form\UserNewType;
 use Grr\GrrBundle\User\Form\UserRoleType;
 use Grr\GrrBundle\User\Manager\UserManager;
-use Grr\GrrBundle\User\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,23 +27,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
-    /**
-     * @var UserManager
-     */
-    private $userManager;
-    /**
-     * @var UserFactory
-     */
-    private $userFactory;
-    /**
-     * @var PasswordHelper
-     */
-    private $passwordHelper;
+    private UserManager $userManager;
+    private UserFactory $userFactory;
+    private PasswordHelper $passwordHelper;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
@@ -153,7 +141,7 @@ class UserController extends AbstractController
     /**
      * Displays a form to edit an existing User utilisateur.
      *
-     * @Route("/{id}/roles", name="grr_admin_user_roles", methods={"GET","POST"})
+     * @Route("/{id}/roles", name="grr_admin_user_roles", methods={"GET", "POST"})
      */
     public function roles(Request $request, User $user): Response
     {
@@ -184,9 +172,9 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="grr_admin_user_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getEmail(), $request->request->get('_token'))) {
             $id = $user->getId();
             $this->userManager->remove($user);
             $this->userManager->flush();

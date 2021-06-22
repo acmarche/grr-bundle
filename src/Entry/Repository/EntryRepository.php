@@ -3,7 +3,9 @@
 namespace Grr\GrrBundle\Entry\Repository;
 
 use Carbon\CarbonInterface;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
@@ -31,7 +33,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
     /**
      * @return Entry[] Returns an array of Entry objects
      */
-    public function findForMonth(\DateTimeInterface $firstDayOfMonth, AreaInterface $area, RoomInterface $room = null): array
+    public function findForMonth(DateTimeInterface $firstDayOfMonth, AreaInterface $area, RoomInterface $room = null): array
     {
         $qb = $this->createQueryBuilder('entry');
         $endDayOfMonth = clone $firstDayOfMonth;
@@ -125,7 +127,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
 
         if ($name) {
             $queryBuilder->andWhere('entry.name LIKE :name')
-                ->setParameter('name', '%'.$name.'%');
+                ->setParameter('name', '%' . $name . '%');
         }
 
         if ($area instanceof Area) {
@@ -204,7 +206,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      *
      * @return mixed
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity)
     {

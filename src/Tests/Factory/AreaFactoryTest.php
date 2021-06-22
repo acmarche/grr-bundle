@@ -8,10 +8,7 @@ use Grr\GrrBundle\Entity\Area;
 
 class AreaFactoryTest extends BaseTesting
 {
-    /**
-     * @var AreaFactory
-     */
-    private $areaFactory;
+    private AreaFactory $areaFactory;
 
     protected function setUp(): void
     {

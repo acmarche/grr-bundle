@@ -115,14 +115,14 @@ class EntryRepositoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures.'area.yaml',
-                $this->pathFixtures.'room.yaml',
-                $this->pathFixtures.'entry_type.yaml',
-                $this->pathFixtures.'entry.yaml',
+                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures . 'room.yaml',
+                $this->pathFixtures . 'entry_type.yaml',
+                $this->pathFixtures . 'entry.yaml',
             ];
 
         if ($withBusy) {
-            $files[] = $this->pathFixtures.'entry_busy.yaml';
+            $files[] = $this->pathFixtures . 'entry_busy.yaml';
         }
 
         $this->loader->load($files);
