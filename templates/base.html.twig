@@ -22,7 +22,9 @@
             <span class="ms-2 fs-4">Réservation</span>
         </a>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% include '@Grr/security/_menu_user.html.twig' %}
+            {% block menu_top %}
+                {% include '@Grr/security/_menu_user.html.twig' %}
+            {% endblock %}
         {% else %}
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -58,7 +60,7 @@
 
 <script>
     /** todo
-    $(function () {
+     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })**/
 </script>
