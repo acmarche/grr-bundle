@@ -23,7 +23,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class InstallDataCommand extends Command
 {
@@ -39,7 +39,7 @@ class InstallDataCommand extends Command
     private RoomRepositoryInterface $roomRepository;
     private UserRepositoryInterface $userRepository;
     private UserFactory $userFactory;
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private UserPasswordHasherInterface $userPasswordEncoder;
     private EntityManagerInterface $entityManager;
     private ?SymfonyStyle $symfonyStyle = null;
     private SettingFactory $settingFactory;
@@ -57,7 +57,7 @@ class InstallDataCommand extends Command
         AreaFactory $areaFactory,
         RoomFactory $roomFactory,
         UserFactory $userFactory,
-        UserPasswordEncoderInterface $userPasswordEncoder
+        UserPasswordHasherInterface $userPasswordEncoder
     ) {
         parent::__construct();
         $this->typeEntryRepository = $typeEntryRepository;
@@ -209,7 +209,7 @@ class InstallDataCommand extends Command
         $user->setFirstName('Grr');
         $user->setEmail($email);
         $user->setUsername($email);
-        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $password));
+        $user->setPassword($this->userPasswordEncoder->hashPassword($user, $password));
         $user->addRole($roleGrrAdministrator);
 
         $this->entityManager->persist($user);
