@@ -1,11 +1,4 @@
-body {
-    padding-top: 4rem;
-}
 
-label.required:after {
-    content: " *";
-    color: red;
-}
 
 .alert-notification {
     color: #155724;
