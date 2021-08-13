@@ -27,42 +27,34 @@
 
         </div>
 
-        <form class="form-signin" method="post" action="{{ path('app_login') }}">
-            <img class="mb-4 img-fluid" title="Grr" src="{{ asset('bundles/grr/images/totem_grr.png') }}" alt="logo" width="72">
-            <h1 class="h3 mb-3 font-weight-normal">{{ 'login.title'|trans() }}</h1>
+        <main class="form-signin">
+
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             {% endif %}
-            <label for="inputEmail"
-                   class="sr-only">{{ 'login.username'|trans() }}</label>
-            <input type="text" name="username" value="{{ last_username }}" id="inputEmail" class="form-control"
-                   placeholder="{{ 'placeholder.login.username'|trans }}" required autofocus>
-            <label for="inputPassword"
-                   class="sr-only">{{ 'login.password'|trans() }}</label>
-            <input name="password" type="password" id="inputPassword" class="form-control mt-2"
-                   placeholder="{{ 'placeholder.login.password'|trans() }}" required>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox"
-                           value="remember-me"> {{ 'login.remember_me'|trans() }}
-                </label>
-            </div>
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
-            <button class="btn btn-lg btn-primary btn-block"
-                    type="submit"><i class="fas fa-sign-in-alt"></i> {{ 'label.btn.login'|trans() }}</button>
-        </form>
+
+            <form method="post" action="{{ path('app_login') }}">
+                <img class="mb-4" src="{{ asset('bundles/grr/images/totem_grr.png') }}"
+                     alt="Adl" width="90"                     >
+                <h1 class="h3 mb-3 fw-normal">Authentifiez-vous</h1>
+
+                <div class="form-floating">
+                    <input type="text" value="{{ last_username }}" name="username" class="form-control"
+                           id="floatingInput" placeholder="jdupont" autofocus>
+                    <label for="floatingInput">{{ 'login.username'|trans() }}</label>
+                </div>
+                <div class="form-floating mt-3">
+                    <input type="password" name="password" class="form-control" id="floatingPassword"
+                           placeholder="Mot de passe">
+                    <label for="floatingPassword">{{ 'login.password'|trans() }}</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">{{ 'label.btn.login'|trans() }}</button>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            </form>
+
+        </main>
     </div>
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
 {% endblock %}

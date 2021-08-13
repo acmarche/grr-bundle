@@ -3,7 +3,7 @@
 {% block title %}{{ type_entry.name }}{% endblock %}
 
 {% block body %}
-    <div class="card bg-light mb-3">
+    <div class="card mb-3">
         <div class="card-header">
             <h2>{{ type_entry.name }}</h2>
         </div>
@@ -33,6 +33,6 @@
             </table>
         </div>
     </div>
-    
+
     {{ include('@grr_admin/type_entry/_delete_form.html.twig') }}
 {% endblock %}
