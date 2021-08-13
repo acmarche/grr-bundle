@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Room;
 
 /**
@@ -17,6 +18,8 @@ use Grr\GrrBundle\Entity\Room;
  */
 class RoomRepository extends ServiceEntityRepository implements RoomRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, Room::class);

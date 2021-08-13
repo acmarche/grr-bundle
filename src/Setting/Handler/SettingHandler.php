@@ -15,24 +15,20 @@ use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Factory\SettingFactory;
-use Grr\GrrBundle\Setting\Manager\SettingManager;
 
 class SettingHandler
 {
     private SettingFactory $settingFactory;
     private SettingRepositoryInterface $settingRepository;
-    private SettingManager $settingManager;
     private SettingProvider $settingProvider;
 
     public function __construct(
         SettingFactory $settingFactory,
         SettingRepositoryInterface $settingRepository,
-        SettingManager $settingManager,
         SettingProvider $settingProvider
     ) {
         $this->settingFactory = $settingFactory;
         $this->settingRepository = $settingRepository;
-        $this->settingManager = $settingManager;
         $this->settingProvider = $settingProvider;
     }
 
@@ -48,7 +44,7 @@ class SettingHandler
             continue;
         }
 
-        $this->settingManager->flush();
+        $this->settingRepository->flush();
     }
 
     protected function handleNewSetting(string $name, $value): void
@@ -60,13 +56,13 @@ class SettingHandler
         $value = $this->handleValue($name, $value);
 
         $setting = $this->settingFactory->createNew($name, $value);
-        $this->settingManager->persist($setting);
+        $this->settingRepository->persist($setting);
     }
 
     protected function handleExistSetting(SettingEntity $setting, $value): void
     {
         if (null === $value) {
-            $this->settingManager->remove($setting);
+            $this->settingRepository->remove($setting);
 
             return;
         }

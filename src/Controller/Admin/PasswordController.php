@@ -2,11 +2,11 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Password\Message\PasswordUpdated;
 use Grr\Core\Password\PasswordHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\User\Form\UserPasswordType;
-use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,15 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PasswordController extends AbstractController
 {
-    private UserManager $userManager;
     private PasswordHelper $passwordHelper;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(
-        UserManager $userManager,
+        UserRepositoryInterface $userRepository,
         PasswordHelper $passwordHelper
     ) {
-        $this->userManager = $userManager;
+
         $this->passwordHelper = $passwordHelper;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -42,7 +43,7 @@ class PasswordController extends AbstractController
             $data = $form->getData();
             $password = $data->getPassword();
             $user->setPassword($this->passwordHelper->encodePassword($user, $password));
-            $this->userManager->flush();
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new PasswordUpdated($user->getId()));
 

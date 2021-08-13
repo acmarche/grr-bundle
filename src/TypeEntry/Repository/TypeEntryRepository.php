@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Repository\TypeEntryRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\TypeEntry;
 
 /**
@@ -16,6 +17,8 @@ use Grr\GrrBundle\Entity\TypeEntry;
  */
 class TypeEntryRepository extends ServiceEntityRepository implements TypeEntryRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, TypeEntry::class);

@@ -4,7 +4,6 @@ namespace Grr\GrrBundle\Controller\Admin;
 
 use Grr\Core\Authorization\Message\AuthorizationCreated;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
-use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
@@ -21,14 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthorizationController extends AbstractController
 {
     private AuthorizationRepositoryInterface $authorizationRepository;
-    private AuthorizationManager $authorizationManager;
 
     public function __construct(
-        AuthorizationManager $authorizationManager,
         AuthorizationRepositoryInterface $authorizationRepository
     ) {
         $this->authorizationRepository = $authorizationRepository;
-        $this->authorizationManager = $authorizationManager;
     }
 
     /**
@@ -55,8 +51,8 @@ class AuthorizationController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete' . $authorization->getId(), $token)) {
-            $this->authorizationManager->remove($authorization);
-            $this->authorizationManager->flush();
+            $this->authorizationRepository->remove($authorization);
+            $this->authorizationRepository->flush();
 
             $this->dispatchMessage(new AuthorizationCreated($room->getId()));
         } else {

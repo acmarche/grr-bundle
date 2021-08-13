@@ -5,7 +5,6 @@ namespace Grr\GrrBundle\Authorization\Handler;
 use Doctrine\Common\Collections\ArrayCollection;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Model\AuthorizationModel;
-use Grr\GrrBundle\Authorization\Manager\AuthorizationManager;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
@@ -17,7 +16,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HandlerAuthorization
 {
-    private AuthorizationManager $authorizationManager;
     private AuthorizationRepositoryInterface $authorizationRepository;
     private FlashBagInterface $flashBag;
     private TranslatorInterface $translator;
@@ -25,11 +23,9 @@ class HandlerAuthorization
 
     public function __construct(
         AuthorizationRepositoryInterface $authorizationRepository,
-        AuthorizationManager $authorizationManager,
         FlashBagInterface $flashBag,
         TranslatorInterface $translator
     ) {
-        $this->authorizationManager = $authorizationManager;
         $this->authorizationRepository = $authorizationRepository;
         $this->flashBag = $flashBag;
         $this->translator = $translator;
@@ -118,7 +114,8 @@ class HandlerAuthorization
                 );
             } else {
                 $copy->setRoom($room);
-                $this->authorizationManager->insert($copy);
+                $this->authorizationRepository->persist($copy);
+                $this->authorizationRepository->flush();
             }
         }
     }
@@ -139,7 +136,8 @@ class HandlerAuthorization
             );
         } else {
             $authorization->setArea($area);
-            $this->authorizationManager->insert($authorization);
+            $this->authorizationRepository->persist($authorization);
+            $this->authorizationRepository->flush();
         }
     }
 

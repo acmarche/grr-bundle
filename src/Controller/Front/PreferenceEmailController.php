@@ -5,7 +5,6 @@ namespace Grr\GrrBundle\Controller\Front;
 use Grr\Core\Preference\Message\PreferenceUpdated;
 use Grr\GrrBundle\Preference\Factory\PreferenceFactory;
 use Grr\GrrBundle\Preference\Form\EmailPreferenceType;
-use Grr\GrrBundle\Preference\Manager\PreferenceManager;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,18 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PreferenceEmailController extends AbstractController
 {
-    private EmailPreferenceRepository $emailPreferenceRepository;
     private PreferenceFactory $preferenceFactory;
-    private PreferenceManager $preferenceManager;
+    private EmailPreferenceRepository $emailPreferenceRepository;
 
     public function __construct(
         EmailPreferenceRepository $emailPreferenceRepository,
-        PreferenceFactory $preferenceFactory,
-        PreferenceManager $preferenceManager
+        PreferenceFactory $preferenceFactory
     ) {
-        $this->emailPreferenceRepository = $emailPreferenceRepository;
         $this->preferenceFactory = $preferenceFactory;
-        $this->preferenceManager = $preferenceManager;
+        $this->emailPreferenceRepository = $emailPreferenceRepository;
     }
 
     /**
@@ -44,8 +40,8 @@ class PreferenceEmailController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->preferenceManager->persist($preference);
-            $this->preferenceManager->flush();
+            $this->emailPreferenceRepository->persist($preference);
+            $this->emailPreferenceRepository->flush();
 
             $this->dispatchMessage(new PreferenceUpdated($preference->getId()));
 

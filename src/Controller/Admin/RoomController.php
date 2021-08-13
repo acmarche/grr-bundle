@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Room\Message\RoomCreated;
 use Grr\Core\Room\Message\RoomDeleted;
 use Grr\Core\Room\Message\RoomUpdated;
@@ -9,7 +10,6 @@ use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Room\Factory\RoomFactory;
 use Grr\GrrBundle\Room\Form\RoomType;
-use Grr\GrrBundle\Room\Manager\RoomManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,14 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoomController extends AbstractController
 {
     private RoomFactory $roomFactory;
-    private RoomManager $roomManager;
+    private RoomRepositoryInterface $roomRepository;
 
     public function __construct(
         RoomFactory $roomFactory,
-        RoomManager $roomManager
+        RoomRepositoryInterface $roomRepository
     ) {
         $this->roomFactory = $roomFactory;
-        $this->roomManager = $roomManager;
+        $this->roomRepository = $roomRepository;
     }
 
     /**
@@ -45,8 +45,8 @@ class RoomController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->roomManager->insert($room);
-
+            $this->roomRepository->persist($room);
+            $this->roomRepository->flush();
             $this->dispatchMessage(new RoomCreated($room->getId()));
 
             return $this->redirectToRoute('grr_admin_room_show', ['id' => $room->getId()]);
@@ -86,7 +86,7 @@ class RoomController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->roomManager->flush();
+            $this->roomRepository->flush();
 
             $this->dispatchMessage(new RoomUpdated($room->getId()));
 
@@ -112,11 +112,13 @@ class RoomController extends AbstractController
     public function delete(Request $request, Room $room): RedirectResponse
     {
         $area = $room->getArea();
-        if ($this->isCsrfTokenValid('delete' . $room->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
             $id = $room->getId();
-            $this->roomManager->removeEntries($room);
-            $this->roomManager->remove($room);
-            $this->roomManager->flush();
+            foreach ($room->getEntries() as $entry) {
+                $this->roomRepository->remove($entry);
+            }
+            $this->roomRepository->remove($room);
+            $this->roomRepository->flush();
 
             $this->dispatchMessage(new RoomDeleted($id));
         }

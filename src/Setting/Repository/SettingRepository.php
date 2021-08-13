@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Setting\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\SettingEntity;
 
 /**
@@ -15,6 +16,8 @@ use Grr\GrrBundle\Entity\SettingEntity;
  */
 class SettingRepository extends ServiceEntityRepository implements SettingRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, SettingEntity::class);

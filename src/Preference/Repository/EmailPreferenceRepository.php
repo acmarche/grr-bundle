@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Preference\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Preference\EmailPreference;
 
 /**
@@ -15,6 +16,8 @@ use Grr\GrrBundle\Entity\Preference\EmailPreference;
  */
 class EmailPreferenceRepository extends ServiceEntityRepository
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, EmailPreference::class);

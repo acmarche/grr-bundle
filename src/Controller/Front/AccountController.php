@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Controller\Front;
 
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
+use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Password\Message\PasswordUpdated;
 use Grr\Core\Password\PasswordHelper;
 use Grr\Core\User\Message\UserDeleted;
@@ -11,7 +12,6 @@ use Grr\Core\User\Message\UserUpdated;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Grr\GrrBundle\User\Form\UserFrontType;
 use Grr\GrrBundle\User\Form\UserPasswordType;
-use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,21 +25,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AccountController extends AbstractController
 {
-    private UserManager $userManager;
     private PasswordHelper $passwordHelper;
     private AuthorizationRepositoryInterface $authorizationRepository;
     private EmailPreferenceRepository $emailPreferenceRepository;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(
-        UserManager $userManager,
+        UserRepositoryInterface $userRepository,
         PasswordHelper $passwordHelper,
         AuthorizationRepositoryInterface $authorizationRepository,
         EmailPreferenceRepository $emailPreferenceRepository
     ) {
-        $this->userManager = $userManager;
         $this->passwordHelper = $passwordHelper;
         $this->authorizationRepository = $authorizationRepository;
         $this->emailPreferenceRepository = $emailPreferenceRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -74,7 +74,7 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->flush();
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new UserUpdated($user->getId()));
 
@@ -105,7 +105,7 @@ class AccountController extends AbstractController
 
             $user->setPassword($this->passwordHelper->encodePassword($user, $password));
 
-            $this->userManager->flush();
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new PasswordUpdated($user->getId()));
 
@@ -127,9 +127,9 @@ class AccountController extends AbstractController
     public function delete(Request $request): RedirectResponse
     {
         $user = $this->getUser();
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $this->userManager->remove($user);
-            $this->userManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $this->userRepository->remove($user);
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new UserDeleted($user->getId()));
         }

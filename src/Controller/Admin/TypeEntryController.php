@@ -8,7 +8,6 @@ use Grr\Core\TypeEntry\Message\TypeEntryDeleted;
 use Grr\Core\TypeEntry\Message\TypeEntryUpdated;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
-use Grr\GrrBundle\TypeEntry\Manager\TypeEntryManager;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,16 +23,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class TypeEntryController extends AbstractController
 {
     private TypeEntryRepositoryInterface $typeEntryRepository;
-    private TypeEntryManager $typeEntryManager;
     private TypeEntryFactory $typeEntryFactory;
 
     public function __construct(
         TypeEntryFactory $typeEntryFactory,
-        TypeEntryRepositoryInterface $typeEntryRepository,
-        TypeEntryManager $typeEntryManager
+        TypeEntryRepositoryInterface $typeEntryRepository
     ) {
         $this->typeEntryRepository = $typeEntryRepository;
-        $this->typeEntryManager = $typeEntryManager;
         $this->typeEntryFactory = $typeEntryFactory;
     }
 
@@ -61,7 +57,8 @@ class TypeEntryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->typeEntryManager->insert($typeEntry);
+            $this->typeEntryRepository->persist($typeEntry);
+            $this->typeEntryRepository->flush();
 
             $this->dispatchMessage(new TypeEntryCreated($typeEntry->getId()));
 
@@ -99,7 +96,7 @@ class TypeEntryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->typeEntryManager->flush();
+            $this->typeEntryRepository->flush();
 
             $this->dispatchMessage(new TypeEntryUpdated($typeEntry->getId()));
 
@@ -125,9 +122,9 @@ class TypeEntryController extends AbstractController
      */
     public function delete(Request $request, TypeEntry $typeEntry): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $typeEntry->getId(), $request->request->get('_token'))) {
-            $this->typeEntryManager->remove($typeEntry);
-            $this->typeEntryManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$typeEntry->getId(), $request->request->get('_token'))) {
+            $this->typeEntryRepository->remove($typeEntry);
+            $this->typeEntryRepository->flush();
 
             $this->dispatchMessage(new TypeEntryDeleted($typeEntry->getId()));
         }

@@ -13,7 +13,6 @@ use Grr\GrrBundle\User\Form\SearchUserType;
 use Grr\GrrBundle\User\Form\UserAdvanceType;
 use Grr\GrrBundle\User\Form\UserNewType;
 use Grr\GrrBundle\User\Form\UserRoleType;
-use Grr\GrrBundle\User\Manager\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,19 +27,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     private UserRepositoryInterface $userRepository;
-
-    private UserManager $userManager;
     private UserFactory $userFactory;
     private PasswordHelper $passwordHelper;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         UserFactory $userFactory,
-        UserManager $userManager,
         PasswordHelper $passwordHelper
     ) {
         $this->userRepository = $userRepository;
-        $this->userManager = $userManager;
         $this->userFactory = $userFactory;
         $this->passwordHelper = $passwordHelper;
     }
@@ -81,7 +76,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordHelper->encodePassword($user, $user->getPassword()));
-            $this->userManager->insert($user);
+            $this->userRepository->insert($user);
 
             $this->dispatchMessage(new UserCreated($user->getId()));
 
@@ -119,7 +114,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->flush();
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new UserUpdated($user->getId()));
 
@@ -150,7 +145,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->flush();
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new UserUpdated($user->getId()));
 
@@ -174,10 +169,10 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getEmail(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {
             $id = $user->getId();
-            $this->userManager->remove($user);
-            $this->userManager->flush();
+            $this->userRepository->remove($user);
+            $this->userRepository->flush();
 
             $this->dispatchMessage(new UserDeleted($id));
         }

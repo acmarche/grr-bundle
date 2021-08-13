@@ -1,7 +1,7 @@
 <?php
 
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Security\Authenticator\NewAuthenticator;
+use Grr\GrrBundle\Security\Authenticator\GrrAuthenticator;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -23,8 +23,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
             'firewalls' => [
                 'main' => [
-                    'custom_authenticators' => [NewAuthenticator::class],
-                    'entry_point' => NewAuthenticator::class,
+                    'custom_authenticators' => [GrrAuthenticator::class],
+                    'entry_point' => GrrAuthenticator::class,
                     'logout' => [
                         'path' => 'app_logout',
                     ],

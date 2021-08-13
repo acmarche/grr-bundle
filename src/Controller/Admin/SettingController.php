@@ -9,7 +9,6 @@ use Grr\Core\Setting\Message\SettingUpdated;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Handler\SettingHandler;
-use Grr\GrrBundle\Setting\Manager\SettingManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,20 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class SettingController extends AbstractController
 {
     private SettingRepositoryInterface $settingRepository;
-    private SettingManager $settingManager;
     private SettingHandler $settingHandler;
     private FormSettingFactory $formSettingFactory;
     private SettingProvider $settingProvider;
 
     public function __construct(
-        SettingManager $settingManager,
         SettingRepositoryInterface $settingRepository,
         SettingHandler $settingHandler,
         FormSettingFactory $formSettingFactory,
         SettingProvider $settingProvider
     ) {
         $this->settingRepository = $settingRepository;
-        $this->settingManager = $settingManager;
         $this->settingHandler = $settingHandler;
         $this->formSettingFactory = $formSettingFactory;
         $this->settingProvider = $settingProvider;
@@ -88,9 +84,9 @@ class SettingController extends AbstractController
      */
     public function delete(Request $request, SettingEntity $setting): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $setting->getName(), $request->request->get('_token'))) {
-            $this->settingManager->remove($setting);
-            $this->settingManager->flush();
+        if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {
+            $this->settingRepository->remove($setting);
+            $this->settingRepository->flush();
         }
 
         $this->dispatchMessage(new SettingDeleted([]));

@@ -64,7 +64,7 @@ class DateSelectorRender
         $dateSelected->locale('fr');
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
-        $request = $this->requestStack->getMasterRequest();
+        $request = $this->requestStack->getMainRequest();
         $view = null !== $request ? $request->get('view') : null;
 
         return $this->twigEnvironment->render(

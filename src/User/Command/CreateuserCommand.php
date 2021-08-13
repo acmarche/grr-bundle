@@ -6,7 +6,6 @@ use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\Core\Password\PasswordHelper;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\User\Factory\UserFactory;
-use Grr\GrrBundle\User\Manager\UserManager;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,19 +24,16 @@ class CreateuserCommand extends Command
     private UserRepositoryInterface $userRepository;
     private UserFactory $userFactory;
     private PasswordHelper $passwordHelper;
-    private UserManager $userManager;
 
     public function __construct(
         UserFactory $userFactory,
         UserRepositoryInterface $userRepository,
-        PasswordHelper $passwordHelper,
-        UserManager $userManager
+        PasswordHelper $passwordHelper
     ) {
         parent::__construct();
         $this->userFactory = $userFactory;
         $this->userRepository = $userRepository;
         $this->passwordHelper = $passwordHelper;
-        $this->userManager = $userManager;
     }
 
     protected function configure(): void
@@ -106,7 +102,7 @@ class CreateuserCommand extends Command
             $user->addRole($role);
         }
 
-        $this->userManager->insert($user);
+        $this->userRepository->insert($user);
 
         $symfonyStyle->success("L'utilisateur a bien été créé");
 

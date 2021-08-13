@@ -6,24 +6,21 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Service\PropertyUtil;
 use Grr\GrrBundle\Entity\Entry;
-use Grr\GrrBundle\Entry\Manager\EntryManager;
 use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 
 class HandlerEntry
 {
     private EntryRepositoryInterface $entryRepository;
-    private EntryManager $entryManager;
     private HandlerPeriodicity $handlerPeriodicity;
     private PropertyUtil $propertyUtil;
 
     public function __construct(
         EntryRepositoryInterface $entryRepository,
-        EntryManager $entryManager,
         HandlerPeriodicity $handlerPeriodicity,
         PropertyUtil $propertyUtil
     ) {
         $this->entryRepository = $entryRepository;
-        $this->entryManager = $entryManager;
+
         $this->handlerPeriodicity = $handlerPeriodicity;
         $this->propertyUtil = $propertyUtil;
     }
@@ -40,13 +37,14 @@ class HandlerEntry
             }
         }
 
-        $this->entryManager->insert($entry);
+        $this->entryRepository->persist($entry);
+        $this->entryRepository->flush();
         $this->handlerPeriodicity->handleNewPeriodicity($entry);
     }
 
     public function handleEditEntry(): void
     {
-        $this->entryManager->flush();
+        $this->entryRepository->flush();
     }
 
     public function handleEditEntryWithPeriodicity(EntryInterface $oldEntry, EntryInterface $entry): void
@@ -55,7 +53,7 @@ class HandlerEntry
             $this->handlerPeriodicity->handleEditPeriodicity($entry);
         } else {
             $this->updateEntriesWithSamePeriodicity($entry);
-            $this->entryManager->flush();
+            $this->entryRepository->flush();
         }
     }
 
@@ -76,8 +74,8 @@ class HandlerEntry
 
     public function handleDeleteEntry(EntryInterface $entry): void
     {
-        $this->entryManager->remove($entry);
-        $this->entryManager->flush();
+        $this->entryRepository->remove($entry);
+        $this->entryRepository->flush();
     }
 
     protected function updateEntriesWithSamePeriodicity(EntryInterface $entry): void

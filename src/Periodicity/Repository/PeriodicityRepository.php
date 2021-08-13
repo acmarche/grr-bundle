@@ -5,6 +5,7 @@ namespace Grr\GrrBundle\Periodicity\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\PeriodicityRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Periodicity;
 
 /**
@@ -15,6 +16,8 @@ use Grr\GrrBundle\Entity\Periodicity;
  */
 class PeriodicityRepository extends ServiceEntityRepository implements PeriodicityRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, Periodicity::class);

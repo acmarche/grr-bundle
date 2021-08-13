@@ -12,6 +12,7 @@ use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Entity\Security\AuthorizationInterface;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 
@@ -23,6 +24,8 @@ use Grr\GrrBundle\Entity\Security\Authorization;
  */
 class AuthorizationRepository extends ServiceEntityRepository implements AuthorizationRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, Authorization::class);

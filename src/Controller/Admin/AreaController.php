@@ -5,10 +5,10 @@ namespace Grr\GrrBundle\Controller\Admin;
 use Grr\Core\Area\Message\AreaCreated;
 use Grr\Core\Area\Message\AreaDeleted;
 use Grr\Core\Area\Message\AreaUpdated;
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Area\Form\AreaType;
-use Grr\GrrBundle\Area\Manager\AreaManager;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,20 +24,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class AreaController extends AbstractController
 {
     private AreaFactory $areaFactory;
-    private AreaManager $areaManager;
     private RoomRepositoryInterface $roomRepository;
     private AuthorizationHelper $authorizationHelper;
+    private AreaRepositoryInterface $areaRepository;
 
     public function __construct(
         AreaFactory $areaFactory,
-        AreaManager $areaManager,
+        AreaRepositoryInterface $areaRepository,
         RoomRepositoryInterface $roomRepository,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaFactory = $areaFactory;
-        $this->areaManager = $areaManager;
         $this->roomRepository = $roomRepository;
         $this->authorizationHelper = $authorizationHelper;
+        $this->areaRepository = $areaRepository;
     }
 
     /**
@@ -69,7 +69,8 @@ class AreaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->areaManager->insert($area);
+            $this->areaRepository->persist($area);
+            $this->areaRepository->flush();
 
             $this->dispatchMessage(new AreaCreated($area->getId()));
 
@@ -112,7 +113,7 @@ class AreaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->areaManager->flush();
+            $this->areaRepository->flush();
 
             $this->dispatchMessage(new AreaUpdated($area->getId()));
 
@@ -139,12 +140,14 @@ class AreaController extends AbstractController
      */
     public function delete(Request $request, Area $area): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $area->getId(), $request->request->get('_token'))) {
-            $this->areaManager->removeRooms($area);
-            $this->areaManager->remove($area);
-            $this->areaManager->flush();
-
-            $this->dispatchMessage(new AreaDeleted($area->getId()));
+        if ($this->isCsrfTokenValid('delete'.$area->getId(), $request->request->get('_token'))) {
+            $id = $area->getId();
+            foreach ($area->getRooms() as $room) {
+                $this->areaRepository->remove($room);
+            }
+            $this->areaRepository->remove($area);
+            $this->areaRepository->flush();
+            $this->dispatchMessage(new AreaDeleted($id));
         }
 
         return $this->redirectToRoute('grr_admin_area_index');

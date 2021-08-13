@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Admin;
 
+use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\TypeEntry\Message\TypeEntryAreaAssociated;
 use Grr\GrrBundle\Area\Form\AssocTypeForAreaType;
 use Grr\GrrBundle\Area\Manager\AreaManager;
@@ -17,11 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TypeEntryAreaController extends AbstractController
 {
-    private AreaManager $areaManager;
 
-    public function __construct(AreaManager $areaManager)
+    private AreaRepositoryInterface $areaRepository;
+
+    public function __construct(AreaRepositoryInterface $areaRepository)
     {
-        $this->areaManager = $areaManager;
+        $this->areaRepository = $areaRepository;
     }
 
     /**
@@ -35,7 +37,7 @@ class TypeEntryAreaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->areaManager->flush();
+            $this->areaRepository->flush();
 
             $this->dispatchMessage(new TypeEntryAreaAssociated($area->getId()));
 

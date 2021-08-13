@@ -12,6 +12,7 @@ use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Entity\Room;
@@ -25,6 +26,8 @@ use Webmozart\Assert\Assert;
  */
 class EntryRepository extends ServiceEntityRepository implements EntryRepositoryInterface
 {
+    use OrmCrudTrait;
+
     public function __construct(ManagerRegistry $managerRegistry)
     {
         parent::__construct($managerRegistry, Entry::class);
@@ -241,5 +244,14 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
             ->orderBy('entry.startTime', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function removeEntriesByPeriodicity(PeriodicityInterface $periodicity, EntryInterface $entryToSkip): void
+    {
+        foreach ($this->findByPeriodicity($periodicity) as $entry) {
+            if ($entry->getId() !== $entryToSkip->getId()) {
+                $this->remove($entry);
+            }
+        }
     }
 }
