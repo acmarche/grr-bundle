@@ -30,7 +30,7 @@ class Area implements AreaInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups("area:read")
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @Assert\NotBlank

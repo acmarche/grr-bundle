@@ -5,20 +5,14 @@
 {% block body %}
     <div class="card mb-3">
         <div class="card-header">
-            <div class="row">
-                <div class="col-8">
-                    <h3>{{ 'area.index.title'|trans({}) }}</h3>
-                </div>
-                <div class="col-4">
-                    {% if is_granted('grr.area.new') %}
-                        <a class="float-right btn btn-primary" href="{{ path('grr_admin_area_new') }}"><i
-                                    class="fas fa-plus"></i> {{ 'label.btn.area.new'| trans({}) }}</a>
-                    {% endif %}
-                </div>
-            </div>
+            <h3>{{ 'area.index.title'|trans({}) }}
+                {% if is_granted('grr.area.new') %}
+                    <a class="float-end btn btn-primary" href="{{ path('grr_admin_area_new') }}"><i
+                                class="fas fa-plus"></i> {{ 'label.btn.area.new'| trans({}) }}</a>
+                {% endif %}
+            </h3>
         </div>
         <div class="card-body">
-
             <table class="table table-bordered">
                 <thead>
                 <tr>

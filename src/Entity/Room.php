@@ -31,7 +31,7 @@ class Room implements RoomInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups("room:read")
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @Assert\NotBlank

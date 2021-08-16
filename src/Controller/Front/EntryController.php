@@ -90,13 +90,14 @@ class EntryController extends AbstractController
         Request $request,
         Area $area,
         Room $room,
-        DateTimeInterface $date,
+        DateTime $date,
         int $hour,
         int $minute
     ): Response {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
 
-        $this->dispatchMessage(new EntryInitialized($entry->getId()));
+        //bug
+        //  $this->dispatchMessage(new EntryInitialized($entry->getId()));
 
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
 
@@ -185,7 +186,7 @@ class EntryController extends AbstractController
      */
     public function delete(Request $request, Entry $entry): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $entry->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
             $this->dispatchMessage(new EntryDeleted($entry->getId()));
             $this->handlerEntry->handleDeleteEntry($entry);
         }

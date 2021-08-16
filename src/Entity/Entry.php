@@ -34,7 +34,7 @@ class Entry implements EntryInterface, TimestampableInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups("entry:read")
      */
-    private int $id;
+    private ?int $id;
 
     /**
      * @Assert\NotBlank
