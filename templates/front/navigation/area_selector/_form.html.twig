@@ -1,4 +1,4 @@
-<div {{ stimulus_controller('area', { areaId: 0, url: path('grr_ajax_getrooms')}) }} >
+<div {{ stimulus_controller('area', { areaId: 0, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
     {{ form_start(form) }}
     {{ form_row(form.area, {label_attr: {class: 'checkbox-custom'} }) }}
     {{ form_row(form.room) }}
