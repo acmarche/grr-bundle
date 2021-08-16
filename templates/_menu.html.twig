@@ -1,0 +1,66 @@
+{% set action = app.request.attributes.get("_route") %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a href="{{ path('grr_homepage') }}" class="nav-link" aria-current="page">
+            <i class="fas fa-search"></i> {{ 'menu.planning'|trans({}) }}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('grr_admin_index') }}">{{ 'menu.administration'|trans({}) }}</a>
+    </li>
+    {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_DEVELOPER')) %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('vuejs') }}">Vuejs</a>
+        </li>
+    {% endif %}
+    <li class="nav-item">
+        <a href="{{ path('grr_admin_area_index') }}" class="nav-link">{{ 'menu.area'|trans({}) }}</a>
+    </li>
+    {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_MANAGER_USER')) %}
+        <li class="nav-item">
+            <a href="{{ path('grr_admin_user_index') }}" class="nav-link">{{ 'menu.users'|trans({}) }}</a>
+        </li>
+    {% endif %}
+    {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                 {{ 'menu.settings'|trans({}) }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                    <a class="dropdown-item"
+                       href="{{ path('grr_admin_type_entry_index') }}">{{ 'menu.reservation.type'|trans({}) }}</a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       href="{{ path('grr_admin_setting_index') }}">{{ 'menu.settings'|trans({}) }}</a>
+                </li>
+            </ul>
+        </li>
+    {% endif %}
+</ul>
+<ul class="navbar-nav me-aut12o mb-2 mb-lg-0">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false"> {{ app.request.locale|locale_name(app.request.locale)|u.title }}</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'en'}) }}">
+                <i class="fas fa-flag-usa"></i> English
+            </a>
+            <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'fr'}) }}">
+                <i class="fas fa-flag-usa"></i> Français
+            </a>
+        </div>
+    </li>
+    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="nav-item">
+            <a href="{{ path('app_login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i>
+                Se connecter</a>
+        </li>
+    {% else %}
+        <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link"><i class="fas fa-sign-out-alt"></i>
+                Déconnexion</a>
+        </li>
+    {% endif %}
+</ul>

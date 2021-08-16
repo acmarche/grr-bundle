@@ -1,0 +1,55 @@
+<!-- TODO https://getbootstrap.com/docs/5.1/examples/dropdowns/ -->
+<div class="row mb-2">
+    <div class="col-7">
+        <h4>
+            <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}" class="font-weight-bold">
+                {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
+            </a>
+        </h4>
+        <hr>
+    </div>
+    <div class="col-5 text-right">
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
+            <i class="fas fa-long-arrow-alt-left" title="{{ 'label.btn.previous.month'|trans }}"></i>
+        </a>
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
+            <i class="fas fa-long-arrow-alt-right" title="{{ 'label.btn.next.month'|trans }}"></i>
+        </a>
+        <a class="btn btn-outline-primary" role="button" href="{{ grrGenerateRouteView(today, 'monthly') }}">
+            <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
+        </a>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th class="text-center">
+                <span class="d-none d-sm-block">{{ 'week.name'|trans }}</span> {# hidden xs #}
+                <span class="d-sm-none">{{ 'week.name'|trans[:1] }}</span>{# hidden wider than lg #}
+            </th>
+            {% for weekday in weekdays %}
+                <th scope="col" class="text-center">
+                    <span class="d-none d-sm-block">{{ weekday|trans }}</span> {# hidden xs #}
+                    <span class="d-sm-none">{{ weekday|trans[:3] }}</span>{# hidden wider than lg #}
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for week in weeks %}
+            {% if week.startDate.week == dateSelected.week and view == 'weekly' %}
+                {% set class = "table-info" %}
+            {% else %}
+                {% set class = "" %}
+            {% endif %}
+            <tr class="{{ class }}">
+                {% include '@grr_front/navigation/date_selector/_cell_week.html.twig' %}
+                {% for day in week %}
+                    {% include '@grr_front/navigation/date_selector/_cell_day.html.twig' %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

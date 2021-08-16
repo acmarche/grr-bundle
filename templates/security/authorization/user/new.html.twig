@@ -1,21 +1,20 @@
 {% extends '@grr_admin/layout_admin.html.twig' %}
 
-{% block title %}{{'authorization.user.new.title'|trans}}{% endblock %}
+{% block title %}{{ 'authorization.user.new.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="card mb-3">
         <div class="card-header">
             <h3>{{ 'authorization.user.new.title'|trans }}  {{ user }}</h3>
         </div>
-
         <div class="card-body">
             {{ include('@Grr/security/authorization/_form.html.twig') }}
         </div>
-    </div>  <br />
-
-    <a href="{{ path('grr_authorization_show_by_user',{'id': user.id}) }}">
-        <i class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
-
+        <div class="card-footer">
+            <a href="{{ path('grr_authorization_show_by_user',{'id': user.id}) }}">
+                <i class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

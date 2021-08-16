@@ -1,24 +1,24 @@
-<a href="{{ path('grr_admin_user_edit', { 'id': user.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
+<div class="d-grid gap-2 d-md-block mb-3">
+    <a href="{{ path('grr_admin_user_edit', { 'id': user.id }) }}" role="button"
+       class="btn btn-primary"><i class="fas fa-user-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
 
-<a href="{{ path('grr_admin_user_roles', { 'id': user.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-shield"></i> Rôles</a>
+    <a href="{{ path('grr_admin_user_roles', { 'id': user.id }) }}" role="button"
+       class="btn btn-primary"><i class="fas fa-user-shield"></i> Rôles</a>
 
-<a href="{{ path('grr_authorization_show_by_user', { 'id': user.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
+    <a href="{{ path('grr_authorization_show_by_user', { 'id': user.id }) }}" role="button"
+       class="btn btn-primary"><i class="fas fa-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
 
-<a href="{{ path('grr_admin_user_password', { 'id': user.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-secret"></i> {{ 'label.btn.password'|trans({}) }}</a>
+    <a href="{{ path('grr_admin_user_password', { 'id': user.id }) }}" role="button"
+       class="btn btn-primary"><i class="fas fa-user-secret"></i> {{ 'label.btn.password'|trans({}) }}</a>
 
-<a href="{{ path('grr_admin_preference_email_edit', {'id': user.id}) }}" role="button"
-   class="btn btn-primary"><i class="far fa-bell"></i> {{ 'label.btn.preference.email'|trans({}) }}</a>
+    <a href="{{ path('grr_admin_preference_email_edit', {'id': user.id}) }}" role="button"
+       class="btn btn-primary"><i class="far fa-bell"></i> {{ 'label.btn.preference.email'|trans({}) }}</a>
 
-<a href="{{ path('grr_admin_user_index') }}" class="btn btn-primary" role='button'>
- <i class="fas fa-users"></i>   {{ 'back.to_list'|trans({}) }}
-</a>
+    <a href="{{ path('grr_admin_user_index') }}" class="btn btn-primary" role='button'>
+        <i class="fas fa-users"></i> {{ 'back.to_list'|trans({}) }}
+    </a>
 
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-    <i class="fas fa-user-times"></i> {{ 'label.btn.delete'|trans({}) }}
-</button>
-<br/>
-<br/>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <i class="fas fa-user-times"></i> {{ 'label.btn.delete'|trans({}) }}
+    </button>
+</div>

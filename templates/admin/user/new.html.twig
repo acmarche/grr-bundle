@@ -11,8 +11,9 @@
         <div class="card-body">
             {{ include('@grr_admin/user/_form_new.html.twig') }}
         </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_admin_user_index') }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
     </div>
-
-    <br />
-    <a href="{{ path('grr_admin_user_index') }}"><i class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 {% endblock %}

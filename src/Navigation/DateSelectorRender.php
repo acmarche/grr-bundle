@@ -43,7 +43,7 @@ class DateSelectorRender
      */
     public function render()
     {
-        $request = $this->requestStack->getMasterRequest();
+        $request = $this->requestStack->getMainRequest();
 
         if (null === $request) {
             return new Response('');

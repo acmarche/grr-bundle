@@ -7,7 +7,7 @@
     {# EDIT #}
     {% if is_granted('grr.entry.edit', entry) %}
         <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 <i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}
             </button>
@@ -26,15 +26,15 @@
     {% if is_granted('grr.entry.delete', entry) %}
         {# DELETE #}
         <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+            <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <button class="dropdown-item" data-toggle="modal" data-target="#deleteModal">
+                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     {{ 'label.btn.delete_entry'|trans({}) }}
                 </button>
-                <button class="dropdown-item" data-toggle="modal" data-target="#deleteModalPeriodicity">
+                <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModalPeriodicity">
                     {{ 'label.btn.delete_periodicity'|trans({}) }}
                 </button>
             </div>
@@ -47,7 +47,7 @@
 
     {% endif %}
     {% if is_granted('grr.entry.delete', entry) %}
-        <a href="{{ url_back }}" class="btn btn-danger" role='button' data-toggle="modal" data-target="#deleteModal"><i
+        <a href="{{ url_back }}" class="btn btn-danger" role='button' data-bs-toggle="modal" data-bs-target="#deleteModal"><i
                     class="fas fa-trash"></i>
             {{ 'label.btn.delete'|trans({}) }}
         </a>

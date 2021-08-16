@@ -15,14 +15,15 @@
                 {{ 'label.btn.save'|trans }}
             </button>
             {{ form_end(form) }}
+
+            <div class="alert-info alert">
+                Un utilisateur actif peut réserver suivant ses droits attribués
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
         </div>
     </div>
-    <div class="alert-info alert">
-        Un utilisateur actif peut réserver suivant ses droits attribués
-        <br />
-    </div>
-    <br/>
-    <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
-                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
-
 {% endblock %}

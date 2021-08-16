@@ -30,18 +30,22 @@ class VueController extends AbstractController implements FrontControllerInterfa
     }
 
     /**
-     * @Route("/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
+     * todo bug room
+     * Route("/area/{area}/date/{date}/view/{view}/room/{room}", name="grr_front_view", methods={"GET"})
+     *
+     * @Route("/area/{area}/date/{date}/view/{view}/room/", name="grr_front_view", methods={"GET"})
      * @Entity("area", expr="repository.find(area)")
      * @ParamConverter("room", options={"mapping"="id"})
      *
      * @param Area|null $area
      *
-     * @throws Exception
      * @param DateTime|DateTimeImmutable $date
+     * @throws Exception
      */
-    public function view(Area $area, DateTimeInterface $date, string $view, ?Room $room = null): Response
+    public function view(Area $area, DateTime $date, string $view): Response
     {
         $renderService = $this->viewLocator->findViewerByView($view);
+        $room = null;
 
         return $renderService->render($date, $area, $room);
     }

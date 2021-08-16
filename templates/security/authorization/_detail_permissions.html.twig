@@ -4,8 +4,8 @@
         <th>{{ 'user.title'|trans }}</th>
         <th>{{ 'area.title'|trans }}</th>
         <th>{{ 'room.title'|trans }}</th>
-        <th data-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.area.administrator.help'|trans }}">{{ 'area.administrator'|trans }}</th>
-        <th data-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.resource.administrator.help'|trans }}">{{ 'area.resource'|trans }}</th>
+        <th data-bs-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.area.administrator.help'|trans }}">{{ 'area.administrator'|trans }}</th>
+        <th data-bs-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.resource.administrator.help'|trans }}">{{ 'area.resource'|trans }}</th>
         <th>{{ 'actions'|trans }}</th>
     </tr>
     </thead>
@@ -23,8 +23,8 @@
             <td>{{ authorization.isAreaAdministrator ? 'Yes' | trans : 'No' | trans }}</td>
             <td>{{ authorization.isResourceAdministrator ? 'Yes' | trans : 'No' | trans }}</td>
             <td>
-                <button name="coucou" type="button" class="btnDelete btn btn-danger btn-sm" data-toggle="modal"
-                        data-target="#deleteAuthorization" data-id="{{ authorization.id }}"
+                <button name="coucou" type="button" class="btnDelete btn btn-danger btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#deleteAuthorization" data-id="{{ authorization.id }}"
                         data-token="{{ csrf_token('delete' ~ authorization.id) }}">
                     <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
                 </button>

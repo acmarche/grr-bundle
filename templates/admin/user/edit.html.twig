@@ -10,11 +10,12 @@
         <div class="card-body">
             {{ include('@grr_admin/user/_form.html.twig', {'button_label': 'label.btn.save'}) }}
         </div>
-    </div>
 
-    <br/>
-    <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
-                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        <div class="card-footer">
+            <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
+    </div>
 
 {% endblock %}
 {% block scripts %}

@@ -9,7 +9,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'twig',
         [
             'form_themes' => [
-                'bootstrap_4_layout.html.twig',
+                'bootstrap_5_layout.html.twig',
             ],
         ]
     );
