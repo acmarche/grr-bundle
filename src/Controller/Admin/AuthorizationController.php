@@ -72,7 +72,7 @@ class AuthorizationController extends AbstractController
         $urlBack = $this->generateUrl('grr_authorization_show_by_user', ['id' => $room->getId()]);
 
         return $this->render(
-            '@grr_security/authorization/room/show.html.twig',
+            '@grr_admin/authorization/room/show.html.twig',
             [
                 'room' => $room,
                 'authorizations' => $authorizations,

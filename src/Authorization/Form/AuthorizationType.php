@@ -45,7 +45,7 @@ class AuthorizationType extends AbstractType
                 'class' => Room::class,
                 'label' => 'label.room.multiple_select',
                 'placeholder' => '',
-                'attr' => ['class' => 'custom-select my-1 mr-sm-2 room-select'],
+                'attr' => ['class' => 'my-1 mr-sm-2'],
                 'multiple' => true,
             ];
 

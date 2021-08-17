@@ -1,21 +1,24 @@
-{{ form_start(form) }}
-{{ form_errors(form) }}
+<div {{ stimulus_controller('authorization') }}>
 
-{% if form.area is defined %}
-    {{ form_row(form.area) }}
-{% endif %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
 
-{{ form_row(form.role) }}
+    {% if form.area is defined %}
+        {{ form_row(form.area) }}
+    {% endif %}
 
-{% if form.rooms is defined %}
-    {{ form_row(form.rooms) }}
-{% endif %}
+    {{ form_row(form.role) }}
 
-{% if form.users is defined %}
-    {{ form_row(form.users) }}
-{% endif %}
+    {% if form.rooms is defined %}
+        {{ form_row(form.rooms) }}
+    {% endif %}
 
-<button class="btn btn-primary" type="submit"><i
-            class="far fa-save"></i> {{ button_label|default('label.btn.save')|trans({}) }}</button>
+    {% if form.users is defined %}
+        {{ form_row(form.users) }}
+    {% endif %}
 
-{{ form_end(form) }}
+    <button class="btn btn-primary" type="submit"><i
+                class="far fa-save"></i> {{ button_label|default('label.btn.save')|trans({}) }}</button>
+
+    {{ form_end(form) }}
+</div>

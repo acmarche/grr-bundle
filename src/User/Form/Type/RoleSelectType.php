@@ -54,7 +54,7 @@ class RoleSelectType extends AbstractType
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,
-                'attr' => ['class' => 'authorization_role'], //for js
+                'attr' => ['data-action'=>'click->authorization#selectRole'], //for js
             ]
         );
     }

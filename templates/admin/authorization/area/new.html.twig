@@ -8,16 +8,11 @@
             <h3>{{ 'authorization.area.new.title'|trans }} {{ area }}</h3>
         </div>
         <div class="card-body">
-            {{ include('@Grr/security/authorization/_form.html.twig') }}
+            {{ include('@grr_admin/authorization/_form.html.twig') }}
         </div>
         <div class="card-footer">
             <a href="{{ path('grr_authorization_area_show',{'id': area.id}) }}">
                 <i class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
         </div>
     </div>
-{% endblock %}
-
-{% block scripts %}
-    {% include '@grr_front/_select_room_js.html.twig' %}
-    <script src="{{ asset('bundles/grr/js/authorization_rooms.js') }}"></script>
 {% endblock %}
