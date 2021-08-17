@@ -19,11 +19,6 @@ class AreaMenuSelectType extends AbstractType
                 AreaSelectType::class,
                 [
                     'required' => true,
-                    'attr' => [
-                        'class' => 'custom-select my-1 mr-sm-2 ajax-select-room',
-                        'data-action' => 'area#selectArea',
-                        'data-classement-target' => 'areas',
-                    ],
                 ]
             )
             ->addEventSubscriber(new AddRoomFieldSubscriber());

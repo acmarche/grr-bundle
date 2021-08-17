@@ -17,9 +17,7 @@ class RoomSelectType extends AbstractType
                     'label' => 'label.room.select',
                     'class' => Room::class,
                     'attr' => [
-                        'class' => 'custom-select my-1 mr-sm-2 room-select',
-                        'data-area-target' => 'rooms',
-                        'data-action' => 'area#selectRoom',
+                        'class' => 'my-1 mr-sm-2 room-select',
                     ],
                 ]
             );

@@ -142,7 +142,7 @@ room:
   showFicRoom: 'Montrer l''image'
   statutRoom: 'Statut'
   title: 'Liste des ressources'
-  all: 'Toutes les réservertions'
+  all: 'Toutes les réservations'
   back_to_area: 'Retour au domaine'
   back_to_room: 'Retour à la ressource'
   back_to_user: 'Retout à l''utilisateur'

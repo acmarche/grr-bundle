@@ -1,43 +1,53 @@
-{{ form_start(form) }}
-{{ form_errors(form) }}
+<div {{ stimulus_controller('area', { areaId: 0, roomId:0, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
 
-<div class="row">
-    <div class="col-6">
-        {{ form_row(form.name) }}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <input type="hidden" name="areaSelected" data-area-target="selectedArea">
+    <input type="hidden" name="roomSelected" data-area-target="selectedRoom">
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.first_name) }}
+        </div>
     </div>
-    <div class="col-6">
-        {{ form_row(form.first_name) }}
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.email) }}
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_widget(form.area, {'attr': {'data-action':'area#updateRooms'} }) }}
+            {{ form_help(form.area) }}
+            {{ form_errors(form.area) }}
+        </div>
+        <div class="col-6">
+            {{ form_widget(form.room, {'attr': {'data-area-target':'rooms'} }) }}
+            {{ form_help(form.room) }}
+            {{ form_errors(form.room) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            {{ form_row(form.languageDefault) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.isEnabled) }}
+        </div>
+    </div>
+
+    <button class="btn btn-primary">
+        <i class="far fa-save"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
+
+    {{ form_end(form) }}
 </div>
-
-<div class="row">
-    <div class="col-6">
-        {{ form_row(form.username) }}
-    </div>
-    <div class="col-6">
-        {{ form_row(form.email) }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-6">
-        {{ form_row(form.area) }}
-    </div>
-    <div class="col-6">
-        {{ form_row(form.room) }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-6">
-        {{ form_row(form.languageDefault) }}
-    </div>
-    <div class="col-6">
-        {{ form_row(form.isEnabled) }}
-    </div>
-</div>
-
-<button class="btn btn-primary">
-    <i class="far fa-save"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
-
-{{ form_end(form) }}

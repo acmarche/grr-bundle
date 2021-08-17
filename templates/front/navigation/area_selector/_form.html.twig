@@ -1,7 +1,14 @@
 <div {{ stimulus_controller('area', { areaId: 0, roomId:0, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
     {{ form_start(form) }}
-    {{ form_row(form.area, {label_attr: {class: 'checkbox-custom'} }) }}
-    {{ form_row(form.room) }}
+    {{ form_label(form.area) }}
+    {{ form_widget(form.area, {'attr': {'data-action':'area#selectArea'} }) }}
+    {{ form_help(form.area) }}
+    {{ form_errors(form.area) }}
+    {{ form_label(form.room) }}
+    {{ form_widget(form.room, {'attr': {'data-action':'area#selectRoom'} }) }}
+    {{ form_help(form.room) }}
+    {{ form_errors(form.room) }}
+
     <input type="hidden" name="areaSelected" data-area-target="selectedArea">
     <input type="hidden" name="roomSelected" data-area-target="selectedRoom">
     {{ form_end(form) }}
