@@ -4,13 +4,17 @@
     {{ form_errors(form) }}
 
     {% if form.area is defined %}
-        {{ form_row(form.area) }}
+        {{ form_widget(form.area, {'attr': {'data-action':'area#updateRooms'} }) }}
+        {{ form_help(form.area) }}
+        {{ form_errors(form.area) }}
     {% endif %}
 
     {{ form_row(form.role) }}
 
     {% if form.rooms is defined %}
-        {{ form_row(form.rooms) }}
+        {{ form_widget(form.room, {'attr': {'data-area-target':'rooms'} }) }}
+        {{ form_help(form.room) }}
+        {{ form_errors(form.room) }}
     {% endif %}
 
     {% if form.users is defined %}

@@ -11,12 +11,14 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    {{ form_start(form) }}
-                    {{ form_errors(form) }}
-                    {% include '@grr_front/entry/form/_form_entry.html.twig' %}
-                    <button class="btn btn-primary" type="submit"><i
-                                class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
-                    {{ form_end(form) }}
+                    <div {{ stimulus_controller('area', { isRestricted:false, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {% include '@grr_front/entry/form/_form_entry.html.twig' %}
+                        <button class="btn btn-primary" type="submit"><i
+                                    class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
+                        {{ form_end(form) }}
+                    </div>
                 </div>
                 <div class="col-6">
                     {% include '@grr_front/periodicity/_show.html.twig' %}

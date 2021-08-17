@@ -10,19 +10,22 @@
         </div>
 
         <div class="card-body">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            <div class="row">
-                <div class="col-6">
-                    {% include '@grr_front/entry/form/_form_entry.html.twig' %}
+            <div {{ stimulus_controller('area', { isRestricted:true, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="row">
+                    <div class="col-6">
+                        {% include '@grr_front/entry/form/_form_entry.html.twig' %}
+                    </div>
+                    <div class="col-6">
+                        {% include '@grr_front/entry/form/_form_periodicity.html.twig' %}
+                    </div>
                 </div>
-                <div class="col-6">
-                    {% include '@grr_front/entry/form/_form_periodicity.html.twig' %}
-                </div>
+                <button class="btn btn-primary" type="submit"><i
+                            class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
+                {{ form_end(form) }}
             </div>
-            <button class="btn btn-primary" type="submit"><i
-                        class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
-            {{ form_end(form) }}
         </div>
         <div class="card-footer">
             <a href="{{ path('grr_front_entry_index') }}"><i
@@ -33,6 +36,4 @@
 
 {% block scripts %}
     <script src="{{ asset('bundles/grr/js/periodicity_options_weeks.js') }}"></script>
-    <script src="{{ asset('bundles/grr/js/full_day.js') }}"></script>
-    {% include '@grr_front/_select_room_js.html.twig' with {'isRestricted' : true} %}
 {% endblock %}
