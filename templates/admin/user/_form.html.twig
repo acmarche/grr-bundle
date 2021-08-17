@@ -1,4 +1,8 @@
-<div {{ stimulus_controller('area', { areaId: 0, roomId:0, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+{% if isRestricted is not defined %}
+    {% set isRestricted = 'false' %}
+{% endif %}
+
+<div {{ stimulus_controller('area', { areaId: 0, roomId:0, isRestricted:isRestricted,  url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
