@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
-                    <div {{ stimulus_controller('area', { isRestricted:false, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+                    <div {{ stimulus_controller('area', { isRestricted:true, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
                         {{ form_start(form) }}
                         {{ form_errors(form) }}
                         {% include '@grr_front/entry/form/_form_entry.html.twig' %}
@@ -31,8 +31,4 @@
         </div>
     </div>
 
-{% endblock %}
-{% block scripts %}
-    <script src="{{ asset('bundles/grr/js/periodicity_options_weeks.js') }}"></script>
-    {% include '@grr_front/_select_room_js.html.twig' with {'isRestricted' : true} %}
 {% endblock %}
