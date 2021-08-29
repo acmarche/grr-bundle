@@ -39,7 +39,6 @@ class HomeController extends AbstractController
     /**
      * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
      */
-    #[Route(path: '/path', name: 'action')]
     public function redirectToScheduler(): Response
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();

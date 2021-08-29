@@ -1,11 +1,11 @@
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" {{ stimulus_controller('bs') }}>
     <thead>
     <tr>
         <th>{{ 'user.title'|trans }}</th>
         <th>{{ 'area.title'|trans }}</th>
         <th>{{ 'room.title'|trans }}</th>
-        <th data-bs-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.area.administrator.help'|trans }}">{{ 'area.administrator'|trans }}</th>
-        <th data-bs-toggle="tooltip" data-placement="top"  title="{{ 'authorization.role.resource.administrator.help'|trans }}">{{ 'area.resource'|trans }}</th>
+        <th data-bs-toggle="tooltip" data-bs-placement="top"  title="{{ 'authorization.role.area.administrator.help'|trans }}">{{ 'area.administrator'|trans }}</th>
+        <th data-bs-toggle="tooltip" data-bs-placement="top"  title="{{ 'authorization.role.resource.administrator.help'|trans }}">{{ 'area.resource'|trans }}</th>
         <th>{{ 'actions'|trans }}</th>
     </tr>
     </thead>

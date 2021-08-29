@@ -34,3 +34,6 @@
     </div>
     {{ include('@grr_front/account/_delete_form.html.twig') }}
 {% endblock %}
+{% block scripts %}
+    <div {{ stimulus_controller('bs') }}></div>
+{% endblock %}

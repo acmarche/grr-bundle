@@ -1,11 +1,9 @@
 <script>
-    $('.btnDelete').on('click', function (event) {
-        var button = $(event.relatedTarget);
-        var id = $(this).data("id");
-        var token = $(this).data("token");
-        $("#tokenauth").val(token);
-        $("#idauth").val(id);
-    })
+    let btn = document.querySelector('.btnDelete');
+    btn.addEventListener('click', () => {
+        document.querySelector("#tokenauth").value = btn.dataset.token;
+        document.querySelector("#idauth").value = btn.dataset.id;
+    });
 </script>
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
