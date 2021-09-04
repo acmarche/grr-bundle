@@ -12,9 +12,9 @@
     {{ form_row(form.role) }}
 
     {% if form.rooms is defined %}
-        {{ form_widget(form.room, {'attr': {'data-area-target':'rooms'} }) }}
-        {{ form_help(form.room) }}
-        {{ form_errors(form.room) }}
+        {{ form_widget(form.rooms, {'attr': {'data-area-target':'rooms'} }) }}
+        {{ form_help(form.rooms) }}
+        {{ form_errors(form.rooms) }}
     {% endif %}
 
     {% if form.users is defined %}
