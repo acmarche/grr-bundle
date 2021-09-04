@@ -1,5 +1,5 @@
 <!-- TODO https://getbootstrap.com/docs/5.1/examples/dropdowns/ -->
-<div class="dropdown-menu2 p-2 shadow rounded-3" style="width: 350px;" id="dropdownCalendar">
+<div class="dropdown-menu-cal p-2 shadow rounded-3 mb-3" id="dropdownCalendar">
     <div class="d-grid gap-1">
         <div class="cal">
             <div class="cal-month">
@@ -8,7 +8,7 @@
                         {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
                     </a>
                 </strong>
-                <button class="cal-month-previous btn cal-btn" type="button">
+                <button class="cal-month-previous btn btn-ou cal-btn" type="button">
                     <a href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
                         <i class="fas fa-arrow-left"></i>
                     </a>
