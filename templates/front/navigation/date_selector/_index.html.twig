@@ -11,8 +11,9 @@
                 <strong class="cal-month-name">
                     <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
                         {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
-                    </a><br />
-                    <a class="btn btn-outline-primary btn-sm" role="button" href="{{ grrGenerateRouteView(today, 'monthly') }}">
+                    </a><br/>
+                    <a class="btn btn-outline-primary btn-sm" role="button"
+                       href="{{ grrGenerateRouteView(today, 'monthly') }}">
                         <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
                     </a>
                 </strong>
@@ -37,14 +38,10 @@
                 </button>
             </div>
             <div class="cal-weekdays text-muted">
-                <div class="cal-weekday">S</div>
-                <div class="cal-weekday">Sun</div>
-                <div class="cal-weekday">Mon</div>
-                <div class="cal-weekday">Tue</div>
-                <div class="cal-weekday">Wed</div>
-                <div class="cal-weekday">Thu</div>
-                <div class="cal-weekday">Fri</div>
-                <div class="cal-weekday">Sat</div>
+                <div class="cal-weekday">{{ 'week.name'|trans[:1] }}</div>
+                {% for weekday in weekdays %}
+                    <div class="cal-weekday">{{ weekday|trans[:3] }}</div>
+                {% endfor %}
             </div>
             <div class="cal-days">
                 {% for week in weeks %}
