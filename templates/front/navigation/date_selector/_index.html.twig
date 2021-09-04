@@ -3,20 +3,27 @@
     <div class="d-grid gap-1">
         <div class="cal">
             <div class="cal-month">
-                <button class="btn cal-btn" type="button">
+                <strong class="cal-month-name">
+                    <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
+                        {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
+                    </a>
+                </strong>
+                <button class="cal-month-previous btn cal-btn" type="button">
                     <a href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </button>
-                <strong class="cal-month-name">
-                    <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
-                        {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
-                    </a><br/>
+                <button class="cal-month-next btn cal-btn" type="button">
+                    <a href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </button>
+                <span class="cal-month-today">
                     <a class="btn btn-outline-primary btn-sm" role="button"
                        href="{{ grrGenerateRouteView(today, 'monthly') }}">
                         <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
                     </a>
-                </strong>
+                </span>
                 <select class="form-select cal-month-name d-none">
                     <option value="January">January</option>
                     <option value="February">February</option>
@@ -31,11 +38,6 @@
                     <option value="November">November</option>
                     <option value="December">December</option>
                 </select>
-                <button class="btn cal-btn" type="button">
-                    <a href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </button>
             </div>
             <div class="cal-weekdays text-muted">
                 <div class="cal-weekday">{{ 'week.name'|trans[:1] }}</div>
