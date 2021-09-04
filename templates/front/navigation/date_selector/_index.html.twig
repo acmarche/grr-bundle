@@ -24,20 +24,6 @@
                         <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
                     </a>
                 </span>
-                <select class="form-select cal-month-name d-none">
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option selected="" value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select>
             </div>
             <div class="cal-weekdays text-muted">
                 <div class="cal-weekday">{{ 'week.name'|trans[:1] }}</div>
@@ -50,8 +36,12 @@
                     <a class="btn cal-btn" disabled="" href="{{ grrGenerateRouteView(week.startDate, 'weekly') }}"
                        role="button">{{ 'week.initial'|trans({}) }}{{ week.startDate.week }}</a>
                     {% for day in week %}
+                        {% if day.isSameMonth(dateSelected) %}
                         <a class="btn cal-btn" role="button"
                            href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
+                        {% else %}
+                            <button type="button" disabled="disabled" class="btn cal-btn">{{ day.day }}</button>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             </div>
