@@ -1,5 +1,5 @@
 <!-- TODO https://getbootstrap.com/docs/5.1/examples/dropdowns/ -->
-<div class="dropdown-menu2 p-2 shadow rounded-3" style="width: 600px;" id="dropdownCalendar">
+<div class="dropdown-menu2 p-2 shadow rounded-3" style="width: 350px;" id="dropdownCalendar">
     <div class="d-grid gap-1">
         <div class="cal">
             <div class="cal-month">
@@ -11,6 +11,9 @@
                 <strong class="cal-month-name">
                     <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
                         {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
+                    </a><br />
+                    <a class="btn btn-outline-primary btn-sm" role="button" href="{{ grrGenerateRouteView(today, 'monthly') }}">
+                        <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
                     </a>
                 </strong>
                 <select class="form-select cal-month-name d-none">
@@ -45,10 +48,11 @@
             </div>
             <div class="cal-days">
                 {% for week in weeks %}
-                    <button class="btn cal-btn" disabled=""
-                            type="button">{{ 'week.initial'|trans({}) }}{{ week.startDate.week }}</button>
+                    <a class="btn cal-btn" disabled="" href="{{ grrGenerateRouteView(week.startDate, 'weekly') }}"
+                       role="button">{{ 'week.initial'|trans({}) }}{{ week.startDate.week }}</a>
                     {% for day in week %}
-                        <button class="btn cal-btn" type="button">{{ day.day }}</button>
+                        <a class="btn cal-btn" role="button"
+                           href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
                     {% endfor %}
                 {% endfor %}
             </div>
