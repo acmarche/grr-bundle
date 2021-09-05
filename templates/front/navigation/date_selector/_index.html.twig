@@ -3,27 +3,21 @@
     <div class="d-grid gap-1">
         <div class="cal">
             <div class="cal-month">
-                <strong class="cal-month-name">
-                    <a href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
-                        {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}
-                    </a>
-                </strong>
-                <button class="cal-month-previous btn btn-ou cal-btn" type="button">
-                    <a href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                </button>
-                <button class="cal-month-next btn cal-btn" type="button">
-                    <a href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </button>
-                <span class="cal-month-today">
-                    <a class="btn btn-sm" role="button"
-                       href="{{ grrGenerateRouteView(today, 'monthly') }}">
-                        <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
-                    </a>
-                </span>
+                <a class="cal-month-name" href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
+                    <strong>    {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }} </strong>
+                </a>
+                <a class="cal-month-previous btn-sm btn btn-outline-primary" role="button"
+                   href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a class="cal-month-next btn btn-sm btn-outline-primary" role="button"
+                   href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a class="cal-month-today btn btn-sm btn-outline-primary" role="button"
+                   href="{{ grrGenerateRouteView(today, 'monthly') }}">
+                    <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
+                </a>
             </div>
             <div class="cal-weekdays text-muted">
                 <div class="cal-weekday">{{ 'week.name'|trans[:1] }}</div>
@@ -37,8 +31,8 @@
                        role="button">{{ 'week.initial'|trans({}) }}{{ week.startDate.week }}</a>
                     {% for day in week %}
                         {% if day.isSameMonth(dateSelected) %}
-                        <a class="btn cal-btn" role="button"
-                           href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
+                            <a class="btn cal-btn" role="button"
+                               href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
                         {% else %}
                             <button type="button" disabled="disabled" class="btn cal-btn">{{ day.day }}</button>
                         {% endif %}
