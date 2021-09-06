@@ -10,6 +10,7 @@ use Grr\GrrBundle\Security\Voter\PostVoter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_locator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -39,6 +40,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'channel' => 'browsergrr',
             ]
         );
+
+    $services = $services->set('notifier.channel.browser', BrowserGrrChannel::class)
+        ->args([service('request_stack')])
+        ->tag('notifier.channel', ['channel' => 'browsergrr']);
 
     $services
         ->load('Grr\GrrBundle\\', __DIR__ . '/../src/*')

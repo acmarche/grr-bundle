@@ -102,7 +102,8 @@ class CreateuserCommand extends Command
             $user->addRole($role);
         }
 
-        $this->userRepository->insert($user);
+        $this->userRepository->persist($user);
+        $this->userRepository->flush();
 
         $symfonyStyle->success("L'utilisateur a bien été créé");
 

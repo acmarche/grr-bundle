@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Grr\Core\Contrat\Repository\SettingRepositoryInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension(
@@ -11,6 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'form_themes' => [
                 'bootstrap_5_layout.html.twig',
             ],
+            'globals'=>['grr'=> service(SettingRepositoryInterface::class)]
         ]
     );
 

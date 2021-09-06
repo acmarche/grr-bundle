@@ -53,8 +53,6 @@ class FrontHelper
 
     public function companyName(): string
     {
-        $company = $this->settingRepository->getValueByName(SettingConstants::COMPANY);
-
-        return $company ?? 'Grr';
+        return $this->settingRepository->getValueByName(SettingConstants::COMPANY) ?? 'Grr';
     }
 }
