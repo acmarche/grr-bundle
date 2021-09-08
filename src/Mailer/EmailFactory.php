@@ -11,15 +11,9 @@
 namespace Grr\GrrBundle\Mailer;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Email;
 
 class EmailFactory
 {
-    public static function createNew(): Email
-    {
-        return new Email();
-    }
-
     public static function createNewTemplated(): TemplatedEmail
     {
         return new TemplatedEmail();

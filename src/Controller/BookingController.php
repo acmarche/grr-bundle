@@ -11,6 +11,7 @@
 namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Entry\Message\EntryCreated;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\GrrBundle\Booking\ApiSerializer;
 use Grr\GrrBundle\Booking\BookingForm;
@@ -97,11 +98,12 @@ class BookingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           // $this->handlerEntry->handleNewEntry($entry);
+            dump($form->getData());
+            // $this->handlerEntry->handleNewEntry($entry);
+$this->bookingHandler->sendConfirmation($entry, $booking->getEmail());
+            //$this->dispatchMessage(new EntryCreated($entry->getId()));
 
-         //   $this->dispatchMessage(new EntryCreated($entry->getId()));
-
-         //   return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+            //   return $this->redirectToRoute('grr_admin_booking_index');
         }
 
         return $this->render(
