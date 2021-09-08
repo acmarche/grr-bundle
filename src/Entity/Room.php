@@ -26,14 +26,6 @@ class Room implements RoomInterface
     use RoomTrait;
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("room:read")
-     */
-    private ?int $id;
-
-    /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=80, nullable=false)
      * @Groups("room:read")

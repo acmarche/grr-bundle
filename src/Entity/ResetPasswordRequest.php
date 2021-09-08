@@ -2,8 +2,9 @@
 
 namespace Grr\GrrBundle\Entity;
 
+use Grr\Core\Doctrine\Traits\IdEntityTrait;
+use Grr\GrrBundle\Password\Repository\ResetPasswordRequestRepository;
 use Grr\GrrBundle\Entity\Security\User;
-use Grr\GrrBundle\Repository\ResetPasswordRequestRepository;
 use Doctrine\ORM\Mapping as ORM;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestInterface;
 use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
@@ -14,13 +15,7 @@ use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordRequestTrait;
 class ResetPasswordRequest implements ResetPasswordRequestInterface
 {
     use ResetPasswordRequestTrait;
-
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdEntityTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -32,11 +27,6 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     {
         $this->user = $user;
         $this->initialize($expiresAt, $selector, $hashedToken);
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getUser(): object

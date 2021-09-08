@@ -22,10 +22,13 @@
         </li>
     {% endif %}
     {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('grr_admin_booking_index') }}">Booking</a>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-                 {{ 'menu.settings'|trans({}) }}
+                {{ 'menu.settings'|trans({}) }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>

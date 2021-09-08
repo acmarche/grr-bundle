@@ -1,0 +1,38 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block body %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3>{{ booking.nom }} {{ booking.prenom }}</h3>
+        </div>
+        <div class="card-body">
+
+            {% include '@grr_admin/booking/_actions.html.twig' %}
+
+            <p>{{ booking.informations }}</p>
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ booking.jour|format_date('full') }}</td>
+                </tr>
+                <tr>
+                    <th>Horaire</th>
+                    <td>{{ booking.horaireName }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone</th>
+                    <td>{{ booking.telephone }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ booking.email }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{ include('@grr_admin/booking/_delete_form.html.twig') }}
+{% endblock %}

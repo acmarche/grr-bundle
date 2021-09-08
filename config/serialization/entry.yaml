@@ -1,0 +1,10 @@
+Grr\GrrBundle\Entity\Entry:
+  attributes:
+    id:
+      groups: [ 'group1' ]
+    name:
+      groups: [ 'group1' ]
+    startTime:
+      groups: [ 'group1' ]
+    endTime:
+      groups: [ 'group1' ]

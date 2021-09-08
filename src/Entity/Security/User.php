@@ -15,6 +15,7 @@ use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\User\Entity\UserTrait;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
 
 /**
@@ -24,13 +25,17 @@ use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
  * @UniqueEntity(fields={"email"}, message="Un utilisateur a déjà cette adresse email")
  * @UniqueEntity(fields={"username"}, message="Un utilisateur a déjà ce nom d'utilisateur")
  */
-class User implements UserInterface, UserInterfaceSf, TimestampableInterface
+class User implements UserInterface, UserInterfaceSf, TimestampableInterface, PasswordAuthenticatedUserInterface
 {
     use UserTrait;
 
-    public function getUserIdentifier()
+    public function getUserIdentifier(): string
     {
         return $this->username;
     }
 
+    public function getSalt()
+    {
+
+    }
 }

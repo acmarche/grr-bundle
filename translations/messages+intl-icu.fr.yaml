@@ -41,6 +41,7 @@ label:
     login: 'S''identifier'
     preference:
       email: 'Notifications'
+    confirm: 'Confirmer'
   setting:
     edit: 'Modifier les paramètres'
   user:

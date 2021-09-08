@@ -25,14 +25,6 @@ class Area implements AreaInterface
     use AreaTrait;
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("area:read")
-     */
-    private ?int $id;
-
-    /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=80, nullable=false)
      * @Groups("area:read")

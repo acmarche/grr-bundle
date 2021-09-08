@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Id;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Entry\Entity\EntryTrait;
@@ -27,14 +26,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Entry implements EntryInterface, TimestampableInterface
 {
     use EntryTrait;
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups("entry:read")
-     */
-    private ?int $id;
 
     /**
      * @Assert\NotBlank

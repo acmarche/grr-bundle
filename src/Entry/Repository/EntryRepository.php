@@ -6,12 +6,14 @@ use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Entity\AreaInterface;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Entity\RoomInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
+use Grr\Core\Contrat\Repository\OrmCrudInterface;
 use Grr\Core\Doctrine\OrmCrudTrait;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Entry;
@@ -24,7 +26,7 @@ use Webmozart\Assert\Assert;
  * @method Entry[]    findAll()
  * @method Entry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EntryRepository extends ServiceEntityRepository implements EntryRepositoryInterface
+class EntryRepository extends ServiceEntityRepository implements EntryRepositoryInterface, OrmCrudInterface
 {
     use OrmCrudTrait;
 
@@ -33,23 +35,35 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         parent::__construct($managerRegistry, Entry::class);
     }
 
+    public function createQBL(): QueryBuilder
+    {
+        return $this->createQueryBuilder('entry')
+            ->leftJoin('entry.periodicity', 'periodicity', 'WITH')
+            ->leftJoin('entry.room', 'room', 'WITH')
+            ->leftJoin('entry.type', 'type', 'WITH')
+            ->addSelect('room', 'type');
+    }
+
     /**
      * @return Entry[] Returns an array of Entry objects
      */
-    public function findForMonth(DateTimeInterface $firstDayOfMonth, AreaInterface $area, RoomInterface $room = null): array
-    {
-        $qb = $this->createQueryBuilder('entry');
+    public function findForMonth(
+        DateTimeInterface $firstDayOfMonth,
+        ?AreaInterface $area,
+        RoomInterface $room = null
+    ): array {
         $endDayOfMonth = clone $firstDayOfMonth;
         $endDayOfMonth->modify('last day of this month');
 
-        $qb->andWhere('DATE(entry.startTime) >= :begin AND DATE(entry.endTime) <= :end')
+        $qb = $this->createQBL()
+            ->andWhere('DATE(entry.startTime) >= :begin AND DATE(entry.endTime) <= :end')
             ->setParameter('begin', $firstDayOfMonth->format('Y-m-d'))
             ->setParameter('end', $endDayOfMonth->format('Y-m-d'));
 
         if (null !== $room) {
             $qb->andWhere('entry.room = :room')
                 ->setParameter('room', $room);
-        } else {
+        } elseif($area) {
             $rooms = $this->getRooms($area);
             $qb->andWhere('entry.room IN (:rooms)')
                 ->setParameter('rooms', $rooms);
@@ -66,15 +80,11 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      */
     public function findForDay(CarbonInterface $carbon, RoomInterface $room): array
     {
-        $qb = $this->createQueryBuilder('entry');
-
-        $qb->andWhere('DATE(entry.startTime) <= :date AND DATE(entry.endTime) >= :date')
-            ->setParameter('date', $carbon->format('Y-m-d'));
-
-        $qb->andWhere('entry.room = :room')
-            ->setParameter('room', $room);
-
-        return $qb
+        return $this->createQBL()
+            ->andWhere('DATE(entry.startTime) <= :date AND DATE(entry.endTime) >= :date')
+            ->setParameter('date', $carbon->format('Y-m-d'))
+            ->andWhere('entry.room = :room')
+            ->setParameter('room', $room)
             ->orderBy('entry.startTime', 'ASC')
             ->getQuery()
             ->getResult();
@@ -85,23 +95,20 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      */
     public function isBusy(EntryInterface $entry, RoomInterface $room): array
     {
-        $queryBuilder = $this->createQueryBuilder('entry');
-
         $begin = $entry->getStartTime();
         $end = $entry->getEndTime();
 
-        $queryBuilder->andWhere('entry.startTime BETWEEN :begin AND :end')
+        $queryBuilder = $this->createQBL()
+            ->andWhere('entry.startTime BETWEEN :begin AND :end')
             ->setParameter('begin', $begin->format('Y-m-d H:i'))
-            ->setParameter('end', $end->format('Y-m-d H:i'));
-
-        $queryBuilder->orWhere('entry.endTime BETWEEN :begin1 AND :end1')
+            ->setParameter('end', $end->format('Y-m-d H:i'))
+            ->orWhere('entry.endTime BETWEEN :begin1 AND :end1')
             ->setParameter('begin1', $begin->format('Y-m-d H:i'))
-            ->setParameter('end1', $end->format('Y-m-d H:i'));
-
-        $queryBuilder->andWhere('entry.room = :room')
+            ->setParameter('end1', $end->format('Y-m-d H:i'))
+            ->andWhere('entry.room = :room')
             ->setParameter('room', $room);
 
-        /*
+        /**
          * en cas de modif
          */
         if (null !== $entry->getId()) {
@@ -126,11 +133,11 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         $typeEntry = $args['entry_type'] ?? null;
         $type = $args['type'] ?? null;
 
-        $queryBuilder = $this->createQueryBuilder('entry');
+        $queryBuilder = $this->createQBL();
 
         if ($name) {
             $queryBuilder->andWhere('entry.name LIKE :name')
-                ->setParameter('name', '%' . $name . '%');
+                ->setParameter('name', '%'.$name.'%');
         }
 
         if ($area instanceof Area) {
@@ -166,11 +173,8 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      */
     public function withPeriodicity(): array
     {
-        $queryBuilder = $this->createQueryBuilder('entry');
-
-        $queryBuilder->andWhere('entry.periodicity IS NOT NULL');
-
-        return $queryBuilder
+        return $this->createQBL()
+            ->andWhere('entry.periodicity IS NOT NULL')
             ->orderBy('entry.startTime', 'ASC')
             ->getQuery()
             ->getResult();
@@ -181,12 +185,9 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      */
     public function findByPeriodicity(PeriodicityInterface $periodicity): array
     {
-        $queryBuilder = $this->createQueryBuilder('entry');
-
-        $queryBuilder->andWhere('entry.periodicity = :periodicity')
-            ->setParameter('periodicity', $periodicity);
-
-        return $queryBuilder
+        return $this->createQBL()
+            ->andWhere('entry.periodicity = :periodicity')
+            ->setParameter('periodicity', $periodicity)
             ->orderBy('entry.startTime', 'ASC')
             ->getQuery()
             ->getResult();
@@ -206,20 +207,15 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
 
     /**
      * Retourne l'entry de base de la repetition.
-     *
-     * @return mixed
-     *
      * @throws NonUniqueResultException
      */
-    public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity)
+    public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity): ?EntryInterface
     {
-        $queryBuilder = $this->createQueryBuilder('entry');
-
-        $queryBuilder->andWhere('entry.periodicity = :periodicity')
+        return $this->createQBL()
+            ->andWhere('entry.periodicity = :periodicity')
             ->setParameter('periodicity', $periodicity)
-            ->orderBy('entry.startTime', 'ASC');
-
-        return $queryBuilder->setMaxResults(1)
+            ->orderBy('entry.startTime', 'ASC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -229,18 +225,13 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         $periodicity = $entry->getPeriodicity();
         Assert::notNull($periodicity);
 
-        $queryBuilder = $this->createQueryBuilder('entry');
-
-        $queryBuilder->andWhere('entry.startTime = :start')
-            ->setParameter('start', $entry->getStartTime());
-
-        $queryBuilder->andWhere('entry.endTime = :end')
-            ->setParameter('end', $entry->getEndTime());
-
-        $queryBuilder->andWhere('entry.periodicity = :periodicity')
-            ->setParameter('periodicity', $periodicity);
-
-        return $queryBuilder
+        return $this->createQBL()
+            ->andWhere('entry.startTime = :start')
+            ->setParameter('start', $entry->getStartTime())
+            ->andWhere('entry.endTime = :end')
+            ->setParameter('end', $entry->getEndTime())
+            ->andWhere('entry.periodicity = :periodicity')
+            ->setParameter('periodicity', $periodicity)
             ->orderBy('entry.startTime', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
@@ -253,5 +244,37 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
                 $this->remove($entry);
             }
         }
+    }
+
+    /**
+     * @return array|EntryInterface[]
+     */
+    public function findModerates(): array
+    {
+        return $this->createQBL()
+            ->andWhere('entry.moderate = 1')
+            ->addOrderBy('entry.createdBy', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Entry[]
+     */
+    public function findByMonthAndRoom(CarbonInterface $carbon, RoomInterface $room): array
+    {
+
+        $firstDayOfMonth = $carbon->copy()->startOfMonth();
+        $lastDayOfMonth = $carbon->copy()->endOfMonth();
+
+        return $this->createQBL()
+            ->andWhere('entry.startTime >= :begin AND entry.endTime <= :end')
+            ->setParameter('begin', $firstDayOfMonth->format('Y-m-d'))
+            ->setParameter('end', $lastDayOfMonth->format('Y-m-d'))
+            ->andWhere('entry.room = :room')
+            ->setParameter('room', $room)
+            ->orderBy('entry.startTime', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

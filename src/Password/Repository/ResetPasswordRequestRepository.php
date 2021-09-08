@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\Repository;
+namespace Grr\GrrBundle\Password\Repository;
 
 use Grr\GrrBundle\Entity\ResetPasswordRequest;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

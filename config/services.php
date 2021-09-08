@@ -5,6 +5,7 @@ use Grr\Core\Setting\General\SettingGeneralInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\Core\View\ViewLocator;
 use Grr\GrrBundle\Notification\BrowserGrrChannel;
+use Grr\GrrBundle\Parameter\Option;
 use Grr\GrrBundle\Security\Voter\CriterionInterface;
 use Grr\GrrBundle\Security\Voter\PostVoter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -16,6 +17,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
     $parameters->set('grr.supported_locales', ['fr', 'en', 'nl']);
+    $parameters->set(Option::LDAP_DN, '%env(ACLDAP_DN)%');
+    $parameters->set(Option::LDAP_USER, '%env(ACLDAP_USER)%');
+    $parameters->set(Option::LDAP_PASSWORD, '%env(ACLDAP_PASSWORD)%');
 
     $services = $containerConfigurator->services();
 

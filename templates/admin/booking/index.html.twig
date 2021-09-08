@@ -1,0 +1,43 @@
+{% extends '@grr_admin/layout_admin.html.twig' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Réservations Esquare site</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Jour</th>
+                    <th>Heure</th>
+                    <th>Salle</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <td>{{ booking.nom }}</td>
+                        <td>{{ booking.prenom }}</td>
+                        <td>
+                            <a href="{{ path('grr_admin_booking_show', {'id': booking.id}) }}">
+                                {{ booking.jour|format_date('full') }}
+                            </a>
+                        </td>
+                        <td>{{ booking.horaireName }}</td>
+                        <td>{{ booking.roomName }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune demande non traitée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
