@@ -47,4 +47,5 @@ Feature: Manage user
     And I fill in "username" with "joseph@domain.com"
     And I fill in "password" with "12345"
     And I press "S'identifier"
+    Then print last response
     Then I should see "joseph@domain.com"

@@ -6,12 +6,15 @@ use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\Core\View\ViewLocator;
 use Grr\GrrBundle\Notification\BrowserGrrChannel;
 use Grr\GrrBundle\Parameter\Option;
+use Grr\GrrBundle\Security\Ldap\LdapGrr;
 use Grr\GrrBundle\Security\Voter\CriterionInterface;
 use Grr\GrrBundle\Security\Voter\PostVoter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Ldap\Adapter\ExtLdap\Adapter;
+use Symfony\Component\Ldap\LdapInterface;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_locator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -50,11 +53,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->tag('notifier.channel', ['channel' => 'browsergrr']);
 
     $services
-        ->load('Grr\GrrBundle\\', __DIR__ . '/../src/*')
-        ->exclude([__DIR__ . '/../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
+        ->load('Grr\GrrBundle\\', __DIR__.'/../src/*')
+        ->exclude([__DIR__.'/../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
 
-    $services->load('Grr\Core\\', __DIR__ . '/../../Core')
-        ->exclude([__DIR__ . '/../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
+    $services->load('Grr\Core\\', __DIR__.'/../../Core')
+        ->exclude([__DIR__.'/../../Core/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}']);
 
     /*   $services->set(ModuleSender::class)
            ->arg('$modules', tagged_iterator('grr.module'));*/
@@ -77,4 +80,28 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(PostVoter::class)
         ->args([tagged_locator('entry.voter')]);
+
+    if (interface_exists(LdapInterface::class)) {
+        $services
+            ->set(Symfony\Component\Ldap\Ldap::class)
+            ->args(['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'])
+            ->tag('ldap');
+        $services->set(Adapter::class)->args(
+            [
+                [
+                    'host' => '%env(ACLDAP_URL)%',
+                    'port' => 636,
+                    'encryption' => 'ssl',
+                    'options' => [
+                        'protocol_version' => 3,
+                        'referrals' => false,
+                    ],
+                ],
+            ]
+        );
+
+        $services->set(LdapGrr::class)
+            ->arg('$adapter', service('Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'))
+            ->tag('ldap'); //necessary for new LdapBadge(LdapGrr::class)
+    }
 };

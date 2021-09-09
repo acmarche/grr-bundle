@@ -4,8 +4,7 @@ Feature: Authentication
   I need to be able to login and logout
 
   Scenario: Logging in
-    Given I am on homepage
-    When I follow "Administration"
+    Given I am on "/fr/admin/"
     Then I should be on "/fr/login"
     And I fill in "username" with "grr@domain.be"
     And I fill in "password" with "homer"
