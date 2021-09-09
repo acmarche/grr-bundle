@@ -19,12 +19,16 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row"{{ stimulus_controller('area', { isRestricted:true, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
     <div class="col-6">
-        {{ form_row(form.area) }}
+        {{ form_widget(form.area, {'attr': {'data-action':'area#updateRooms'} }) }}
+        {{ form_help(form.area) }}
+        {{ form_errors(form.area) }}
     </div>
     <div class="col-6">
-        {{ form_row(form.room) }}
+        {{ form_widget(form.room, {'attr': {'data-area-target':'rooms'} }) }}
+        {{ form_help(form.room) }}
+        {{ form_errors(form.room) }}
     </div>
 </div>
 
@@ -34,4 +38,3 @@
             class="far fa-save"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
 
 {{ form_end(form) }}
-
