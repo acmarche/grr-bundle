@@ -10,6 +10,7 @@ Feature: Account
     And I am on "/fr/account/show/"
     Then I should see "Mon profil Adams bob"
     When I follow "Modifier"
+    #Then print last response
     And I fill in "user_front[name]" with "Batman"
     And I select "Esquare" from "user_front_area"
     #And I select "Box" from "user_room"

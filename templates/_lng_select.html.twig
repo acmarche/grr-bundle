@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> {{ app.request.locale|locale_name(app.request.locale)|u.title }}</a>
+    <div class="dropdown-menu" aria-labelledby="dropdown04">
+        <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'en'}) }}">
+            <i class="fas fa-flag-usa"></i> English
+        </a>
+        <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'fr'}) }}">
+            <i class="fas fa-flag-usa"></i> Français
+        </a>
+    </div>
+</li>
