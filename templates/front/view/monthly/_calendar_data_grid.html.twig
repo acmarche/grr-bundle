@@ -1,0 +1,23 @@
+<div class="data-grid">
+    {% for weekDayName in weekDaysName %}
+        <div class="data-cell shadow">{{ weekDayName|trans }}</div>
+    {% endfor %}
+    {% for week in weeks %}
+        {% for day in week.days %}
+            <div class="data-cell border border-1" style="border-color: #dee2e6;">
+                {% if day.isSameMonth(firstDay) %}
+                    <a href="{{ grrGenerateRouteView(day, 'daily') }}" class="float-end">
+                        {{ day.day }}
+                    </a>
+                    {% set key = day.toDateString %}
+                    {% set data = dataDays[key] %} <!-- phpstorm -->
+                    {% for entry in data.entries %}
+                        {% include '@grr_front/view/monthly/_entry_line.html.twig' %}
+                    {% endfor %}
+                {% else %}
+                    <span class="float-end">{{ day.day }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

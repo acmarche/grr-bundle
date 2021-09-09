@@ -112,7 +112,7 @@ class ViewMonthlyRender implements ViewInterface
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
         return $this->environment->render(
-            '@grr_front/view/monthly/_calendar_data.html.twig',
+            '@grr_front/view/monthly/_calendar_data_grid.html.twig',
             [
                 'weekDaysName' => $this->dateProvider->weekDaysName(),
                 'firstDay' => $dateSelected->copy()->firstOfMonth(),

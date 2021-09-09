@@ -1,7 +1,7 @@
 {% if isRestricted is not defined %}
     {% set isRestricted = 'false' %}
 {% endif %}
-<div {{ stimulus_controller('area', { isRestricted:isRestricted, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+<div class="mb-3" {{ stimulus_controller('area', { isRestricted:isRestricted, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
     {{ form_start(form) }}
     {{ form_label(form.area) }}
     {{ form_widget(form.area, {'attr': {'data-action':'area#selectArea'} }) }}
