@@ -12,6 +12,7 @@ use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Routing\RouterInterface;
 
 class EntryUpdatedHandler implements MessageHandlerInterface
 {
@@ -20,19 +21,22 @@ class EntryUpdatedHandler implements MessageHandlerInterface
     private AuthorizationHelper $authorizationHelper;
     private UserRepository $userRepository;
     private EmailPreferenceRepository $emailPreferenceRepository;
+    private RouterInterface $router;
 
     public function __construct(
         NotifierInterface $notifier,
         EntryRepository $entryRepository,
         UserRepository $userRepository,
         AuthorizationHelper $authorizationHelper,
-        EmailPreferenceRepository $emailPreferenceRepository
+        EmailPreferenceRepository $emailPreferenceRepository,
+        RouterInterface $router
     ) {
         $this->notifier = $notifier;
         $this->entryRepository = $entryRepository;
         $this->authorizationHelper = $authorizationHelper;
         $this->userRepository = $userRepository;
         $this->emailPreferenceRepository = $emailPreferenceRepository;
+        $this->router = $router;
     }
 
     public function __invoke(EntryUpdated $entryCreated): void
@@ -58,7 +62,7 @@ class EntryUpdatedHandler implements MessageHandlerInterface
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 
@@ -90,7 +94,9 @@ class EntryUpdatedHandler implements MessageHandlerInterface
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
         if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
-            $notification = new EntryEmailNotification('Une réservation a été modifiée pour vous : ', $entry);
+
+            $action = $this->router->generate('grr_front_entry_show', ['id' => $entry->getId()]);
+            $notification = new EntryEmailNotification('Une réservation a été modifiée pour vous : ', $entry,$action);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
             if ($user !== null) {
                 $recipient = new Recipient(

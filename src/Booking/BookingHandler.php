@@ -59,9 +59,12 @@ class BookingHandler
     public function sendConfirmation(Entry $entry, string $email)
     {
         $notification = new EntryEmailNotification('Validation de votre réservation', $entry);
-            $recipient = new Recipient(
-                $email
-            );
-            $this->notifier->send($notification, $recipient);
+        $recipient = new Recipient(
+            $email
+        );
+        $recipientAdmin = new Recipient(
+            'jf@marche.be'
+        );
+        $this->notifier->send($notification, $recipient, $recipientAdmin);
     }
 }

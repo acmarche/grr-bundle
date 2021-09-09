@@ -12,6 +12,7 @@ use Grr\GrrBundle\User\Repository\UserRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Routing\RouterInterface;
 
 class EntryCreatedHandler implements MessageHandlerInterface
 {
@@ -20,19 +21,22 @@ class EntryCreatedHandler implements MessageHandlerInterface
     private AuthorizationHelper $authorizationHelper;
     private UserRepository $userRepository;
     private EmailPreferenceRepository $emailPreferenceRepository;
+    private RouterInterface $router;
 
     public function __construct(
         NotifierInterface $notifier,
         EntryRepository $entryRepository,
         UserRepository $userRepository,
         AuthorizationHelper $authorizationHelper,
-        EmailPreferenceRepository $emailPreferenceRepository
+        EmailPreferenceRepository $emailPreferenceRepository,
+        RouterInterface $router
     ) {
         $this->notifier = $notifier;
         $this->entryRepository = $entryRepository;
         $this->authorizationHelper = $authorizationHelper;
         $this->userRepository = $userRepository;
         $this->emailPreferenceRepository = $emailPreferenceRepository;
+        $this->router = $router;
     }
 
     public function __invoke(EntryCreated $entryCreated): void
@@ -51,14 +55,15 @@ class EntryCreatedHandler implements MessageHandlerInterface
     private function sendNotificationByEmail(EntryCreated $entryCreated)
     {
         $entry = $this->entryRepository->find($entryCreated->getEntryId());
-        $notification = new EntryEmailNotification('Nouvelle réservation: ', $entry);
+        $action = $this->router->generate('grr_front_entry_show', ['id' => $entry->getId()]);
+        $notification = new EntryEmailNotification('Nouvelle réservation: ', $entry, $action);
 
         $room = $entry->getRoom();
         $area = $room->getArea();
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 

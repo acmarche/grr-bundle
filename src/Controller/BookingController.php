@@ -99,8 +99,10 @@ class BookingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             dump($form->getData());
-            // $this->handlerEntry->handleNewEntry($entry);
-$this->bookingHandler->sendConfirmation($entry, $booking->getEmail());
+            $this->handlerEntry->handleNewEntry($entry);
+            $this->bookingHandler->sendConfirmation($entry, $booking->getEmail());
+            $booking->setDone(true);
+            //$this->bookingRepository->flush();
             //$this->dispatchMessage(new EntryCreated($entry->getId()));
 
             //   return $this->redirectToRoute('grr_admin_booking_index');
@@ -110,6 +112,7 @@ $this->bookingHandler->sendConfirmation($entry, $booking->getEmail());
             '@grr_front/entry/new.html.twig',
             [
                 'entry' => $entry,
+                'periodicity' => null,
                 'displayOptionsWeek' => false,
                 'form' => $form->createView(),
             ]
