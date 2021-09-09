@@ -19,7 +19,7 @@ class BusyRoomValidator extends ConstraintValidator
 
     /**
      * @param EntryInterface $value
-     * @param BusyRoom       $constraint
+     * @param BusyRoom $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -30,10 +30,14 @@ class BusyRoomValidator extends ConstraintValidator
         $room = $value->getRoom();
 
         $entries = $this->entryRepository->isBusy($value, $room);
-        //todo display entries conflit
+
         if (count($entries) > 0) {
+            $message = '';
+            foreach ($entries as $entry) {
+                $message .= ' '.$entry->getName();
+            }
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ value }}', $value)
+                ->setParameters(['rooms' => $message])
                 ->addViolation();
         }
     }

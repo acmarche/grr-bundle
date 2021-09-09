@@ -3,7 +3,7 @@ constraint:
     area:
       exceeds: 'L''heure de fin doit être plus petite que l''heure de fermeture de la salle'
       greater: 'L''heure de début doit être plus grande que l''heure d''ouverture de la salle'
-    busy: 'La réservation est dans une zone occupée.'
+    busy: 'La réservation est dans une zone occupée. {rooms}'
     duration:
       time_float : 'Une nombre à virgule n''est autorisé que pour une durée par heure'
   entryType:
