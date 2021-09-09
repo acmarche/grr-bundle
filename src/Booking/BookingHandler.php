@@ -58,7 +58,7 @@ class BookingHandler
 
     public function sendConfirmation(Entry $entry, string $email)
     {
-        $notification = new EntryEmailNotification('Une réservation a été faire pour vous : ', $entry);
+        $notification = new EntryEmailNotification('Validation de votre réservation', $entry);
             $recipient = new Recipient(
                 $email
             );

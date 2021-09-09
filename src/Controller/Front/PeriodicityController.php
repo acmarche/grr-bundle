@@ -70,6 +70,7 @@ class PeriodicityController extends AbstractController
             '@grr_front/periodicity/edit.html.twig',
             [
                 'entry' => $entry,
+                'periodicity' => $periodicity,
                 'displayOptionsWeek' => $displayOptionsWeek,
                 'form' => $form->createView(),
             ]

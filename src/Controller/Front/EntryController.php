@@ -115,6 +115,7 @@ class EntryController extends AbstractController
             '@grr_front/entry/new.html.twig',
             [
                 'entry' => $entry,
+                'periodicity' => null,
                 'displayOptionsWeek' => false,
                 'form' => $form->createView(),
             ]

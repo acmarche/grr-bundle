@@ -44,6 +44,7 @@ class PeriodicityType extends AbstractType
                     'expanded' => true,
                     'required' => false,
                     'placeholder' => false,
+                    'attr' => ['data-periodicity-target' => 'listPeriodicity'],
                 ]
             )
             ->add(
