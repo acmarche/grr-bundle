@@ -3,7 +3,6 @@
 namespace Grr\GrrBundle\Tests\Repository;
 
 use Carbon\Carbon;
-use Grr\Core\Model\Month;
 use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Entity\Entry;
 

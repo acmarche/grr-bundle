@@ -55,7 +55,7 @@ class EntryFactoryTest extends BaseTesting
         $date = Carbon::create($year, $month, $day, $hour, $minute);
         $endTime = $date->copy()->addMinutes($area->getDurationDefaultEntry());
 
-        $entry = $this->entryFactory->initEntryForNew($area, $room, $year, $month, $day);
+        $entry = $this->entryFactory->initEntryForNew($area, $room, $date->toDateTime(), $hour, $minute);
 
         $this->assertInstanceOf(Entry::class, $entry);
         $this->assertSame('Area1', $entry->getArea()->getName());

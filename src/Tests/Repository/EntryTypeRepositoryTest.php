@@ -5,7 +5,7 @@ namespace Grr\GrrBundle\Tests\Repository;
 use Grr\Core\Tests\BaseTesting;
 use Grr\GrrBundle\Entity\TypeEntry;
 
-class TypeEntryRepositoryTest extends BaseTesting
+class EntryTypeRepositoryTest extends BaseTesting
 {
     public function testFindByName(): void
     {
