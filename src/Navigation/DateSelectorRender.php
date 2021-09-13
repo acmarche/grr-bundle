@@ -63,11 +63,6 @@ class DateSelectorRender
         $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);
         $dateSelected->locale('fr');
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
-        foreach ($weeks as $week) {
-            dump($week->getStartDate()->format('d-m-Y'));
-            dump($week->getStartDate()->weekOfYear);
-        }
-
         $request = $this->requestStack->getMainRequest();
         $view = null !== $request ? $request->get('view') : null;
 
