@@ -4,7 +4,7 @@
         <div class="cal">
             <div class="cal-month">
                 <a class="cal-month-name" href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
-                    <strong>    {{ dateSelected.monthName|capitalize }} {{ dateSelected.year }} </strong>
+                    <strong>{{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}</strong>
                 </a>
                 <a class="cal-month-previous btn-sm btn btn-outline-primary" role="button"
                    href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
@@ -37,12 +37,7 @@
                         {{ 'week.initial'|trans({}) }}{{ week.startDate.weekOfYear }}
                     </a>
                     {% for day in week %}
-                        {% if day.isSameMonth(dateSelected) %}
-                            <a class="btn cal-btn" role="button"
-                               href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
-                        {% else %}
-                            <button type="button" disabled="disabled" class="btn cal-btn">{{ day.day }}</button>
-                        {% endif %}
+                        {% include '@Grr/front/navigation/date_selector/_cell_day.html.twig' %}
                     {% endfor %}
                 {% endfor %}
             </div>

@@ -1,13 +1,14 @@
 {% set classDay = "" %}
 
 {% if dateSelected == day and view == 'daily' %}
-    {% set classDay = "table-info" %}
+    {% set classDay = "border border-success" %}
 {% elseif today == day and view == 'monthly' %}
-    {% set classDay = "table-info" %}
+    {% set classDay = "border border-success" %}
 {% endif %}
 
-<td class="{{ classDay }}">
-    {% if day.isSameMonth(dateSelected) %}
-        <a href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
-    {% endif %}
-</td>
+{% if day.isSameMonth(dateSelected) %}
+    <a class="btn cal-btn {{ classDay }}" role="button"
+       href="{{ grrGenerateRouteView(day, 'daily') }}">{{ day.day }}</a>
+{% else %}
+    <button type="button" disabled="disabled" class="btn cal-btn {{ classDay }}">{{ day.day }}</button>
+{% endif %}
