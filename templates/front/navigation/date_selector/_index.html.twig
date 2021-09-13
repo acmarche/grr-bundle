@@ -27,8 +27,15 @@
             </div>
             <div class="cal-days">
                 {% for week in weeks %}
-                    <a class="btn cal-btn" disabled="" href="{{ grrGenerateRouteView(week.startDate, 'weekly') }}"
-                       role="button">{{ 'week.initial'|trans({}) }}{{ week.startDate.week }}</a>
+                    {% if week.startDate.weekOfYear == dateSelected.weekOfYear and view == 'weekly' %}
+                        {% set class = "border border-success" %}
+                    {% else %}
+                        {% set class = "" %}
+                    {% endif %}
+                    <a class="btn cal-btn {{ class }}" disabled="" href="{{ grrGenerateRouteView(week.startDate, 'weekly') }}"
+                       role="button">
+                        {{ 'week.initial'|trans({}) }}{{ week.startDate.weekOfYear }}
+                    </a>
                     {% for day in week %}
                         {% if day.isSameMonth(dateSelected) %}
                             <a class="btn cal-btn" role="button"
