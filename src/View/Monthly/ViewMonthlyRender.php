@@ -46,7 +46,7 @@ class ViewMonthlyRender implements ViewInterface
     {
         $dateCarbon = $this->carbonFactory->instance($dateSelected);
         $dataDays = $this->bindMonth($dateCarbon, $area, $room);
-        $monthData = $this->generateHtmlMonth($dateCarbon, $dataDays);
+        $monthData = $this->generateHtmlMonth($dateCarbon, $dataDays, $area, $room);
 
         $string = $this->environment->render(
             '@grr_front/view/monthly/month.html.twig',
@@ -107,8 +107,12 @@ class ViewMonthlyRender implements ViewInterface
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    private function generateHtmlMonth(CarbonInterface $dateSelected, array $dataDays): string
-    {
+    private function generateHtmlMonth(
+        CarbonInterface $dateSelected,
+        array $dataDays,
+        AreaInterface $area,
+        ?RoomInterface $room = null
+    ): string {
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
 
         return $this->environment->render(
@@ -118,6 +122,8 @@ class ViewMonthlyRender implements ViewInterface
                 'firstDay' => $dateSelected->copy()->firstOfMonth(),
                 'dataDays' => $dataDays,
                 'weeks' => $weeks,
+                'area' => $area,
+                'room' => $room,
             ]
         );
     }

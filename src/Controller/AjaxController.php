@@ -44,7 +44,7 @@ class AjaxController extends AbstractController
      */
     public function ajaxRequestGetRooms(Request $request): Response
     {
-        $areaId = (int) $request->get('id');
+        $areaId = (int)$request->get('id');
         $required = filter_var($request->get('isRequired'), FILTER_VALIDATE_BOOLEAN, false);
         $restricted = filter_var($request->get('isRestricted'), FILTER_VALIDATE_BOOLEAN, false);
 
@@ -62,6 +62,27 @@ class AjaxController extends AbstractController
             }
             $rooms = $this->authorizationHelper->getRoomsUserCanAdd($user, $area);
         }
+
+        return $this->render('@Grr/ajax/_rooms_options.html.twig', ['rooms' => $rooms, 'required' => $required]);
+    }
+
+    /**
+     * @Route("/ajax/getentries", name="grr_ajax_getentries")
+     */
+    public function ajaxRequestGetEntries(Request $request): Response
+    {
+        $areaId = (int)$request->get('area');
+        $roomId = (int)$request->get('room');
+        $date = $request->get('date');
+
+        $area = $this->areaRepository->find($areaId);
+        if (null === $area) {
+            throw new InvalidParameterException('Area not found');
+        }
+        if ($roomId) {
+            $rooms = $this->roomRepository->find($roomId);
+        }
+
 
         return $this->render('@Grr/ajax/_rooms_options.html.twig', ['rooms' => $rooms, 'required' => $required]);
     }
