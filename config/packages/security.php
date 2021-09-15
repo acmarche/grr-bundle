@@ -57,9 +57,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'security',
         [
             'role_hierarchy' => [
-                'ROLE_GRR_ADMINISTRATOR' => ['ROLE_GRR', 'ROLE_GRR_MANAGER_USER'],
+                'ROLE_GRR_ADMINISTRATOR' => ['ROLE_GRR', 'ROLE_GRR_MANAGER_USER', 'ROLE_BOOKING'],
                 'ROLE_GRR_ACTIVE_USER' => ['ROLE_GRR'],
                 'ROLE_GRR_MANAGER_USER' => ['ROLE_GRR'],
+                'ROLE_GRR_BOOKING' => ['ROLE_BOOKING'],
             ],
         ]
     );
