@@ -10,6 +10,7 @@
                         <a href="{{ grrGenerateRouteView(day, 'daily') }}" class="float-end">
                             {{ day.day }}
                         </a>
+                        <br/>
                         {% set key = day.toDateString %}
                         {% set data = dataDays[key] %} <!-- phpstorm -->
                         {% for entry in data.entries %}
