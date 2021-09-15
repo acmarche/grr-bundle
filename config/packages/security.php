@@ -1,5 +1,6 @@
 <?php
 
+use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Security\Authenticator\GrrAuthenticator;
 use Grr\GrrBundle\Security\Authenticator\GrrLdapAuthenticator;
@@ -57,10 +58,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'security',
         [
             'role_hierarchy' => [
-                'ROLE_GRR_ADMINISTRATOR' => ['ROLE_GRR', 'ROLE_GRR_MANAGER_USER', 'ROLE_BOOKING'],
-                'ROLE_GRR_ACTIVE_USER' => ['ROLE_GRR'],
-                'ROLE_GRR_MANAGER_USER' => ['ROLE_GRR'],
-                'ROLE_GRR_BOOKING' => ['ROLE_BOOKING'],
+                SecurityRole::ROLE_GRR_ADMINISTRATOR => [
+                    SecurityRole::ROLE_GRR,
+                    SecurityRole::ROLE_GRR_MANAGER_USER,
+                    SecurityRole::ROLE_GRR_BOOKING,
+                ],
+                SecurityRole::ROLE_GRR_ACTIVE_USER => [SecurityRole::ROLE_GRR],
+                SecurityRole::ROLE_GRR_MANAGER_USER => [SecurityRole::ROLE_GRR],
+                SecurityRole::ROLE_GRR_BOOKING => [SecurityRole::ROLE_GRR],
             ],
         ]
     );
