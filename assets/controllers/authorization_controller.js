@@ -1,4 +1,5 @@
 import {Controller} from "stimulus";
+
 /**
  * Disabled option rooms if area administrator or manger resource
  */
@@ -13,11 +14,12 @@ export default class extends Controller {
     }
 
     selectRole(event) {
-        console.log('ici');
         const radioValue = event.currentTarget;
         radioValue.disabled = !radioValue.disabled;
 
         console.log('id radio select: ' + radioValue);
+        console.log(this.roomsTarget);
+        this.roomsTarget.disable = true;
         if (radioValue === '1') {
 
         } else {
@@ -26,8 +28,8 @@ export default class extends Controller {
     }
 
     t() {
-        let typeList = $('.authorization_role');
-        let authorization_rooms = $('.room-select');
+        let typeList = document.querySelector('.authorization_role');
+        let authorization_rooms = document.querySelector('.room-select');
         typeList.on('click', function (e) {
             loadOptionsWeeks()
         });
@@ -36,12 +38,12 @@ export default class extends Controller {
     }
 
     loadOptionsWeeks() {
-        var radioValue = $(".form-check-input:checked").val();
-
+        var radioValue = document.querySelector(".form-check-input:checked").value;
+        console.log(radioValue);
         if (radioValue === '1') {
-            authorization_rooms.prop('disabled', true);
+            this.roomsTarget.disable = true;
         } else {
-            authorization_rooms.prop('disabled', false);
+            this.roomsTarget.disabled = false;
         }
     }
 }

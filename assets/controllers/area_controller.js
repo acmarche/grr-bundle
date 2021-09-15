@@ -11,11 +11,10 @@ export default class extends Controller {
     }
 
     async search(query, isRequired) {
-        //isRequired, isRestricted params to add
         const params = new URLSearchParams({
             id: query,
             isRequired: isRequired,
-            isRestricted: isRestrictedValue
+            isRestricted: this.isRestrictedValue
         });
         console.log('query: ' + query);
         const response = await fetch(`${this.urlValue}?${params.toString()}`, {
@@ -26,7 +25,7 @@ export default class extends Controller {
 
     selectArea(event) {
         const areaIdSelected = event.currentTarget.value;
-        console.log('id area select: ' + areaIdSelected);
+     //   console.log('id area select: ' + areaIdSelected);
         this.changerUrlArea(areaIdSelected);
     }
 
@@ -39,7 +38,7 @@ export default class extends Controller {
 
     selectRoom(event) {
         const roomIdSelected = event.currentTarget.value;
-        console.log('id room select: ' + roomIdSelected);
+   //     console.log('id room select: ' + roomIdSelected);
         this.changerUrlRoom(roomIdSelected);
     }
 
