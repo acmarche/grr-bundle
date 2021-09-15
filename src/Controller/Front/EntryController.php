@@ -58,8 +58,11 @@ class EntryController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $args = $entries = [];
-
+         $entries = [];
+        $search = false;
+        $today = new DateTime();
+        $today->modify('-1 month');
+        $args = ['startDate' => $today, 'endDate'=>new DateTime()];
         $form = $this->createForm(SearchEntryType::class, $args);
 
         $form->handleRequest($request);
@@ -67,12 +70,14 @@ class EntryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
             $entries = $this->entryRepository->search($args);
+            $search = true;
         }
 
         return $this->render(
             '@grr_front/entry/index.html.twig',
             [
                 'entries' => $entries,
+                'search' => $search,
                 'form' => $form->createView(),
             ]
         );

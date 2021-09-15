@@ -1,18 +1,40 @@
-<div class="hidden-print hidden-xs">
+<div {{ stimulus_controller('area', { isRestricted:false, url: path('grr_ajax_getrooms')}) }}>
 
-    {{ form_start(form, { 'attr': {'class': 'form-inline'}}) }}
+    {{ form_start(form, { 'attr': {'class': 'row gy-2 gx-1 align-items-center d-print-none'}}) }}
     {{ form_errors(form) }}
+    <div class="col-auto">
+        {{ form_row(form.name, {label_attr: {class: 'sr-only'}, attr:{'class': 'my-1 mr-sm-2'} }) }}
+    </div>
+    <div class="col-auto">
+        <div class="mb-3">
+            {{ form_label(form.area, 'x', {'label_attr': {class: 'sr-only'}}) }}
+            {{ form_widget(form.area, {'attr': {'data-action':'area#updateRooms', 'class': 'my-1 mr-sm-2'} }) }}
+            {{ form_help(form.area) }}
+            {{ form_errors(form.area) }}
+        </div>
+    </div>
+    <div class="col-auto">
+        <div class="mb-3">
+            {{ form_widget(form.room, {'attr': {'data-area-target':'rooms', 'class': 'my-1 mr-sm-2'} }) }}
+            {{ form_help(form.room) }}
+            {{ form_errors(form.room) }}
+        </div>
+    </div>
+    <div class="col-auto">
+        {{ form_row(form.type_entry, {label_attr: {class: 'sr-only'}, attr:{'class': 'my-1 mr-sm-2'} }) }}
+    </div>
+    <div class="col-12"></div>
+    <div class="col-auto">
+        {{ form_row(form.startDate, {label_attr: {class: 'sr-only'}, attr:{'class': 'my-1 mr-sm-2'} }) }}
+    </div>
+    <div class="col-auto">
+        {{ form_row(form.endDate, {label_attr: {class: 'sr-only'}, attr:{'class': 'my-1 mr-sm-2'} }) }}
+    </div>
 
-    {{ form_row(form.name) }}
-    {{ form_row(form.area) }}
-    {{ form_row(form.room) }}
-    {{ form_row(form.type_entry) }}
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-4">{{ 'label.btn.search'|trans }}</button>
+    </div>
 
-    <br />
-    <button type="submit" class="btn btn-primary mb-2">{{'label.btn.search'|trans}}</button>
-
+    {{ form_end(form) }}
 </div>
-
-{{ form_end(form) }}
-
 <br/>

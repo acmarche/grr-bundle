@@ -63,7 +63,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         if (null !== $room) {
             $qb->andWhere('entry.room = :room')
                 ->setParameter('room', $room);
-        } elseif($area) {
+        } elseif ($area) {
             $rooms = $this->getRooms($area);
             $qb->andWhere('entry.room IN (:rooms)')
                 ->setParameter('rooms', $rooms);
@@ -130,6 +130,8 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         $name = $args['name'] ?? null;
         $area = $args['area'] ?? null;
         $room = $args['room'] ?? null;
+        $dateStart = $args['dateStart'] ?? null;
+        $dateEnd = $args['dateEnd'] ?? null;
         $typeEntry = $args['entry_type'] ?? null;
         $type = $args['type'] ?? null;
 
@@ -159,6 +161,16 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         if ($type) {
             $queryBuilder->andWhere('entry.type = :type')
                 ->setParameter('type', $type);
+        }
+
+        if ($dateStart) {
+            if (!$dateEnd) {
+                $dateEnd = new \DateTime();
+                $dateEnd->modify('+10 years');
+            }
+            $queryBuilder->andWhere('entry.startTime >= :begin AND entry.endTime <= :end')
+                ->setParameter('begin', $dateStart->format('Y-m-d'))
+                ->setParameter('end', $dateEnd->format('Y-m-d'));
         }
 
         return $queryBuilder

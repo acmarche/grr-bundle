@@ -2,7 +2,12 @@
 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
     <li class="nav-item">
         <a href="{{ path('grr_homepage') }}" class="nav-link" aria-current="page">
-            <i class="fas fa-search"></i> {{ 'menu.planning'|trans({}) }}
+            <i class="fas fa-calendar-alt"></i> {{ 'menu.planning'|trans({}) }}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ path('grr_front_entry_index') }}" class="nav-link" aria-current="page">
+            <i class="fas fa-search"></i> {{ 'menu.search'|trans({}) }}
         </a>
     </li>
     {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_ADMINISTRATOR')) %}

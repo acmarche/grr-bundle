@@ -4,7 +4,7 @@ namespace Grr\GrrBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Doctrine\Traits\IdEntityTrait;
-use Grr\GrrBundle\Repository\BookingRepository;
+use Grr\GrrBundle\Booking\Repository\BookingRepository;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)

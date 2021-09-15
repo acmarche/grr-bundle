@@ -20,7 +20,7 @@ use Grr\GrrBundle\Entity\Booking;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Repository\BookingRepository;
+use Grr\GrrBundle\Booking\Repository\BookingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

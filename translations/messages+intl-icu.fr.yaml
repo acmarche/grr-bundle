@@ -222,6 +222,9 @@ placeholder:
     password: 'Mot de passe'
     username: 'Nom d''utilisateur'
   search: 'Rechercher'
+  keyword: 'Mot clef'
+  entryType:
+    select: 'Type réservation'
 return:
   homepage: 'Retour à la page d''acceuil'
 authorization:
@@ -258,6 +261,7 @@ entry:
     confirm: 'Êtes vous sur de supprimer cette entrée ?'
   index:
     title: 'Liste des réservations'
+    search: 'Rechercher des réservations'
   name: 'Réservation'
   startTime: 'Début'
   endTime: 'Fin'

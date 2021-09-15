@@ -1,6 +1,6 @@
 <?php
 
-namespace Grr\GrrBundle\Repository;
+namespace Grr\GrrBundle\Booking\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

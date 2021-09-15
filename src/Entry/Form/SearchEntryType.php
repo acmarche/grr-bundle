@@ -7,6 +7,7 @@ use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\EventSubscriber\Form\AddRoomFieldSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -22,6 +23,18 @@ class SearchEntryType extends AbstractType
                     'required' => false,
                     'label' => false,
                     'attr' => ['placeholder' => 'placeholder.keyword', 'class' => 'my-1 mr-sm-2'],
+                ]
+            )
+            ->add(
+                'startDate', DateType::class, [
+                    'widget' => 'single_text',
+                    'help'=>'Entre le'
+                ]
+            )
+            ->add(
+                'endDate', DateType::class, [
+                    'widget' => 'single_text',
+                    'help'=>'et le'
                 ]
             )
             ->add(
