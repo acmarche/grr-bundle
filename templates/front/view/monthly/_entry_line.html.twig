@@ -5,6 +5,8 @@
     {% if entry.description %}
         <br/>
         <span class="text-muted">{{ entry.description | u.truncate(20, '...') }}</span>
+    {% else %}
+        <br/>
     {% endif %}
 
     <span class="text-muted">
