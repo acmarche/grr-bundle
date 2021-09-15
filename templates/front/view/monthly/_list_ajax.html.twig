@@ -1,0 +1,5 @@
+{% for entry in entries %}
+    {% include '@grr_front/view/monthly/_entry_line.html.twig' %}
+{% else %}
+    {{ 'records.not_found'|trans }}
+{% endfor %}

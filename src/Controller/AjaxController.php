@@ -11,7 +11,7 @@ namespace Grr\GrrBundle\Controller;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,15 +28,18 @@ class AjaxController extends AbstractController
     private AreaRepositoryInterface $areaRepository;
     private RoomRepositoryInterface $roomRepository;
     private AuthorizationHelper $authorizationHelper;
+    private EntryRepository $entryRepository;
 
     public function __construct(
         AreaRepositoryInterface $areaRepository,
         RoomRepositoryInterface $roomRepository,
+        EntryRepository $entryRepository,
         AuthorizationHelper $authorizationHelper
     ) {
         $this->areaRepository = $areaRepository;
         $this->roomRepository = $roomRepository;
         $this->authorizationHelper = $authorizationHelper;
+        $this->entryRepository = $entryRepository;
     }
 
     /**
@@ -71,19 +74,23 @@ class AjaxController extends AbstractController
      */
     public function ajaxRequestGetEntries(Request $request): Response
     {
-        $areaId = (int)$request->get('area');
-        $roomId = (int)$request->get('room');
-        $date = $request->get('date');
+        $data = json_decode($request->getContent());
+
+        $areaId = (int)$data->area;
+        $roomId = (int)$data->room;
+        $date = \DateTime::createFromFormat('Y-m-d', $data->date);
 
         $area = $this->areaRepository->find($areaId);
-        if (null === $area) {
-            throw new InvalidParameterException('Area not found');
-        }
+        $args = ['dateStart' => $date, 'area' => $area];
         if ($roomId) {
-            $rooms = $this->roomRepository->find($roomId);
+            $room = $this->roomRepository->find($roomId);
+            $args['room'] = $room;
         }
 
+        $entries = $this->entryRepository->search($args);
 
-        return $this->render('@Grr/ajax/_rooms_options.html.twig', ['rooms' => $rooms, 'required' => $required]);
+        return $this->render('@grr_front/view/monthly/_list_ajax.html.twig',
+            ['entries' => $entries]
+        );
     }
 }

@@ -5,24 +5,27 @@
         {% endfor %}
         {% for week in weeks %}
             {% for day in week.days %}
-                <div class="data-cell card align-items-start ">
+                <div class="data-cell card align-items-center ">
                     <div class="card-body">
                         {% if day.isSameMonth(firstDay) %}
-                            <a href="{{ grrGenerateRouteView(day, 'daily') }}" class="float-end">
+                            <a href="{{ grrGenerateRouteView(day, 'daily') }}" class="float-en2d">
                                 {{ day.day }}
                             </a>
                             {% set key = day.toDateString %}
                             {% set data = dataDays[key] %} <!-- phpstorm -->
                             {% if data.entries|length > 0 %}
                                 <br/>
+                                <br/>
                                 {% set key = day.toDateString %}
                                 <button
                                         type="button"
-                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#reservationsModal"
+                                        class="badge bg-danger rounded rounded-circle"
                                         data-action="entry#getEntries"
                                         data-room="{{ room ? room.id : 0 }}"
                                         data-day="{{ day|date('Y-m-d') }}">
-                                    Voir
+                                    <span class="">{{ data.entries|length }}</span>
                                 </button>
                             {% endif %}
                         {% else %}
@@ -43,7 +46,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div data-entry-target="listentries"></div>
+                    <div data-entry-target="listentries">
+                        Chargement...
+                    </div>
                 </div>
                 <div class="modal-footer">
 

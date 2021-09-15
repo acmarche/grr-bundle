@@ -165,16 +165,18 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
 
         if ($dateStart) {
             if (!$dateEnd) {
-                $dateEnd = new \DateTime();
-                $dateEnd->modify('+10 years');
+                $queryBuilder->andWhere('entry.startTime LIKE :begin')
+                    ->setParameter('begin', $dateStart->format('Y-m-d').'%');
+            } else {
+                $queryBuilder->andWhere('entry.startTime >= :begin AND entry.endTime <= :end')
+                    ->setParameter('begin', $dateStart->format('Y-m-d'))
+                    ->setParameter('end', $dateEnd->format('Y-m-d'));
             }
-            $queryBuilder->andWhere('entry.startTime >= :begin AND entry.endTime <= :end')
-                ->setParameter('begin', $dateStart->format('Y-m-d'))
-                ->setParameter('end', $dateEnd->format('Y-m-d'));
         }
 
         return $queryBuilder
-            ->orderBy('entry.startTime', 'DESC')
+            ->orderBy('entry.room', 'ASC')
+            ->orderBy('entry.startTime', 'ASC')
             ->setMaxResults(500)
             ->getQuery()
             ->getResult();
