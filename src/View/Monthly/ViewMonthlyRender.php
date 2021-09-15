@@ -55,6 +55,7 @@ class ViewMonthlyRender implements ViewInterface
                 'room' => $room,
                 'dateSelected' => $dateCarbon,
                 'monthData' => $monthData,
+                'types'=>$area->getTypesEntry(),//legend
                 'view' => self::getDefaultIndexName(),
             ]
         );
