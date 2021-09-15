@@ -1,0 +1,7 @@
+<div class="d-lg-none d-xl-none d-xxl-none">
+    <div class="data-grid">
+        {% for weekDayName in weekDaysName %}
+            <div class="data-cell shadow align-items-center">{{ weekDayName|trans[:3] }}</div>
+        {% endfor %}
+    </div>
+</div>
