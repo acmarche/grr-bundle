@@ -10,7 +10,7 @@
             <i class="fas fa-search"></i> {{ 'menu.search'|trans({}) }}
         </a>
     </li>
-    {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_BOKING')) %}
+    {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_BOOKING')) %}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('grr_admin_booking_index') }}">Booking</a>
         </li>
