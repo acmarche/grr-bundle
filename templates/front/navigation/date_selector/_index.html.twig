@@ -3,21 +3,7 @@
     <div class="d-grid gap-1">
         <div class="cal">
             <div class="cal-month">
-                <a class="cal-month-name" href="{{ grrGenerateRouteView(dateSelected, 'monthly') }}">
-                    <strong>{{ dateSelected.monthName|capitalize }} {{ dateSelected.year }}</strong>
-                </a>
-                <a class="cal-month-previous btn-sm btn btn-outline-primary" role="button"
-                   href="{{ grrGenerateRouteView(dateSelected.subMonth, 'monthly') }}">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <a class="cal-month-next btn btn-sm btn-outline-primary" role="button"
-                   href="{{ grrGenerateRouteView(dateSelected.addMonth, 'monthly') }}">
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-                <a class="cal-month-today btn btn-sm btn-outline-primary" role="button"
-                   href="{{ grrGenerateRouteView(today, 'monthly') }}">
-                    <span class="font-weight-bolder">{{ 'Today' | trans }}</span>
-                </a>
+                {% include '@grr_front/navigation/date_selector/_btns.html.twig' %}
             </div>
             <div class="cal-weekdays text-muted">
                 <div class="cal-weekday">{{ 'week.name'|trans[:1] }}</div>
