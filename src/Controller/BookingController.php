@@ -11,16 +11,15 @@
 namespace Grr\GrrBundle\Controller;
 
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
-use Grr\Core\Entry\Message\EntryCreated;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\GrrBundle\Booking\ApiSerializer;
 use Grr\GrrBundle\Booking\BookingForm;
 use Grr\GrrBundle\Booking\BookingHandler;
+use Grr\GrrBundle\Booking\Repository\BookingRepository;
 use Grr\GrrBundle\Entity\Booking;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Grr\GrrBundle\Booking\Repository\BookingRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -45,8 +44,7 @@ class BookingController extends AbstractController
         CarbonFactory $carbonFactory,
         ApiSerializer $apiSerializer,
         BookingRepository $bookingRepository,
-        BookingHandler $bookingHandler
-        ,
+        BookingHandler $bookingHandler,
         HandlerEntry $handlerEntry
     ) {
         $this->entryRepository = $entryRepository;
