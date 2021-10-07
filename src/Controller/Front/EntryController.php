@@ -187,7 +187,7 @@ class EntryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="grr_front_entry_delete", methods={"DELETE"})
+     * @Route("/{id}", name="grr_front_entry_delete", methods={"POST"})
      * @IsGranted("grr.entry.delete", subject="entry")
      */
     public function delete(Request $request, Entry $entry): RedirectResponse

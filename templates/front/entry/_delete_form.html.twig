@@ -12,7 +12,6 @@
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="{{ path('grr_front_entry_delete', {'id': entry.id}) }}">
-                        <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entry.id) }}">
                         <button type="button" class="btn btn-secondary"
                                 data-bs-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>
