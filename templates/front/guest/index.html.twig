@@ -1,0 +1,46 @@
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{ 'entry.index.search'|trans({}) }}{% endblock %}
+
+{% block body %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h2>{{ 'entry.index.search'|trans({}) }}</h2>
+        </div>
+        <div class="card-body">
+
+            {% include '@Grr/search/_entry.html.twig' %}
+
+            {% if search %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>{{ 'entry.name'|trans }}</th>
+                        <th>{{ 'entry.startTime'|trans }}</th>
+                        <th>{{ 'entry.endTime'|trans }}</th>
+                        <th>{{ 'entry.room'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entry in entries %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('grr_front_entry_show', {'id': entry.id}) }}">
+                                    {{ entry.name }}</a>
+                            </td>
+                            <td>{{ entry.startTime|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ entry.endTime|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ entry.room }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">{{ 'records.not_found'| trans({}) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

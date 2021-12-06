@@ -13,12 +13,12 @@
 {% include '@grr_front/entry/form/_field_duration.html.twig' %}
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-md-6 col-sm-12">
         {{ form_widget(form.area, {'attr': {'data-action':'area#updateRooms'} }) }}
         {{ form_help(form.area) }}
         {{ form_errors(form.area) }}
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-sm-12">
         {{ form_widget(form.room, {'attr': {'data-area-target':'rooms'} }) }}
         {{ form_help(form.room) }}
         {{ form_errors(form.room) }}
@@ -26,10 +26,10 @@
 </div>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-md-6 col-sm-12">
         {{ form_row(form.description) }}
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-sm-12">
         {{ form_row(form.type) }}
     </div>
 </div>

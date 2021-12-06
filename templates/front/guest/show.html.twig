@@ -1,0 +1,65 @@
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{ entry.name }}{% endblock %}
+
+{% block body %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h2>{{ entry.name }}</h2>
+        </div>
+        <div class="card-body">
+
+            {% include '@grr_front/entry/_actions.html.twig' %}
+
+            <div class="row">
+                <div class="col-6">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th>{{ 'entry.startTime'|trans }}</th>
+                            <td>{{ entry.startTime|format_datetime('full', 'short') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.endTime'|trans }}</th>
+                            <td>{{ entry.endTime|format_datetime('full', 'short') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.area'|trans }}</th>
+                            <td>{{ entry.room.area }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.room'|trans }}</th>
+                            <td>{{ entry.room }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.type'|trans }}</th>
+                            <td>{{ entry.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.statutEntry'|trans }}</th>
+                            <td>{{ entry.statutEntry }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'entry.reservedFor'|trans }}</th>
+                            <td>{{ entry.reservedFor }}</td>
+                        </tr>
+                    </table>
+
+                    {{ entry.description|nl2br }}
+                </div>
+                <div class="col-6">
+                    {% include '@grr_front/periodicity/_show.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <span class="text-muted">
+                {{ 'created_by'|trans }} {{ entry.createdBy }}
+                {{ 'created_at'|trans }} {{ entry.createdAt | date('m-d-Y H:i') }}
+            </span>
+        </div>
+    </div>
+
+    {{ include('@grr_front/entry/_delete_form.html.twig') }}
+    {{ include('@grr_front/periodicity/_delete_form.html.twig') }}
+{% endblock %}

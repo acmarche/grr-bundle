@@ -1,0 +1,28 @@
+<h3 class="dropdown-toggle" type="button" data-bs-toggle="collapse"
+    data-bs-target="#collapsePeriodicite" aria-expanded="false" aria-controls="collapsePeriodicite">
+    {{ 'entry.new.periodicity.title'|trans({}) }}
+</h3>
+<span class="text-muted">Répétition de la réservation</span>
+<hr/>
+
+<div class="collapse {% if periodicity is not null %} show {% endif %}"
+     id="collapsePeriodicite" {{ stimulus_controller('periodicity') }}>
+
+    {{ form_row(form.periodicity.endTime) }}
+    {{ form_row(form.periodicity.type) }}
+
+    <div id="weeks_options" class="{{ displayOptionsWeek ? '' : 'd-none' }}">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>
+                    {{ form_row(form.periodicity.weekDays) }}
+                </td>
+                <td>
+                    {{ form_row(form.periodicity.weekRepeat) }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

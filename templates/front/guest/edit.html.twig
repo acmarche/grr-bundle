@@ -1,0 +1,34 @@
+{% extends '@grr_front/layout_front.html.twig' %}
+
+{% block title %}{{ entry.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h2>{{ entry.name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div {{ stimulus_controller('area', { isRestricted:true, url: path('grr_ajax_getrooms'), urlCurrent: app.request.requestUri}) }}>
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {% include '@grr_front/entry/form/_form_entry.html.twig' %}
+                        <button class="btn btn-primary" type="submit"><i
+                                    class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="col-6">
+                    {% include '@grr_front/periodicity/_show.html.twig' %}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('grr_front_entry_show',{'id': entry.id}) }}"><i
+                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+        </div>
+    </div>
+
+{% endblock %}

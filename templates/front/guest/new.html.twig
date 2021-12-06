@@ -1,0 +1,31 @@
+{% extends '@grr_front/layout_guest.html.twig' %}
+
+{% block title %}{{ 'entry.new.title'|trans({}) }}{% endblock %}
+
+{% block body %}
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3>{{ 'entry.new.title'|trans({}) }} pour {{ room }}</h3>
+        </div>
+
+        <div class="card-body">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    {% include '@grr_front/guest/form/_form_entry.html.twig' %}
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    {% include '@grr_front/entry/form/_form_periodicity.html.twig' %}
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit"><i
+                        class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="card-footer">
+
+        </div>
+    </div>
+{% endblock %}
