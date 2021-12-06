@@ -31,7 +31,7 @@ class AddTypeEntryFieldSubscriber implements EventSubscriberInterface
     public function onPreSetData(FormEvent $formEvent): void
     {
         /**
-         * @var Entry
+         * @var Entry $entry
          */
         $entry = $formEvent->getData();
         $form = $formEvent->getForm();
