@@ -78,7 +78,7 @@ class PeriodicityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="periodicity_delete", methods={"DELETE"})
+     * @Route("/{id}", name="periodicity_delete", methods={"POST"})
      */
     public function delete(Request $request, Periodicity $periodicity): RedirectResponse
     {

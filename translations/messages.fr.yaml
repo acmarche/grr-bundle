@@ -1,6 +1,6 @@
 help:
   area:
-      isRestricted: 'Accès à certains sont autorisé à accèder'
+    isRestricted: 'Accès à certains sont autorisé à accèder'
   periodicity:
     entry:
       type_select: 'Type d''entrée'
@@ -187,6 +187,8 @@ flash:
     created: 'La réservation a bien été ajoutée'
     updated: 'La réservation a bien été modifiée'
     deleted: 'La réservation a bien été supprimée'
+  periodicity:
+    deleted: 'La réservation et sa périodicité a bien été supprimée'
   typeEntry:
     created: 'Le type de réservation a bien été ajouté'
     updated: 'Le type de réservation a bien été modifié'
@@ -198,13 +200,13 @@ flash:
   setting:
     updated: 'Les paramètres ont bien été enregistrés'
   mail:
-      error: 'Une erreur est survenue lors de l''envoie du mail'
+    error: 'Une erreur est survenue lors de l''envoie du mail'
   notification:
-      updated: 'Les notifications ont bien été modifiées'
+    updated: 'Les notifications ont bien été modifiées'
 setting:
- room:
-   display.type_form_reservation_duree: 'La durée de la réservation'
-   display.type_form_reservation_endtime: 'La date/heure de fin de réservation'
+  room:
+    display.type_form_reservation_duree: 'La durée de la réservation'
+    display.type_form_reservation_endtime: 'La date/heure de fin de réservation'
 none:
   male: 'Aucun'
 authorization:
