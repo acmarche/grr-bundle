@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <form method="post" action="{{ path('grr_admin_type_entry_delete', {'id': type_entry.id}) }}">
-                    <input type="hidden" name="_method" value="DELETE">
+
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type_entry.id) }}">
                     <button type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>

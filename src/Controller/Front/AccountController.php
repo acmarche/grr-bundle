@@ -122,7 +122,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/delete", name="grr_user_account_delete", methods={"DELETE"})
+     * @Route("/delete", name="grr_user_account_delete", methods={"POST"})
      */
     public function delete(Request $request): RedirectResponse
     {

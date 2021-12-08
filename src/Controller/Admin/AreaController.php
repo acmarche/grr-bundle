@@ -135,7 +135,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="grr_admin_area_delete", methods={"DELETE"})
+     * @Route("/{id}", name="grr_admin_area_delete", methods={"POST"})
      * @IsGranted("grr.area.delete", subject="area")
      */
     public function delete(Request $request, Area $area): RedirectResponse

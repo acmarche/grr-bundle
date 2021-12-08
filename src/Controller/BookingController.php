@@ -118,7 +118,7 @@ class BookingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="grr_admin_booking_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="grr_admin_booking_delete", methods={"POST"})
      */
     public function delete(Request $request, Booking $booking): RedirectResponse
     {

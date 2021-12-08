@@ -106,7 +106,7 @@ class RoomController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="grr_admin_room_delete", methods={"DELETE"})
+     * @Route("/{id}", name="grr_admin_room_delete", methods={"POST"})
      * @IsGranted("grr.room.delete", subject="room")
      */
     public function delete(Request $request, Room $room): RedirectResponse

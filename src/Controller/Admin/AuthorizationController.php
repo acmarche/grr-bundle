@@ -28,7 +28,7 @@ class AuthorizationController extends AbstractController
     }
 
     /**
-     * @Route("/delete", name="grr_authorization_delete", methods={"DELETE"})
+     * @Route("/delete", name="grr_authorization_delete", methods={"POST"})
      */
     public function delete(Request $request): RedirectResponse
     {

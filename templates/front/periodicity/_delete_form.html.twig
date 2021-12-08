@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="{{ path('periodicity_delete', {'id': entry.periodicity.id}) }}">
-                        <input type="hidden" name="_method" value="DELETE">
+
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entry.periodicity.id) }}">
                         <button type="button" class="btn btn-secondary"
                                 data-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>

@@ -80,7 +80,7 @@ class SettingController extends AbstractController
     }
 
     /**
-     * @Route("/{name}", name="grr_admin_setting_delete", methods={"DELETE"})
+     * @Route("/{name}", name="grr_admin_setting_delete", methods={"POST"})
      */
     public function delete(Request $request, SettingEntity $setting): RedirectResponse
     {
