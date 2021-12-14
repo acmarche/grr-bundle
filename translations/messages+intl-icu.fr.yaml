@@ -28,7 +28,7 @@ label:
     edit_periodicity: 'Modifier la périodicité'
     edit_entry: 'Modifier la réservation'
     delete_entry: 'Supprimer la réservation'
-    delete_periodicity: 'Supprimer la périodicité'
+    delete_periodicity: 'Supprimer toutes les réservations'
     next:
       month: 'Mois prochain'
       year: 'Année prochaine'
@@ -279,7 +279,7 @@ week:
 Today: 'Aujourd''hui'
 periodicity:
   delete:
-    confirm: 'Êtes vous sur de supprimer la périodicité ?'
+    confirm: 'Êtes vous sur de supprimer toutes les réservations ?'
   title: 'Périodicité'
   endtime: 'Fin de la périodicité'
   type: 'Type'

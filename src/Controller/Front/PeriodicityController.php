@@ -29,9 +29,10 @@ class PeriodicityController extends AbstractController
 
     public function __construct(
         PeriodicityRepositoryInterface $periodicityRepository,
-        HandlerEntry $handlerEntry,
-        EntryRepositoryInterface $entryRepository
-    ) {
+        HandlerEntry                   $handlerEntry,
+        EntryRepositoryInterface       $entryRepository
+    )
+    {
         $this->handlerEntry = $handlerEntry;
         $this->entryRepository = $entryRepository;
         $this->periodicityRepository = $periodicityRepository;
@@ -85,9 +86,15 @@ class PeriodicityController extends AbstractController
         $entry = $this->entryRepository->getBaseEntryForPeriodicity($periodicity);
 
         if ($this->isCsrfTokenValid('delete' . $periodicity->getId(), $request->request->get('_token'))) {
-            $this->periodicityRepository->remove($periodicity);
 
-            $this->dispatchMessage(new PeriodicityDeleted($periodicity->getId()));
+            $id = $periodicity->getId();
+            foreach ($periodicity->getEntries() as $entry) {
+                $this->periodicityRepository->remove($entry);
+            }
+            $this->periodicityRepository->remove($periodicity);
+            $this->periodicityRepository->flush();
+
+            $this->dispatchMessage(new PeriodicityDeleted($id));
         }
 
         return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);

@@ -6,19 +6,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">{{ 'delete.confirm'|trans({}) }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     {{ 'periodicity.delete.confirm'|trans({'name': entry.name}) }}
                 </div>
                 <div class="modal-footer">
                     <form method="post" action="{{ path('periodicity_delete', {'id': entry.periodicity.id}) }}">
-
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entry.periodicity.id) }}">
                         <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>
+                                data-bs-dismiss="modal">{{ 'label.btn.cancel'|trans({}) }}</button>
                         <button type="submit"
                                 class="btn btn-danger">{{ 'label.btn.delete'|trans({}) }}</button>
                     </form>
