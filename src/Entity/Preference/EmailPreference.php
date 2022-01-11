@@ -8,11 +8,15 @@ use Grr\Core\Doctrine\Traits\IdEntityTrait;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 
-
 #[ORM\Entity(repositoryClass: EmailPreferenceRepository::class)]
 class EmailPreference
 {
     use IdEntityTrait;
+
+    #[ORM\ManyToOne(UserInterface::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private UserInterface $user;
+
     #[ORM\Column(type: 'boolean')]
     private bool $onCreated;
     #[ORM\Column(type: 'boolean')]
@@ -21,11 +25,13 @@ class EmailPreference
     private bool $onDeleted;
 
     public function __construct(
-        private UserInterface $user
-    ) {
+        UserInterface $user
+    )
+    {
         $this->onCreated = false;
         $this->onDeleted = false;
         $this->onUpdated = false;
+        $this->user = $user;
     }
 
     public function getOnCreated(): bool
