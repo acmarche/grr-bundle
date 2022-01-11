@@ -2,8 +2,6 @@
 
 namespace Grr\GrrBundle\DependencyInjection;
 
-use Doctrine\Common\EventSubscriber;
-use Grr\Core\Contrat\Modules\GrrModuleInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -22,12 +20,8 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/../../config'));
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../config'));
 
-        // @see https://github.com/doctrine/DoctrineBundle/issues/674
-        /*   $container->registerForAutoconfiguration(EventSubscriber::class)
-               ->addTag(self::DOCTRINE_EVENT_SUBSCRIBER_TAG);
-*/
         $phpFileLoader->load('services.php');
 
         $env = $containerBuilder->getParameter('kernel.environment');
@@ -36,11 +30,6 @@ class GrrExtension extends Extension implements PrependExtensionInterface
             $phpFileLoader->load('services_dev.php');
             $phpFileLoader->load('services_test.php');
         }
-        //auto tag GrrModuleInterface
-        //@see ModulesPass.php
-        //pourrait aussi etre dans services.php
-        $containerBuilder->registerForAutoconfiguration(GrrModuleInterface::class)
-            ->addTag('grr.module');
     }
 
     /**
@@ -70,17 +59,15 @@ class GrrExtension extends Extension implements PrependExtensionInterface
 
     protected function loadConfig(ContainerBuilder $containerBuilder, string $name): void
     {
-        $configs = $this->loadYamlFile($containerBuilder);
-
-        $configs->load($name.'.php');
-        //  $container->prependExtensionConfig('doctrine', $configs);
+        $configs = $this->loadPhpFile($containerBuilder);
+        $configs->load($name . '.php');
     }
 
-    protected function loadYamlFile(ContainerBuilder $containerBuilder): PhpFileLoader
+    protected function loadPhpFile(ContainerBuilder $containerBuilder): PhpFileLoader
     {
         return new PhpFileLoader(
             $containerBuilder,
-            new FileLocator(__DIR__.'/../../config/packages/')
+            new FileLocator(__DIR__ . '/../../config/packages/')
         );
     }
 }

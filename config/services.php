@@ -1,6 +1,7 @@
 <?php
 
 use Grr\Core\Contrat\Front\ViewInterface;
+use Grr\Core\Contrat\Modules\GrrModuleInterface;
 use Grr\Core\Setting\General\SettingGeneralInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\Core\View\ViewLocator;
@@ -40,6 +41,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $services->instanceof(ViewInterface::class)
         ->tag('grr.render');
+
+    $services = $services->instanceof(GrrModuleInterface::class)
+            ->tag('grr.module');
 
     $services = $services->set(BrowserGrrChannel::class)
         ->tag(
