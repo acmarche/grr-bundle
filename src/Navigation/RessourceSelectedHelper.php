@@ -10,27 +10,25 @@ use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\Area;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
 
-
 class RessourceSelectedHelper
 {
-    /**
-     * @var \Grr\Core\Setting\Repository\SettingProvider|mixed
-     */
-    public $settingProvider;
     public const AREA_DEFAULT_SESSION = 'area_seleted';
     public const ROOM_DEFAULT_SESSION = 'room_seleted';
+    private SessionInterface $session;
 
     public function __construct(
-        private SessionInterface $session,
-        private Security $security,
-        SettingProvider $settingProvider,
+        private RequestStack            $requestStack,
+        private Security                $security,
+        private SettingProvider         $settingProvider,
         private AreaRepositoryInterface $areaRepository,
         private RoomRepositoryInterface $roomRepository
-    ) {
-        $this->settingProvider = $settingProvider;
+    )
+    {
+        $this->session = $this->requestStack->getSession();
     }
 
     /**
@@ -61,7 +59,7 @@ class RessourceSelectedHelper
         $area = $this->areaRepository->findOneBy([], [
             'id' => 'ASC',
         ]);
-        if (! $area instanceof Area) {
+        if (!$area instanceof Area) {
             throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
         }
 

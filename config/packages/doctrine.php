@@ -24,7 +24,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'mappings' => [
                     'Grr\GrrBundle' => [
                         'is_bundle' => false,
-                        'type' => 'annotation',
                         'dir' => '%kernel.project_dir%/src/Grr/GrrBundle/src/Entity',
                         'prefix' => 'Grr\GrrBundle',
                         'alias' => 'GrrGrrBundle',

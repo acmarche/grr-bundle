@@ -25,6 +25,6 @@ class GrrBundle extends Bundle
     {
         parent::build($containerBuilder);
 
-        $containerBuilder->addCompilerPass(new ModulesPass(), 0);
+        $containerBuilder->addCompilerPass(new ModulesPass());
     }
 }

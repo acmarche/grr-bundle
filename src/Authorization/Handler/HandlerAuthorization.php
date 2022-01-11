@@ -10,6 +10,7 @@ use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entity\Security\Authorization;
 use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -17,12 +18,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class HandlerAuthorization
 {
     private ?bool $error = null;
+    private FlashBagInterface $flashBag;
 
     public function __construct(
         private AuthorizationRepositoryInterface $authorizationRepository,
-        private FlashBagInterface $flashBag,
+        private RequestStack $requestStack,
         private TranslatorInterface $translator
     ) {
+        $this->flashBag = $this->requestStack->getSession()->getFlashBag();
     }
 
     public function handle(FormInterface $form): void
