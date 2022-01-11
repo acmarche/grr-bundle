@@ -6,45 +6,23 @@ use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Doctrine\Traits\IdEntityTrait;
 use Grr\GrrBundle\Entity\Security\User;
+use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 
-/**
- * Class NotificationEmailPreference.
- *
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository")
- */
+
+#[ORM\Entity(repositoryClass: EmailPreferenceRepository::class)]
 class EmailPreference
 {
     use IdEntityTrait;
+    #[ORM\Column(type: 'boolean')]
+    private bool $onCreated;
+    #[ORM\Column(type: 'boolean')]
+    private bool $onUpdated;
+    #[ORM\Column(type: 'boolean')]
+    private bool $onDeleted;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Grr\Core\Contrat\Entity\Security\UserInterface")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     * @var UserInterface
-     */
-    private $user;
-
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $onCreated;
-
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $onUpdated;
-
-    /**
-     * @var bool
-     * @ORM\Column(type="boolean")
-     */
-    private $onDeleted;
-
-    public function __construct(UserInterface $user)
-    {
-        $this->user = $user;
+    public function __construct(
+        private UserInterface $user
+    ) {
         $this->onCreated = false;
         $this->onDeleted = false;
         $this->onUpdated = false;

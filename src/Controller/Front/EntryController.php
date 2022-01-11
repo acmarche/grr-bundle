@@ -3,8 +3,6 @@
 namespace Grr\GrrBundle\Controller\Front;
 
 use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Message\EntryCreated;
 use Grr\Core\Entry\Message\EntryDeleted;
@@ -25,48 +23,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route("/front/entry")
- */
+#[Route(path: '/front/entry')]
 class EntryController extends AbstractController
 {
-    private EntryRepositoryInterface $entryRepository;
-    private EntryFactory $entryFactory;
-    private HandlerEntry $handlerEntry;
-    private EventDispatcherInterface $eventDispatcher;
-    private FrontRouterHelper $frontRouterHelper;
-
     public function __construct(
-        EntryFactory $entryFactory,
-        EntryRepositoryInterface $entryRepository,
-        HandlerEntry $handlerEntry,
-        EventDispatcherInterface $eventDispatcher,
-        FrontRouterHelper $frontRouterHelper
+        private EntryFactory $entryFactory,
+        private EntryRepositoryInterface $entryRepository,
+        private HandlerEntry $handlerEntry,
+        private EventDispatcherInterface $eventDispatcher,
+        private FrontRouterHelper $frontRouterHelper,
+        private MessageBusInterface $messageBus
     ) {
-        $this->entryRepository = $entryRepository;
-        $this->entryFactory = $entryFactory;
-        $this->handlerEntry = $handlerEntry;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->frontRouterHelper = $frontRouterHelper;
     }
 
-    /**
-     * @Route("/", name="grr_front_entry_index", methods={"GET", "POST"})
-     */
+    #[Route(path: '/', name: 'grr_front_entry_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
-         $entries = [];
+        $entries = [];
         $search = false;
         $today = new DateTime();
         $today->modify('-1 month');
-        $args = ['startDate' => $today, 'endDate'=>new DateTime()];
+        $args = [
+            'startDate' => $today,
+            'endDate' => new DateTime(),
+        ];
         $form = $this->createForm(SearchEntryType::class, $args);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
             $entries = $this->entryRepository->search($args);
@@ -83,37 +69,25 @@ class EntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}", name="grr_front_entry_new", methods={"GET", "POST"})
-     * @Entity("area", expr="repository.find(area)")
-     * @Entity("room", expr="repository.find(room)")
-     *
-     * @IsGranted("grr.addEntry", subject="room")
-     * @param DateTime|DateTimeImmutable $date
-     */
-    public function new(
-        Request $request,
-        Area $area,
-        Room $room,
-        DateTime $date,
-        int $hour,
-        int $minute
-    ): Response {
+    #[Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: ['GET', 'POST'])]
+    #[Entity(data: 'area', expr: 'repository.find(area)')]
+    #[Entity(data: 'room', expr: 'repository.find(room)')]
+    #[IsGranted(data: 'grr.addEntry', subject: 'room')]
+    public function new(Request $request, Area $area, Room $room, \DateTime|\DateTimeImmutable $date, int $hour, int $minute): Response
+    {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
-
         //bug
         //  $this->dispatchMessage(new EntryInitialized($entry->getId()));
-
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleNewEntry($entry);
 
-            $this->dispatchMessage(new EntryCreated($entry->getId()));
+            $this->messageBus->dispatch(new EntryCreated($entry->getId()));
 
-            return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+            return $this->redirectToRoute('grr_front_entry_show', [
+                'id' => $entry->getId(),
+            ]);
         }
 
         return $this->render(
@@ -127,10 +101,8 @@ class EntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_front_entry_show", methods={"GET"})
-     * @IsGranted("grr.entry.show", subject="entry")
-     */
+    #[Route(path: '/{id}', name: 'grr_front_entry_show', methods: ['GET'])]
+    #[IsGranted(data: 'grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {
         $urlList = $this->frontRouterHelper->generateMonthView($entry);
@@ -149,30 +121,26 @@ class EntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_front_entry_edit", methods={"GET", "POST"})
-     * @IsGranted("grr.entry.edit", subject="entry")
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_front_entry_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
         $entry->setArea($entry->getRoom()->getArea());
-
         if (null !== ($periodicity = $entry->getPeriodicity())) {
             $periodicity->setEntryReference($entry); //use for validator
         }
-
         $form = $this->createForm(EntryType::class, $entry);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntry();
 
-            $this->dispatchMessage(new EntryUpdated($entry->getId()));
+            $this->messageBus->dispatch(new EntryUpdated($entry->getId()));
 
             return $this->redirectToRoute(
                 'grr_front_entry_show',
-                ['id' => $entry->getId()]
+                [
+                    'id' => $entry->getId(),
+                ]
             );
         }
 
@@ -186,14 +154,12 @@ class EntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_front_entry_delete", methods={"POST"})
-     * @IsGranted("grr.entry.delete", subject="entry")
-     */
+    #[Route(path: '/{id}', name: 'grr_front_entry_delete', methods: ['POST'])]
+    #[IsGranted(data: 'grr.entry.delete', subject: 'entry')]
     public function delete(Request $request, Entry $entry): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {
-            $this->dispatchMessage(new EntryDeleted($entry->getId()));
+            $this->messageBus->dispatch(new EntryDeleted($entry->getId()));
             $this->handlerEntry->handleDeleteEntry($entry);
         }
 

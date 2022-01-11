@@ -13,7 +13,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'form_themes' => [
                 'bootstrap_5_layout.html.twig',
             ],
-            'globals'=>['grr'=> service(SettingRepositoryInterface::class)]
+            'globals' => [
+                'grr' => service(SettingRepositoryInterface::class),
+            ],
         ]
     );
 

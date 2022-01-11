@@ -17,11 +17,9 @@ use Symfony\Component\Form\FormEvents;
 
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
-    private UserRepositoryInterface $userRepository;
-
-    public function __construct(UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
+    public function __construct(
+        private UserRepositoryInterface $userRepository
+    ) {
     }
 
     /**
@@ -53,7 +51,9 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
                     'multiple' => true,
                     'expanded' => true,
                     'query_builder' => $this->userRepository->getQueryBuilder(),
-                    'attr' => ['class' => 'custom-control custom-checkbox my-1 mr-sm-2'],
+                    'attr' => [
+                        'class' => 'custom-control custom-checkbox my-1 mr-sm-2',
+                    ],
                 ]
             );
         }

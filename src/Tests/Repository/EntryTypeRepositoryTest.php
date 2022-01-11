@@ -12,7 +12,9 @@ class EntryTypeRepositoryTest extends BaseTesting
         $this->loadFixtures();
         $typeEntry = $this->entityManager
             ->getRepository(TypeEntry::class)
-            ->findOneBy(['name' => 'Cours']);
+            ->findOneBy([
+                'name' => 'Cours',
+            ]);
 
         $this->assertEquals('Cours', $typeEntry->getName());
         $this->assertEquals('A', $typeEntry->getLetter());
@@ -22,7 +24,7 @@ class EntryTypeRepositoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'entry_type.yaml',
+                $this->pathFixtures.'entry_type.yaml',
             ];
 
         $this->loader->load($files);

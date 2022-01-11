@@ -7,12 +7,11 @@ use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 class FlashNotification extends Notification
 {
-    private string $type;
-
-    public function __construct(string $type, string $message)
-    {
+    public function __construct(
+        private string $type,
+        string $message
+    ) {
         parent::__construct($message);
-        $this->type = $type;
     }
 
     public function getChannels(RecipientInterface $recipient): array

@@ -22,25 +22,14 @@ class EntryVoter extends Voter
     public const DELETE = 'grr.entry.delete';
 
     private ?UserInterface $user = null;
-    private AuthorizationHelper $authorizationHelper;
-    /**
-     * @var Entry
-     */
-    private $entry;
-    /**
-     * @var Room|null
-     */
-    private $room;
-    /**
-     * @var Area
-     */
-    private $area;
-    private Security $security;
+    private Entry $entry;
+    private ?Room $room = null;
+    private Area $area;
 
-    public function __construct(Security $security, AuthorizationHelper $authorizationHelper)
-    {
-        $this->authorizationHelper = $authorizationHelper;
-        $this->security = $security;
+    public function __construct(
+        private Security $security,
+        private AuthorizationHelper $authorizationHelper
+    ) {
     }
 
     /**
@@ -48,11 +37,11 @@ class EntryVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject && !$subject instanceof Entry) {
+        if ($subject && ! $subject instanceof Entry) {
             return false;
         }
 
-        return in_array($attribute, [self::INDEX, self::NEW, self::SHOW, self::EDIT, self::DELETE], true);
+        return \in_array($attribute, [self::INDEX, self::NEW, self::SHOW, self::EDIT, self::DELETE], true);
     }
 
     /**
@@ -66,22 +55,17 @@ class EntryVoter extends Voter
         $this->room = $this->entry->getRoom();
         $this->area = $this->room->getArea();
 
-        if (!$this->isAnonyme() && $this->security->isGranted(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
+        if (! $this->isAnonyme() && $this->security->isGranted(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
             return true;
         }
 
-        switch ($attribute) {
-            case self::INDEX:
-                return $this->canIndex();
-            case self::SHOW:
-                return $this->canView();
-            case self::EDIT:
-                return $this->canEdit();
-            case self::DELETE:
-                return $this->canDelete();
-        }
-
-        return false;
+        return match ($attribute) {
+            self::INDEX => $this->canIndex(),
+            self::SHOW => $this->canView(),
+            self::EDIT => $this->canEdit(),
+            self::DELETE => $this->canDelete(),
+            default => false,
+        };
     }
 
     public function canIndex(): bool
@@ -126,6 +110,6 @@ class EntryVoter extends Voter
 
     private function isAnonyme(): bool
     {
-        return !($this->user instanceof User);
+        return ! ($this->user instanceof User);
     }
 }

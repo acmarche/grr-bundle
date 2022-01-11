@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Grr\GrrBundle\Security\Authenticator;
 
 use Grr\GrrBundle\Parameter\Option;
@@ -20,11 +19,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PasswordUpgrade
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
- * Essayer de voir les events
+ * Essayer de voir les events.
+ *
  * @see UserCheckerListener::postCheckCredentials
  * @see UserProviderListener::checkPassport
  * @see CheckCredentialsListener
@@ -37,21 +36,14 @@ class GrrLdapAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    private UrlGeneratorInterface $urlGenerator;
-    private UserRepository $userRepository;
-    private ParameterBagInterface $parameterBag;
-
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        UserRepository $userRepository,
-        ParameterBagInterface $parameterBag
+        private UrlGeneratorInterface $urlGenerator,
+        private UserRepository $userRepository,
+        private ParameterBagInterface $parameterBag
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->userRepository = $userRepository;
-        $this->parameterBag = $parameterBag;
     }
 
-    public function authenticate(Request $request): PassportInterface
+    public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('username', '');
         $password = $request->request->get('password', '');
@@ -62,7 +54,7 @@ class GrrLdapAuthenticator extends AbstractLoginFormAuthenticator
         $badges =
             [
                 new CsrfTokenBadge('authenticate', $token),
-                new PasswordUpgradeBadge($password, $this->userRepository),//SelfValidatingPassport?
+                new PasswordUpgradeBadge($password, $this->userRepository), //SelfValidatingPassport?
             ];
 
         $query = "(&(|(sAMAccountName=*$email*))(objectClass=person))";
@@ -76,7 +68,8 @@ class GrrLdapAuthenticator extends AbstractLoginFormAuthenticator
 
         return new Passport(
             new UserBadge($email),
-            new PasswordCredentials($password), $badges
+            new PasswordCredentials($password),
+            $badges
         );
     }
 

@@ -259,7 +259,7 @@ class SecurityHelperTest extends BaseTesting
         foreach ($users as $data) {
             $user = $this->getUser($data[0]);
             $access = $data[1];
-            self::assertSame($access, $authorizationHelper->canAddEntry($room, $user), $user->getEmail() . ' for ' . $name);
+            self::assertSame($access, $authorizationHelper->canAddEntry($room, $user), $user->getEmail().' for '.$name);
         }
     }
 
@@ -601,17 +601,17 @@ class SecurityHelperTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures.'area.yaml',
             ];
 
         if ($rule) {
-            $files[] = $this->pathFixtures . 'room_with_rule.yaml';
-            $files[] = $this->pathFixtures . 'authorization_rule.yaml';
-            $files[] = $this->pathFixtures . 'user_rule.yaml';
+            $files[] = $this->pathFixtures.'room_with_rule.yaml';
+            $files[] = $this->pathFixtures.'authorization_rule.yaml';
+            $files[] = $this->pathFixtures.'user_rule.yaml';
         } else {
-            $files[] = $this->pathFixtures . 'room.yaml';
-            $files[] = $this->pathFixtures . 'user.yaml';
-            $files[] = $this->pathFixtures . 'authorization.yaml';
+            $files[] = $this->pathFixtures.'room.yaml';
+            $files[] = $this->pathFixtures.'user.yaml';
+            $files[] = $this->pathFixtures.'authorization.yaml';
         }
 
         $this->loader->load($files);

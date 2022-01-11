@@ -4,10 +4,9 @@ namespace Grr\GrrBundle\Navigation;
 
 use Carbon\Carbon;
 use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\Core\Provider\DateProvider;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -17,35 +16,24 @@ use Twig\Error\SyntaxError;
 
 class DateSelectorRender
 {
-    private RequestStack $requestStack;
-    private Environment $twigEnvironment;
-    private DateProvider $dateProvider;
-    private CarbonFactory $carbonFactory;
-
     public function __construct(
-        RequestStack $requestStack,
-        Environment $twigEnvironment,
-        DateProvider $dateProvider,
-        CarbonFactory $carbonFactory
+        private RequestStack $requestStack,
+        private Environment $twigEnvironment,
+        private DateProvider $dateProvider,
+        private CarbonFactory $carbonFactory
     ) {
-        $this->requestStack = $requestStack;
-        $this->twigEnvironment = $twigEnvironment;
-        $this->dateProvider = $dateProvider;
-        $this->carbonFactory = $carbonFactory;
     }
 
     /**
-     * @return Response|string
-     *
      * @throws RuntimeError
      * @throws SyntaxError
      * @throws LoaderError
      */
-    public function render()
+    public function render(): Response|string
     {
         $request = $this->requestStack->getMainRequest();
 
-        if (null === $request) {
+        if (! $request instanceof Request) {
             return new Response('');
         }
 
@@ -54,10 +42,7 @@ class DateSelectorRender
         return $this->renderMonthByWeeks($dateSelected);
     }
 
-    /**
-     * @param DateTime|DateTimeImmutable $dateSelected
-     */
-    private function renderMonthByWeeks(DateTimeInterface $dateSelected): string
+    private function renderMonthByWeeks(\DateTime|\DateTimeImmutable $dateSelected): string
     {
         $today = Carbon::today();
         $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);

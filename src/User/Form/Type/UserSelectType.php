@@ -10,11 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserSelectType extends AbstractType
 {
-    private UserRepositoryInterface $userRepository;
-
-    public function __construct(UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
+    public function __construct(
+        private UserRepositoryInterface $userRepository
+    ) {
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -26,12 +24,14 @@ class UserSelectType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'query_builder' => $this->userRepository->getQueryBuilder(),
-                'attr' => ['class' => 'custom-select my-1 mr-sm-2'],
+                'attr' => [
+                    'class' => 'custom-select my-1 mr-sm-2',
+                ],
             ]
         );
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return EntityType::class;
     }

@@ -14,34 +14,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/setting")
- * @IsGranted("ROLE_GRR_ADMINISTRATOR")
- */
+#[Route(path: '/admin/setting')]
+#[IsGranted(data: 'ROLE_GRR_ADMINISTRATOR')]
 class SettingController extends AbstractController
 {
-    private SettingRepositoryInterface $settingRepository;
-    private SettingHandler $settingHandler;
-    private FormSettingFactory $formSettingFactory;
-    private SettingProvider $settingProvider;
-
     public function __construct(
-        SettingRepositoryInterface $settingRepository,
-        SettingHandler $settingHandler,
-        FormSettingFactory $formSettingFactory,
-        SettingProvider $settingProvider
+        private SettingRepositoryInterface $settingRepository,
+        private SettingHandler $settingHandler,
+        private FormSettingFactory $formSettingFactory,
+        private SettingProvider $settingProvider,
+        private MessageBusInterface $messageBus
     ) {
-        $this->settingRepository = $settingRepository;
-        $this->settingHandler = $settingHandler;
-        $this->formSettingFactory = $formSettingFactory;
-        $this->settingProvider = $settingProvider;
     }
 
-    /**
-     * @Route("/", name="grr_admin_setting_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'grr_admin_setting_index', methods: ['GET'])]
     public function index(): Response
     {
         $settings = $this->settingProvider->renderAll();
@@ -54,19 +43,16 @@ class SettingController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/edit", name="grr_admin_setting_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/edit', name: 'grr_admin_setting_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
         $form = $this->formSettingFactory->generate();
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $this->settingHandler->handleEdit($data);
 
-            $this->dispatchMessage(new SettingUpdated([]));
+            $this->messageBus->dispatch(new SettingUpdated([]));
 
             return $this->redirectToRoute('grr_admin_setting_index');
         }
@@ -79,17 +65,14 @@ class SettingController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{name}", name="grr_admin_setting_delete", methods={"POST"})
-     */
+    #[Route(path: '/{name}', name: 'grr_admin_setting_delete', methods: ['POST'])]
     public function delete(Request $request, SettingEntity $setting): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {
             $this->settingRepository->remove($setting);
             $this->settingRepository->flush();
         }
-
-        $this->dispatchMessage(new SettingDeleted([]));
+        $this->messageBus->dispatch(new SettingDeleted([]));
 
         return $this->redirectToRoute('grr_admin_setting_index');
     }

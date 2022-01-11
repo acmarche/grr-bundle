@@ -22,21 +22,12 @@ use Symfony\Component\Security\Core\Security;
 
 class EntryType extends AbstractType
 {
-    private DurationFactory $durationFactory;
-    private Security $security;
-    private AuthorizationHelper $authorizationHelper;
-    private UserRepositoryInterface $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        DurationFactory $durationFactory,
-        Security $security,
-        AuthorizationHelper $authorizationHelper
+        private UserRepositoryInterface $userRepository,
+        private DurationFactory $durationFactory,
+        private Security $security,
+        private AuthorizationHelper $authorizationHelper
     ) {
-        $this->durationFactory = $durationFactory;
-        $this->security = $security;
-        $this->authorizationHelper = $authorizationHelper;
-        $this->userRepository = $userRepository;
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void

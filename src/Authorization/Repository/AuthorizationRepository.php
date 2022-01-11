@@ -66,7 +66,7 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
      */
     public function findByUserAndArea(?UserInterface $user, ?AreaInterface $area): array
     {
-        if (!$user && !$area) {
+        if (! $user && ! $area) {
             throw new Exception('At least one parameter is needed');
         }
 

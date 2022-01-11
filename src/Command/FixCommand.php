@@ -22,14 +22,13 @@ class FixCommand extends Command
      * @var string
      */
     protected static $defaultName = 'app:fix';
-    private NotifierInterface $notifier;
-    private EntryRepository $entryRepository;
 
-    public function __construct(NotifierInterface $notifier, EntryRepository $entryRepository, string $name = null)
-    {
+    public function __construct(
+        private NotifierInterface $notifier,
+        private EntryRepository $entryRepository,
+        string $name = null
+    ) {
         parent::__construct($name);
-        $this->notifier = $notifier;
-        $this->entryRepository = $entryRepository;
     }
 
     protected function configure(): void

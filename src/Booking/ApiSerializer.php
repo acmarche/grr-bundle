@@ -6,19 +6,18 @@ use Grr\GrrBundle\Entity\Entry;
 
 class ApiSerializer
 {
-    public function serializeEntry(Entry $entry, bool $hours)
+    public function serializeEntry(Entry $entry, bool $hours): array
     {
         $format = 'Y-m-d';
         if ($hours) {
             $format .= ' H:i';
         }
-        $data = [
+
+        return [
             'name' => $entry->getName(),
             'startTime' => $entry->getStartTime()->format($format),
             'endTime' => $entry->getEndTime()->format($format),
         ];
-
-        return $data;
     }
 
     public function serializeEntries(array $entries, bool $hours = false): array

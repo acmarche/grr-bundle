@@ -3,7 +3,6 @@
 namespace Grr\GrrBundle\Booking;
 
 use Carbon\Carbon;
-use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\GrrBundle\Entity\Booking;
 use Grr\GrrBundle\Entity\Entry;
 use Grr\GrrBundle\Notification\EntryEmailNotification;
@@ -14,31 +13,24 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 
 class BookingHandler
 {
-    private RoomRepository $roomRepository;
-    private NotifierInterface $notifier;
-    private UserRepository $userRepository;
-
     public function __construct(
-        RoomRepository $roomRepository,
-        NotifierInterface $notifier,
-        UserRepository $userRepository
+        private RoomRepository $roomRepository,
+        private NotifierInterface $notifier,
+        private UserRepository $userRepository
     ) {
-        $this->roomRepository = $roomRepository;
-        $this->notifier = $notifier;
-        $this->userRepository = $userRepository;
     }
 
-    public function convertBookingToEntry(Booking $booking): EntryInterface
+    public function convertBookingToEntry(Booking $booking): Entry
     {
         $jour = $booking->getJour();
         $area = null;
         $room = $this->roomRepository->find($booking->getRoomId());
-        if ($room) {
+        if (null !== $room) {
             $area = $room->getArea();
         }
 
         $horaire = BookingCont::horairesTime[$booking->getHoraireId()];
-        if ($horaire) {
+        if ([] !== $horaire) {
             $startime = Carbon::instance($jour);
             $startime->hour($horaire[0]);
             $endTime = Carbon::instance($jour);
@@ -56,7 +48,7 @@ class BookingHandler
         return $entry;
     }
 
-    public function sendConfirmation(Entry $entry, string $email)
+    public function sendConfirmation(Entry $entry, string $email): void
     {
         $notification = new EntryEmailNotification('Validation de votre réservation', $entry);
         $recipient = new Recipient(

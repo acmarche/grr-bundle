@@ -21,7 +21,7 @@ class PeriodicityValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value instanceof Periodicity) {
+        if (! $value instanceof Periodicity) {
             throw new InvalidArgumentException($value, 0);
         }
 

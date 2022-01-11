@@ -19,34 +19,17 @@ use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\Core\Security\SecurityRole;
 use Grr\Core\Setting\Room\SettingsRoom;
-use Grr\GrrBundle\Area\Repository\AreaRepository;
-use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
 
 class AuthorizationHelper
 {
-    /**
-     * @var AuthorizationRepository
-     */
-    private $authorizationRepository;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
-    /**
-     * @var AreaRepository
-     */
-    private $areaRepository;
+    public $userRepository;
 
     public function __construct(
-        AuthorizationRepositoryInterface $authorizationRepository,
-        AreaRepositoryInterface $areaRepository,
-        RoomRepositoryInterface $roomRepository
+        private AuthorizationRepositoryInterface $authorizationRepository,
+        private AreaRepositoryInterface $areaRepository,
+        private RoomRepositoryInterface $roomRepository
     ) {
-        $this->authorizationRepository = $authorizationRepository;
-        $this->roomRepository = $roomRepository;
-        $this->areaRepository = $areaRepository;
     }
 
     /**
@@ -118,7 +101,11 @@ class AuthorizationHelper
     public function isAreaAdministrator(UserInterface $user, AreaInterface $area): bool
     {
         return (bool) $this->authorizationRepository->findOneBy(
-            ['user' => $user, 'area' => $area, 'isAreaAdministrator' => true]
+            [
+                'user' => $user,
+                'area' => $area,
+                'isAreaAdministrator' => true,
+            ]
         );
     }
 
@@ -133,7 +120,11 @@ class AuthorizationHelper
         }
 
         return (bool) $this->authorizationRepository->findOneBy(
-            ['user' => $user, 'area' => $area, 'isAreaAdministrator' => false]
+            [
+                'user' => $user,
+                'area' => $area,
+                'isAreaAdministrator' => false,
+            ]
         );
     }
 
@@ -147,7 +138,11 @@ class AuthorizationHelper
         }
 
         return (bool) $this->authorizationRepository->findOneBy(
-            ['user' => $user, 'room' => $room, 'isResourceAdministrator' => true]
+            [
+                'user' => $user,
+                'room' => $room,
+                'isResourceAdministrator' => true,
+            ]
         );
     }
 
@@ -165,7 +160,11 @@ class AuthorizationHelper
         }
 
         return (bool) $this->authorizationRepository->findOneBy(
-            ['user' => $user, 'room' => $room, 'isResourceAdministrator' => false]
+            [
+                'user' => $user,
+                'room' => $room,
+                'isResourceAdministrator' => false,
+            ]
         );
     }
 
@@ -256,7 +255,7 @@ class AuthorizationHelper
             return true;
         }
 
-        if (!$user || $ruleToAdd > SettingsRoom::CAN_ADD_NO_RULE) {
+        if (! $user || $ruleToAdd > SettingsRoom::CAN_ADD_NO_RULE) {
             return $this->checkAuthorizationRoomToAddEntry($room, $user);
         }
 
@@ -283,7 +282,7 @@ class AuthorizationHelper
         return true;
     }
 
-    public function isAreaRestricted(Area $area): bool
+    public function isAreaRestricted(Area $area): ?bool
     {
         return $area->getIsRestricted();
     }
@@ -312,15 +311,13 @@ class AuthorizationHelper
         return $this->authorizationRepository->findByAreaOrRoom($area, $room);
     }
 
-    public function getUsersCanAdd(AreaInterface $area, RoomInterface $room)
+    public function getUsersCanAdd(AreaInterface $area, RoomInterface $room): array
     {
         $area = $room->getArea();
 
         $authorizations = $this->findByAreaOrRoom($area, $room);
         $users = array_map(
-            function ($authorization) {
-                return $authorization->getUser();
-            },
+            fn ($authorization) => $authorization->getUser(),
             $authorizations
         );
 

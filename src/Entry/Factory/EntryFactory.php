@@ -13,11 +13,9 @@ use Grr\GrrBundle\Periodicity\Factory\PeriodicityFactory;
 
 class EntryFactory
 {
-    private PeriodicityFactory $periodicityFactory;
-
-    public function __construct(PeriodicityFactory $periodicityFactory)
-    {
-        $this->periodicityFactory = $periodicityFactory;
+    public function __construct(
+        private PeriodicityFactory $periodicityFactory
+    ) {
     }
 
     public function generateEntry(Entry $entry, CarbonInterface $carbon): Entry

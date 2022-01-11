@@ -16,11 +16,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class PostVoter extends Voter
 {
-    private ServiceLocator $criteria;
-
-    public function __construct(ServiceLocator $criteria)
-    {
-        $this->criteria = $criteria;
+    public function __construct(
+        private ServiceLocator $criteria
+    ) {
     }
 
     protected function supports(string $attribute, $subject): bool
@@ -32,11 +30,11 @@ class PostVoter extends Voter
         return $subject instanceof Entry && $this->criteria->has($attribute);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return false;
         }
 

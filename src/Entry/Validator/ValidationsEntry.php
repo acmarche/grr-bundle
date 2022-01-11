@@ -8,11 +8,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidationsEntry
 {
-    private ValidatorInterface $validator;
-
-    public function __construct(ValidatorInterface $validator)
-    {
-        $this->validator = $validator;
+    public function __construct(
+        private ValidatorInterface $validator
+    ) {
     }
 
     /**

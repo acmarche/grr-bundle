@@ -8,6 +8,7 @@ use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Grr\GrrBundle\Entity\Entry;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/events.html#events
@@ -15,11 +16,9 @@ use Symfony\Component\Security\Core\Security;
  */
 class DoctrineSubscriber implements EventSubscriber
 {
-    private Security $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
+    public function __construct(
+        private Security $security
+    ) {
     }
 
     // this method can only return the event names; you cannot define a
@@ -39,7 +38,7 @@ class DoctrineSubscriber implements EventSubscriber
     public function prePersist(LifecycleEventArgs $lifecycleEventArgs): void
     {
         $object = $lifecycleEventArgs->getObject();
-        if (!$object instanceof Entry) {
+        if (! $object instanceof Entry) {
             return;
         }
 
@@ -48,7 +47,7 @@ class DoctrineSubscriber implements EventSubscriber
 
         $username = $this->getUsername();
 
-        if (!$object->getCreatedBy()) {
+        if (! $object->getCreatedBy()) {
             $object->setCreatedBy($username);
         }
 
@@ -60,7 +59,7 @@ class DoctrineSubscriber implements EventSubscriber
     public function preUpdate(LifecycleEventArgs $lifecycleEventArgs): void
     {
         $object = $lifecycleEventArgs->getObject();
-        if (!$object instanceof Entry) {
+        if (! $object instanceof Entry) {
             return;
         }
         $object->setUpdatedAt(new DateTime());
@@ -70,7 +69,7 @@ class DoctrineSubscriber implements EventSubscriber
     {
         $user = $this->security->getUser();
 
-        if (null === $user) {
+        if (! $user instanceof UserInterface) {
             /*
              * avec behat trouve pas user, pourtant le met bien dans db
              */
@@ -78,6 +77,6 @@ class DoctrineSubscriber implements EventSubscriber
             //   throw new \Exception('To add entry, you must login');
         }
 
-        return $user->getUsername();
+        return $user->getUserIdentifier();
     }
 }

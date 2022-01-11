@@ -34,7 +34,7 @@ class ModuleSender implements GrrModuleSenderInterface
         }
     }
 
-    public function postContent()
+    public function postContent(): void
     {
         dump($this->modules);
     }

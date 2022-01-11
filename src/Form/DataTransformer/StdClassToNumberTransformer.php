@@ -13,10 +13,8 @@ class StdClassToNumberTransformer implements DataTransformerInterface
      * Transforms an object (area) to a string (number).
      *
      * @param int|null $value
-     *
-     * @return string|stdClass
      */
-    public function transform($value)
+    public function transform($value): \stdClass|string
     {
         if (null === $value) {
             return '';

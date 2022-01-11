@@ -13,11 +13,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PeriodicityType extends AbstractType
 {
-    private DateProvider $dateProvider;
-
-    public function __construct(DateProvider $dateProvider)
-    {
-        $this->dateProvider = $dateProvider;
+    public function __construct(
+        private DateProvider $dateProvider
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -44,7 +42,9 @@ class PeriodicityType extends AbstractType
                     'expanded' => true,
                     'required' => false,
                     'placeholder' => false,
-                    'attr' => ['data-periodicity-target' => 'listPeriodicity'],
+                    'attr' => [
+                        'data-periodicity-target' => 'listPeriodicity',
+                    ],
                 ]
             )
             ->add(

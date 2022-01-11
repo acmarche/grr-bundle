@@ -4,17 +4,14 @@ namespace Grr\GrrBundle\Room\DataTransformer;
 
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\GrrBundle\Entity\Area;
-use Grr\GrrBundle\Entity\Room;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class NumberToRoomTransformer implements DataTransformerInterface
 {
-    private RoomRepositoryInterface $roomRepository;
-
-    public function __construct(RoomRepositoryInterface $roomRepository)
-    {
-        $this->roomRepository = $roomRepository;
+    public function __construct(
+        private RoomRepositoryInterface $roomRepository
+    ) {
     }
 
     /**
@@ -42,7 +39,7 @@ class NumberToRoomTransformer implements DataTransformerInterface
      *
      * @throws TransformationFailedException if object (area) is not found
      */
-    public function reverseTransform($areaNumber): ?Room
+    public function reverseTransform($areaNumber)
     {
         // no area number? It's optional, so that's ok
         if ('' === $areaNumber) {

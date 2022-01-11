@@ -9,11 +9,9 @@ use Symfony\Component\Notifier\NotifierInterface;
 
 class UserUpdatedHandler implements MessageHandlerInterface
 {
-    private NotifierInterface $notifier;
-
-    public function __construct(NotifierInterface $notifier)
-    {
-        $this->notifier = $notifier;
+    public function __construct(
+        private NotifierInterface $notifier
+    ) {
     }
 
     public function __invoke(UserUpdated $userCreated): void

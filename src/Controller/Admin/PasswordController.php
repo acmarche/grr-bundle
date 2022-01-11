@@ -11,45 +11,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/password")
- * @IsGranted("ROLE_GRR_MANAGER_USER")
- */
+#[Route(path: '/admin/password')]
+#[IsGranted(data: 'ROLE_GRR_MANAGER_USER')]
 class PasswordController extends AbstractController
 {
-    private PasswordHelper $passwordHelper;
-    private UserRepositoryInterface $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        PasswordHelper $passwordHelper
+        private UserRepositoryInterface $userRepository,
+        private PasswordHelper $passwordHelper,
+        private MessageBusInterface $messageBus
     ) {
-
-        $this->passwordHelper = $passwordHelper;
-        $this->userRepository = $userRepository;
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_user_password")
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_user_password')]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $password = $data->getPassword();
             $user->setPassword($this->passwordHelper->encodePassword($user, $password));
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new PasswordUpdated($user->getId()));
+            $this->messageBus->dispatch(new PasswordUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
-                ['id' => $user->getId()]
+                [
+                    'id' => $user->getId(),
+                ]
             );
         }
 

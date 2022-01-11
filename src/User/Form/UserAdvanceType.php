@@ -14,11 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserAdvanceType extends AbstractType
 {
-    private LocalHelper $localHelper;
-
-    public function __construct(LocalHelper $localHelper)
-    {
-        $this->localHelper = $localHelper;
+    public function __construct(
+        private LocalHelper $localHelper
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -69,7 +67,7 @@ class UserAdvanceType extends AbstractType
         );
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return UserType::class;
     }

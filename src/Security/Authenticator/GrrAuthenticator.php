@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Grr\GrrBundle\Security\Authenticator;
 
 use Grr\GrrBundle\User\Repository\UserRepository;
@@ -20,13 +19,13 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PasswordUpgrade
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
  * Essayer de voir les events
- * Si reponse null en cas de failure le manager va essayer un autre authenticator
+ * Si reponse null en cas de failure le manager va essayer un autre authenticator.
+ *
  * @see \Symfony\Component\Security\Http\Authentication\AuthenticatorManager
  * @see UserCheckerListener::postCheckCredentials
  * @see UserProviderListener::checkPassport
@@ -39,18 +38,11 @@ class GrrAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
     public const LOGIN_ROUTE = 'app_login';
 
-    private UrlGeneratorInterface $urlGenerator;
-    private UserRepository $userRepository;
-    private ParameterBagInterface $parameterBag;
-
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
-        UserRepository $userRepository,
-        ParameterBagInterface $parameterBag
+        private UrlGeneratorInterface $urlGenerator,
+        private UserRepository $userRepository,
+        private ParameterBagInterface $parameterBag
     ) {
-        $this->urlGenerator = $urlGenerator;
-        $this->userRepository = $userRepository;
-        $this->parameterBag = $parameterBag;
     }
 
     public function supports(Request $request): bool
@@ -58,7 +50,7 @@ class GrrAuthenticator extends AbstractAuthenticator implements AuthenticationEn
         return $request->isMethod('POST') && $this->getLoginUrl($request) === $request->getPathInfo();
     }
 
-    public function authenticate(Request $request): PassportInterface
+    public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('username', '');
         $password = $request->request->get('password', '');
@@ -74,7 +66,8 @@ class GrrAuthenticator extends AbstractAuthenticator implements AuthenticationEn
 
         return new Passport(
             new UserBadge($email),
-            new PasswordCredentials($password), $badges
+            new PasswordCredentials($password),
+            $badges
         );
     }
 

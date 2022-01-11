@@ -28,16 +28,16 @@ class AccessRoomControllerTest extends BaseTesting
         switch ($action) {
             case 'new':
                 $area = $this->getArea('Esquare');
-                $url = '/fr/admin/room/new/' . $area->getId();
+                $url = '/fr/admin/room/new/'.$area->getId();
                 break;
             case 'show':
-                $url = '/fr/admin/room/' . $room->getId();
+                $url = '/fr/admin/room/'.$room->getId();
                 break;
             case 'edit':
-                $url = '/fr/admin/room/' . $room->getId() . '/edit';
+                $url = '/fr/admin/room/'.$room->getId().'/edit';
                 break;
             case 'delete':
-                $url = '/fr/admin/room/' . $room->getId();
+                $url = '/fr/admin/room/'.$room->getId();
                 $method = 'DELETE';
                 break;
             default:
@@ -49,8 +49,10 @@ class AccessRoomControllerTest extends BaseTesting
             $email = $data[1];
             $code = $data[0];
             $client = $email ? $this->createGrrClient($email) : $this->createAnonymousClient();
-            $client->request($method, $url, ['_token' => $token]);
-            self::assertResponseStatusCodeSame($code, $email . ' ' . $url);
+            $client->request($method, $url, [
+                '_token' => $token,
+            ]);
+            self::assertResponseStatusCodeSame($code, $email.' '.$url);
         }
     }
 
@@ -185,10 +187,10 @@ class AccessRoomControllerTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
-                $this->pathFixtures . 'room.yaml',
-                $this->pathFixtures . 'user.yaml',
-                $this->pathFixtures . 'authorization.yaml',
+                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures.'user.yaml',
+                $this->pathFixtures.'authorization.yaml',
             ];
 
         $this->loader->load($files);

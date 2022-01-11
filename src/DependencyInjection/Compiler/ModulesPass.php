@@ -16,7 +16,7 @@ class ModulesPass implements CompilerPassInterface
     public function process(ContainerBuilder $containerBuilder): void
     {
         // always first check if the primary service is defined
-        if (!$containerBuilder->has(GrrModuleSenderInterface::class)) {
+        if (! $containerBuilder->has(GrrModuleSenderInterface::class)) {
             return;
         }
 

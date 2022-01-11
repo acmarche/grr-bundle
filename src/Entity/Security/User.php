@@ -13,18 +13,17 @@ namespace Grr\GrrBundle\Entity\Security;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\User\Entity\UserTrait;
+use Grr\GrrBundle\User\Repository\UserRepository;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as UserInterfaceSf;
 
-/**
- * @ORM\Table(name="user",uniqueConstraints ={
- *     @ORM\UniqueConstraint(columns={"email","username"})})
- * @ORM\Entity(repositoryClass="Grr\GrrBundle\User\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="Un utilisateur a déjà cette adresse email")
- * @UniqueEntity(fields={"username"}, message="Un utilisateur a déjà ce nom d'utilisateur")
- */
+#[ORM\Table(name: 'user')]
+#[ORM\UniqueConstraint(columns: ['email', 'username'])]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Un utilisateur a déjà cette adresse email')]
+#[UniqueEntity(fields: ['username'], message: "Un utilisateur a déjà ce nom d'utilisateur")]
 class User implements UserInterface, UserInterfaceSf, TimestampableInterface, PasswordAuthenticatedUserInterface
 {
     use UserTrait;
@@ -34,8 +33,7 @@ class User implements UserInterface, UserInterfaceSf, TimestampableInterface, Pa
         return $this->username;
     }
 
-    public function getSalt()
+    public function getSalt(): void
     {
-
     }
 }

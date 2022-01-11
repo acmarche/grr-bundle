@@ -9,12 +9,9 @@ use Twig\TwigFunction;
 
 class GrrhUrlHelperExtension extends AbstractExtension
 {
-    private RouterHelper $routerHelper;
-
     public function __construct(
-        RouterHelper $routerHelper
+        private RouterHelper $routerHelper
     ) {
-        $this->routerHelper = $routerHelper;
     }
 
     /**

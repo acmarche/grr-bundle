@@ -10,6 +10,8 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use DateTime;
+use DateTimeImmutable;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Factory\CarbonFactory;
 use Grr\GrrBundle\Booking\ApiSerializer;
@@ -22,42 +24,26 @@ use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/booking")
- */
+#[Route(path: '/booking')]
 class BookingController extends AbstractController
 {
-    private EntryRepositoryInterface $entryRepository;
-    private CarbonFactory $carbonFactory;
-    private ApiSerializer $apiSerializer;
-    private BookingRepository $bookingRepository;
-    private BookingHandler $bookingHandler;
-    private HandlerEntry $handlerEntry;
-
     public function __construct(
-        EntryRepositoryInterface $entryRepository,
-        CarbonFactory $carbonFactory,
-        ApiSerializer $apiSerializer,
-        BookingRepository $bookingRepository,
-        BookingHandler $bookingHandler,
-        HandlerEntry $handlerEntry
+        private EntryRepositoryInterface $entryRepository,
+        private CarbonFactory $carbonFactory,
+        private ApiSerializer $apiSerializer,
+        private BookingRepository $bookingRepository,
+        private BookingHandler $bookingHandler,
+        private HandlerEntry $handlerEntry
     ) {
-        $this->entryRepository = $entryRepository;
-        $this->carbonFactory = $carbonFactory;
-        $this->apiSerializer = $apiSerializer;
-        $this->bookingRepository = $bookingRepository;
-        $this->bookingHandler = $bookingHandler;
-        $this->handlerEntry = $handlerEntry;
     }
 
-    /**
-     * @Route("/", name="grr_admin_booking_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'grr_admin_booking_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -68,9 +54,7 @@ class BookingController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/show", name="grr_admin_booking_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}/show', name: 'grr_admin_booking_show', methods: ['GET'])]
     public function show(Booking $booking): Response
     {
         return $this->render(
@@ -81,20 +65,13 @@ class BookingController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new/{id}", name="grr_admin_entry_new_from_booking", methods={"GET", "POST"})
-     * @IsGranted("grr.addEntry")
-     */
-    public function new(
-        Request $request,
-        Booking $booking
-    ): Response {
+    #[Route(path: '/new/{id}', name: 'grr_admin_entry_new_from_booking', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.addEntry')]
+    public function new(Request $request, Booking $booking): Response
+    {
         $entry = $this->bookingHandler->convertBookingToEntry($booking);
-
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             dump($form->getData());
             $this->handlerEntry->handleNewEntry($entry);
@@ -117,9 +94,7 @@ class BookingController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/delete", name="grr_admin_booking_delete", methods={"POST"})
-     */
+    #[Route(path: '/{id}/delete', name: 'grr_admin_booking_delete', methods: ['POST'])]
     public function delete(Request $request, Booking $booking): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->request->get('_token'))) {
@@ -132,10 +107,8 @@ class BookingController extends AbstractController
         return $this->redirectToRoute('grr_admin_booking_index');
     }
 
-    /**
-     * @Route("/entries/{id}", methods={"GET"})
-     */
-    public function entries(Room $room): Response
+    #[Route(path: '/entries/{id}', methods: ['GET'])]
+    public function entries(Room $room): JsonResponse
     {
         $today = $this->carbonFactory->today();
         $entries = $this->entryRepository->findForMonth($today->firstOfMonth(), null, $room);
@@ -143,10 +116,8 @@ class BookingController extends AbstractController
         return $this->json($this->apiSerializer->serializeEntries($entries, false));
     }
 
-    /**
-     * @Route("/entries/{date}/{id}", methods={"GET"})
-     */
-    public function entriesByDate(\DateTime $date, Room $room): Response
+    #[Route(path: '/entries/{date}/{id}', methods: ['GET'])]
+    public function entriesByDate(DateTime|DateTimeImmutable $date, Room $room): JsonResponse
     {
         $today = $this->carbonFactory->instance($date);
         $entries = $this->entryRepository->findForDay($today, $room);
@@ -154,14 +125,13 @@ class BookingController extends AbstractController
         return $this->json($this->apiSerializer->serializeEntries($entries, true));
     }
 
-    /**
-     * @Route("/form", methods={"GET"})
-     */
+    #[Route(path: '/form', methods: ['GET'])]
     public function renderFormEntry(): Response
     {
         $form = $this->createForm(BookingForm::class);
 
-        return $this->render('@Grr/front/api/_form.html.twig', ['form' => $form->createView()]);
+        return $this->render('@Grr/front/api/_form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
-
 }

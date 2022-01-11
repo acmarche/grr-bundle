@@ -15,7 +15,7 @@ class AreaTimeSlotValidator extends ConstraintValidator
      */
     public function validate($entry, Constraint $constraint): void
     {
-        if (!$entry instanceof EntryInterface) {
+        if (! $entry instanceof EntryInterface) {
             throw new InvalidArgumentException($entry, 0);
         }
 

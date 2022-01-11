@@ -167,9 +167,9 @@ class EntryVoterTest extends BaseTesting
         return new EntryVoter($security, $this->initSecurityHelper());
     }
 
-    private function initToken(?User $user): TokenInterface
+    private function initToken(?User $user): \AnonymousToken|UsernamePasswordToken
     {
-        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock(
+        $token = $this->getMockBuilder(TokenInterface::class)->getMock(
         );
 
         $token
@@ -192,12 +192,12 @@ class EntryVoterTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
-                $this->pathFixtures . 'room.yaml',
-                $this->pathFixtures . 'user.yaml',
-                $this->pathFixtures . 'authorization.yaml',
-                $this->pathFixtures . 'entry_type.yaml',
-                $this->pathFixtures . 'entry.yaml',
+                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures.'user.yaml',
+                $this->pathFixtures.'authorization.yaml',
+                $this->pathFixtures.'entry_type.yaml',
+                $this->pathFixtures.'entry.yaml',
             ];
 
         $this->loader->load($files);

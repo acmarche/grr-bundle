@@ -13,44 +13,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/authorization/area")
- */
+#[Route(path: '/admin/authorization/area')]
 class AuthorizationAreaController extends AbstractController
 {
-    private HandlerAuthorization $handlerAuthorization;
-    private AuthorizationRepositoryInterface $authorizationRepository;
-
     public function __construct(
-        HandlerAuthorization $handlerAuthorization,
-        AuthorizationRepositoryInterface $authorizationRepository
+        private HandlerAuthorization $handlerAuthorization,
+        private AuthorizationRepositoryInterface $authorizationRepository
     ) {
-        $this->handlerAuthorization = $handlerAuthorization;
-        $this->authorizationRepository = $authorizationRepository;
     }
 
-    /**
-     * @Route("/new/area/{id}", name="grr_authorization_from_area", methods={"GET", "POST"})
-     *
-     * @IsGranted("grr.area.edit", subject="area")
-     */
+    #[Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
     public function new(Request $request, Area $area = null): Response
     {
         $authorizationModel = new AuthorizationModel();
-
         if (null !== $area) {
             $authorizationModel->setArea($area);
         }
-
         $form = $this->createForm(AuthorizationAreaType::class, $authorizationModel);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerAuthorization->handle($form);
 
             if (null !== $area) {
-                return $this->redirectToRoute('grr_authorization_area_show', ['id' => $area->getId()]);
+                return $this->redirectToRoute('grr_authorization_area_show', [
+                    'id' => $area->getId(),
+                ]);
             }
         }
 
@@ -63,14 +51,14 @@ class AuthorizationAreaController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_authorization_area_show", methods={"GET"})
-     * @IsGranted("grr.area.edit", subject="area")
-     */
+    #[Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
+    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
     public function show(Area $area): Response
     {
         $authorizations = $this->authorizationRepository->findByArea($area);
-        $urlBack = $this->generateUrl('grr_authorization_show_by_user', ['id' => $area->getId()]);
+        $urlBack = $this->generateUrl('grr_authorization_show_by_user', [
+            'id' => $area->getId(),
+        ]);
 
         return $this->render(
             '@grr_admin/authorization/area/show.html.twig',

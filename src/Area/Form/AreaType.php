@@ -14,11 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AreaType extends AbstractType
 {
-    private DateProvider $dateProvider;
-
-    public function __construct(DateProvider $dateProvider)
-    {
-        $this->dateProvider = $dateProvider;
+    public function __construct(
+        private DateProvider $dateProvider
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void

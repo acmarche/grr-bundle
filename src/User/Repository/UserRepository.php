@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\User\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
@@ -36,9 +37,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * @see UserProviderListener::checkPassport
-     * @param string $username
+     *
      * @return int|mixed|string|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @throws NonUniqueResultException
      */
     public function loadUserByIdentifier(string $username)
     {
@@ -54,8 +56,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        if (! $user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         $user->setPassword($newHashedPassword);
@@ -84,7 +86,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $name = $args['name'] ?? null;
         if ($name) {
             $queryBuilder->andWhere('user.email LIKE :name OR user.name LIKE :name OR user.username LIKE :name')
-                ->setParameter('name', '%' . $name . '%');
+                ->setParameter('name', '%'.$name.'%');
         }
 
         return $queryBuilder->getQuery()->getResult();
@@ -109,7 +111,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('user')
             ->andWhere('user.roles LIKE :role ')
-            ->setParameter('role', '%' . SecurityRole::ROLE_GRR_ADMINISTRATOR . '%')
+            ->setParameter('role', '%'.SecurityRole::ROLE_GRR_ADMINISTRATOR.'%')
             ->getQuery()->getResult();
     }
 }

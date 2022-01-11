@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MailerControllerTest extends WebTestCase
 {
-    public function te2stSomething()
+    public function te2stSomething(): void
     {
         /* Symfony 4.4:
         $this->assertEmailCount(1);

@@ -28,19 +28,14 @@ class AreaVoter extends Voter
     public const SHOW = 'grr.area.show';
     public const EDIT = 'grr.area.edit';
     public const DELETE = 'grr.area.delete';
-    private AccessDecisionManagerInterface $accessDecisionManager;
 
     private ?User $user = null;
-    private AuthorizationHelper $authorizationHelper;
-    /**
-     * @var Area
-     */
-    private $area;
+    private Area $area;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
-    {
-        $this->accessDecisionManager = $accessDecisionManager;
-        $this->authorizationHelper = $authorizationHelper;
+    public function __construct(
+        private AccessDecisionManagerInterface $accessDecisionManager,
+        private AuthorizationHelper $authorizationHelper
+    ) {
     }
 
     /**
@@ -48,11 +43,11 @@ class AreaVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject && !$subject instanceof Area) {
+        if ($subject && ! $subject instanceof Area) {
             return false;
         }
 
-        return in_array(
+        return \in_array(
             $attribute,
             [self::INDEX, self::NEW, self::NEW_ROOM, self::SHOW, self::EDIT, self::DELETE],
             true
@@ -66,7 +61,7 @@ class AreaVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return false;
         }
 
@@ -84,22 +79,15 @@ class AreaVoter extends Voter
             //   return true;
         }
 
-        switch ($attribute) {
-            case self::INDEX:
-                return $this->canIndex();
-            case self::NEW:
-                return $this->canNew();
-            case self::NEW_ROOM:
-                return $this->canNewRoom();
-            case self::SHOW:
-                return $this->canView();
-            case self::EDIT:
-                return $this->canEdit();
-            case self::DELETE:
-                return $this->canDelete();
-        }
-
-        return false;
+        return match ($attribute) {
+            self::INDEX => $this->canIndex(),
+            self::NEW => $this->canNew(),
+            self::NEW_ROOM => $this->canNewRoom(),
+            self::SHOW => $this->canView(),
+            self::EDIT => $this->canEdit(),
+            self::DELETE => $this->canDelete(),
+            default => false,
+        };
     }
 
     private function canIndex(): bool

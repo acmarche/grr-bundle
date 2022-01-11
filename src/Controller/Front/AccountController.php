@@ -17,34 +17,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/account")
- * @IsGranted("ROLE_GRR")
- */
+#[Route(path: '/account')]
+#[IsGranted(data: 'ROLE_GRR')]
 class AccountController extends AbstractController
 {
-    private PasswordHelper $passwordHelper;
-    private AuthorizationRepositoryInterface $authorizationRepository;
-    private EmailPreferenceRepository $emailPreferenceRepository;
-    private UserRepositoryInterface $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        PasswordHelper $passwordHelper,
-        AuthorizationRepositoryInterface $authorizationRepository,
-        EmailPreferenceRepository $emailPreferenceRepository
+        private UserRepositoryInterface $userRepository,
+        private PasswordHelper $passwordHelper,
+        private AuthorizationRepositoryInterface $authorizationRepository,
+        private EmailPreferenceRepository $emailPreferenceRepository,
+        private MessageBusInterface $messageBus
     ) {
-        $this->passwordHelper = $passwordHelper;
-        $this->authorizationRepository = $authorizationRepository;
-        $this->emailPreferenceRepository = $emailPreferenceRepository;
-        $this->userRepository = $userRepository;
     }
 
-    /**
-     * @Route("/show", name="grr_account_show", methods={"GET"})
-     */
+    #[Route(path: '/show', name: 'grr_account_show', methods: ['GET'])]
     public function show(): Response
     {
         /**
@@ -64,19 +53,16 @@ class AccountController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/edit", name="grr_account_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/edit', name: 'grr_account_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserFrontType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserUpdated($user->getId()));
+            $this->messageBus->dispatch(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute('grr_account_show');
         }
@@ -90,15 +76,12 @@ class AccountController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/password", name="grr_account_edit_password", methods={"GET", "POST"})
-     */
+    #[Route(path: '/password', name: 'grr_account_edit_password', methods: ['GET', 'POST'])]
     public function password(Request $request): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $password = $data->getPassword();
@@ -107,7 +90,7 @@ class AccountController extends AbstractController
 
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new PasswordUpdated($user->getId()));
+            $this->messageBus->dispatch(new PasswordUpdated($user->getId()));
 
             return $this->redirectToRoute('grr_account_show');
         }
@@ -121,9 +104,7 @@ class AccountController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/delete", name="grr_user_account_delete", methods={"POST"})
-     */
+    #[Route(path: '/delete', name: 'grr_user_account_delete', methods: ['POST'])]
     public function delete(Request $request): RedirectResponse
     {
         $user = $this->getUser();
@@ -131,7 +112,7 @@ class AccountController extends AbstractController
             $this->userRepository->remove($user);
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserDeleted($user->getId()));
+            $this->messageBus->dispatch(new UserDeleted($user->getId()));
         }
 
         return $this->redirectToRoute('grr_homepage');

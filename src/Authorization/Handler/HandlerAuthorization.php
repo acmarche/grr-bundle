@@ -16,19 +16,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class HandlerAuthorization
 {
-    private AuthorizationRepositoryInterface $authorizationRepository;
-    private FlashBagInterface $flashBag;
-    private TranslatorInterface $translator;
     private ?bool $error = null;
 
     public function __construct(
-        AuthorizationRepositoryInterface $authorizationRepository,
-        FlashBagInterface $flashBag,
-        TranslatorInterface $translator
+        private AuthorizationRepositoryInterface $authorizationRepository,
+        private FlashBagInterface $flashBag,
+        private TranslatorInterface $translator
     ) {
-        $this->authorizationRepository = $authorizationRepository;
-        $this->flashBag = $flashBag;
-        $this->translator = $translator;
     }
 
     public function handle(FormInterface $form): void
@@ -71,14 +65,14 @@ class HandlerAuthorization
                 $authorization->setIsResourceAdministrator(true);
             }
 
-            if (count($arrayCollection) > 0) {
+            if ([] !== $arrayCollection) {
                 $this->executeForRooms($authorization, $area, $arrayCollection, $user);
             } else {
                 $this->executeForArea($authorization, $area, $user);
             }
         }
 
-        if (!$this->error) {
+        if (! $this->error) {
             $this->flashBag->add('success', 'flash.authorization.created');
         }
     }
@@ -110,7 +104,10 @@ class HandlerAuthorization
                 $this->error = true;
                 $this->flashBag->add(
                     'danger',
-                    $this->translator->trans('authorization.room.exist', ['user' => $user, 'room' => $room])
+                    $this->translator->trans('authorization.room.exist', [
+                        'user' => $user,
+                        'room' => $room,
+                    ])
                 );
             } else {
                 $copy->setRoom($room);
@@ -143,14 +140,26 @@ class HandlerAuthorization
 
     protected function existArea(UserInterface $user, Area $area): bool
     {
-        $count = count($this->authorizationRepository->findBy(['user' => $user, 'area' => $area]));
+        $count = is_countable($this->authorizationRepository->findBy([
+            'user' => $user,
+            'area' => $area,
+        ])) ? \count($this->authorizationRepository->findBy([
+            'user' => $user,
+            'area' => $area,
+        ])) : 0;
 
         return $count > 0;
     }
 
     protected function existRoom(UserInterface $user, Room $room): bool
     {
-        $count = count($this->authorizationRepository->findBy(['user' => $user, 'room' => $room]));
+        $count = is_countable($this->authorizationRepository->findBy([
+            'user' => $user,
+            'room' => $room,
+        ])) ? \count($this->authorizationRepository->findBy([
+            'user' => $user,
+            'room' => $room,
+        ])) : 0;
 
         return $count > 0;
     }

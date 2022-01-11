@@ -9,11 +9,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class AreaToNumberTransformer implements DataTransformerInterface
 {
-    private AreaRepositoryInterface $areaRepository;
-
-    public function __construct(AreaRepositoryInterface $areaRepository)
-    {
-        $this->areaRepository = $areaRepository;
+    public function __construct(
+        private AreaRepositoryInterface $areaRepository
+    ) {
     }
 
     /**
@@ -39,7 +37,7 @@ class AreaToNumberTransformer implements DataTransformerInterface
      *
      * @throws TransformationFailedException if object (area) is not found
      */
-    public function reverseTransform($areaNumber): ?Area
+    public function reverseTransform($areaNumber)
     {
         // no area number? It's optional, so that's ok
         if ('' === $areaNumber) {

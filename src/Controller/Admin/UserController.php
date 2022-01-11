@@ -18,42 +18,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/user")
- * @IsGranted("ROLE_GRR_MANAGER_USER")
- */
+#[Route(path: '/admin/user')]
+#[IsGranted(data: 'ROLE_GRR_MANAGER_USER')]
 class UserController extends AbstractController
 {
-    private UserRepositoryInterface $userRepository;
-    private UserFactory $userFactory;
-    private PasswordHelper $passwordHelper;
-
     public function __construct(
-        UserRepositoryInterface $userRepository,
-        UserFactory $userFactory,
-        PasswordHelper $passwordHelper
+        private UserRepositoryInterface $userRepository,
+        private UserFactory $userFactory,
+        private PasswordHelper $passwordHelper,
+        private MessageBusInterface $messageBus
     ) {
-        $this->userRepository = $userRepository;
-        $this->userFactory = $userFactory;
-        $this->passwordHelper = $passwordHelper;
     }
 
-    /**
-     * @Route("/", name="grr_admin_user_index", methods={"GET", "POST"})
-     */
+    #[Route(path: '/', name: 'grr_admin_user_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $args = $users = [];
         $form = $this->createForm(SearchUserType::class, $args);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
-
         $users = $this->userRepository->search($args);
 
         return $this->render(
@@ -65,23 +53,22 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new", name="grr_admin_user_new", methods={"GET", "POST"})
-     */
+    #[Route(path: '/new', name: 'grr_admin_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $user = $this->userFactory->createNew();
         $form = $this->createForm(UserNewType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword($this->passwordHelper->encodePassword($user, $user->getPassword()));
             $this->userRepository->persist($user);
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserCreated($user->getId()));
+            $this->messageBus->dispatch(new UserCreated($user->getId()));
 
-            return $this->redirectToRoute('grr_admin_user_roles', ['id' => $user->getId()]);
+            return $this->redirectToRoute('grr_admin_user_roles', [
+                'id' => $user->getId(),
+            ]);
         }
 
         return $this->render(
@@ -93,9 +80,7 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_user_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render(
@@ -106,22 +91,21 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_admin_user_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserAdvanceType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserUpdated($user->getId()));
+            $this->messageBus->dispatch(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
-                ['id' => $user->getId()]
+                [
+                    'id' => $user->getId(),
+                ]
             );
         }
 
@@ -136,23 +120,22 @@ class UserController extends AbstractController
 
     /**
      * Displays a form to edit an existing User utilisateur.
-     *
-     * @Route("/{id}/roles", name="grr_admin_user_roles", methods={"GET", "POST"})
      */
+    #[Route(path: '/{id}/roles', name: 'grr_admin_user_roles', methods: ['GET', 'POST'])]
     public function roles(Request $request, User $user): Response
     {
         $form = $this->createForm(UserRoleType::class, $user);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserUpdated($user->getId()));
+            $this->messageBus->dispatch(new UserUpdated($user->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_user_show',
-                ['id' => $user->getId()]
+                [
+                    'id' => $user->getId(),
+                ]
             );
         }
 
@@ -165,9 +148,7 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_user_delete", methods={"POST"})
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {
@@ -175,7 +156,7 @@ class UserController extends AbstractController
             $this->userRepository->remove($user);
             $this->userRepository->flush();
 
-            $this->dispatchMessage(new UserDeleted($id));
+            $this->messageBus->dispatch(new UserDeleted($id));
         }
 
         return $this->redirectToRoute('grr_admin_user_index');

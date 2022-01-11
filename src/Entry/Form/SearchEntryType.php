@@ -22,19 +22,26 @@ class SearchEntryType extends AbstractType
                 [
                     'required' => false,
                     'label' => false,
-                    'attr' => ['placeholder' => 'placeholder.keyword', 'class' => 'my-1 mr-sm-2'],
+                    'attr' => [
+                        'placeholder' => 'placeholder.keyword',
+                        'class' => 'my-1 mr-sm-2',
+                    ],
                 ]
             )
             ->add(
-                'startDate', DateType::class, [
+                'startDate',
+                DateType::class,
+                [
                     'widget' => 'single_text',
-                    'help'=>'Entre le'
+                    'help' => 'Entre le',
                 ]
             )
             ->add(
-                'endDate', DateType::class, [
+                'endDate',
+                DateType::class,
+                [
                     'widget' => 'single_text',
-                    'help'=>'et le'
+                    'help' => 'et le',
                 ]
             )
             ->add(
@@ -46,7 +53,9 @@ class SearchEntryType extends AbstractType
                     'label' => false,
                     'help' => null,
                     'placeholder' => 'placeholder.entryType.select',
-                    'attr' => ['class' => 'custom-select my-1 mr-sm-2'],
+                    'attr' => [
+                        'class' => 'custom-select my-1 mr-sm-2',
+                    ],
                 ]
             )
             ->add(

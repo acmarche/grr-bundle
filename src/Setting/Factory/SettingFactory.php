@@ -12,10 +12,7 @@ use Grr\GrrBundle\Entity\SettingEntity;
 
 class SettingFactory
 {
-    /**
-     * @param string|array $value
-     */
-    public function createNew(string $name, $value): SettingEntity
+    public function createNew(string $name, array|string $value): SettingEntity
     {
         return new SettingEntity($name, $value);
     }

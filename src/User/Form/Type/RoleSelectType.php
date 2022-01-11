@@ -21,11 +21,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleSelectType extends AbstractType
 {
-    private StdClassToNumberTransformer $stdClassToNumberTransformer;
-
-    public function __construct(StdClassToNumberTransformer $stdClassToNumberTransformer)
-    {
-        $this->stdClassToNumberTransformer = $stdClassToNumberTransformer;
+    public function __construct(
+        private StdClassToNumberTransformer $stdClassToNumberTransformer
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -54,7 +52,10 @@ class RoleSelectType extends AbstractType
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,
-                'attr' => ['data-action'=>'click->authorization#selectRole'], //for js
+                'attr' => [
+                    'data-action' => 'click->authorization#selectRole',
+                ],
+                //for js
             ]
         );
     }
@@ -64,7 +65,7 @@ class RoleSelectType extends AbstractType
         //j'essaie d'afficher la description
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return ChoiceType::class;
     }

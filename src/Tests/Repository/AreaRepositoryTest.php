@@ -11,7 +11,7 @@ class AreaRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures.'area.yaml',
             ]
         );
 
@@ -24,12 +24,12 @@ class AreaRepositoryTest extends BaseTesting
     {
         $this->loader->load(
             [
-                $this->pathFixtures . 'area.yaml',
+                $this->pathFixtures.'area.yaml',
             ]
         );
 
         $result = $this->entityManager->getRepository(Area::class)->findAll();
 
-        $this->assertEquals(2, count($result));
+        $this->assertEquals(2, \count($result));
     }
 }

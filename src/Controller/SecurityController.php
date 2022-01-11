@@ -12,27 +12,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    private SettingRepositoryInterface $settingRepository;
-
-    public function __construct(SettingRepositoryInterface $settingRepository)
-    {
-        $this->settingRepository = $settingRepository;
+    public function __construct(
+        private SettingRepositoryInterface $settingRepository
+    ) {
     }
 
-    /**
-     * @Route("/login", name="app_login")
-     */
+    #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if (null !== $this->getUser()) {
             return $this->redirectToRoute('grr_homepage');
         }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         $title = $this->settingRepository->getValueByName(SettingConstants::TITLE_HOME_PAGE);
         $message = $this->settingRepository->getValueByName(SettingConstants::MESSAGE_HOME_PAGE);
         $company = $this->settingRepository->getValueByName(SettingConstants::COMPANY);
@@ -49,9 +43,7 @@ class SecurityController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/logout", name="app_logout")
-     */
+    #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new Exception('This method can be blank - it will be intercepted by the logout key on your firewall');

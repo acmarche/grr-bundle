@@ -21,7 +21,7 @@ class DurationValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof DurationModel) {
+        if (! $value instanceof DurationModel) {
             throw new Exception('Not valid value');
         }
 

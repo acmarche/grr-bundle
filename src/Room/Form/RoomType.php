@@ -84,7 +84,9 @@ class RoomType extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'label.room.comment',
-                    'attr' => ['height' => '80px'],
+                    'attr' => [
+                        'height' => '80px',
+                    ],
                     'required' => false,
                 ]
             )

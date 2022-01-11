@@ -17,18 +17,13 @@ class RoomVoter extends Voter
     public const SHOW = 'grr.room.show';
     public const EDIT = 'grr.room.edit';
     public const DELETE = 'grr.room.delete';
-    private AccessDecisionManagerInterface $accessDecisionManager;
     private ?User $user = null;
-    private AuthorizationHelper $authorizationHelper;
-    /**
-     * @var Room
-     */
-    private $room;
+    private Room $room;
 
-    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, AuthorizationHelper $authorizationHelper)
-    {
-        $this->accessDecisionManager = $accessDecisionManager;
-        $this->authorizationHelper = $authorizationHelper;
+    public function __construct(
+        private AccessDecisionManagerInterface $accessDecisionManager,
+        private AuthorizationHelper $authorizationHelper
+    ) {
     }
 
     /**
@@ -36,11 +31,11 @@ class RoomVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject && !$subject instanceof Room) {
+        if ($subject && ! $subject instanceof Room) {
             return false;
         }
 
-        return in_array(
+        return \in_array(
             $attribute,
             [self::INDEX, self::ADD_ENTRY, self::SHOW, self::EDIT, self::DELETE],
             true
@@ -54,7 +49,7 @@ class RoomVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return false;
         }
 
@@ -72,20 +67,14 @@ class RoomVoter extends Voter
             //    return true;
         }
 
-        switch ($attribute) {
-            case self::INDEX:
-                return $this->canIndex();
-            case self::ADD_ENTRY:
-                return $this->canAddEntry();
-            case self::SHOW:
-                return $this->canView();
-            case self::EDIT:
-                return $this->canEdit();
-            case self::DELETE:
-                return $this->canDelete();
-        }
-
-        return false;
+        return match ($attribute) {
+            self::INDEX => $this->canIndex(),
+            self::ADD_ENTRY => $this->canAddEntry(),
+            self::SHOW => $this->canView(),
+            self::EDIT => $this->canEdit(),
+            self::DELETE => $this->canDelete(),
+            default => false,
+        };
     }
 
     /**

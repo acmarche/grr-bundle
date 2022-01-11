@@ -11,44 +11,35 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/preference")
- * @IsGranted("ROLE_GRR_MANAGER_USER")
- */
+#[Route(path: '/admin/preference')]
+#[IsGranted(data: 'ROLE_GRR_MANAGER_USER')]
 class EmailNotifcationPreferenceController extends AbstractController
 {
-    private PreferenceFactory $preferenceFactory;
-    private EmailPreferenceRepository $emailPreferenceRepository;
-
     public function __construct(
-        EmailPreferenceRepository $emailPreferenceRepository,
-        PreferenceFactory $preferenceFactory
+        private EmailPreferenceRepository $emailPreferenceRepository,
+        private PreferenceFactory $preferenceFactory,
+        private MessageBusInterface $messageBus
     ) {
-        $this->emailPreferenceRepository = $emailPreferenceRepository;
-        $this->preferenceFactory = $preferenceFactory;
-
     }
 
-    /**
-     * @Route("/edit/{id}", name="grr_admin_preference_email_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/edit/{id}', name: 'grr_admin_preference_email_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $preference = $this->preferenceFactory->createEmailPreferenceByUser($user);
-
         $form = $this->createForm(EmailPreferenceType::class, $preference);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->emailPreferenceRepository->persist($preference);
             $this->emailPreferenceRepository->flush();
 
-            $this->dispatchMessage(new PreferenceUpdated($preference->getId()));
+            $this->messageBus->dispatch(new PreferenceUpdated($preference->getId()));
 
-            return $this->redirectToRoute('grr_admin_user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('grr_admin_user_show', [
+                'id' => $user->getId(),
+            ]);
         }
 
         return $this->render(

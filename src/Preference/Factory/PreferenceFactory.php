@@ -8,11 +8,9 @@ use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 
 class PreferenceFactory
 {
-    private EmailPreferenceRepository $emailPreferenceRepository;
-
-    public function __construct(EmailPreferenceRepository $emailPreferenceRepository)
-    {
-        $this->emailPreferenceRepository = $emailPreferenceRepository;
+    public function __construct(
+        private EmailPreferenceRepository $emailPreferenceRepository
+    ) {
     }
 
     public function createEmailPreferenceByUser(UserInterface $user): EmailPreference

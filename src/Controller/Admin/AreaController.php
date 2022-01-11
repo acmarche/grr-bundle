@@ -16,34 +16,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/area")
- */
+#[Route(path: '/admin/area')]
 class AreaController extends AbstractController
 {
-    private AreaFactory $areaFactory;
-    private RoomRepositoryInterface $roomRepository;
-    private AuthorizationHelper $authorizationHelper;
-    private AreaRepositoryInterface $areaRepository;
-
     public function __construct(
-        AreaFactory $areaFactory,
-        AreaRepositoryInterface $areaRepository,
-        RoomRepositoryInterface $roomRepository,
-        AuthorizationHelper $authorizationHelper
+        private AreaFactory $areaFactory,
+        private AreaRepositoryInterface $areaRepository,
+        private RoomRepositoryInterface $roomRepository,
+        private AuthorizationHelper $authorizationHelper,
+        private MessageBusInterface $messageBus
     ) {
-        $this->areaFactory = $areaFactory;
-        $this->roomRepository = $roomRepository;
-        $this->authorizationHelper = $authorizationHelper;
-        $this->areaRepository = $areaRepository;
     }
 
-    /**
-     * @Route("/", name="grr_admin_area_index", methods={"GET"})
-     * @IsGranted("grr.area.index")
-     */
+    #[Route(path: '/', name: 'grr_admin_area_index', methods: ['GET'])]
+    #[IsGranted(data: 'grr.area.index')]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -57,24 +46,22 @@ class AreaController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new", name="grr_admin_area_new", methods={"GET", "POST"})
-     * @IsGranted("grr.area.new")
-     */
+    #[Route(path: '/new', name: 'grr_admin_area_new', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.area.new')]
     public function new(Request $request): Response
     {
         $area = $this->areaFactory->createNew();
-
         $form = $this->createForm(AreaType::class, $area);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaRepository->persist($area);
             $this->areaRepository->flush();
 
-            $this->dispatchMessage(new AreaCreated($area->getId()));
+            $this->messageBus->dispatch(new AreaCreated($area->getId()));
 
-            return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
+            return $this->redirectToRoute('grr_admin_area_show', [
+                'id' => $area->getId(),
+            ]);
         }
 
         return $this->render(
@@ -86,13 +73,13 @@ class AreaController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_area_show", methods={"GET"})
-     * @IsGranted("grr.area.show", subject="area")
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_area_show', methods: ['GET'])]
+    #[IsGranted(data: 'grr.area.show', subject: 'area')]
     public function show(Area $area): Response
     {
-        $rooms = $this->roomRepository->findBy(['area' => $area]);
+        $rooms = $this->roomRepository->findBy([
+            'area' => $area,
+        ]);
 
         return $this->render(
             '@grr_admin/area/show.html.twig',
@@ -103,19 +90,16 @@ class AreaController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_admin_area_edit", methods={"GET", "POST"})
-     * @IsGranted("grr.area.edit", subject="area")
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_admin_area_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
     public function edit(Request $request, Area $area): Response
     {
         $form = $this->createForm(AreaType::class, $area);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->areaRepository->flush();
 
-            $this->dispatchMessage(new AreaUpdated($area->getId()));
+            $this->messageBus->dispatch(new AreaUpdated($area->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_area_show',
@@ -134,10 +118,8 @@ class AreaController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_area_delete", methods={"POST"})
-     * @IsGranted("grr.area.delete", subject="area")
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_area_delete', methods: ['POST'])]
+    #[IsGranted(data: 'grr.area.delete', subject: 'area')]
     public function delete(Request $request, Area $area): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$area->getId(), $request->request->get('_token'))) {
@@ -147,7 +129,7 @@ class AreaController extends AbstractController
             }
             $this->areaRepository->remove($area);
             $this->areaRepository->flush();
-            $this->dispatchMessage(new AreaDeleted($id));
+            $this->messageBus->dispatch(new AreaDeleted($id));
         }
 
         return $this->redirectToRoute('grr_admin_area_index');

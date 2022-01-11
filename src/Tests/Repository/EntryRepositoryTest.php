@@ -19,7 +19,7 @@ class EntryRepositoryTest extends BaseTesting
             ->getRepository(Entry::class)
             ->findForMonth($month->toDateTime(), $area);
 
-        $count = count($entries);
+        $count = is_countable($entries) ? \count($entries) : 0;
 
         $this->assertEquals(4, $count);
     }
@@ -38,7 +38,7 @@ class EntryRepositoryTest extends BaseTesting
             ->getRepository(Entry::class)
             ->findForDay($day, $room);
 
-        $countResult = count($entries);
+        $countResult = is_countable($entries) ? \count($entries) : 0;
         $this->assertEquals($count, $countResult);
 
         $this->assertSame($title, $entries[0]->getName());
@@ -114,14 +114,14 @@ class EntryRepositoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
-                $this->pathFixtures . 'room.yaml',
-                $this->pathFixtures . 'entry_type.yaml',
-                $this->pathFixtures . 'entry.yaml',
+                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures.'entry_type.yaml',
+                $this->pathFixtures.'entry.yaml',
             ];
 
         if ($withBusy) {
-            $files[] = $this->pathFixtures . 'entry_busy.yaml';
+            $files[] = $this->pathFixtures.'entry_busy.yaml';
         }
 
         $this->loader->load($files);

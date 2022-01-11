@@ -53,7 +53,7 @@ class ArrayToDoctrineArrayTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!$value instanceof ArrayCollection) {
+        if (! $value instanceof ArrayCollection) {
             throw new TransformationFailedException('Expected a ArrayCollection.');
         }
 
@@ -93,7 +93,7 @@ class ArrayToDoctrineArrayTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!is_array($value)) {
+        if (! \is_array($value)) {
             throw new TransformationFailedException('Expected a array.');
         }
 

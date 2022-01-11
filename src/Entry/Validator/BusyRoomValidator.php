@@ -10,20 +10,18 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class BusyRoomValidator extends ConstraintValidator
 {
-    private EntryRepositoryInterface $entryRepository;
-
-    public function __construct(EntryRepositoryInterface $entryRepository)
-    {
-        $this->entryRepository = $entryRepository;
+    public function __construct(
+        private EntryRepositoryInterface $entryRepository
+    ) {
     }
 
     /**
      * @param EntryInterface $value
-     * @param BusyRoom $constraint
+     * @param BusyRoom       $constraint
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (!$value instanceof EntryInterface) {
+        if (! $value instanceof EntryInterface) {
             throw new InvalidArgumentException($value, 0);
         }
 
@@ -31,13 +29,15 @@ class BusyRoomValidator extends ConstraintValidator
 
         $entries = $this->entryRepository->isBusy($value, $room);
 
-        if (count($entries) > 0) {
+        if ([] !== $entries) {
             $message = '';
             foreach ($entries as $entry) {
                 $message .= ' '.$entry->getName();
             }
             $this->context->buildViolation($constraint->message)
-                ->setParameters(['rooms' => $message])
+                ->setParameters([
+                    'rooms' => $message,
+                ])
                 ->addViolation();
         }
     }

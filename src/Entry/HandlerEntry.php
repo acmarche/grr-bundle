@@ -10,19 +10,11 @@ use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 
 class HandlerEntry
 {
-    private EntryRepositoryInterface $entryRepository;
-    private HandlerPeriodicity $handlerPeriodicity;
-    private PropertyUtil $propertyUtil;
-
     public function __construct(
-        EntryRepositoryInterface $entryRepository,
-        HandlerPeriodicity $handlerPeriodicity,
-        PropertyUtil $propertyUtil
+        private EntryRepositoryInterface $entryRepository,
+        private HandlerPeriodicity $handlerPeriodicity,
+        private PropertyUtil $propertyUtil
     ) {
-        $this->entryRepository = $entryRepository;
-
-        $this->handlerPeriodicity = $handlerPeriodicity;
-        $this->propertyUtil = $propertyUtil;
     }
 
     public function handleNewEntry(EntryInterface $entry): void
@@ -85,7 +77,7 @@ class HandlerEntry
 
         foreach ($this->entryRepository->findByPeriodicity($entry->getPeriodicity()) as $entry2) {
             foreach ($this->propertyUtil->getProperties(Entry::class) as $property) {
-                if (!in_array($property, $excludes, true)) {
+                if (! \in_array($property, $excludes, true)) {
                     $value = $propertyAccessor->getValue($entry, $property);
                     $propertyAccessor->setValue($entry2, $property, $value);
                 }

@@ -13,26 +13,22 @@ namespace Grr\GrrBundle\Helper;
 use DateTime;
 use DateTimeInterface;
 use Grr\Core\Contrat\Front\ViewInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 
 class RouterHelper
 {
-    private RequestStack $requestStack;
-    private RouterInterface $router;
-
     public function __construct(
-        RequestStack $requestStack,
-        RouterInterface $router
+        private RequestStack $requestStack,
+        private RouterInterface $router
     ) {
-        $this->requestStack = $requestStack;
-        $this->router = $router;
     }
 
     public function generateRouteView(?DateTimeInterface $dateSelected = null, ?string $viewSelected = null): string
     {
-        $request = $this->requestStack->getMasterRequest();
-        if (null === $request) {
+        $request = $this->requestStack->getMainRequest();
+        if (! $request instanceof Request) {
             return '';
         }
 
@@ -41,15 +37,19 @@ class RouterHelper
         $area = $attributes['area'] ?? 0;
         $room = $attributes['room'] ?? 0;
 
-        if ($dateSelected === null) {
+        if (null === $dateSelected) {
             $dateSelected = new DateTime();
         }
 
-        if (!$viewSelected) {
+        if (! $viewSelected) {
             $viewSelected = ViewInterface::VIEW_MONTHLY;
         }
 
-        $params = ['area' => $area, 'date' => $dateSelected->format('Y-m-d'), 'view' => $viewSelected];
+        $params = [
+            'area' => $area,
+            'date' => $dateSelected->format('Y-m-d'),
+            'view' => $viewSelected,
+        ];
 
         if ($room) {
             $params['room'] = $room;
@@ -65,8 +65,8 @@ class RouterHelper
         ?int $hour,
         ?int $minute
     ): string {
-        $request = $this->requestStack->getMasterRequest();
-        if (null === $request) {
+        $request = $this->requestStack->getMainRequest();
+        if (! $request instanceof Request) {
             return '';
         }
 

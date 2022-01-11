@@ -22,7 +22,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../config'));
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/../../config'));
 
         // @see https://github.com/doctrine/DoctrineBundle/issues/674
         /*   $container->registerForAutoconfiguration(EventSubscriber::class)
@@ -72,7 +72,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     {
         $configs = $this->loadYamlFile($containerBuilder);
 
-        $configs->load($name . '.php');
+        $configs->load($name.'.php');
         //  $container->prependExtensionConfig('doctrine', $configs);
     }
 
@@ -80,7 +80,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     {
         return new PhpFileLoader(
             $containerBuilder,
-            new FileLocator(__DIR__ . '/../../config/packages/')
+            new FileLocator(__DIR__.'/../../config/packages/')
         );
     }
 }

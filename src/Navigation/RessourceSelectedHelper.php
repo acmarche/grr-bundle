@@ -9,52 +9,32 @@ use Grr\Core\Contrat\Entity\Security\UserInterface;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
 use Grr\Core\Setting\Repository\SettingProvider;
-use Grr\GrrBundle\Area\Repository\AreaRepository;
-use Grr\GrrBundle\Room\Repository\RoomRepository;
+use Grr\GrrBundle\Entity\Area;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
 
-/**
- * Class RessourceSelectedHelper.
- */
+
 class RessourceSelectedHelper
 {
+    /**
+     * @var \Grr\Core\Setting\Repository\SettingProvider|mixed
+     */
+    public $settingProvider;
     public const AREA_DEFAULT_SESSION = 'area_seleted';
     public const ROOM_DEFAULT_SESSION = 'room_seleted';
 
-    /**
-     * @var SessionInterface
-     */
-    private $session;
-    /**
-     * @var Security
-     */
-    private $security;
-    /**
-     * @var AreaRepository
-     */
-    private $areaRepository;
-    /**
-     * @var RoomRepository
-     */
-    private $roomRepository;
-
     public function __construct(
-        SessionInterface $session,
-        Security $security,
+        private SessionInterface $session,
+        private Security $security,
         SettingProvider $settingProvider,
-        AreaRepositoryInterface $areaRepository,
-        RoomRepositoryInterface $roomRepository
+        private AreaRepositoryInterface $areaRepository,
+        private RoomRepositoryInterface $roomRepository
     ) {
-        $this->session = $session;
-        $this->security = $security;
         $this->settingProvider = $settingProvider;
-        $this->areaRepository = $areaRepository;
-        $this->roomRepository = $roomRepository;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function getArea(): AreaInterface
     {
@@ -78,8 +58,10 @@ class RessourceSelectedHelper
             return $area;
         }
 
-        $area = $this->areaRepository->findOneBy([], ['id' => 'ASC']);
-        if (null === $area) {
+        $area = $this->areaRepository->findOneBy([], [
+            'id' => 'ASC',
+        ]);
+        if (! $area instanceof Area) {
             throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
         }
 

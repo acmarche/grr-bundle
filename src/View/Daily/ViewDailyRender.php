@@ -21,30 +21,15 @@ use Twig\Environment;
 
 class ViewDailyRender implements ViewInterface
 {
-    private Environment $environment;
-    private EntryRepositoryInterface $entryRepository;
-    private AreaRepositoryInterface $areaRepository;
-    private RoomRepositoryInterface $roomRepository;
-    private EntryLocationService $entryLocationService;
-    private TimeSlotsProvider $timeSlotsProvider;
-    private CarbonFactory $carbonFactory;
-
     public function __construct(
-        Environment $environment,
-        EntryRepositoryInterface $entryRepository,
-        AreaRepositoryInterface $areaRepository,
-        RoomRepositoryInterface $roomRepository,
-        EntryLocationService $entryLocationService,
-        TimeSlotsProvider $timeSlotsProvider,
-        CarbonFactory $carbonFactory
+        private Environment $environment,
+        private EntryRepositoryInterface $entryRepository,
+        private AreaRepositoryInterface $areaRepository,
+        private RoomRepositoryInterface $roomRepository,
+        private EntryLocationService $entryLocationService,
+        private TimeSlotsProvider $timeSlotsProvider,
+        private CarbonFactory $carbonFactory
     ) {
-        $this->environment = $environment;
-        $this->entryRepository = $entryRepository;
-        $this->areaRepository = $areaRepository;
-        $this->roomRepository = $roomRepository;
-        $this->entryLocationService = $entryLocationService;
-        $this->timeSlotsProvider = $timeSlotsProvider;
-        $this->carbonFactory = $carbonFactory;
     }
 
     public static function getDefaultIndexName(): string
@@ -61,7 +46,8 @@ class ViewDailyRender implements ViewInterface
         $content = $this->environment->render(
             '@grr_front/view/daily/day.html.twig',
             [
-                'area' => $area, //pour lien add entry
+                'area' => $area,
+                //pour lien add entry
                 'room' => $room,
                 'roomsModel' => $roomsModel,
                 'dateSelected' => $carbon,
@@ -111,7 +97,7 @@ class ViewDailyRender implements ViewInterface
 
             foreach ($entries as $entry) {
                 $entry->setLocations($this->entryLocationService->getLocations($entry, $timeSlots));
-                $count = count($entry->getLocations());
+                $count = \count($entry->getLocations());
                 $entry->setCellules($count);
             }
         }

@@ -20,13 +20,10 @@ use Symfony\Component\Security\Core\Security;
 
 class AddAreaFieldSubscriber implements EventSubscriberInterface
 {
-    private Security $security;
-    private AuthorizationHelper $authorizationHelper;
-
-    public function __construct(Security $security, AuthorizationHelper $authorizationHelper)
-    {
-        $this->security = $security;
-        $this->authorizationHelper = $authorizationHelper;
+    public function __construct(
+        private Security $security,
+        private AuthorizationHelper $authorizationHelper
+    ) {
     }
 
     /**
@@ -45,11 +42,13 @@ class AddAreaFieldSubscriber implements EventSubscriberInterface
          * @var User
          */
         $user = $this->security->getUser();
-        if (!$user) {
+        if (! $user) {
             throw new LogicException('The TypeEntryForm cannot be used without an authenticated user!');
         }
 
-        $options = ['required' => true];
+        $options = [
+            'required' => true,
+        ];
 
         $areas = $this->authorizationHelper->getAreasUserCanAdd($user);
         $options['choices'] = $areas;

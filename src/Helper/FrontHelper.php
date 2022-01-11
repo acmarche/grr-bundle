@@ -19,24 +19,14 @@ use Twig\Environment;
 
 class FrontHelper
 {
-    private Environment $environment;
-    private TypeEntryRepositoryInterface $typeEntryRepository;
-    private SettingRepositoryInterface $settingRepository;
-
     public function __construct(
-        Environment $environment,
-        TypeEntryRepositoryInterface $typeEntryRepository,
-        SettingRepositoryInterface $settingRepository
+        private Environment $environment,
+        private TypeEntryRepositoryInterface $typeEntryRepository,
+        private SettingRepositoryInterface $settingRepository
     ) {
-        $this->environment = $environment;
-        $this->typeEntryRepository = $typeEntryRepository;
-        $this->settingRepository = $settingRepository;
     }
 
-    /**
-     * @return int|string
-     */
-    public function periodicityTypeName(int $type)
+    public function periodicityTypeName(int $type): int|string
     {
         return PeriodicityConstant::getTypePeriodicite($type);
     }
@@ -47,7 +37,9 @@ class FrontHelper
 
         return $this->environment->render(
             '@grr_front/_legend_entry_type.html.twig',
-            ['types' => $types]
+            [
+                'types' => $types,
+            ]
         );
     }
 

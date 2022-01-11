@@ -18,24 +18,19 @@ use Grr\GrrBundle\Setting\Factory\SettingFactory;
 
 class SettingHandler
 {
-    private SettingFactory $settingFactory;
-    private SettingRepositoryInterface $settingRepository;
-    private SettingProvider $settingProvider;
-
     public function __construct(
-        SettingFactory $settingFactory,
-        SettingRepositoryInterface $settingRepository,
-        SettingProvider $settingProvider
+        private SettingFactory $settingFactory,
+        private SettingRepositoryInterface $settingRepository,
+        private SettingProvider $settingProvider
     ) {
-        $this->settingFactory = $settingFactory;
-        $this->settingRepository = $settingRepository;
-        $this->settingProvider = $settingProvider;
     }
 
     public function handleEdit($data): void
     {
         foreach ($data as $name => $value) {
-            $setting = $this->settingRepository->findOneBy(['name' => $name]);
+            $setting = $this->settingRepository->findOneBy([
+                'name' => $name,
+            ]);
             if (null === $setting) {
                 $this->handleNewSetting($name, $value);
                 continue;
@@ -76,7 +71,7 @@ class SettingHandler
         try {
             $service = $this->settingProvider->loadInterfaceByKey($name);
             $value = $service->bindValue($value);
-        } catch (Exception $exception) {
+        } catch (Exception) {
         }
 
         return $value;

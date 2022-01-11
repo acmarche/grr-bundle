@@ -31,10 +31,7 @@ class PeriodicityConstant
         return $vocab;
     }
 
-    /**
-     * @return string|int
-     */
-    public static function getTypePeriodicite(int $type)
+    public static function getTypePeriodicite(int $type): int|string
     {
         if (isset(self::getTypesPeriodicite()[$type])) {
             return self::getTypesPeriodicite()[$type];

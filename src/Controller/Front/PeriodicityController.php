@@ -16,55 +16,41 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/periodicity")
- */
+#[Route(path: '/periodicity')]
 class PeriodicityController extends AbstractController
 {
-    private HandlerEntry $handlerEntry;
-    private EntryRepositoryInterface $entryRepository;
-    private PeriodicityRepositoryInterface $periodicityRepository;
-
     public function __construct(
-        PeriodicityRepositoryInterface $periodicityRepository,
-        HandlerEntry                   $handlerEntry,
-        EntryRepositoryInterface       $entryRepository
-    )
-    {
-        $this->handlerEntry = $handlerEntry;
-        $this->entryRepository = $entryRepository;
-        $this->periodicityRepository = $periodicityRepository;
+        private PeriodicityRepositoryInterface $periodicityRepository,
+        private HandlerEntry $handlerEntry,
+        private EntryRepositoryInterface $entryRepository,
+        private MessageBusInterface $messageBus
+    ) {
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_front_periodicity_edit", methods={"GET", "POST"})
-     * @IsGranted("grr.entry.edit", subject="entry")
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_front_periodicity_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
         $displayOptionsWeek = false;
         $entry = $this->handlerEntry->prepareToEditWithPeriodicity($entry);
-
         $periodicity = $entry->getPeriodicity();
         $typePeriodicity = null !== $periodicity ? $periodicity->getType() : 0;
-
         if (PeriodicityConstant::EVERY_WEEK === $typePeriodicity) {
             $displayOptionsWeek = true;
         }
-
         $oldEntry = clone $entry;
-
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleEditEntryWithPeriodicity($oldEntry, $entry);
-            $this->dispatchMessage(new PeriodicityUpdated($periodicity->getId()));
+            $this->messageBus->dispatch(new PeriodicityUpdated($periodicity->getId()));
 
-            return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+            return $this->redirectToRoute('grr_front_entry_show', [
+                'id' => $entry->getId(),
+            ]);
         }
 
         return $this->render(
@@ -78,15 +64,11 @@ class PeriodicityController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="periodicity_delete", methods={"POST"})
-     */
+    #[Route(path: '/{id}', name: 'periodicity_delete', methods: ['POST'])]
     public function delete(Request $request, Periodicity $periodicity): RedirectResponse
     {
         $entry = $this->entryRepository->getBaseEntryForPeriodicity($periodicity);
-
-        if ($this->isCsrfTokenValid('delete' . $periodicity->getId(), $request->request->get('_token'))) {
-
+        if ($this->isCsrfTokenValid('delete'.$periodicity->getId(), $request->request->get('_token'))) {
             $id = $periodicity->getId();
             foreach ($periodicity->getEntries() as $entry) {
                 $this->periodicityRepository->remove($entry);
@@ -94,9 +76,11 @@ class PeriodicityController extends AbstractController
             $this->periodicityRepository->remove($periodicity);
             $this->periodicityRepository->flush();
 
-            $this->dispatchMessage(new PeriodicityDeleted($id));
+            $this->messageBus->dispatch(new PeriodicityDeleted($id));
         }
 
-        return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+        return $this->redirectToRoute('grr_front_entry_show', [
+            'id' => $entry->getId(),
+        ]);
     }
 }

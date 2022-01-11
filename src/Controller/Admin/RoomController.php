@@ -15,41 +15,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/room")
- */
+#[Route(path: '/admin/room')]
 class RoomController extends AbstractController
 {
-    private RoomFactory $roomFactory;
-    private RoomRepositoryInterface $roomRepository;
-
     public function __construct(
-        RoomFactory $roomFactory,
-        RoomRepositoryInterface $roomRepository
+        private RoomFactory $roomFactory,
+        private RoomRepositoryInterface $roomRepository,
+        private MessageBusInterface $messageBus
     ) {
-        $this->roomFactory = $roomFactory;
-        $this->roomRepository = $roomRepository;
     }
 
-    /**
-     * @Route("/new/{id}", name="grr_admin_room_new", methods={"GET", "POST"})
-     * @IsGranted("grr.area.new.room", subject="area")
-     */
+    #[Route(path: '/new/{id}', name: 'grr_admin_room_new', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.area.new.room', subject: 'area')]
     public function new(Request $request, Area $area): Response
     {
         $room = $this->roomFactory->createNew($area);
-
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->roomRepository->persist($room);
             $this->roomRepository->flush();
-            $this->dispatchMessage(new RoomCreated($room->getId()));
+            $this->messageBus->dispatch(new RoomCreated($room->getId()));
 
-            return $this->redirectToRoute('grr_admin_room_show', ['id' => $room->getId()]);
+            return $this->redirectToRoute('grr_admin_room_show', [
+                'id' => $room->getId(),
+            ]);
         }
 
         return $this->render(
@@ -62,10 +55,8 @@ class RoomController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_room_show", methods={"GET"})
-     * @IsGranted("grr.room.show", subject="room")
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_room_show', methods: ['GET'])]
+    #[IsGranted(data: 'grr.room.show', subject: 'room')]
     public function show(Room $room): Response
     {
         return $this->render(
@@ -76,23 +67,22 @@ class RoomController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_admin_room_edit", methods={"GET", "POST"})
-     * @IsGranted("grr.room.edit", subject="room")
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_admin_room_edit', methods: ['GET', 'POST'])]
+    #[IsGranted(data: 'grr.room.edit', subject: 'room')]
     public function edit(Request $request, Room $room): Response
     {
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->roomRepository->flush();
 
-            $this->dispatchMessage(new RoomUpdated($room->getId()));
+            $this->messageBus->dispatch(new RoomUpdated($room->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_room_show',
-                ['id' => $room->getId()]
+                [
+                    'id' => $room->getId(),
+                ]
             );
         }
 
@@ -105,10 +95,8 @@ class RoomController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_room_delete", methods={"POST"})
-     * @IsGranted("grr.room.delete", subject="room")
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_room_delete', methods: ['POST'])]
+    #[IsGranted(data: 'grr.room.delete', subject: 'room')]
     public function delete(Request $request, Room $room): RedirectResponse
     {
         $area = $room->getArea();
@@ -120,9 +108,11 @@ class RoomController extends AbstractController
             $this->roomRepository->remove($room);
             $this->roomRepository->flush();
 
-            $this->dispatchMessage(new RoomDeleted($id));
+            $this->messageBus->dispatch(new RoomDeleted($id));
         }
 
-        return $this->redirectToRoute('grr_admin_area_show', ['id' => $area->getId()]);
+        return $this->redirectToRoute('grr_admin_area_show', [
+            'id' => $area->getId(),
+        ]);
     }
 }

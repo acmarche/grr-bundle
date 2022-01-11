@@ -63,7 +63,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         if (null !== $room) {
             $qb->andWhere('entry.room = :room')
                 ->setParameter('room', $room);
-        } elseif ($area) {
+        } elseif (null !== $area) {
             $rooms = $this->getRooms($area);
             $qb->andWhere('entry.room IN (:rooms)')
                 ->setParameter('rooms', $rooms);
@@ -108,7 +108,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
             ->andWhere('entry.room = :room')
             ->setParameter('room', $room);
 
-        /**
+        /*
          * en cas de modif
          */
         if (null !== $entry->getId()) {
@@ -164,7 +164,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
         }
 
         if ($dateStart) {
-            if (!$dateEnd) {
+            if (! $dateEnd) {
                 $queryBuilder->andWhere('entry.startTime LIKE :begin')
                     ->setParameter('begin', $dateStart->format('Y-m-d').'%');
             } else {
@@ -221,6 +221,7 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
 
     /**
      * Retourne l'entry de base de la repetition.
+     *
      * @throws NonUniqueResultException
      */
     public function getBaseEntryForPeriodicity(PeriodicityInterface $periodicity): ?EntryInterface
@@ -277,7 +278,6 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
      */
     public function findByMonthAndRoom(CarbonInterface $carbon, RoomInterface $room): array
     {
-
         $firstDayOfMonth = $carbon->copy()->startOfMonth();
         $lastDayOfMonth = $carbon->copy()->endOfMonth();
 

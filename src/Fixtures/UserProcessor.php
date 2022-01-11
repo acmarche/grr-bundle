@@ -12,15 +12,13 @@ namespace Grr\GrrBundle\Fixtures;
 
 use Fidry\AliceDataFixtures\ProcessorInterface;
 use Grr\GrrBundle\Entity\Security\User;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserProcessor implements ProcessorInterface
 {
-    private UserPasswordEncoderInterface $userPasswordEncoder;
-
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
-    {
-        $this->userPasswordEncoder = $userPasswordEncoder;
+    public function __construct(
+        private UserPasswordHasherInterface $userPasswordEncoder
+    ) {
     }
 
     /**
@@ -28,7 +26,7 @@ class UserProcessor implements ProcessorInterface
      */
     public function preProcess(string $fixtureId, $user): void
     {
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return;
         }
 

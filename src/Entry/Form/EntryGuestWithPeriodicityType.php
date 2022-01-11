@@ -15,11 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EntryGuestWithPeriodicityType extends AbstractType
 {
-    private DurationFactory $durationFactory;
-
-    public function __construct(DurationFactory $durationFactory)
-    {
-        $this->durationFactory = $durationFactory;
+    public function __construct(
+        private DurationFactory $durationFactory
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -60,6 +58,4 @@ class EntryGuestWithPeriodicityType extends AbstractType
             ]
         );
     }
-
-
 }

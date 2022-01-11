@@ -17,18 +17,11 @@ use Symfony\Component\Form\FormEvents;
 
 class AddRoomFieldSubscriber implements EventSubscriberInterface
 {
-    private bool $required;
-    private ?string $label;
-    private ?string $placeholder;
-
     public function __construct(
-        bool $required = false,
-        ?string $label = null,
-        ?string $placeholder = null
+        private bool $required = false,
+        private ?string $label = null,
+        private ?string $placeholder = null
     ) {
-        $this->required = $required;
-        $this->label = $label;
-        $this->placeholder = $placeholder;
     }
 
     /**
@@ -45,7 +38,7 @@ class AddRoomFieldSubscriber implements EventSubscriberInterface
     {
         $object = $formEvent->getData();
 
-        $area = is_array($object) ? null : $object->getArea();
+        $area = \is_array($object) ? null : $object->getArea();
 
         $form = $formEvent->getForm();
 
@@ -67,7 +60,7 @@ class AddRoomFieldSubscriber implements EventSubscriberInterface
             $default['placeholder'] = $this->placeholder;
         }
 
-        if (!$this->required) {
+        if (! $this->required) {
             $default['placeholder'] = 'room.form.select.placeholder';
         }
 

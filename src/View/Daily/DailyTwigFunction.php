@@ -3,8 +3,6 @@
 namespace Grr\GrrBundle\View\Daily;
 
 use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
 use Grr\GrrBundle\Entity\Entry;
@@ -17,11 +15,9 @@ use Twig\TwigFunction;
 
 class DailyTwigFunction extends AbstractExtension
 {
-    private Environment $environment;
-
-    public function __construct(Environment $environment)
-    {
-        $this->environment = $environment;
+    public function __construct(
+        private Environment $environment
+    ) {
     }
 
     /**
@@ -44,9 +40,8 @@ class DailyTwigFunction extends AbstractExtension
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
-     * @param DateTime|DateTimeImmutable $dateSelected
      */
-    private function renderCellDataDay(DateTimeInterface $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
+    private function renderCellDataDay(\DateTime|\DateTimeImmutable $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
     {
         /**
          * @var Entry[]
@@ -63,7 +58,10 @@ class DailyTwigFunction extends AbstractExtension
                     if (0 === $position) {
                         return $this->environment->render(
                             '@grr_front/view/daily/_cell_day_data.html.twig',
-                            ['position' => $position, 'entry' => $entry]
+                            [
+                                'position' => $position,
+                                'entry' => $entry,
+                            ]
                         );
                     }
 

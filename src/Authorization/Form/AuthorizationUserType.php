@@ -25,12 +25,9 @@ use Symfony\Component\Form\FormInterface;
 
 class AuthorizationUserType extends AbstractType
 {
-    public UserRepositoryInterface $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository
+        public UserRepositoryInterface $userRepository
     ) {
-        $this->userRepository = $userRepository;
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -48,7 +45,9 @@ class AuthorizationUserType extends AbstractType
                 'class' => Room::class,
                 'label' => 'label.room.multiple_select',
                 'placeholder' => '',
-                'attr' => ['class' => 'custom-select my-1 mr-sm-2 room-select'],
+                'attr' => [
+                    'class' => 'custom-select my-1 mr-sm-2 room-select',
+                ],
                 'multiple' => true,
             ];
 
@@ -91,7 +90,7 @@ class AuthorizationUserType extends AbstractType
         );
     }
 
-    public function getParent(): string
+    public function getParent(): ?string
     {
         return AuthorizationType::class;
     }

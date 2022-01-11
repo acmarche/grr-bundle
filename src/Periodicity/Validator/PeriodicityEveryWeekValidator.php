@@ -20,7 +20,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value instanceof Periodicity) {
+        if (! $value instanceof Periodicity) {
             throw new InvalidArgumentException($value, 0);
         }
 
@@ -38,7 +38,7 @@ class PeriodicityEveryWeekValidator extends ConstraintValidator
         /*
          * Si aucun jour de la semaine sélectionné
          */
-        if (count($weekDays) < 1) {
+        if (\count((array) $weekDays) < 1) {
             $this->context->buildViolation('constraint.periodicity.every_weeks.no_day')
                 ->addViolation();
         }

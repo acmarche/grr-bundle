@@ -16,7 +16,7 @@ class SettingPass implements CompilerPassInterface
     public function process(ContainerBuilder $containerBuilder): void
     {
         // always first check if the primary service is defined
-        if (!$containerBuilder->has(SettingGeneralInterface::class)) {
+        if (! $containerBuilder->has(SettingGeneralInterface::class)) {
             return;
         }
 

@@ -63,7 +63,7 @@ class AddTypeEntryFieldSubscriber implements EventSubscriberInterface
         $entry = $formEvent->getData();
         $form = $formEvent->getForm();
 
-        if (!$entry) {
+        if (! $entry) {
             return;
         }
     }

@@ -2,76 +2,39 @@
 
 namespace Grr\GrrBundle\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Grr\Core\Doctrine\Traits\IdEntityTrait;
 use Grr\GrrBundle\Booking\Repository\BookingRepository;
 
-/**
- * @ORM\Entity(repositoryClass=BookingRepository::class)
- */
+#[ORM\Entity(repositoryClass: BookingRepository::class)]
 class Booking
 {
     use IdEntityTrait;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $telephone;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $informations;
-
-    /**
-     * @ORM\Column(type="string", length=120, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 120, nullable: true)]
     private $tva;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $email;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $horaire_name;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $horaire_id;
-
-    /**
-     * @ORM\Column(type="date")
-     */
+    #[ORM\Column(type: 'date')]
     private $jour;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private $room_id;
-
-    /**
-     * @ORM\Column(type="string", length=120)
-     */
+    #[ORM\Column(type: 'string', length: 120)]
     private $room_name;
-
-    /**
-     * @ORM\Column(type="boolean",nullable=false)
-     */
-    private $done = false;
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $done = false;
 
     public function getNom(): ?string
     {
@@ -145,12 +108,12 @@ class Booking
         return $this;
     }
 
-    public function getJour(): ?\DateTimeInterface
+    public function getJour(): ?DateTimeInterface
     {
         return $this->jour;
     }
 
-    public function setJour(\DateTimeInterface $jour): self
+    public function setJour(DateTimeInterface $jour): self
     {
         $this->jour = $jour;
 
@@ -181,7 +144,7 @@ class Booking
         return $this;
     }
 
-    public function getDone(): ?bool
+    public function getDone(): bool
     {
         return $this->done;
     }
@@ -216,5 +179,4 @@ class Booking
 
         return $this;
     }
-
 }

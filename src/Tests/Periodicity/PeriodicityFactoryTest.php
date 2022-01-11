@@ -75,10 +75,10 @@ class PeriodicityFactoryTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
-                $this->pathFixtures . 'room.yaml',
-                $this->pathFixtures . 'user.yaml',
-                $this->pathFixtures . 'authorization.yaml',
+                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures.'user.yaml',
+                $this->pathFixtures.'authorization.yaml',
             ];
 
         $this->loader->load($files);

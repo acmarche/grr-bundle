@@ -19,24 +19,13 @@ use Twig\Environment;
 
 class ViewWeeklyRender implements ViewInterface
 {
-    private Environment $environment;
-    private EntryRepositoryInterface $entryRepository;
-    private RoomRepositoryInterface $roomRepository;
-    private CarbonFactory $carbonFactory;
-    private DateProvider $dateProvider;
-
     public function __construct(
-        Environment $environment,
-        EntryRepositoryInterface $entryRepository,
-        RoomRepositoryInterface $roomRepository,
-        CarbonFactory $carbonFactory,
-        DateProvider $dateProvider
+        private Environment $environment,
+        private EntryRepositoryInterface $entryRepository,
+        private RoomRepositoryInterface $roomRepository,
+        private CarbonFactory $carbonFactory,
+        private DateProvider $dateProvider
     ) {
-        $this->environment = $environment;
-        $this->entryRepository = $entryRepository;
-        $this->roomRepository = $roomRepository;
-        $this->carbonFactory = $carbonFactory;
-        $this->dateProvider = $dateProvider;
     }
 
     public static function getDefaultIndexName(): string
@@ -56,7 +45,8 @@ class ViewWeeklyRender implements ViewInterface
             '@grr_front/view/weekly/week.html.twig',
             [
                 'days' => $days,
-                'area' => $area, //pour lien add entry
+                'area' => $area,
+                //pour lien add entry
                 'roomModels' => $roomModels,
                 'dateSelected' => $carbon,
                 'weekNiceName' => $weekNiceName,

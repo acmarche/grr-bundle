@@ -14,28 +14,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/entrytype")
- * @IsGranted("ROLE_GRR_ADMINISTRATOR")
- */
+#[Route(path: '/admin/entrytype')]
+#[IsGranted(data: 'ROLE_GRR_ADMINISTRATOR')]
 class TypeEntryController extends AbstractController
 {
-    private TypeEntryRepositoryInterface $typeEntryRepository;
-    private TypeEntryFactory $typeEntryFactory;
-
     public function __construct(
-        TypeEntryFactory $typeEntryFactory,
-        TypeEntryRepositoryInterface $typeEntryRepository
+        private TypeEntryFactory $typeEntryFactory,
+        private TypeEntryRepositoryInterface $typeEntryRepository,
+        private MessageBusInterface $messageBus
     ) {
-        $this->typeEntryRepository = $typeEntryRepository;
-        $this->typeEntryFactory = $typeEntryFactory;
     }
 
-    /**
-     * @Route("/", name="grr_admin_type_entry_index", methods={"GET"})
-     */
+    #[Route(path: '/', name: 'grr_admin_type_entry_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -46,21 +39,17 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/new", name="grr_admin_type_entry_new", methods={"GET", "POST"})
-     */
+    #[Route(path: '/new', name: 'grr_admin_type_entry_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $typeEntry = $this->typeEntryFactory->createNew();
-
         $form = $this->createForm(TypeEntryType::class, $typeEntry);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryRepository->persist($typeEntry);
             $this->typeEntryRepository->flush();
 
-            $this->dispatchMessage(new TypeEntryCreated($typeEntry->getId()));
+            $this->messageBus->dispatch(new TypeEntryCreated($typeEntry->getId()));
 
             return $this->redirectToRoute('grr_admin_type_entry_index');
         }
@@ -74,9 +63,7 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_type_entry_show", methods={"GET"})
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_type_entry_show', methods: ['GET'])]
     public function show(TypeEntry $typeEntry): Response
     {
         return $this->render(
@@ -87,18 +74,15 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}/edit", name="grr_admin_type_entry_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{id}/edit', name: 'grr_admin_type_entry_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, TypeEntry $typeEntry): Response
     {
         $form = $this->createForm(TypeEntryType::class, $typeEntry);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->typeEntryRepository->flush();
 
-            $this->dispatchMessage(new TypeEntryUpdated($typeEntry->getId()));
+            $this->messageBus->dispatch(new TypeEntryUpdated($typeEntry->getId()));
 
             return $this->redirectToRoute(
                 'grr_admin_type_entry_index',
@@ -117,16 +101,14 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_admin_type_entry_delete", methods={"POST"})
-     */
+    #[Route(path: '/{id}', name: 'grr_admin_type_entry_delete', methods: ['POST'])]
     public function delete(Request $request, TypeEntry $typeEntry): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$typeEntry->getId(), $request->request->get('_token'))) {
             $this->typeEntryRepository->remove($typeEntry);
             $this->typeEntryRepository->flush();
 
-            $this->dispatchMessage(new TypeEntryDeleted($typeEntry->getId()));
+            $this->messageBus->dispatch(new TypeEntryDeleted($typeEntry->getId()));
         }
 
         return $this->redirectToRoute('grr_admin_type_entry_index');

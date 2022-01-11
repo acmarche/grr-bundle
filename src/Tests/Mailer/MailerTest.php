@@ -12,7 +12,7 @@ use Twig\Environment;
 class MailerTest extends KernelTestCase
 {
     //https://symfony.com/blog/new-in-symfony-4-4-phpunit-assertions-for-email-messages
-    public function testSomething()
+    public function testSomething(): void
     {
         $mailerInterface = $this->createMock(MailerInterface::class);
         $mailerInterface
@@ -41,7 +41,7 @@ class MailerTest extends KernelTestCase
          */
     }
 
-    public function testIntegra2tionSendAuthorWeeklyReportMessage()
+    public function testIntegra2tionSendAuthorWeeklyReportMessage(): void
     {
         self::bootKernel();
         $mailerInterface = $this->getMockBuilder(MailerInterface::class)->getMock();

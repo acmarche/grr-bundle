@@ -15,54 +15,39 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route("/front/guest")
- */
+#[Route(path: '/front/guest')]
 class GuestController extends AbstractController
 {
-    private EntryRepositoryInterface $entryRepository;
-    private EntryFactory $entryFactory;
-    private HandlerEntry $handlerEntry;
-    private EventDispatcherInterface $eventDispatcher;
-    private FrontRouterHelper $frontRouterHelper;
-
     public function __construct(
-        EntryFactory $entryFactory,
-        EntryRepositoryInterface $entryRepository,
-        HandlerEntry $handlerEntry,
-        EventDispatcherInterface $eventDispatcher,
-        FrontRouterHelper $frontRouterHelper
+        private EntryFactory $entryFactory,
+        private EntryRepositoryInterface $entryRepository,
+        private HandlerEntry $handlerEntry,
+        private EventDispatcherInterface $eventDispatcher,
+        private FrontRouterHelper $frontRouterHelper,
+        private MessageBusInterface $messageBus
     ) {
-        $this->entryRepository = $entryRepository;
-        $this->entryFactory = $entryFactory;
-        $this->handlerEntry = $handlerEntry;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->frontRouterHelper = $frontRouterHelper;
     }
 
-    /**
-     * @Route("/new/room/{id}", name="grr_front_guest_new", methods={"GET", "POST"})
-     */
-    public function new(
-        Request $request,
-        Room $room
-    ): Response {
+    #[Route(path: '/new/room/{id}', name: 'grr_front_guest_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, Room $room): Response
+    {
         $area = $room->getArea();
         $date = new DateTime();
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, 8, 0);
         $form = $this->createForm(EntryGuestWithPeriodicityType::class, $entry);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerEntry->handleNewEntry($entry);
 
-            $this->dispatchMessage(new EntryCreated($entry->getId()));
+            $this->messageBus->dispatch(new EntryCreated($entry->getId()));
 
-            return $this->redirectToRoute('grr_front_entry_show', ['id' => $entry->getId()]);
+            return $this->redirectToRoute('grr_front_entry_show', [
+                'id' => $entry->getId(),
+            ]);
         }
 
         return $this->render(
@@ -77,10 +62,8 @@ class GuestController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/{id}", name="grr_front_guest_show", methods={"GET"})
-     * @IsGranted("grr.entry.show", subject="entry")
-     */
+    #[Route(path: '/{id}', name: 'grr_front_guest_show', methods: ['GET'])]
+    #[IsGranted(data: 'grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {
         $urlList = $this->frontRouterHelper->generateMonthView($entry);
@@ -98,5 +81,4 @@ class GuestController extends AbstractController
             ]
         );
     }
-
 }

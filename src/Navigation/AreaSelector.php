@@ -12,21 +12,12 @@ use Twig\Error\SyntaxError;
 
 class AreaSelector
 {
-    private FormFactoryInterface $formFactory;
-    private RessourceSelectedHelper $ressourceSelectedHelper;
-    private MenuSelectFactory $menuSelectFactory;
-    private Environment $environment;
-
     public function __construct(
-        MenuSelectFactory $menuSelectFactory,
-        FormFactoryInterface $formFactory,
-        RessourceSelectedHelper $ressourceSelectedHelper,
-        Environment $environment
+        private MenuSelectFactory $menuSelectFactory,
+        private FormFactoryInterface $formFactory,
+        private RessourceSelectedHelper $ressourceSelectedHelper,
+        private Environment $environment
     ) {
-        $this->formFactory = $formFactory;
-        $this->ressourceSelectedHelper = $ressourceSelectedHelper;
-        $this->menuSelectFactory = $menuSelectFactory;
-        $this->environment = $environment;
     }
 
     /**

@@ -20,21 +20,12 @@ use Twig\Error\SyntaxError;
 
 class ViewMonthlyRender implements ViewInterface
 {
-    private Environment $environment;
-    private EntryRepositoryInterface $entryRepository;
-    private CarbonFactory $carbonFactory;
-    private DateProvider $dateProvider;
-
     public function __construct(
-        Environment $environment,
-        EntryRepositoryInterface $entryRepository,
-        CarbonFactory $carbonFactory,
-        DateProvider $dateProvider
+        private Environment $environment,
+        private EntryRepositoryInterface $entryRepository,
+        private CarbonFactory $carbonFactory,
+        private DateProvider $dateProvider
     ) {
-        $this->environment = $environment;
-        $this->entryRepository = $entryRepository;
-        $this->carbonFactory = $carbonFactory;
-        $this->dateProvider = $dateProvider;
     }
 
     public static function getDefaultIndexName(): string

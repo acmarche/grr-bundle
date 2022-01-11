@@ -10,11 +10,12 @@ use Grr\GrrBundle\Security\Ldap\LdapGrr;
 use Grr\GrrBundle\Security\Voter\CriterionInterface;
 use Grr\GrrBundle\Security\Voter\PostVoter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\Ldap\Adapter\ExtLdap\Adapter;
-use Symfony\Component\Ldap\LdapInterface;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_locator;
+use Symfony\Component\Ldap\Adapter\ExtLdap\Adapter;
+use Symfony\Component\Ldap\Ldap;
+use Symfony\Component\Ldap\LdapInterface;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -50,7 +51,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $services->set('notifier.channel.browser', BrowserGrrChannel::class)
         ->args([service('request_stack')])
-        ->tag('notifier.channel', ['channel' => 'browsergrr']);
+        ->tag('notifier.channel', [
+            'channel' => 'browsergrr',
+        ]);
 
     $services
         ->load('Grr\GrrBundle\\', __DIR__.'/../src/*')
@@ -83,25 +86,26 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     if (interface_exists(LdapInterface::class)) {
         $services
-            ->set(Symfony\Component\Ldap\Ldap::class)
+            ->set(Ldap::class)
             ->args(['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'])
             ->tag('ldap');
-        $services->set(Adapter::class)->args(
-            [
+        $services->set(Adapter::class)
+            ->args(
                 [
-                    'host' => '%env(ACLDAP_URL)%',
-                    'port' => 636,
-                    'encryption' => 'ssl',
-                    'options' => [
-                        'protocol_version' => 3,
-                        'referrals' => false,
+                    [
+                        'host' => '%env(ACLDAP_URL)%',
+                        'port' => 636,
+                        'encryption' => 'ssl',
+                        'options' => [
+                            'protocol_version' => 3,
+                            'referrals' => false,
+                        ],
                     ],
-                ],
-            ]
-        );
+                ]
+            );
 
         $services->set(LdapGrr::class)
-            ->arg('$adapter', service('Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'))
+            ->arg('$adapter', service(Adapter::class))
             ->tag('ldap'); //necessary for new LdapBadge(LdapGrr::class)
     }
 };

@@ -16,11 +16,9 @@ use Symfony\Component\Notifier\Recipient\RecipientInterface;
  */
 final class BrowserGrrChannel implements ChannelInterface
 {
-    private RequestStack $stack;
-
-    public function __construct(RequestStack $stack)
-    {
-        $this->stack = $stack;
+    public function __construct(
+        private RequestStack $stack
+    ) {
     }
 
     public function notify(Notification $notification, RecipientInterface $recipient, string $transportName = null): void
@@ -30,8 +28,8 @@ final class BrowserGrrChannel implements ChannelInterface
         }
 
         $message = $notification->getSubject();
-        if ($notification->getEmoji() !== '') {
-            $message = $notification->getEmoji() . ' ' . $message;
+        if ('' !== $notification->getEmoji()) {
+            $message = $notification->getEmoji().' '.$message;
         }
 
         $type = $notification->getType() ?? 'success';

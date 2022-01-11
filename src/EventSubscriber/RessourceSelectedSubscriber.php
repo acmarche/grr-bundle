@@ -11,11 +11,9 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class RessourceSelectedSubscriber implements EventSubscriberInterface
 {
-    private RessourceSelectedHelper $ressourceSelectedHelper;
-
-    public function __construct(RessourceSelectedHelper $ressourceSelectedHelper)
-    {
-        $this->ressourceSelectedHelper = $ressourceSelectedHelper;
+    public function __construct(
+        private RessourceSelectedHelper $ressourceSelectedHelper
+    ) {
     }
 
     public function onControllerEvent(ControllerEvent $controllerEvent): void
@@ -27,7 +25,7 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
          * This is not usual in Symfony but it may happen.
          * If it is a class, it comes in array format.
          */
-        if (!is_array($controller)) {
+        if (! \is_array($controller)) {
             return;
         }
 
@@ -37,7 +35,7 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
             /*
              * if not set in url, force by user all ressources
              */
-            if (!$room) {
+            if (! $room) {
                 $room = -1;
             }
 

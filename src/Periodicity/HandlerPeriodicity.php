@@ -12,6 +12,7 @@ namespace Grr\GrrBundle\Periodicity;
 
 use Exception;
 use Grr\Core\Contrat\Entity\EntryInterface;
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\PeriodicityRepositoryInterface;
 use Grr\Core\Periodicity\GeneratorEntry;
@@ -19,21 +20,12 @@ use Grr\Core\Periodicity\PeriodicityDaysProvider;
 
 class HandlerPeriodicity
 {
-    private PeriodicityDaysProvider $periodicityDaysProvider;
-    private GeneratorEntry $entryFactory;
-    private EntryRepositoryInterface $entryRepository;
-    private PeriodicityRepositoryInterface $periodicityRepository;
-
     public function __construct(
-        PeriodicityRepositoryInterface $periodicityRepository,
-        PeriodicityDaysProvider $periodicityDaysProvider,
-        EntryRepositoryInterface $entryRepository,
-        GeneratorEntry $generatorEntry
+        private PeriodicityRepositoryInterface $periodicityRepository,
+        private PeriodicityDaysProvider $periodicityDaysProvider,
+        private EntryRepositoryInterface $entryRepository,
+        private GeneratorEntry $entryFactory
     ) {
-        $this->periodicityDaysProvider = $periodicityDaysProvider;
-        $this->entryFactory = $generatorEntry;
-        $this->entryRepository = $entryRepository;
-        $this->periodicityRepository = $periodicityRepository;
     }
 
     public function handleNewPeriodicity(EntryInterface $entry): void
@@ -50,14 +42,12 @@ class HandlerPeriodicity
     }
 
     /**
-     * @return null
      * @throws Exception
-     *
      */
     public function handleEditPeriodicity(EntryInterface $entry)
     {
         $periodicity = $entry->getPeriodicity();
-        if (null === $periodicity) {
+        if (! $periodicity instanceof PeriodicityInterface) {
             return null;
         }
 
@@ -103,7 +93,7 @@ class HandlerPeriodicity
         $oldPeriodicity = $oldEntry->getPeriodicity();
         $periodicity = $entry->getPeriodicity();
 
-        if (null === $oldPeriodicity || null === $periodicity) {
+        if (! $oldPeriodicity instanceof PeriodicityInterface || ! $periodicity instanceof PeriodicityInterface) {
             return true;
         }
 

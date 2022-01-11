@@ -20,12 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AuthorizationType extends AbstractType
 {
-    public UserRepositoryInterface $userRepository;
-
     public function __construct(
-        UserRepositoryInterface $userRepository
+        public UserRepositoryInterface $userRepository
     ) {
-        $this->userRepository = $userRepository;
     }
 
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
@@ -45,7 +42,9 @@ class AuthorizationType extends AbstractType
                 'class' => Room::class,
                 'label' => 'label.room.multiple_select',
                 'placeholder' => '',
-                'attr' => ['class' => 'my-1 mr-sm-2'],
+                'attr' => [
+                    'class' => 'my-1 mr-sm-2',
+                ],
                 'multiple' => true,
             ];
 

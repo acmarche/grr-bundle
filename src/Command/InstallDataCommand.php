@@ -31,47 +31,23 @@ class InstallDataCommand extends Command
      * @var string
      */
     protected static $defaultName = 'grr:install-data';
-    private TypeEntryRepositoryInterface $typeEntryRepository;
-    private TypeEntryFactory $typeEntryFactory;
-    private AreaRepositoryInterface $areaRepository;
-    private AreaFactory $areaFactory;
-    private RoomFactory $roomFactory;
-    private RoomRepositoryInterface $roomRepository;
-    private UserRepositoryInterface $userRepository;
-    private UserFactory $userFactory;
-    private UserPasswordHasherInterface $userPasswordEncoder;
-    private EntityManagerInterface $entityManager;
     private ?SymfonyStyle $symfonyStyle = null;
-    private SettingFactory $settingFactory;
-    private SettingRepositoryInterface $settingRepository;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
-        TypeEntryRepositoryInterface $typeEntryRepository,
-        RoomRepositoryInterface $roomRepository,
-        UserRepositoryInterface $userRepository,
-        SettingRepositoryInterface $settingRepository,
-        TypeEntryFactory $typeEntryFactory,
-        AreaRepositoryInterface $areaRepository,
-        SettingFactory $settingFactory,
-        AreaFactory $areaFactory,
-        RoomFactory $roomFactory,
-        UserFactory $userFactory,
-        UserPasswordHasherInterface $userPasswordEncoder
+        private EntityManagerInterface $entityManager,
+        private TypeEntryRepositoryInterface $typeEntryRepository,
+        private RoomRepositoryInterface $roomRepository,
+        private UserRepositoryInterface $userRepository,
+        private SettingRepositoryInterface $settingRepository,
+        private TypeEntryFactory $typeEntryFactory,
+        private AreaRepositoryInterface $areaRepository,
+        private SettingFactory $settingFactory,
+        private AreaFactory $areaFactory,
+        private RoomFactory $roomFactory,
+        private UserFactory $userFactory,
+        private UserPasswordHasherInterface $userPasswordEncoder
     ) {
         parent::__construct();
-        $this->typeEntryRepository = $typeEntryRepository;
-        $this->typeEntryFactory = $typeEntryFactory;
-        $this->areaRepository = $areaRepository;
-        $this->areaFactory = $areaFactory;
-        $this->roomFactory = $roomFactory;
-        $this->roomRepository = $roomRepository;
-        $this->userRepository = $userRepository;
-        $this->userFactory = $userFactory;
-        $this->userPasswordEncoder = $userPasswordEncoder;
-        $this->entityManager = $entityManager;
-        $this->settingFactory = $settingFactory;
-        $this->settingRepository = $settingRepository;
     }
 
     protected function configure(): void
@@ -86,7 +62,7 @@ class InstallDataCommand extends Command
         $this->symfonyStyle = new SymfonyStyle($input, $output);
         $purge = false;
 
-        if (!$input->getArgument('purge')) {
+        if (! $input->getArgument('purge')) {
             $helper = $this->getHelper('question');
             $confirmationQuestion = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
             $purge = $helper->ask($input, $output, $confirmationQuestion);
@@ -125,25 +101,26 @@ class InstallDataCommand extends Command
         $colors = ['#FFCCFF', '#99CCCC', '#FF9999', '#FFFF99', '#C0E0FF', '#FFCC99', '#FF6666', '#66FFFF', '#DDFFDD'];
 
         foreach ($types as $index => $nom) {
-            if (null !== $this->typeEntryRepository->findOneBy(['name' => $nom])) {
+            if (null !== $this->typeEntryRepository->findOneBy([
+                'name' => $nom,
+            ])) {
                 continue;
             }
             $type = $this->typeEntryFactory->createNew();
             $type->setLetter($index);
             $type->setName($nom);
-            $type->setColor($colors[random_int(0, count($colors) - 1)]);
+            $type->setColor($colors[random_int(0, \count($colors) - 1)]);
             $this->entityManager->persist($type);
         }
         $this->entityManager->flush();
     }
 
-    /**
-     * @return null
-     */
     public function loadArea()
     {
         $esquareName = 'Esquare';
-        $esquare = $this->areaRepository->findOneBy(['name' => $esquareName]);
+        $esquare = $this->areaRepository->findOneBy([
+            'name' => $esquareName,
+        ]);
         if (null === $esquare) {
             $esquare = $this->areaFactory->createNew();
             $esquare->setName($esquareName);
@@ -151,7 +128,9 @@ class InstallDataCommand extends Command
         }
 
         $hdvName = 'Hdv';
-        $hdv = $this->areaRepository->findOneBy(['name' => $hdvName]);
+        $hdv = $this->areaRepository->findOneBy([
+            'name' => $hdvName,
+        ]);
         if (null === $hdv) {
             $hdv = $this->areaFactory->createNew();
             $hdv->setName($hdvName);
@@ -184,7 +163,9 @@ class InstallDataCommand extends Command
     public function loadRooms(Area $area, array $salles): void
     {
         foreach ($salles as $salle) {
-            if (null !== $this->roomRepository->findOneBy(['name' => $salle])) {
+            if (null !== $this->roomRepository->findOneBy([
+                'name' => $salle,
+            ])) {
                 continue;
             }
             $room = $this->roomFactory->createNew($area);
@@ -197,7 +178,9 @@ class InstallDataCommand extends Command
     {
         $email = 'grr@domain.be';
 
-        if (null !== $this->userRepository->findOneBy(['email' => $email])) {
+        if (null !== $this->userRepository->findOneBy([
+            'email' => $email,
+        ])) {
             return;
         }
 
@@ -232,8 +215,10 @@ class InstallDataCommand extends Command
         ];
 
         foreach ($settings as $name => $value) {
-            if (null === ($setting = $this->settingRepository->findOneBy(['name' => $name]))) {
-                if (is_array($value)) {
+            if (null === ($setting = $this->settingRepository->findOneBy([
+                'name' => $name,
+            ]))) {
+                if (\is_array($value)) {
                     $value = serialize($value);
                 }
                 $setting = $this->settingFactory->createNew($name, $value);

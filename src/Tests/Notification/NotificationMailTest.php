@@ -11,9 +11,9 @@ class NotificationMailTest extends BaseTesting
         $url = '/fr/admin/area/';
         $email = 'grr@domain.be';
 
-        $client = $email === '' ? $this->createAnonymousClient() : $this->createGrrClient($email);
+        $client = '' === $email ? $this->createAnonymousClient() : $this->createGrrClient($email);
         $client->request('GET', $url);
-        self::assertResponseStatusCodeSame(200, $email . ' ' . $url);
+        self::assertResponseStatusCodeSame(200, $email.' '.$url);
     }
 
     public function testSomething(): void
@@ -30,7 +30,9 @@ class NotificationMailTest extends BaseTesting
                 $text = $node->text();
                 print_r($title);
 
-                return ['href' => $href];
+                return [
+                    'href' => $href,
+                ];
             }
         );
         var_dump($links);
@@ -60,7 +62,7 @@ class NotificationMailTest extends BaseTesting
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        $this->assertEquals(1, $crawler->filter('html:contains("123456")')->count());
+        static::assertEquals(1, $crawler->filter('html:contains("123456")')->count());
 
         print_r($client->getResponse()->getContent());
         /*   $this->assertEmailIsQueued($this->getMailerEvent(0));

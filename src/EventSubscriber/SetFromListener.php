@@ -19,7 +19,7 @@ class SetFromListener implements EventSubscriberInterface
     public function onMessage(MessageEvent $messageEvent): void
     {
         $email = $messageEvent->getMessage();
-        if (!$email instanceof Email) {
+        if (! $email instanceof Email) {
             return;
         }
 

@@ -10,25 +10,16 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
-/**
- * Class EntryEmailNotification.
- */
+
 class EntryEmailNotification extends Notification implements EmailNotificationInterface
 {
-    private EntryInterface $entry;
-    private ?string $actionUrl;
-    private ?string $actionText;
-
     public function __construct(
         string $sujet,
-        EntryInterface $entry,
-        ?string $actionUrl = null,
-        ?string $actionText = 'Consulter'
+        private EntryInterface $entry,
+        private ?string $actionUrl = null,
+        private ?string $actionText = 'Consulter'
     ) {
-        $this->entry = $entry;
         parent::__construct($sujet.$entry->getName());
-        $this->actionUrl = $actionUrl;
-        $this->actionText = $actionText;
     }
 
     /**

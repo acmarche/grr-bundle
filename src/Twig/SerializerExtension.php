@@ -8,19 +8,17 @@ use Twig\TwigFilter;
 
 class SerializerExtension extends AbstractExtension
 {
-    private SerializerInterface $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
+    public function __construct(
+        private SerializerInterface $serializer
+    ) {
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('jsonld', function ($data): string {
-                return $this->serializeToJsonLd($data);
-            }, ['is_safe' => ['html']]),
+            new TwigFilter('jsonld', fn ($data): string => $this->serializeToJsonLd($data), [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 

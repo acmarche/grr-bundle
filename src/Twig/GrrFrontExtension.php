@@ -11,18 +11,11 @@ use Twig\TwigFunction;
 
 class GrrFrontExtension extends AbstractExtension
 {
-    private FrontHelper $frontHelper;
-    private DateSelectorRender $dateSelectorRender;
-    private AreaSelector $areaSelector;
-
     public function __construct(
-        FrontHelper $frontHelper,
-        DateSelectorRender $dateSelectorRender,
-        AreaSelector $areaSelector
+        private FrontHelper $frontHelper,
+        private DateSelectorRender $dateSelectorRender,
+        private AreaSelector $areaSelector
     ) {
-        $this->frontHelper = $frontHelper;
-        $this->dateSelectorRender = $dateSelectorRender;
-        $this->areaSelector = $areaSelector;
     }
 
     /**
@@ -40,9 +33,7 @@ class GrrFrontExtension extends AbstractExtension
             ),
             new TwigFilter(
                 'grrBoolToArrow',
-                function (bool $value): string {
-                    return $this->grrBoolToArrow($value);
-                },
+                fn (bool $value): string => $this->grrBoolToArrow($value),
                 [
                     'is_safe' => ['html'],
                 ]

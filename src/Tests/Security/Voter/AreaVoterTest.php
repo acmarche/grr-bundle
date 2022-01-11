@@ -202,9 +202,9 @@ class AreaVoterTest extends BaseTesting
         return new AreaVoter($mock, $this->initSecurityHelper());
     }
 
-    private function initToken(?User $user): TokenInterface
+    private function initToken(?User $user): AnonymousToken|UsernamePasswordToken
     {
-        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock(
+        $token = $this->getMockBuilder(TokenInterface::class)->getMock(
         );
 
         $token
@@ -228,10 +228,10 @@ class AreaVoterTest extends BaseTesting
     {
         $files =
             [
-                $this->pathFixtures . 'area.yaml',
-                $this->pathFixtures . 'room.yaml',
-                $this->pathFixtures . 'user.yaml',
-                $this->pathFixtures . 'authorization.yaml',
+                $this->pathFixtures.'area.yaml',
+                $this->pathFixtures.'room.yaml',
+                $this->pathFixtures.'user.yaml',
+                $this->pathFixtures.'authorization.yaml',
             ];
 
         $this->loader->load($files);

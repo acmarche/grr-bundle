@@ -22,43 +22,30 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    private RessourceSelectedHelper $ressourceSelectedHelper;
-    private LocalHelper $localHelper;
-    private AreaRepositoryInterface $areaRepository;
-
     public function __construct(
-        RessourceSelectedHelper $ressourceSelectedHelper,
-        LocalHelper $localHelper,
-        AreaRepositoryInterface $areaRepository
+        private RessourceSelectedHelper $ressourceSelectedHelper,
+        private LocalHelper $localHelper,
+        private AreaRepositoryInterface $areaRepository
     ) {
-        $this->ressourceSelectedHelper = $ressourceSelectedHelper;
-        $this->localHelper = $localHelper;
-        $this->areaRepository = $areaRepository;
     }
 
-    /**
-     * @Route("/{_locale<%grr.supported_locales%>}", name="grr_homepage")
-     */
+    #[Route(path: '/{_locale<%grr.supported_locales%>}', name: 'grr_homepage')]
     public function redirectToScheduler(): Response
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();
-
         try {
             $area = $this->ressourceSelectedHelper->getArea();
         } catch (Exception $e) {
             return new Response($e->getMessage());
         }
-
         $room = $this->ressourceSelectedHelper->getRoom();
         $today = new DateTime();
-
         $params = [
             '_locale' => $defaultLocal,
             'area' => $area->getId(),
             'view' => ViewInterface::VIEW_MONTHLY,
             'date' => $today->format('Y-m-d'),
         ];
-
         if (null !== $room) {
             $params['room'] = $room->getId();
         }
@@ -69,9 +56,7 @@ class HomeController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/vuejs", name="vuejs")
-     */
+    #[Route(path: '/vuejs', name: 'vuejs')]
     public function index(): Response
     {
         return $this->render(

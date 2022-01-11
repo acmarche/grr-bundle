@@ -18,7 +18,10 @@ class SearchUserType extends AbstractType
                 [
                     'required' => true,
                     'label' => 'label.user.name',
-                    'attr' => ['placeholder' => 'placeholder.user.name', 'class' => ''],
+                    'attr' => [
+                        'placeholder' => 'placeholder.user.name',
+                        'class' => '',
+                    ],
                 ]
             );
     }
