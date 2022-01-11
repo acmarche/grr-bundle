@@ -24,7 +24,6 @@ class UserPasswordType extends AbstractType
                     ],
                     'second_options' => [
                         'label' => 'label.passwordRepeat',
-                        
                     ],
                 ]
             );

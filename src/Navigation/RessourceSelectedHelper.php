@@ -21,13 +21,12 @@ class RessourceSelectedHelper
     private SessionInterface $session;
 
     public function __construct(
-        private RequestStack            $requestStack,
-        private Security                $security,
-        private SettingProvider         $settingProvider,
+        private RequestStack $requestStack,
+        private Security $security,
+        private SettingProvider $settingProvider,
         private AreaRepositoryInterface $areaRepository,
         private RoomRepositoryInterface $roomRepository
-    )
-    {
+    ) {
         $this->session = $this->requestStack->getSession();
     }
 
@@ -59,7 +58,7 @@ class RessourceSelectedHelper
         $area = $this->areaRepository->findOneBy([], [
             'id' => 'ASC',
         ]);
-        if (!$area instanceof Area) {
+        if (! $area instanceof Area) {
             throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
         }
 

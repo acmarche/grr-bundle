@@ -10,7 +10,6 @@ use Symfony\Component\Notifier\Notification\Notification;
 use Symfony\Component\Notifier\Recipient\EmailRecipientInterface;
 use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
-
 class EntryEmailNotification extends Notification implements EmailNotificationInterface
 {
     public function __construct(

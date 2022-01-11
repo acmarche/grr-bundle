@@ -19,9 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
-/**
- * Class AjaxController.
- */
+
 class AjaxController extends AbstractController
 {
     public function __construct(

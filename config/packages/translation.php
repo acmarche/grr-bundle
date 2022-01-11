@@ -7,7 +7,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'framework',
         [
             'default_locale' => 'fr',
-            'enabled_locales' => ['en', 'fr']
+            'enabled_locales' => ['en', 'fr'],
         ]
     );
 };

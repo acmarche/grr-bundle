@@ -43,7 +43,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->tag('grr.render');
 
     $services = $services->instanceof(GrrModuleInterface::class)
-            ->tag('grr.module');
+        ->tag('grr.module');
 
     $services = $services->set(BrowserGrrChannel::class)
         ->tag(

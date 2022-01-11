@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 //https://symfony.com/doc/current/service_container/tags.html
 class SettingPass //implements CompilerPassInterface
 {
-    /**
+    /*
      * You can modify the container here before it is dumped to PHP code.
      *
     public function process(ContainerBuilder $containerBuilder): void

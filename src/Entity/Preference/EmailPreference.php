@@ -26,8 +26,7 @@ class EmailPreference
 
     public function __construct(
         UserInterface $user
-    )
-    {
+    ) {
         $this->onCreated = false;
         $this->onDeleted = false;
         $this->onUpdated = false;

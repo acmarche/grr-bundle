@@ -20,7 +20,7 @@ class GrrExtension extends Extension implements PrependExtensionInterface
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../config'));
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__.'/../../config'));
 
         $phpFileLoader->load('services.php');
 
@@ -60,14 +60,14 @@ class GrrExtension extends Extension implements PrependExtensionInterface
     protected function loadConfig(ContainerBuilder $containerBuilder, string $name): void
     {
         $configs = $this->loadPhpFile($containerBuilder);
-        $configs->load($name . '.php');
+        $configs->load($name.'.php');
     }
 
     protected function loadPhpFile(ContainerBuilder $containerBuilder): PhpFileLoader
     {
         return new PhpFileLoader(
             $containerBuilder,
-            new FileLocator(__DIR__ . '/../../config/packages/')
+            new FileLocator(__DIR__.'/../../config/packages/')
         );
     }
 }

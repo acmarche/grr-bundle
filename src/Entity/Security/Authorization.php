@@ -17,7 +17,6 @@ use Grr\GrrBundle\Authorization\Repository\AuthorizationRepository;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 #[ORM\Table(name: 'authorization')]
 #[ORM\UniqueConstraint(columns: ['user_id', 'area_id'])]
 #[ORM\UniqueConstraint(columns: ['user_id', 'room_id'])]
