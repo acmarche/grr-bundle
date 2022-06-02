@@ -17,6 +17,7 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 use Grr\GrrBundle\Setting\Factory\SettingFactory;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
 use Grr\GrrBundle\User\Factory\UserFactory;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,12 +26,12 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[AsCommand(
+    name: 'grr:install-data',
+    description: 'Add a short description for your command',
+)]
 class InstallDataCommand extends Command
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'grr:install-data';
     private ?SymfonyStyle $symfonyStyle = null;
 
     public function __construct(
@@ -62,7 +63,7 @@ class InstallDataCommand extends Command
         $this->symfonyStyle = new SymfonyStyle($input, $output);
         $purge = false;
 
-        if (! $input->getArgument('purge')) {
+        if (!$input->getArgument('purge')) {
             $helper = $this->getHelper('question');
             $confirmationQuestion = new ConfirmationQuestion("Voulez vous vider la base de données ? [y,N] \n", false);
             $purge = $helper->ask($input, $output, $confirmationQuestion);
@@ -102,8 +103,8 @@ class InstallDataCommand extends Command
 
         foreach ($types as $index => $nom) {
             if (null !== $this->typeEntryRepository->findOneBy([
-                'name' => $nom,
-            ])) {
+                    'name' => $nom,
+                ])) {
                 continue;
             }
             $type = $this->typeEntryFactory->createNew();
@@ -164,8 +165,8 @@ class InstallDataCommand extends Command
     {
         foreach ($salles as $salle) {
             if (null !== $this->roomRepository->findOneBy([
-                'name' => $salle,
-            ])) {
+                    'name' => $salle,
+                ])) {
                 continue;
             }
             $room = $this->roomFactory->createNew($area);
@@ -179,8 +180,8 @@ class InstallDataCommand extends Command
         $email = 'grr@domain.be';
 
         if (null !== $this->userRepository->findOneBy([
-            'email' => $email,
-        ])) {
+                'email' => $email,
+            ])) {
             return;
         }
 
@@ -216,8 +217,8 @@ class InstallDataCommand extends Command
 
         foreach ($settings as $name => $value) {
             if (null === ($setting = $this->settingRepository->findOneBy([
-                'name' => $name,
-            ]))) {
+                    'name' => $name,
+                ]))) {
                 if (\is_array($value)) {
                     $value = serialize($value);
                 }

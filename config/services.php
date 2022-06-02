@@ -93,6 +93,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ->set(Ldap::class)
             ->args(['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter'])
             ->tag('ldap');
+
         $services->set(Adapter::class)
             ->args(
                 [

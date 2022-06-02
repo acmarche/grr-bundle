@@ -12,13 +12,34 @@ namespace Grr\GrrBundle;
 
 use Grr\GrrBundle\DependencyInjection\Compiler\ModulesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class GrrBundle extends Bundle
+class GrrBundle extends AbstractBundle
 {
     public function getPath(): string
     {
         return \dirname(__DIR__);
+    }
+
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        $container->import('../config/services.php');
+        $env = $builder->getParameter('kernel.environment');
+        if ('dev' == $env) {
+            $container->import('../config/services_dev.php');
+        }
+        if ('test' == $env) {
+            $container->import('../config/services_test.php');
+        }
+    }
+
+    public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        $container->import('../config/packages/twig.php');
+        $container->import('../config/packages/security.php');
+        $container->import('../config/packages/doctrine.php');
+        $container->import('../config/packages/doctrine_extension.php');
     }
 
     public function build(ContainerBuilder $containerBuilder): void

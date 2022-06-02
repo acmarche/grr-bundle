@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @see https://symfony.com/doc/bundles/prepend_extension.html
  */
-class GrrExtension extends Extension implements PrependExtensionInterface
+class GrrExtension
 {
     /**
      * {@inheritdoc}

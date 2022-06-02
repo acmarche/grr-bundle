@@ -4,6 +4,7 @@ namespace Grr\GrrBundle\Command;
 
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Grr\GrrBundle\Notification\FlashNotification;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,6 +17,10 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
+#[AsCommand(
+    name: 'grr:fix',
+    description: 'Add a short description for your command',
+)]
 class FixCommand extends Command
 {
     /**
