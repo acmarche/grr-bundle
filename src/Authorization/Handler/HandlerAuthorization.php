@@ -25,7 +25,7 @@ class HandlerAuthorization
         private RequestStack $requestStack,
         private TranslatorInterface $translator
     ) {
-        $this->flashBag = $this->requestStack->getSession()->getFlashBag();
+
     }
 
     public function handle(FormInterface $form): void
@@ -75,7 +75,8 @@ class HandlerAuthorization
             }
         }
 
-        if (! $this->error) {
+        if (!$this->error) {
+            $this->setSession();
             $this->flashBag->add('success', 'flash.authorization.created');
         }
     }
@@ -87,6 +88,7 @@ class HandlerAuthorization
         $user
     ): void {
         if ($this->existArea($user, $area)) {
+            $this->setSession();
             $this->error = true;
             $this->flashBag->add(
                 'danger',
@@ -104,6 +106,7 @@ class HandlerAuthorization
         foreach ($rooms as $room) {
             $copy = clone $authorization;
             if ($this->existRoom($user, $room)) {
+                $this->setSession();
                 $this->error = true;
                 $this->flashBag->add(
                     'danger',
@@ -123,6 +126,7 @@ class HandlerAuthorization
     protected function executeForArea(Authorization $authorization, Area $area, UserInterface $user): void
     {
         if ($this->existArea($user, $area)) {
+            $this->setSession();
             $this->error = true;
             $this->flashBag->add(
                 'danger',
@@ -143,27 +147,42 @@ class HandlerAuthorization
 
     protected function existArea(UserInterface $user, Area $area): bool
     {
-        $count = is_countable($this->authorizationRepository->findBy([
-            'user' => $user,
-            'area' => $area,
-        ])) ? \count($this->authorizationRepository->findBy([
-            'user' => $user,
-            'area' => $area,
-        ])) : 0;
+        $count = is_countable(
+            $this->authorizationRepository->findBy([
+                'user' => $user,
+                'area' => $area,
+            ])
+        ) ? \count(
+            $this->authorizationRepository->findBy([
+                'user' => $user,
+                'area' => $area,
+            ])
+        ) : 0;
 
         return $count > 0;
     }
 
     protected function existRoom(UserInterface $user, Room $room): bool
     {
-        $count = is_countable($this->authorizationRepository->findBy([
-            'user' => $user,
-            'room' => $room,
-        ])) ? \count($this->authorizationRepository->findBy([
-            'user' => $user,
-            'room' => $room,
-        ])) : 0;
+        $count = is_countable(
+            $this->authorizationRepository->findBy([
+                'user' => $user,
+                'room' => $room,
+            ])
+        ) ? \count(
+            $this->authorizationRepository->findBy([
+                'user' => $user,
+                'room' => $room,
+            ])
+        ) : 0;
 
         return $count > 0;
+    }
+
+    private function setSession()
+    {
+        if ($session = $this->requestStack->getSession()) {
+            $this->flashBag = $session->getFlashBag();
+        }
     }
 }

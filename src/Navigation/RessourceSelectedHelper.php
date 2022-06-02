@@ -27,7 +27,7 @@ class RessourceSelectedHelper
         private AreaRepositoryInterface $areaRepository,
         private RoomRepositoryInterface $roomRepository
     ) {
-        $this->session = $this->requestStack->getSession();
+
     }
 
     /**
@@ -58,8 +58,10 @@ class RessourceSelectedHelper
         $area = $this->areaRepository->findOneBy([], [
             'id' => 'ASC',
         ]);
-        if (! $area instanceof Area) {
-            throw new Exception('No area in database, populate database with this command: php bin/console grr:install-data');
+        if (!$area instanceof Area) {
+            throw new Exception(
+                'No area in database, populate database with this command: php bin/console grr:install-data'
+            );
         }
 
         return $area;
@@ -105,5 +107,12 @@ class RessourceSelectedHelper
         }
 
         $this->session->remove(self::ROOM_DEFAULT_SESSION);
+    }
+
+    private function setSession()
+    {
+        if ($session = $this->requestStack->getSession()) {
+            $this->session = $session;
+        }
     }
 }
