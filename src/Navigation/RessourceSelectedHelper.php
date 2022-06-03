@@ -18,7 +18,7 @@ class RessourceSelectedHelper
 {
     public const AREA_DEFAULT_SESSION = 'area_seleted';
     public const ROOM_DEFAULT_SESSION = 'room_seleted';
-    private SessionInterface $session;
+    private ?SessionInterface $session;
 
     public function __construct(
         private RequestStack $requestStack,
@@ -27,7 +27,7 @@ class RessourceSelectedHelper
         private AreaRepositoryInterface $areaRepository,
         private RoomRepositoryInterface $roomRepository
     ) {
-
+        $this->session = null;
     }
 
     /**
@@ -35,6 +35,7 @@ class RessourceSelectedHelper
      */
     public function getArea(): AreaInterface
     {
+        $this->setSession();
         if ($this->session->has(self::AREA_DEFAULT_SESSION)) {
             $areaId = $this->session->get(self::AREA_DEFAULT_SESSION);
 
@@ -72,6 +73,7 @@ class RessourceSelectedHelper
      */
     public function getRoom(): ?RoomInterface
     {
+        $this->setSession();
         if ($this->session->has(self::ROOM_DEFAULT_SESSION)) {
             $roomId = $this->session->get(self::ROOM_DEFAULT_SESSION);
             if (-1 === $roomId) {
@@ -99,6 +101,7 @@ class RessourceSelectedHelper
 
     public function setSelected(int $area, int $room = null): void
     {
+        $this->setSession();
         $this->session->set(self::AREA_DEFAULT_SESSION, $area);
         if ($room) {
             $this->session->set(self::ROOM_DEFAULT_SESSION, $room);
@@ -111,8 +114,10 @@ class RessourceSelectedHelper
 
     private function setSession()
     {
-        if ($session = $this->requestStack->getSession()) {
-            $this->session = $session;
+        if (!$this->session) {
+            if ($session = $this->requestStack->getSession()) {
+                $this->session = $session;
+            }
         }
     }
 }
