@@ -1,4 +1,4 @@
-import {Controller} from "stimulus";
+import {Controller} from "@hotwired/stimulus";
 
 /**
  * Disabled option rooms if area administrator or manger resource

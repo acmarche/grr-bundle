@@ -1,4 +1,4 @@
-import {Controller} from "stimulus";
+import {Controller} from "@hotwired/stimulus";
 
 export default class extends Controller {
 
@@ -25,7 +25,7 @@ export default class extends Controller {
 
     selectArea(event) {
         const areaIdSelected = event.currentTarget.value;
-     //   console.log('id area select: ' + areaIdSelected);
+        //   console.log('id area select: ' + areaIdSelected);
         this.changerUrlArea(areaIdSelected);
     }
 
@@ -38,7 +38,7 @@ export default class extends Controller {
 
     selectRoom(event) {
         const roomIdSelected = event.currentTarget.value;
-   //     console.log('id room select: ' + roomIdSelected);
+        console.log('id room select: ' + roomIdSelected);
         this.changerUrlRoom(roomIdSelected);
     }
 
@@ -52,11 +52,14 @@ export default class extends Controller {
     }
 
     changerUrlRoom(roomId) {
+        console.log(roomId);
         let url = this.urlCurrentValue;
-        const regex = /\/room\/\d*/;
+        console.log(url);
+        const regex = /\/room[\/]?\d*/;
         url = url.replace(regex, '/room/' + roomId);
+        console.log('new ' + url);
         if (url) {
-            window.location = url;
+               window.location = url;
         }
     }
 }

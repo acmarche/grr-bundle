@@ -1,11 +1,5 @@
 /*https://getbootstrap.com/docs/5.1/examples/dropdowns/dropdowns.css*/
 
-/* todo https://codepen.io/pursuitofleisure/pen/xxxpvGY*/
-.totry {
-    /* Equal Height */
-    grid-auto-rows: 1fr;
-}
-
 .data-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr); /*change 7 to 8 */

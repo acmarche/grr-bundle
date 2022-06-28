@@ -1,4 +1,4 @@
-import {Controller} from "stimulus";
+import {Controller} from "@hotwired/stimulus";
 
 /**
  * Display/Hide options for week periodicity

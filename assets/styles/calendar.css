@@ -26,20 +26,21 @@
     text-align: center;
 }
 
-.cal-month-previous {
+.cal-month-previ2ous {
     grid-column-start: 5;
     grid-column-end: 6;
 }
 
-.cal-month-next {
+.cal-month-next2 {
     grid-column-start: 6;
     grid-column-end: 7;
 }
 
-.cal-month-today {
+.cal-month-today2 {
     grid-column-start: 7;
     grid-column-end: 9;
 }
+
 
 .cal-weekday,
 .cal-btn {
