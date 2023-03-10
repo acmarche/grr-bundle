@@ -7,6 +7,7 @@ use Grr\Core\Password\PasswordHelper;
 use Grr\Core\Security\SecurityRole;
 use Grr\GrrBundle\User\Factory\UserFactory;
 use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,13 +16,12 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'grr:create-user',
+    description: 'Création d\'un utilisateur',
+)]
 class CreateuserCommand extends Command
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'grr:create-user';
-
     public function __construct(
         private UserFactory $userFactory,
         private UserRepositoryInterface $userRepository,
@@ -33,7 +33,6 @@ class CreateuserCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Création d\'un utilisateur')
             ->addArgument('name', InputArgument::REQUIRED, 'Name')
             ->addArgument('email', InputArgument::REQUIRED, 'Email')
             ->addArgument('password', InputArgument::OPTIONAL, 'Password');
@@ -49,7 +48,7 @@ class CreateuserCommand extends Command
         $name = $input->getArgument('name');
         $password = $input->getArgument('password');
 
-        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $symfonyStyle->error('Adresse email non valide');
 
             return 1;
@@ -61,7 +60,7 @@ class CreateuserCommand extends Command
             return 1;
         }
 
-        if (! $password) {
+        if (!$password) {
             $question = new Question("Choisissez un mot de passe: \n");
             $question->setHidden(true);
             $question->setMaxAttempts(5);
@@ -78,8 +77,8 @@ class CreateuserCommand extends Command
         }
 
         if (null !== $this->userRepository->findOneBy([
-            'email' => $email,
-        ])) {
+                'email' => $email,
+            ])) {
             $symfonyStyle->error('Un utilisateur existe déjà avec cette adresse email');
 
             return 1;

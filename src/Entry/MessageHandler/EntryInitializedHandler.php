@@ -3,9 +3,10 @@
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
 use Grr\Core\Entry\Message\EntryInitialized;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-class EntryInitializedHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class EntryInitializedHandler
 {
     public function __construct()
     {

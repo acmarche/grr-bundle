@@ -4,10 +4,11 @@ namespace Grr\GrrBundle\Area\MessageHandler;
 
 use Grr\Core\Area\Message\AreaDeleted;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class AreaDeletedHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class AreaDeletedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

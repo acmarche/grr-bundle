@@ -4,10 +4,11 @@ namespace Grr\GrrBundle\Area\MessageHandler;
 
 use Grr\Core\Area\Message\AreaUpdated;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class AreaUpdatedHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class AreaUpdatedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

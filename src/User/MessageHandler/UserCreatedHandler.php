@@ -4,10 +4,10 @@ namespace Grr\GrrBundle\User\MessageHandler;
 
 use Grr\Core\User\Message\UserCreated;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class UserCreatedHandler implements MessageHandlerInterface
+class UserCreatedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

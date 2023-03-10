@@ -4,10 +4,11 @@ namespace Grr\GrrBundle\Periodicity\MessageHandler;
 
 use Grr\Core\Periodicity\Message\PeriodicityDeleted;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class PeriodicityDeletedHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class PeriodicityDeletedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

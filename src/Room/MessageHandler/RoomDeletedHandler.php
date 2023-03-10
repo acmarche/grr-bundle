@@ -4,10 +4,10 @@ namespace Grr\GrrBundle\Room\MessageHandler;
 
 use Grr\Core\Room\Message\RoomDeleted;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class RoomDeletedHandler implements MessageHandlerInterface
+class RoomDeletedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

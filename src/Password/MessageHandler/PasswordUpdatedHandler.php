@@ -4,10 +4,10 @@ namespace Grr\GrrBundle\Password\MessageHandler;
 
 use Grr\Core\Password\Message\PasswordUpdated;
 use Grr\GrrBundle\Notification\FlashNotification;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 
-class PasswordUpdatedHandler implements MessageHandlerInterface
+class PasswordUpdatedHandler
 {
     public function __construct(
         private NotifierInterface $notifier

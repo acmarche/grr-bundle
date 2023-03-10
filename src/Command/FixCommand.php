@@ -23,11 +23,6 @@ use Symfony\Component\Yaml\Yaml;
 )]
 class FixCommand extends Command
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'app:fix';
-
     public function __construct(
         private NotifierInterface $notifier,
         private EntryRepository $entryRepository,
@@ -39,7 +34,6 @@ class FixCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Add a short description for your command')
             ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
             ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description');
     }

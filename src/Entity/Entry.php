@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Entry implements EntryInterface, TimestampableInterface
 {
     use EntryTrait;
+
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 80, nullable: false)]
     #[Groups(groups: 'entry:read')]

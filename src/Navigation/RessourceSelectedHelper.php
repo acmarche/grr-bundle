@@ -12,7 +12,7 @@ use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\Area;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class RessourceSelectedHelper
 {

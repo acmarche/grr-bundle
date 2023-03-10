@@ -9,12 +9,13 @@ use Grr\GrrBundle\Notification\EntryEmailNotification;
 use Grr\GrrBundle\Notification\FlashNotification;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Grr\GrrBundle\User\Repository\UserRepository;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Notifier\NotifierInterface;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Routing\RouterInterface;
 
-class EntryCreatedHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class EntryCreatedHandler
 {
     public function __construct(
         private NotifierInterface $notifier,
