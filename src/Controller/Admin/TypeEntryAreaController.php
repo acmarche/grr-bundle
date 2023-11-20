@@ -6,7 +6,7 @@ use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\TypeEntry\Message\TypeEntryAreaAssociated;
 use Grr\GrrBundle\Area\Form\AssocTypeForAreaType;
 use Grr\GrrBundle\Entity\Area;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class TypeEntryAreaController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'grr_admin_type_area_edit', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
+    #[IsGranted('grr.area.edit', subject: 'area')]
     public function edit(Request $request, Area $area): Response
     {
         $form = $this->createForm(AssocTypeForAreaType::class, $area);

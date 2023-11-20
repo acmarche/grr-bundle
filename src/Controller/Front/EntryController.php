@@ -18,7 +18,7 @@ use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +72,7 @@ class EntryController extends AbstractController
     #[Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: ['GET', 'POST'])]
     #[Entity(data: 'area', expr: 'repository.find(area)')]
     #[Entity(data: 'room', expr: 'repository.find(room)')]
-    #[IsGranted(data: 'grr.addEntry', subject: 'room')]
+    #[IsGranted('grr.addEntry', subject: 'room')]
     public function new(Request $request, Area $area, Room $room, \DateTime|\DateTimeImmutable $date, int $hour, int $minute): Response
     {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
@@ -102,7 +102,7 @@ class EntryController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_front_entry_show', methods: ['GET'])]
-    #[IsGranted(data: 'grr.entry.show', subject: 'entry')]
+    #[IsGranted('grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {
         $urlList = $this->frontRouterHelper->generateMonthView($entry);
@@ -122,7 +122,7 @@ class EntryController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'grr_front_entry_edit', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.entry.edit', subject: 'entry')]
+    #[IsGranted('grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
         $entry->setArea($entry->getRoom()->getArea());
@@ -155,7 +155,7 @@ class EntryController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_front_entry_delete', methods: ['POST'])]
-    #[IsGranted(data: 'grr.entry.delete', subject: 'entry')]
+    #[IsGranted('grr.entry.delete', subject: 'entry')]
     public function delete(Request $request, Entry $entry): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$entry->getId(), $request->request->get('_token'))) {

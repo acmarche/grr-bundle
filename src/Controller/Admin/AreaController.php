@@ -11,13 +11,13 @@ use Grr\GrrBundle\Area\Factory\AreaFactory;
 use Grr\GrrBundle\Area\Form\AreaType;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Area;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/admin/area')]
 class AreaController extends AbstractController
@@ -32,7 +32,7 @@ class AreaController extends AbstractController
     }
 
     #[Route(path: '/', name: 'grr_admin_area_index', methods: ['GET'])]
-    #[IsGranted(data: 'grr.area.index')]
+    #[IsGranted('grr.area.index')]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -47,7 +47,7 @@ class AreaController extends AbstractController
     }
 
     #[Route(path: '/new', name: 'grr_admin_area_new', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.area.new')]
+    #[IsGranted('grr.area.new')]
     public function new(Request $request): Response
     {
         $area = $this->areaFactory->createNew();
@@ -74,7 +74,7 @@ class AreaController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_admin_area_show', methods: ['GET'])]
-    #[IsGranted(data: 'grr.area.show', subject: 'area')]
+    #[IsGranted('grr.area.show', subject: 'area')]
     public function show(Area $area): Response
     {
         $rooms = $this->roomRepository->findBy([
@@ -91,7 +91,7 @@ class AreaController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'grr_admin_area_edit', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
+    #[IsGranted('grr.area.edit', subject: 'area')]
     public function edit(Request $request, Area $area): Response
     {
         $form = $this->createForm(AreaType::class, $area);
@@ -119,7 +119,7 @@ class AreaController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_admin_area_delete', methods: ['POST'])]
-    #[IsGranted(data: 'grr.area.delete', subject: 'area')]
+    #[IsGranted('grr.area.delete', subject: 'area')]
     public function delete(Request $request, Area $area): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$area->getId(), $request->request->get('_token'))) {

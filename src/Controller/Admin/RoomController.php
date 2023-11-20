@@ -10,7 +10,7 @@ use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Room\Factory\RoomFactory;
 use Grr\GrrBundle\Room\Form\RoomType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class RoomController extends AbstractController
     }
 
     #[Route(path: '/new/{id}', name: 'grr_admin_room_new', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.area.new.room', subject: 'area')]
+    #[IsGranted('grr.area.new.room', subject: 'area')]
     public function new(Request $request, Area $area): Response
     {
         $room = $this->roomFactory->createNew($area);
@@ -56,7 +56,7 @@ class RoomController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_admin_room_show', methods: ['GET'])]
-    #[IsGranted(data: 'grr.room.show', subject: 'room')]
+    #[IsGranted('grr.room.show', subject: 'room')]
     public function show(Room $room): Response
     {
         return $this->render(
@@ -68,7 +68,7 @@ class RoomController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'grr_admin_room_edit', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.room.edit', subject: 'room')]
+    #[IsGranted('grr.room.edit', subject: 'room')]
     public function edit(Request $request, Room $room): Response
     {
         $form = $this->createForm(RoomType::class, $room);
@@ -96,7 +96,7 @@ class RoomController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_admin_room_delete', methods: ['POST'])]
-    #[IsGranted(data: 'grr.room.delete', subject: 'room')]
+    #[IsGranted('grr.room.delete', subject: 'room')]
     public function delete(Request $request, Room $room): RedirectResponse
     {
         $area = $room->getArea();

@@ -11,7 +11,7 @@ use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Factory\EntryFactory;
 use Grr\GrrBundle\Entry\Form\EntryGuestWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,7 +63,7 @@ class GuestController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_front_guest_show', methods: ['GET'])]
-    #[IsGranted(data: 'grr.entry.show', subject: 'entry')]
+    #[IsGranted('grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {
         $urlList = $this->frontRouterHelper->generateMonthView($entry);

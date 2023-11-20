@@ -7,7 +7,7 @@ use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Form\AuthorizationAreaType;
 use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
 use Grr\GrrBundle\Entity\Area;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class AuthorizationAreaController extends AbstractController
     }
 
     #[Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
+    #[IsGranted('grr.area.edit', subject: 'area')]
     public function new(Request $request, Area $area = null): Response
     {
         $authorizationModel = new AuthorizationModel();
@@ -52,7 +52,7 @@ class AuthorizationAreaController extends AbstractController
     }
 
     #[Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
-    #[IsGranted(data: 'grr.area.edit', subject: 'area')]
+    #[IsGranted('grr.area.edit', subject: 'area')]
     public function show(Area $area): Response
     {
         $authorizations = $this->authorizationRepository->findByArea($area);

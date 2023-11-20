@@ -13,7 +13,7 @@ use Grr\GrrBundle\User\Form\SearchUserType;
 use Grr\GrrBundle\User\Form\UserAdvanceType;
 use Grr\GrrBundle\User\Form\UserNewType;
 use Grr\GrrBundle\User\Form\UserRoleType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/admin/user')]
-#[IsGranted(data: 'ROLE_GRR_MANAGER_USER')]
+#[IsGranted('ROLE_GRR_MANAGER_USER')]
 class UserController extends AbstractController
 {
     public function __construct(

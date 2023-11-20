@@ -11,7 +11,7 @@ use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ class PeriodicityController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'grr_front_periodicity_edit', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.entry.edit', subject: 'entry')]
+    #[IsGranted('grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
         $displayOptionsWeek = false;

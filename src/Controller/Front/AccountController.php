@@ -12,7 +12,7 @@ use Grr\Core\User\Message\UserUpdated;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 use Grr\GrrBundle\User\Form\UserFrontType;
 use Grr\GrrBundle\User\Form\UserPasswordType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/account')]
-#[IsGranted(data: 'ROLE_GRR')]
+#[IsGranted('ROLE_GRR')]
 class AccountController extends AbstractController
 {
     public function __construct(

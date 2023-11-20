@@ -7,9 +7,6 @@ use Grr\Core\Contrat\Entity\SettingEntityInterface;
 use Grr\Core\Setting\Entity\SettingTrait;
 use Grr\GrrBundle\Setting\Repository\SettingRepository;
 
-/**
- * Setting.
- */
 #[ORM\Table(name: 'setting')]
 #[ORM\Entity(repositoryClass: SettingRepository::class)]
 class SettingEntity implements SettingEntityInterface

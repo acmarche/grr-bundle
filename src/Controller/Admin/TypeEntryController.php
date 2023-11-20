@@ -9,7 +9,7 @@ use Grr\Core\TypeEntry\Message\TypeEntryUpdated;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/admin/entrytype')]
-#[IsGranted(data: 'ROLE_GRR_ADMINISTRATOR')]
+#[IsGranted('ROLE_GRR_ADMINISTRATOR')]
 class TypeEntryController extends AbstractController
 {
     public function __construct(

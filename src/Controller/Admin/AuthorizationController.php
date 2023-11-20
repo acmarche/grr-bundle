@@ -7,7 +7,7 @@ use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +53,7 @@ class AuthorizationController extends AbstractController
     }
 
     #[Route(path: '/room/{id}', name: 'grr_authorization_show_by_room', methods: ['GET'])]
-    #[IsGranted(data: 'grr.room.edit', subject: 'room')]
+    #[IsGranted('grr.room.edit', subject: 'room')]
     public function show(Room $room): Response
     {
         $authorizations = $this->authorizationRepository->findByRoom($room);

@@ -22,7 +22,7 @@ use Grr\GrrBundle\Entity\Booking;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -66,7 +66,7 @@ class BookingController extends AbstractController
     }
 
     #[Route(path: '/new/{id}', name: 'grr_admin_entry_new_from_booking', methods: ['GET', 'POST'])]
-    #[IsGranted(data: 'grr.addEntry')]
+    #[IsGranted('grr.addEntry')]
     public function new(Request $request, Booking $booking): Response
     {
         $entry = $this->bookingHandler->convertBookingToEntry($booking);

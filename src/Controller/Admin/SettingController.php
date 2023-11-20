@@ -9,7 +9,7 @@ use Grr\Core\Setting\Message\SettingUpdated;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Handler\SettingHandler;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(path: '/admin/setting')]
-#[IsGranted(data: 'ROLE_GRR_ADMINISTRATOR')]
+#[IsGranted('ROLE_GRR_ADMINISTRATOR')]
 class SettingController extends AbstractController
 {
     public function __construct(
