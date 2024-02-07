@@ -2,12 +2,12 @@
 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
     <li class="nav-item">
         <a href="{{ path('grr_homepage') }}" class="nav-link" aria-current="page">
-            <i class="fas fa-calendar-alt"></i> {{ 'menu.planning'|trans({}) }}
+            <i class="ti ti-calendar"></i> {{ 'menu.planning'|trans({}) }}
         </a>
     </li>
     <li class="nav-item">
         <a href="{{ path('grr_front_entry_index') }}" class="nav-link" aria-current="page">
-            <i class="fas fa-search"></i> {{ 'menu.search'|trans({}) }}
+            <i class="ti ti-search"></i> {{ 'menu.search'|trans({}) }}
         </a>
     </li>
     {% if is_granted(constant('Grr\\Core\\Security\\SecurityRole::ROLE_GRR_BOOKING')) %}
@@ -49,7 +49,7 @@
 <ul class="navbar-nav me-aut12o mb-2 mb-lg-0">
     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
         <li class="nav-item">
-            <a href="{{ path('app_login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i>
+            <a href="{{ path('app_login') }}" class="nav-link"><i class="ti ti-login-2"></i>
                 Se connecter</a>
         </li>
     {% else %}
@@ -58,10 +58,10 @@
                aria-expanded="false"> {{ app.user.email }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
                 <a class="dropdown-item" href="{{ path('grr_account_show') }}">
-                    <i class="fas fa-user"></i> {{ 'menu.user.account'|trans }}
+                    <i class="ti ti-user"></i> {{ 'menu.user.account'|trans }}
                 </a>
                 <a class="dropdown-item" href="{{ path('app_logout') }}">
-                    <i class="fas fa-sign-out-alt"></i> {{ 'menu.user.logout'|trans }}
+                    <i class="ti ti-logout-2"></i> {{ 'menu.user.logout'|trans }}
                 </a>
             </div>
         </li>

@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Réservation - Grr{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('bundles/grr/favicon.ico') }}"/>
-    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
     <link href="{{ asset('bundles/grr/css/print.css') }}" rel="stylesheet" media="print">
-    {{ encore_entry_link_tags('app') }}
-    {{ encore_entry_script_tags('app') }}
-    <meta name="theme-color" content="#7952b3">
+    {% block stylesheets %}
+
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
 </head>
 <body class="d-flex flex-column h-100 {% block body_class %}{% endblock %}">
 {% set action = app.request.attributes.get("_route") %}

@@ -1,24 +1,24 @@
 <a href="{{ path('grr_admin_area_edit', { 'id': area.id }) }}" role="button"
-   class="btn btn-primary"><i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}</a>
+   class="btn btn-primary"><i class="ti ti-pencil"></i> {{ 'label.btn.edit'|trans({}) }}</a>
 
 <a href="{{ path('grr_authorization_area_show', { 'id': area.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
+   class="btn btn-primary"><i class="ti ti-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
 
 <a href="{{ path('grr_admin_room_new', { 'id': area.id }) }}" role="button"
-   class="btn btn-primary"><i class="fa fa-plus"></i> {{ 'label.btn.room.new'|trans({}) }}</a>
+   class="btn btn-primary"><i class="ti ti-plus"></i> {{ 'label.btn.room.new'|trans({}) }}</a>
 
 <a href="{{ path('grr_admin_type_area_edit', { 'id': area.id }) }}" role="button"
-   class="btn btn-primary"><i class="fas fa-cog"></i> {{ 'label.btn.area_types'|trans({}) }}</a>
+   class="btn btn-primary"><i class="ti ti-cog"></i> {{ 'label.btn.area_types'|trans({}) }}</a>
 
 <a href="{{ path('grr_admin_area_edit', { 'id': area.id }) }}" role="button"
-   class="btn btn-primary" target="apercu"><i class="far fa-eye"></i> {{ 'label.btn.see'|trans({}) }}</a>
+   class="btn btn-primary" target="apercu"><i class="ti ti-eye"></i> {{ 'label.btn.see'|trans({}) }}</a>
 
-<a href="{{ path('grr_admin_area_index') }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
+<a href="{{ path('grr_admin_area_index') }}" class="btn btn-primary" role='button'><i class="ti ti-list"></i>
     {{ 'back.to_list'|trans({}) }}
 </a>
 
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-    <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
+    <i class="ti ti-trash"></i> {{ 'label.btn.delete'|trans({}) }}
 </button>
 <br/>
 <br/>

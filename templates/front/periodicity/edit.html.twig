@@ -20,13 +20,13 @@
                 </div>
             </div>
             <button class="btn btn-primary" type="submit"><i
-                        class="far fa-save"></i> {{ 'label.btn.save'|trans({}) }}</button>
+                        class="ti ti-device-floppy"></i> {{ 'label.btn.save'|trans({}) }}</button>
             {{ form_end(form) }}
         </div>
     </div>
 
     <br/>
     <a href="{{ path('grr_front_entry_show',{'id': entry.id}) }}"><i
-                class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+                class="ti ti-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
 
 {% endblock %}

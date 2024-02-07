@@ -21,13 +21,13 @@
             {{ form_row(form.onDeleted) }}
 
             <button class="btn btn-primary"><i
-                        class="far fa-save"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
+                        class="ti ti-device-floppy"></i> {{ button_label|default('label.btn.save') | trans({}) }}</button>
 
             {{ form_end(form) }}
         </div>
         <div class="card-footer">
             <a href="{{ path('grr_account_show') }}" class="mt-4">
-                <i class="fas fa-long-arrow-alt-left"></i> Annuler
+                <i class="ti ti-arrow-left-bar"></i> Annuler
             </a>
         </div>
     </div>

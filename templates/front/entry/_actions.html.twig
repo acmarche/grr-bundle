@@ -1,4 +1,4 @@
-<a href="{{ url_back }}" class="btn btn-primary" role='button'><i class="fas fa-list"></i>
+<a href="{{ url_back }}" class="btn btn-primary" role='button'><i class="ti ti-list"></i>
     {{ 'back.to_planning'|trans({}) }}
 </a>
 
@@ -9,7 +9,7 @@
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                <i class="far fa-edit"></i> {{ 'label.btn.edit'|trans({}) }}
+                <i class="ti ti-pencil"></i> {{ 'label.btn.edit'|trans({}) }}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
@@ -28,7 +28,7 @@
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
+                <i class="ti ti-trash"></i> {{ 'label.btn.delete'|trans({}) }}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                 <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -43,12 +43,12 @@
 {% else %}
     {% if is_granted('grr.entry.edit', entry) %}
         <a href="{{ path('grr_front_entry_edit', { 'id': entry.id }) }}" role="button"
-           class="btn btn-primary"><i class="far fa-edit"></i> {{ 'label.btn.edit_entry'|trans({}) }}</a>
+           class="btn btn-primary"><i class="ti ti-pencil"></i> {{ 'label.btn.edit_entry'|trans({}) }}</a>
 
     {% endif %}
     {% if is_granted('grr.entry.delete', entry) %}
         <a href="{{ url_back }}" class="btn btn-danger" role='button' data-bs-toggle="modal" data-bs-target="#deleteModal"><i
-                    class="fas fa-trash"></i>
+                    class="ti ti-trash"></i>
             {{ 'label.btn.delete'|trans({}) }}
         </a>
     {% endif %}

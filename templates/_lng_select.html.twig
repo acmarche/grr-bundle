@@ -3,10 +3,10 @@
        aria-expanded="false"> {{ app.request.locale|locale_name(app.request.locale)|u.title }}</a>
     <div class="dropdown-menu" aria-labelledby="dropdown04">
         <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'en'}) }}">
-            <i class="fas fa-flag-usa"></i> English
+            <i class="ti ti-language"></i> English
         </a>
         <a class="dropdown-item" href="{{ path('grr_homepage',{'_locale': 'fr'}) }}">
-            <i class="fas fa-flag-usa"></i> Français
+            <i class="ti ti-language"></i> Français
         </a>
     </div>
 </li>

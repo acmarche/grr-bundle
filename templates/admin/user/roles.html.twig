@@ -11,7 +11,7 @@
             {{ form_start(form) }}
             {{ form_errors(form) }}
             {{ form_row(form.roles) }}
-            <button class="btn btn-primary mr-1 mb-2" type="submit"><i class="far fa-save" aria-hidden="true"></i>
+            <button class="btn btn-primary mr-1 mb-2" type="submit"><i class="ti ti-device-floppy" aria-hidden="true"></i>
                 {{ 'label.btn.save'|trans }}
             </button>
             {{ form_end(form) }}
@@ -23,7 +23,7 @@
         </div>
         <div class="card-footer">
             <a href="{{ path('grr_admin_user_show',{'id': user.id}) }}"><i
-                        class="fas fa-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
+                        class="ti ti-arrow-left"></i> {{ 'label.btn.cancel'|trans({}) }}</a>
         </div>
     </div>
 {% endblock %}

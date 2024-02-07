@@ -26,7 +26,7 @@
                 <button name="coucou" type="button" class="btnDelete btn btn-danger btn-sm" data-bs-toggle="modal"
                         data-bs-target="#deleteAuthorization" data-id="{{ authorization.id }}"
                         data-token="{{ csrf_token('delete' ~ authorization.id) }}">
-                    <i class="fas fa-trash"></i> {{ 'label.btn.delete'|trans({}) }}
+                    <i class="ti ti-trash"></i> {{ 'label.btn.delete'|trans({}) }}
                 </button>
             </td>
         </tr>
