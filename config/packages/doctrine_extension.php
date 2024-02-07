@@ -1,9 +1,9 @@
 <?php
 
-use DoctrineExtensions\Query\Mysql\Date;
-use DoctrineExtensions\Query\Mysql\Day;
-use DoctrineExtensions\Query\Mysql\Month;
-use DoctrineExtensions\Query\Mysql\Year;
+use Grr\Core\Doctrine\Function\Date;
+use Grr\Core\Doctrine\Function\Day;
+use Grr\Core\Doctrine\Function\Month;
+use Grr\Core\Doctrine\Function\Year;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
