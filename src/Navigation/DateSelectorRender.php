@@ -48,9 +48,10 @@ class DateSelectorRender
         $today = Carbon::today();
         $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);
         $dateSelected->locale('fr');
+
         $weeks = $this->dateProvider->weeksOfMonth($dateSelected);
         $request = $this->requestStack->getMainRequest();
-        $view = null !== $request ? $request->get('view') : null;
+        $view = $request instanceof Request ? $request->get('view') : null;
 
         return $this->twigEnvironment->render(
             '@grr_front/navigation/date_selector/_index.html.twig',

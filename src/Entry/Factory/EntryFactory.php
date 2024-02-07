@@ -57,10 +57,12 @@ class EntryFactory
         } else {
             $dateSelected->hour($area->getStartTime());
         }
+
         $entry = $this->createNew();
         $entry->setArea($area);
         $entry->setRoom($room);
         $entry->setStartTime($dateSelected);
+
         $endTime = $dateSelected->copy()->addMinutes($area->getDurationDefaultEntry());
         $entry->setEndTime($endTime);
         $entry->setPeriodicity($this->initPeriodicity($entry));

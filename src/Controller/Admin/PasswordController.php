@@ -7,6 +7,7 @@ use Grr\Core\Password\Message\PasswordUpdated;
 use Grr\Core\Password\PasswordHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\User\Form\UserPasswordType;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/password')]
+#[Route(path: '/admin/password')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class PasswordController extends AbstractController
 {
@@ -25,7 +26,7 @@ class PasswordController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_user_password')]
+    #[Route(path: '/{id}', name: 'grr_admin_user_password')]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserPasswordType::class, $user);

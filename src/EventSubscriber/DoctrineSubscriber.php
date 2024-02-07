@@ -62,6 +62,7 @@ class DoctrineSubscriber implements EventSubscriber
         if (! $object instanceof Entry) {
             return;
         }
+
         $object->setUpdatedAt(new DateTime());
     }
 

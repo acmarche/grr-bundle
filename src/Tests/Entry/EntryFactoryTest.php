@@ -16,7 +16,9 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 class EntryFactoryTest extends BaseTesting
 {
     private EntryFactory $entryFactory;
+
     private AreaFactory $areaFactory;
+
     private RoomFactory $roomFactory;
 
     protected function setUp(): void
@@ -49,6 +51,7 @@ class EntryFactoryTest extends BaseTesting
     ): void {
         $area = $this->areaFactory->createNew();
         $area->setName('Area1');
+
         $room = $this->roomFactory->createNew($area);
         $room->setName('Salle1');
 
@@ -62,7 +65,7 @@ class EntryFactoryTest extends BaseTesting
         $this->assertSame('Salle1', $entry->getRoom()->getName());
         $this->assertInstanceOf(DateTimeInterface::class, $entry->getStartTime());
         $this->assertInstanceOf(DateTimeInterface::class, $entry->getEndTime());
-        $this->assertSame("$year $month $day $hour $minute", $entry->getStartTime()->format('Y n j G i'));
+        $this->assertSame(sprintf('%d %d %d %d %d', $year, $month, $day, $hour, $minute), $entry->getStartTime()->format('Y n j G i'));
         $this->assertSame($endTime->format('Y n j G i'), $entry->getEndTime()->format('Y n j G i'));
     }
 

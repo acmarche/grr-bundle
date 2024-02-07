@@ -7,6 +7,7 @@ use Grr\Core\Contrat\Repository\Security\AuthorizationRepositoryInterface;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Security\Voter\AreaVoter;
 use Grr\GrrBundle\Security\Voter\RoomVoter;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/authorization')]
+#[Route(path: '/admin/authorization')]
 class AuthorizationController extends AbstractController
 {
     public function __construct(
@@ -24,7 +25,7 @@ class AuthorizationController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/delete', name: 'grr_authorization_delete', methods: ['POST'])]
+    #[Route(path: '/delete', name: 'grr_authorization_delete', methods: ['POST'])]
     public function delete(Request $request): RedirectResponse
     {
         $id = $request->get('idauth');
@@ -34,12 +35,15 @@ class AuthorizationController extends AbstractController
         if (null === $authorization) {
             $this->createNotFoundException();
         }
+
         if (null !== ($area = $authorization->getArea())) {
             $this->denyAccessUnlessGranted(AreaVoter::EDIT, $area);
         }
+
         if (null !== ($room = $authorization->getRoom())) {
             $this->denyAccessUnlessGranted(RoomVoter::EDIT, $room);
         }
+
         if ($this->isCsrfTokenValid('delete'.$authorization->getId(), $token)) {
             $this->authorizationRepository->remove($authorization);
             $this->authorizationRepository->flush();
@@ -52,7 +56,7 @@ class AuthorizationController extends AbstractController
         return $this->redirect($urlBack);
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/room/{id}', name: 'grr_authorization_show_by_room', methods: ['GET'])]
+    #[Route(path: '/room/{id}', name: 'grr_authorization_show_by_room', methods: ['GET'])]
     #[IsGranted('grr.room.edit', subject: 'room')]
     public function show(Room $room): Response
     {

@@ -47,7 +47,7 @@ class AddRoomFieldSubscriber implements EventSubscriberInterface
         ];
 
         if ($area) {
-            $default['query_builder'] = fn (RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
+            $default['query_builder'] = static fn(RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
         } else {
             $default['choices'] = [];
         }

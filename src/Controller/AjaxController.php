@@ -8,6 +8,7 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
@@ -17,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 
@@ -30,7 +32,7 @@ class AjaxController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/ajax/getrooms', name: 'grr_ajax_getrooms')]
+    #[Route(path: '/ajax/getrooms', name: 'grr_ajax_getrooms')]
     public function ajaxRequestGetRooms(Request $request): Response
     {
         $areaId = (int) $request->get('id');
@@ -40,13 +42,15 @@ class AjaxController extends AbstractController
         if (null === $area) {
             throw new InvalidParameterException('Area not found');
         }
+
         if (! $restricted) {
             $rooms = $this->roomRepository->findByArea($area);
         } else {
             $user = $this->getUser();
-            if (null === $user) {
+            if (!$user instanceof UserInterface) {
                 throw new InvalidParameterException('You must be login');
             }
+
             $rooms = $this->authorizationHelper->getRoomsUserCanAdd($user, $area);
         }
 
@@ -56,7 +60,7 @@ class AjaxController extends AbstractController
         ]);
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/ajax/getentries', name: 'grr_ajax_getentries')]
+    #[Route(path: '/ajax/getentries', name: 'grr_ajax_getentries')]
     public function ajaxRequestGetEntries(Request $request): Response
     {
         $data = json_decode($request->getContent(), null, 512, JSON_THROW_ON_ERROR);
@@ -72,6 +76,7 @@ class AjaxController extends AbstractController
             $room = $this->roomRepository->find($roomId);
             $args['room'] = $room;
         }
+
         $entries = $this->entryRepository->search($args);
 
         return $this->render(

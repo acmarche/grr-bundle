@@ -65,11 +65,10 @@ class CreateuserCommand extends Command
             $question->setHidden(true);
             $question->setMaxAttempts(5);
             $question->setValidator(
-                function ($password): string {
+                static function ($password) : string {
                     if (\strlen((string) $password) < 4) {
                         throw new RuntimeException('Le mot de passe doit faire minimum 4 caractères');
                     }
-
                     return $password;
                 }
             );

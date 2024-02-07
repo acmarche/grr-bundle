@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
 use Doctrine\Persistence\ManagerRegistry;
 use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Form\ChangePasswordFormType;
@@ -14,12 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use Symfony\Component\Routing\Attribute\Route;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/reset-password')]
+#[Route(path: '/reset-password')]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -30,10 +31,7 @@ class ResetPasswordController extends AbstractController
     ) {
     }
 
-    /**
-     * Display & process form to request a password reset.
-     */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_forgot_password_request')]
+    #[Route(path: '/', name: 'grr_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -53,12 +51,12 @@ class ResetPasswordController extends AbstractController
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/check-email', name: 'grr_check_email')]
+    #[Route(path: '/check-email', name: 'grr_check_email')]
     public function checkEmail(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
         // This prevents exposing whether or not a user was found with the given email address or not
-        if (null === ($resetToken = $this->getTokenObjectFromSession())) {
+        if (!($resetToken = $this->getTokenObjectFromSession()) instanceof ResetPasswordToken) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
@@ -70,7 +68,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/reset/{token}', name: 'grr_reset_password')]
+    #[Route(path: '/reset/{token}', name: 'grr_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordEncoder, string $token = null): Response
     {
         if ($token) {
@@ -80,20 +78,23 @@ class ResetPasswordController extends AbstractController
 
             return $this->redirectToRoute('grr_reset_password');
         }
+
         $token = $this->getTokenFromSession();
         if (null === $token) {
             throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
         }
+
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
-        } catch (ResetPasswordExceptionInterface $e) {
+        } catch (ResetPasswordExceptionInterface $resetPasswordException) {
             $this->addFlash('reset_password_error', sprintf(
                 'There was a problem validating your reset request - %s',
-                $e->getReason()
+                $resetPasswordException->getReason()
             ));
 
             return $this->redirectToRoute('grr_forgot_password_request');
         }
+
         // The token is valid; allow the user to change their password.
         $form = $this->createForm(ChangePasswordFormType::class);
         $form->handleRequest($request);
@@ -128,7 +129,7 @@ class ResetPasswordController extends AbstractController
         ]);
 
         // Do not reveal whether a user account was found or not.
-        if (! $user) {
+        if ($user === null) {
             return $this->redirectToRoute('app_check_email');
         }
 

@@ -16,14 +16,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class EntryVoter extends Voter
 {
     public const INDEX = 'grr.entry.index';
+
     public const NEW = 'grr.entry.new';
+
     public const SHOW = 'grr.entry.show';
+
     public const EDIT = 'grr.entry.edit';
+
     public const DELETE = 'grr.entry.delete';
 
     private ?UserInterface $user = null;
+
     private Entry $entry;
+
     private ?Room $room = null;
+
     private Area $area;
 
     public function __construct(
@@ -51,6 +58,7 @@ class EntryVoter extends Voter
     {
         $user = $this->security->getUser();
         $this->user = $user;
+
         $this->entry = $entry;
         $this->room = $this->entry->getRoom();
         $this->area = $this->room->getArea();

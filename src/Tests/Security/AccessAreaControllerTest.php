@@ -16,7 +16,8 @@ class AccessAreaControllerTest extends BaseTesting
     public function testArea(string $action, array $datas, ?string $areaName = null): void
     {
         $this->loadFixtures();
-        $area = $token = null;
+        $area = null;
+        $token = null;
         if ($areaName) {
             $area = $this->getArea($areaName);
             $tokenManager = new CsrfTokenManager();

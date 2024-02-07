@@ -29,6 +29,7 @@ class GrrBundle extends AbstractBundle
         if ('dev' == $env) {
             $container->import('../config/services_dev.php');
         }
+
         if ('test' == $env) {
             $container->import('../config/services_test.php');
         }

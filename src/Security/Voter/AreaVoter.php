@@ -23,13 +23,19 @@ class AreaVoter extends Voter
     // Defining these constants is overkill for this simple application, but for real
     // applications, it's a recommended practice to avoid relying on "magic strings"
     public const INDEX = 'grr.area.index';
+
     public const NEW = 'grr.area.new';
+
     public const NEW_ROOM = 'grr.area.new.room';
+
     public const SHOW = 'grr.area.show';
+
     public const EDIT = 'grr.area.edit';
+
     public const DELETE = 'grr.area.delete';
 
     private ?User $user = null;
+
     private Area $area;
 
     public function __construct(

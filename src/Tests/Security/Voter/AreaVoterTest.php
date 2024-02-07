@@ -213,7 +213,7 @@ class AreaVoterTest extends BaseTesting
             ->willReturn(true);
 
         $token = new AnonymousToken('secret', 'anonymous');
-        if (null !== $user) {
+        if ($user instanceof User) {
             $token = new UsernamePasswordToken(
                 $user,
                 'homer',

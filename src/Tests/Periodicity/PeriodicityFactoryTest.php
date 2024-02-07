@@ -16,8 +16,11 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 class PeriodicityFactoryTest extends BaseTesting
 {
     private EntryFactory $entryFactory;
+
     private AreaFactory $areaFactory;
+
     private RoomFactory $roomFactory;
+
     private PeriodicityFactory $periodicityFactory;
 
     protected function setUp(): void

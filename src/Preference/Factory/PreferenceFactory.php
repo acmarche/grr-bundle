@@ -15,7 +15,7 @@ class PreferenceFactory
 
     public function createEmailPreferenceByUser(UserInterface $user): EmailPreference
     {
-        if (($preference = $this->emailPreferenceRepository->findOneByUser($user)) === null) {
+        if (!($preference = $this->emailPreferenceRepository->findOneByUser($user)) instanceof EmailPreference) {
             $preference = new EmailPreference($user);
         }
 

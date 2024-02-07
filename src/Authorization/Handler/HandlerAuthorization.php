@@ -18,6 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class HandlerAuthorization
 {
     private ?bool $error = null;
+
     private FlashBagInterface $flashBag;
 
     public function __construct(
@@ -64,6 +65,7 @@ class HandlerAuthorization
             if (1 === $role) {
                 $authorization->setIsAreaAdministrator(true);
             }
+
             if (2 === $role) {
                 $authorization->setIsResourceAdministrator(true);
             }
@@ -103,6 +105,7 @@ class HandlerAuthorization
 
             return;
         }
+
         foreach ($rooms as $room) {
             $copy = clone $authorization;
             if ($this->existRoom($user, $room)) {
@@ -179,7 +182,7 @@ class HandlerAuthorization
         return $count > 0;
     }
 
-    private function setSession()
+    private function setSession(): void
     {
         if ($session = $this->requestStack->getSession()) {
             $this->flashBag = $session->getFlashBag();

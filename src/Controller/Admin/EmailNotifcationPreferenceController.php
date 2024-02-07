@@ -7,6 +7,7 @@ use Grr\GrrBundle\Entity\Security\User;
 use Grr\GrrBundle\Preference\Factory\PreferenceFactory;
 use Grr\GrrBundle\Preference\Form\EmailPreferenceType;
 use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/preference')]
+#[Route(path: '/admin/preference')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class EmailNotifcationPreferenceController extends AbstractController
 {
@@ -25,7 +26,7 @@ class EmailNotifcationPreferenceController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'grr_admin_preference_email_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/edit/{id}', name: 'grr_admin_preference_email_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $preference = $this->preferenceFactory->createEmailPreferenceByUser($user);

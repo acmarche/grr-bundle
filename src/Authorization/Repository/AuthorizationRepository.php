@@ -72,11 +72,11 @@ class AuthorizationRepository extends ServiceEntityRepository implements Authori
 
         $queryBuilder = $this->createQueryBuilder('authorization');
 
-        if (null !== $user) {
+        if ($user instanceof UserInterface) {
             $this->setCriteriaUser($queryBuilder, $user);
         }
 
-        if (null !== $area) {
+        if ($area instanceof AreaInterface) {
             $this->setCriteriaArea($queryBuilder, $area);
         }
 

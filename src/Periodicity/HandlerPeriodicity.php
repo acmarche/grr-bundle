@@ -31,12 +31,13 @@ class HandlerPeriodicity
     public function handleNewPeriodicity(EntryInterface $entry): void
     {
         $periodicity = $entry->getPeriodicity();
-        if (null !== $periodicity) {
+        if ($periodicity instanceof PeriodicityInterface) {
             $days = $this->periodicityDaysProvider->getDaysByEntry($entry);
             foreach ($days as $day) {
                 $newEntry = $this->entryFactory->generateEntry($entry, $day);
                 $this->entryRepository->persist($newEntry);
             }
+
             $this->entryRepository->flush();
         }
     }
@@ -75,6 +76,7 @@ class HandlerPeriodicity
             $newEntry = $this->entryFactory->generateEntry($entry, $day);
             $this->entryRepository->persist($newEntry);
         }
+
         $this->entryRepository->flush();
 
         return null;
@@ -100,9 +102,11 @@ class HandlerPeriodicity
         if ($oldPeriodicity->getEndTime() !== $periodicity->getEndTime()) {
             return true;
         }
+
         if ($oldPeriodicity->getType() !== $periodicity->getType()) {
             return true;
         }
+
         if ($oldPeriodicity->getWeekRepeat() !== $periodicity->getWeekRepeat()) {
             return true;
         }

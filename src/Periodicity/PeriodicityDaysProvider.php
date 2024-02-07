@@ -19,6 +19,7 @@ class PeriodicityDaysProvider
      * @var DateTime|DateTimeImmutable|null
      */
     private ?DateTimeInterface $periodicity_end = null;
+
     /**
      * @var DateTime|DateTimeImmutable|null
      */
@@ -139,7 +140,7 @@ class PeriodicityDaysProvider
          *
          * @return bool
          */
-        $filterDayOfWeek = fn ($date): bool => \in_array($date->dayOfWeekIso, $days, true);
+        $filterDayOfWeek = static fn($date): bool => \in_array($date->dayOfWeekIso, $days, true);
 
         /**
          * Carbon::class
@@ -157,7 +158,7 @@ class PeriodicityDaysProvider
          *
          * @return bool
          */
-        $filterWeek = fn ($date): bool => 0 === $date->weekOfYear % $repeat_week;
+        $filterWeek = static fn($date): bool => 0 === $date->weekOfYear % $repeat_week;
 
         $period->excludeStartDate();
         $period->addFilter($filterDayOfWeek);
@@ -181,6 +182,7 @@ class PeriodicityDaysProvider
         $dateTime = new DateTime('now');
         $end = clone $dateTime;
         $end->modify('+4 month');
+
         $days = ['Monday', 'Tuesday'];
         foreach (CarbonPeriod::create($dateTime, CarbonInterval::weeks(2), $end, CarbonPeriod::IMMUTABLE) as $baseDate) {
             foreach ($days as $dayName) {
@@ -193,7 +195,7 @@ class PeriodicityDaysProvider
     {
         $carbonPeriod->excludeStartDate();
 
-        if ($filter) {
+        if ($filter !== null) {
             $carbonPeriod->addFilter($filter);
         }
 

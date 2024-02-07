@@ -10,6 +10,7 @@
 
 namespace Grr\GrrBundle\Controller;
 
+use Grr\Core\Contrat\Entity\RoomInterface;
 use DateTime;
 use Exception;
 use Grr\Core\Contrat\Front\ViewInterface;
@@ -18,6 +19,7 @@ use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 
 class HomeController extends AbstractController
@@ -29,15 +31,16 @@ class HomeController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{_locale<%grr.supported_locales%>}', name: 'grr_homepage')]
+    #[Route(path: '/{_locale<%grr.supported_locales%>}', name: 'grr_homepage')]
     public function redirectToScheduler(): Response
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();
         try {
             $area = $this->ressourceSelectedHelper->getArea();
-        } catch (Exception $e) {
-            return new Response($e->getMessage());
+        } catch (Exception $exception) {
+            return new Response($exception->getMessage());
         }
+
         $room = $this->ressourceSelectedHelper->getRoom();
         $today = new DateTime();
         $params = [
@@ -46,7 +49,7 @@ class HomeController extends AbstractController
             'view' => ViewInterface::VIEW_MONTHLY,
             'date' => $today->format('Y-m-d'),
         ];
-        if (null !== $room) {
+        if ($room instanceof RoomInterface) {
             $params['room'] = $room->getId();
         }
 
@@ -56,7 +59,7 @@ class HomeController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/vuejs', name: 'vuejs')]
+    #[Route(path: '/vuejs', name: 'vuejs')]
     public function index(): Response
     {
         return $this->render(

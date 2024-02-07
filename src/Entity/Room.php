@@ -20,6 +20,7 @@ class Room implements RoomInterface
     #[ORM\Column(type: 'string', length: 80, nullable: false)]
     #[Groups(groups: 'room:read')]
     private ?string $name = null;
+
     #[ORM\ManyToOne(targetEntity: AreaInterface::class, inversedBy: 'rooms')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(groups: 'room:read')]

@@ -24,12 +24,11 @@ class NotificationMailTest extends BaseTesting
         $crawler = $client->followRedirect();
 
         $links = $crawler->filter('#entries-data a')->each(
-            function ($node) {
+            static function ($node) : array {
                 $href = $node->attr('href');
                 $title = $node->attr('title');
                 $text = $node->text();
                 print_r($title);
-
                 return [
                     'href' => $href,
                 ];

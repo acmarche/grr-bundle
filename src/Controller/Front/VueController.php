@@ -9,13 +9,12 @@ use Exception;
 use Grr\Core\View\ViewLocator;
 use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/front')]
+#[Route(path: '/front')]
 class VueController extends AbstractController implements FrontControllerInterface
 {
     public function __construct(
@@ -26,13 +25,15 @@ class VueController extends AbstractController implements FrontControllerInterfa
     /**
      * @throws Exception
      */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/area/{area}/date/{date}/view/{view}/room/{room}', name: 'grr_front_view', methods: ['GET'])]
-    #[ParamConverter(data: 'room', class: Room::class, isOptional: true, options: [
-        'id' => 'room',
-    ])]
-    public function view(#[MapEntity(expr: 'repository.find(area)')]
-    Area $area, DateTime|DateTimeImmutable $date, string $view, ?Room $room = null): Response
-    {
+    #[Route(path: '/area/{area}/date/{date}/view/{view}/room/{room}', name: 'grr_front_view', methods: ['GET'])]
+    public function view(
+        #[MapEntity(expr: 'repository.find(area)')]
+        Area $area,
+        DateTime|DateTimeImmutable $date,
+        string $view,
+        #[MapEntity(expr: 'repository.find(room)')]
+        ?Room $room = null
+    ): Response {
         $renderService = $this->viewLocator->findViewerByView($view);
 
         return $renderService->render($date, $area, $room);

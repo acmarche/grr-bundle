@@ -17,7 +17,7 @@ class AreaSelectType extends AbstractType
             [
                 'label' => 'label.area.select',
                 'class' => Area::class,
-                'query_builder' => fn (AreaRepository $areaRepository): QueryBuilder => $areaRepository->getQueryBuilder(
+                'query_builder' => static fn(AreaRepository $areaRepository): QueryBuilder => $areaRepository->getQueryBuilder(
                 ),
                 'attr' => [
                     'class' => 'my-1 mr-sm-2',

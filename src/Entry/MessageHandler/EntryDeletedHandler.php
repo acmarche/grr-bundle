@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
+use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Entry\Message\EntryDeleted;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
@@ -48,7 +49,7 @@ class EntryDeletedHandler
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            static fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 
@@ -67,6 +68,7 @@ class EntryDeletedHandler
         foreach ($emails as $email) {
             $recipients[] = new Recipient($email);
         }
+
         if ([] !== $recipients) {
             $this->notifier->send($notification, ...$recipients);
         }
@@ -82,7 +84,7 @@ class EntryDeletedHandler
         if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
             $notification = new EntryEmailNotification('Une réservation a été supprimée pour vous : ', $entry);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
-            if (null !== $user) {
+            if ($user instanceof User) {
                 $recipient = new Recipient(
                     $user->getEmail()
                 );

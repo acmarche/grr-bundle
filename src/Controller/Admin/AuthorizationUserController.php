@@ -7,13 +7,14 @@ use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Form\AuthorizationUserType;
 use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
 use Grr\GrrBundle\Entity\Security\User;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/authorization/user')]
+#[Route(path: '/admin/authorization/user')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class AuthorizationUserController extends AbstractController
 {
@@ -23,11 +24,12 @@ class AuthorizationUserController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/user/{id}', name: 'grr_authorization_from_user', methods: ['GET', 'POST'])]
+    #[Route(path: '/new/user/{id}', name: 'grr_authorization_from_user', methods: ['GET', 'POST'])]
     public function new(Request $request, User $user): Response
     {
         $authorizationModel = new AuthorizationModel();
         $authorizationModel->setUsers([$user]);
+
         $form = $this->createForm(AuthorizationUserType::class, $authorizationModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,7 +50,7 @@ class AuthorizationUserController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_authorization_show_by_user', methods: ['GET'])]
+    #[Route(path: '/{id}', name: 'grr_authorization_show_by_user', methods: ['GET'])]
     public function show(User $user): Response
     {
         $authorizations = $this->authorizationRepository->findByUser($user);

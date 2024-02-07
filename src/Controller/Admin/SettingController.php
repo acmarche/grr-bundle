@@ -9,6 +9,7 @@ use Grr\Core\Setting\Message\SettingUpdated;
 use Grr\Core\Setting\Repository\SettingProvider;
 use Grr\GrrBundle\Entity\SettingEntity;
 use Grr\GrrBundle\Setting\Handler\SettingHandler;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/setting')]
+#[Route(path: '/admin/setting')]
 #[IsGranted('ROLE_GRR_ADMINISTRATOR')]
 class SettingController extends AbstractController
 {
@@ -30,7 +31,7 @@ class SettingController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_setting_index', methods: ['GET'])]
+    #[Route(path: '/', name: 'grr_admin_setting_index', methods: ['GET'])]
     public function index(): Response
     {
         $settings = $this->settingProvider->renderAll();
@@ -43,7 +44,7 @@ class SettingController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'grr_admin_setting_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/edit', name: 'grr_admin_setting_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
         $form = $this->formSettingFactory->generate();
@@ -65,13 +66,14 @@ class SettingController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{name}', name: 'grr_admin_setting_delete', methods: ['POST'])]
+    #[Route(path: '/{name}', name: 'grr_admin_setting_delete', methods: ['POST'])]
     public function delete(Request $request, SettingEntity $setting): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {
             $this->settingRepository->remove($setting);
             $this->settingRepository->flush();
         }
+
         $this->messageBus->dispatch(new SettingDeleted([]));
 
         return $this->redirectToRoute('grr_admin_setting_index');

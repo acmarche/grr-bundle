@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Notification;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Notifier\Channel\BrowserChannel;
 use Symfony\Component\Notifier\Channel\ChannelInterface;
@@ -23,7 +24,7 @@ final readonly class BrowserGrrChannel implements ChannelInterface
 
     public function notify(Notification $notification, RecipientInterface $recipient, string $transportName = null): void
     {
-        if (null === $request = $this->stack->getCurrentRequest()) {
+        if (!($request = $this->stack->getCurrentRequest()) instanceof Request) {
             return;
         }
 

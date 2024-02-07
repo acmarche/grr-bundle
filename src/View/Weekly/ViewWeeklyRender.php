@@ -62,7 +62,7 @@ class ViewWeeklyRender implements ViewInterface
      */
     public function bindWeek(DateTimeInterface $week, AreaInterface $area, RoomInterface $room = null): array
     {
-        if (null !== $room) {
+        if ($room instanceof RoomInterface) {
             $rooms = [$room];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work
@@ -79,6 +79,7 @@ class ViewWeeklyRender implements ViewInterface
                 $dataDay->addEntries($entries);
                 $roomModel->addDataDay($dataDay);
             }
+
             $data[] = $roomModel;
         }
 

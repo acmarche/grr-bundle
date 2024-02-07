@@ -15,6 +15,7 @@ class AreaTimeSlot extends Constraint
      * end time exceeds opening time.
      * */
     public string $message_exceeds = 'constraint.entry.area.exceeds';
+
     /**
      * Start time must be greater than room opening time.
      */

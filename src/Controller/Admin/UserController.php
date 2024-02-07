@@ -13,6 +13,7 @@ use Grr\GrrBundle\User\Form\SearchUserType;
 use Grr\GrrBundle\User\Form\UserAdvanceType;
 use Grr\GrrBundle\User\Form\UserNewType;
 use Grr\GrrBundle\User\Form\UserRoleType;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/user')]
+#[Route(path: '/admin/user')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class UserController extends AbstractController
 {
@@ -33,15 +34,17 @@ class UserController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_user_index', methods: ['GET', 'POST'])]
+    #[Route(path: '/', name: 'grr_admin_user_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
-        $args = $users = [];
+        $args = [];
+        $users = [];
         $form = $this->createForm(SearchUserType::class, $args);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $args = $form->getData();
         }
+
         $users = $this->userRepository->search($args);
 
         return $this->render(
@@ -53,7 +56,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'grr_admin_user_new', methods: ['GET', 'POST'])]
+    #[Route(path: '/new', name: 'grr_admin_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $user = $this->userFactory->createNew();
@@ -80,7 +83,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_user_show', methods: ['GET'])]
+    #[Route(path: '/{id}', name: 'grr_admin_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render(
@@ -91,7 +94,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_user_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/{id}/edit', name: 'grr_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserAdvanceType::class, $user);
@@ -121,7 +124,7 @@ class UserController extends AbstractController
     /**
      * Displays a form to edit an existing User utilisateur.
      */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/roles', name: 'grr_admin_user_roles', methods: ['GET', 'POST'])]
+    #[Route(path: '/{id}/roles', name: 'grr_admin_user_roles', methods: ['GET', 'POST'])]
     public function roles(Request $request, User $user): Response
     {
         $form = $this->createForm(UserRoleType::class, $user);
@@ -148,7 +151,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_user_delete', methods: ['POST'])]
+    #[Route(path: '/{id}', name: 'grr_admin_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {

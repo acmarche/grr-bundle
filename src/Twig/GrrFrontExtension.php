@@ -26,7 +26,7 @@ class GrrFrontExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'grrPeriodicityTypeName',
-                fn (int $type) => $this->frontHelper->periodicityTypeName($type),
+                fn (int $type): int|string => $this->frontHelper->periodicityTypeName($type),
                 [
                     'is_safe' => ['html'],
                 ]

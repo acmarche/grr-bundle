@@ -177,7 +177,7 @@ class EntryVoterTest extends BaseTesting
             ->method('isAuthenticated')
             ->willReturn(true);
 
-        if (null !== $user) {
+        if ($user instanceof User) {
             return new UsernamePasswordToken(
                 $user,
                 'homer',

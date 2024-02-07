@@ -17,17 +17,13 @@ use Symfony\Bundle\SecurityBundle\Security;
 class RessourceSelectedHelper
 {
     public const AREA_DEFAULT_SESSION = 'area_seleted';
-    public const ROOM_DEFAULT_SESSION = 'room_seleted';
-    private ?SessionInterface $session;
 
-    public function __construct(
-        private readonly RequestStack $requestStack,
-        private readonly Security $security,
-        private readonly SettingProvider $settingProvider,
-        private readonly AreaRepositoryInterface $areaRepository,
-        private readonly RoomRepositoryInterface $roomRepository
-    ) {
-        $this->session = null;
+    public const ROOM_DEFAULT_SESSION = 'room_seleted';
+
+    private ?SessionInterface $session = null;
+
+    public function __construct(private readonly RequestStack $requestStack, private readonly Security $security, private readonly SettingProvider $settingProvider, private readonly AreaRepositoryInterface $areaRepository, private readonly RoomRepositoryInterface $roomRepository)
+    {
     }
 
     /**
@@ -52,7 +48,7 @@ class RessourceSelectedHelper
             return $area;
         }
 
-        if (null !== ($area = $this->settingProvider->getDefaultArea())) {
+        if (($area = $this->settingProvider->getDefaultArea()) instanceof AreaInterface) {
             return $area;
         }
 
@@ -79,6 +75,7 @@ class RessourceSelectedHelper
             if (-1 === $roomId) {
                 return null;
             }
+
             if ($roomId) {
                 return $this->roomRepository->find($roomId);
             }
@@ -92,7 +89,7 @@ class RessourceSelectedHelper
             return $room;
         }
 
-        if (null !== ($room = $this->settingProvider->getDefaulRoom())) {
+        if (($room = $this->settingProvider->getDefaulRoom()) instanceof RoomInterface) {
             return $room;
         }
 
@@ -112,12 +109,10 @@ class RessourceSelectedHelper
         $this->session->remove(self::ROOM_DEFAULT_SESSION);
     }
 
-    private function setSession()
+    private function setSession(): void
     {
-        if (!$this->session) {
-            if ($session = $this->requestStack->getSession()) {
-                $this->session = $session;
-            }
+        if (!$this->session instanceof SessionInterface && ($session = $this->requestStack->getSession())) {
+            $this->session = $session;
         }
     }
 }

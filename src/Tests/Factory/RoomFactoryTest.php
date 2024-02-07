@@ -10,6 +10,7 @@ use Grr\GrrBundle\Room\Factory\RoomFactory;
 class RoomFactoryTest extends BaseTesting
 {
     private AreaFactory $areaFactory;
+
     private RoomFactory $roomFactory;
 
     protected function setUp(): void

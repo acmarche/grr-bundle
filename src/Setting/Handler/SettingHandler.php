@@ -35,6 +35,7 @@ class SettingHandler
                 $this->handleNewSetting($name, $value);
                 continue;
             }
+
             $this->handleExistSetting($setting, $value);
             continue;
         }
@@ -61,6 +62,7 @@ class SettingHandler
 
             return;
         }
+
         $name = $setting->getName();
         $value = $this->handleValue($name, $value);
         $setting->setValue($value);

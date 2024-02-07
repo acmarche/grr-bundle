@@ -40,7 +40,7 @@ class AuthorizationUserType extends AbstractType
             ]
         );
 
-        $formModifier = function (FormInterface $form, Area $area = null) {
+        $formModifier = static function (FormInterface $form, Area $area = null) : void {
             $options = [
                 'class' => Room::class,
                 'label' => 'label.room.multiple_select',
@@ -50,13 +50,11 @@ class AuthorizationUserType extends AbstractType
                 ],
                 'multiple' => true,
             ];
-
-            if (null !== $area) {
-                $options['query_builder'] = fn (RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
+            if ($area instanceof Area) {
+                $options['query_builder'] = static fn(RoomRepository $roomRepository): QueryBuilder => $roomRepository->getRoomsByAreaQueryBuilder($area);
             } else {
                 $options['choices'] = [];
             }
-
             $form->add(
                 'rooms',
                 EntityType::class,
@@ -70,7 +68,7 @@ class AuthorizationUserType extends AbstractType
          */
         $formBuilder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
+            static function (FormEvent $event) use ($formModifier) : void {
                 $data = $event->getData();
                 $formModifier($event->getForm(), $data->getArea());
             }
@@ -78,11 +76,10 @@ class AuthorizationUserType extends AbstractType
 
         $formBuilder->get('area')->addEventListener(
             FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($formModifier) {
+            static function (FormEvent $event) use ($formModifier) : void {
                 // It's important here to fetch $event->getForm()->getData(), as
                 // $event->getData() will get you the client data (that is, the ID)
                 $area = $event->getForm()->getData();
-
                 // since we've added the listener to the child, we'll have to pass on
                 // the parent to the callback functions!
                 $formModifier($event->getForm()->getParent(), $area);

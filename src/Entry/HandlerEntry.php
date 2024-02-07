@@ -2,6 +2,8 @@
 
 namespace Grr\GrrBundle\Entry;
 
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
+use Grr\Core\Model\DurationModel;
 use Grr\Core\Contrat\Entity\EntryInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Service\PropertyUtil;
@@ -22,7 +24,7 @@ class HandlerEntry
         $this->fullDay($entry);
         $periodicity = $entry->getPeriodicity();
 
-        if (null !== $periodicity) {
+        if ($periodicity instanceof PeriodicityInterface) {
             $type = $periodicity->getType();
             if (null === $type || 0 === $type) {
                 $entry->setPeriodicity(null);
@@ -31,6 +33,7 @@ class HandlerEntry
 
         $this->entryRepository->persist($entry);
         $this->entryRepository->flush();
+
         $this->handlerPeriodicity->handleNewPeriodicity($entry);
     }
 
@@ -55,7 +58,7 @@ class HandlerEntry
     protected function fullDay(EntryInterface $entry): void
     {
         $durationModel = $entry->getDuration();
-        if (null !== $durationModel && $durationModel->isFullDay()) {
+        if ($durationModel instanceof DurationModel && $durationModel->isFullDay()) {
             $area = $entry->getArea();
             $startTime = $area->getStartTime();
             $endTime = $area->getEndTime();
@@ -90,6 +93,7 @@ class HandlerEntry
         $entryReference = $this->entryRepository->getBaseEntryForPeriodicity($entry->getPeriodicity());
 
         $entryReference->setArea($entryReference->getRoom()->getArea());
+
         $periodicity = $entryReference->getPeriodicity();
         $periodicity->setEntryReference($entryReference); //use for validator
 

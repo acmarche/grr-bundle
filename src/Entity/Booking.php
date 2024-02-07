@@ -12,27 +12,38 @@ class Booking
 {
     use IdEntityTrait;
     #[ORM\Column(type: 'string', length: 120)]
-    private $nom;
+    private ?string $nom = null;
+
     #[ORM\Column(type: 'string', length: 120)]
-    private $prenom;
+    private ?string $prenom = null;
+
     #[ORM\Column(type: 'string', length: 120)]
-    private $telephone;
+    private ?string $telephone = null;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $informations;
+    private ?string $informations = null;
+
     #[ORM\Column(type: 'string', length: 120, nullable: true)]
-    private $tva;
+    private ?string $tva = null;
+
     #[ORM\Column(type: 'string', length: 120)]
-    private $email;
+    private ?string $email = null;
+
     #[ORM\Column(type: 'string', length: 120)]
-    private $horaire_name;
+    private ?string $horaire_name = null;
+
     #[ORM\Column(type: 'integer', nullable: false)]
-    private $horaire_id;
+    private ?int $horaire_id = null;
+
     #[ORM\Column(type: 'date')]
-    private $jour;
+    private ?DateTimeInterface $jour = null;
+
     #[ORM\Column(type: 'integer')]
-    private $room_id;
+    private ?int $room_id = null;
+
     #[ORM\Column(type: 'string', length: 120)]
-    private $room_name;
+    private ?string $room_name = null;
+
     #[ORM\Column(type: 'boolean', nullable: false)]
     private bool $done = false;
 

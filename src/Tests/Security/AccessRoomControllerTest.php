@@ -16,7 +16,8 @@ class AccessRoomControllerTest extends BaseTesting
     public function testArea(string $action, string $roomName, array $datas): void
     {
         $this->loadFixtures();
-        $room = $token = null;
+        $room = null;
+        $token = null;
         if ('' !== $roomName) {
             $room = $this->getRoom($roomName);
             $tokenManager = new CsrfTokenManager();

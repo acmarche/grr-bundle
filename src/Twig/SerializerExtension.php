@@ -22,7 +22,7 @@ class SerializerExtension extends AbstractExtension
         ];
     }
 
-    public function serializeToJsonLd($data): string
+    public function serializeToJsonLd(mixed $data): string
     {
         return $this->serializer->serialize($data, 'jsonld');
     }

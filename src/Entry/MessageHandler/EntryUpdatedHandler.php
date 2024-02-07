@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
+use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Entry\Message\EntryUpdated;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
@@ -50,7 +51,7 @@ class EntryUpdatedHandler
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            static fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 
@@ -69,6 +70,7 @@ class EntryUpdatedHandler
         foreach ($emails as $email) {
             $recipients[] = new Recipient($email);
         }
+
         if ([] !== $recipients) {
             $this->notifier->send($notification, ...$recipients);
         }
@@ -87,7 +89,7 @@ class EntryUpdatedHandler
             ]);
             $notification = new EntryEmailNotification('Une réservation a été modifiée pour vous : ', $entry, $action);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
-            if (null !== $user) {
+            if ($user instanceof User) {
                 $recipient = new Recipient(
                     $user->getEmail()
                 );

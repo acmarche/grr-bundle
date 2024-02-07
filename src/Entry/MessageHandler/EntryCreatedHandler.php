@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Entry\MessageHandler;
 
+use Grr\GrrBundle\Entity\Security\User;
 use Grr\Core\Entry\Message\EntryCreated;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entry\Repository\EntryRepository;
@@ -53,7 +54,7 @@ class EntryCreatedHandler
 
         $authorizations = $this->authorizationHelper->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            static fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 
@@ -88,7 +89,7 @@ class EntryCreatedHandler
         if (null !== $entry->getReservedFor() && $reservedFor = $entry->getReservedFor() !== $entry->getCreatedBy()) {
             $notification = new EntryEmailNotification('Une réservation a été faire pour vous : ', $entry);
             $user = $this->userRepository->loadByUserNameOrEmail($reservedFor);
-            if (null !== $user) {
+            if ($user instanceof User) {
                 $recipient = new Recipient(
                     $user->getEmail()
                 );

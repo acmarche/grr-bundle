@@ -37,7 +37,7 @@ class RouterHelper
         $area = $attributes['area'] ?? 0;
         $room = $attributes['room'] ?? 0;
 
-        if (null === $dateSelected) {
+        if (!$dateSelected instanceof DateTimeInterface) {
             $dateSelected = new DateTime();
         }
 

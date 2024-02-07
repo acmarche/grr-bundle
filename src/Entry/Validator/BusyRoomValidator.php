@@ -34,6 +34,7 @@ class BusyRoomValidator extends ConstraintValidator
             foreach ($entries as $entry) {
                 $message .= ' '.$entry->getName();
             }
+
             $this->context->buildViolation($constraint->message)
                 ->setParameters([
                     'rooms' => $message,

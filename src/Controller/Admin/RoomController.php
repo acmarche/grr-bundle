@@ -10,6 +10,7 @@ use Grr\GrrBundle\Entity\Area;
 use Grr\GrrBundle\Entity\Room;
 use Grr\GrrBundle\Room\Factory\RoomFactory;
 use Grr\GrrBundle\Room\Form\RoomType;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/room')]
+#[Route(path: '/admin/room')]
 class RoomController extends AbstractController
 {
     public function __construct(
@@ -28,7 +29,7 @@ class RoomController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/{id}', name: 'grr_admin_room_new', methods: ['GET', 'POST'])]
+    #[Route(path: '/new/{id}', name: 'grr_admin_room_new', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.new.room', subject: 'area')]
     public function new(Request $request, Area $area): Response
     {
@@ -55,7 +56,7 @@ class RoomController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_room_show', methods: ['GET'])]
+    #[Route(path: '/{id}', name: 'grr_admin_room_show', methods: ['GET'])]
     #[IsGranted('grr.room.show', subject: 'room')]
     public function show(Room $room): Response
     {
@@ -67,7 +68,7 @@ class RoomController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_room_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/{id}/edit', name: 'grr_admin_room_edit', methods: ['GET', 'POST'])]
     #[IsGranted('grr.room.edit', subject: 'room')]
     public function edit(Request $request, Room $room): Response
     {
@@ -95,7 +96,7 @@ class RoomController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_room_delete', methods: ['POST'])]
+    #[Route(path: '/{id}', name: 'grr_admin_room_delete', methods: ['POST'])]
     #[IsGranted('grr.room.delete', subject: 'room')]
     public function delete(Request $request, Room $room): RedirectResponse
     {
@@ -105,6 +106,7 @@ class RoomController extends AbstractController
             foreach ($room->getEntries() as $entry) {
                 $this->roomRepository->remove($entry);
             }
+
             $this->roomRepository->remove($room);
             $this->roomRepository->flush();
 

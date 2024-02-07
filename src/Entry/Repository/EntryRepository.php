@@ -60,10 +60,10 @@ class EntryRepository extends ServiceEntityRepository implements EntryRepository
             ->setParameter('begin', $firstDayOfMonth->format('Y-m-d'))
             ->setParameter('end', $endDayOfMonth->format('Y-m-d'));
 
-        if (null !== $room) {
+        if ($room instanceof RoomInterface) {
             $qb->andWhere('entry.room = :room')
                 ->setParameter('room', $room);
-        } elseif (null !== $area) {
+        } elseif ($area instanceof AreaInterface) {
             $rooms = $this->getRooms($area);
             $qb->andWhere('entry.room IN (:rooms)')
                 ->setParameter('rooms', $rooms);

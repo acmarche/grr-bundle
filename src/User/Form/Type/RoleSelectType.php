@@ -40,15 +40,14 @@ class RoleSelectType extends AbstractType
                 'choices' => $roles,
                 'label' => 'label.role.select',
                 'placeholder' => 'none.male',
-                'choice_label' => fn ($role) => $role->name,
-                'choice_value' => function ($role) {
+                'choice_label' => static fn($role) => $role->name,
+                'choice_value' => static function ($role) {
                     if (null == $role) {
                         return null;
                     }
-
                     return $role->value;
                 },
-                'description' => fn ($role) => $role->description,
+                'description' => static fn($role) => $role->description,
                 'required' => false,
                 'multiple' => false,
                 'expanded' => true,

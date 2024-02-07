@@ -2,7 +2,6 @@
 
 namespace Grr\GrrBundle\Command;
 
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Grr\Core\Contrat\Repository\AreaRepositoryInterface;
 use Grr\Core\Contrat\Repository\RoomRepositoryInterface;
@@ -107,12 +106,14 @@ class InstallDataCommand extends Command
                 ])) {
                 continue;
             }
+
             $type = $this->typeEntryFactory->createNew();
             $type->setLetter($index);
             $type->setName($nom);
             $type->setColor($colors[random_int(0, \count($colors) - 1)]);
             $this->entityManager->persist($type);
         }
+
         $this->entityManager->flush();
     }
 
@@ -169,6 +170,7 @@ class InstallDataCommand extends Command
                 ])) {
                 continue;
             }
+
             $room = $this->roomFactory->createNew($area);
             $room->setName($salle);
             $this->entityManager->persist($room);
@@ -199,7 +201,7 @@ class InstallDataCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->symfonyStyle->success("L'utilisateur $email avec le mot de passe $password a bien été créé");
+        $this->symfonyStyle->success(sprintf('L\'utilisateur %s avec le mot de passe %s a bien été créé', $email, $password));
     }
 
     private function loadSetting(): void
@@ -222,6 +224,7 @@ class InstallDataCommand extends Command
                 if (\is_array($value)) {
                     $value = serialize($value);
                 }
+
                 $setting = $this->settingFactory->createNew($name, $value);
                 $this->entityManager->persist($setting);
             }

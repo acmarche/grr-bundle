@@ -132,6 +132,7 @@ class AddDurationFieldSubscriber implements EventSubscriberInterface
                 default:
                     throw new Exception('Unexpected value');
             }
+
             $entry->setEndTime($endTime);
         }
     }

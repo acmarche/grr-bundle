@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraint;
 class BusyRoom extends Constraint
 {
     public string $message2 = 'constraint.entry.busy {{ rooms }}';
+
     public string $message = 'La réservation est dans une zone occupée: rooms';
 
     public function getTargets(): string

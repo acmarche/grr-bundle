@@ -7,13 +7,14 @@ use Grr\Core\Model\AuthorizationModel;
 use Grr\GrrBundle\Authorization\Form\AuthorizationAreaType;
 use Grr\GrrBundle\Authorization\Handler\HandlerAuthorization;
 use Grr\GrrBundle\Entity\Area;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/authorization/area')]
+#[Route(path: '/admin/authorization/area')]
 class AuthorizationAreaController extends AbstractController
 {
     public function __construct(
@@ -22,20 +23,21 @@ class AuthorizationAreaController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
+    #[Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function new(Request $request, Area $area = null): Response
     {
         $authorizationModel = new AuthorizationModel();
-        if (null !== $area) {
+        if ($area instanceof Area) {
             $authorizationModel->setArea($area);
         }
+
         $form = $this->createForm(AuthorizationAreaType::class, $authorizationModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->handlerAuthorization->handle($form);
 
-            if (null !== $area) {
+            if ($area instanceof Area) {
                 return $this->redirectToRoute('grr_authorization_area_show', [
                     'id' => $area->getId(),
                 ]);
@@ -51,7 +53,7 @@ class AuthorizationAreaController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
+    #[Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function show(Area $area): Response
     {

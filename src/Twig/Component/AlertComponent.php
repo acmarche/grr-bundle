@@ -8,6 +8,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class AlertComponent
 {
     public string $type = 'success';
+
     public string $message;
 
     public function __construct()

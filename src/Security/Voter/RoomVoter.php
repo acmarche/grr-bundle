@@ -13,11 +13,17 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class RoomVoter extends Voter
 {
     public const INDEX = 'grr.room.index';
+
     public const ADD_ENTRY = 'grr.addEntry';
+
     public const SHOW = 'grr.room.show';
+
     public const EDIT = 'grr.room.edit';
+
     public const DELETE = 'grr.room.delete';
+
     private ?User $user = null;
+
     private Room $room;
 
     public function __construct(

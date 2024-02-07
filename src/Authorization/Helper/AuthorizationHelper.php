@@ -48,6 +48,7 @@ class AuthorizationHelper
                 $areas[] = $authorization->getArea();
                 continue;
             }
+
             if (null !== ($room = $authorization->getRoom())) {
                 $area = $room->getArea();
                 $areas[] = $area;
@@ -64,7 +65,7 @@ class AuthorizationHelper
     public function getRoomsUserCanAdd(UserInterface $user, ?AreaInterface $area = null): iterable
     {
         if ($user->hasRole(SecurityRole::ROLE_GRR_ADMINISTRATOR)) {
-            if (null !== $area) {
+            if ($area instanceof AreaInterface) {
                 return $this->roomRepository->findByArea($area);
             }
 
@@ -73,7 +74,7 @@ class AuthorizationHelper
 
         $rooms = [[]];
 
-        if (null !== $area) {
+        if ($area instanceof AreaInterface) {
             $authorizations = $this->authorizationRepository->findByUserAndArea($user, $area);
         } else {
             $authorizations = $this->authorizationRepository->findByUser($user);
@@ -85,6 +86,7 @@ class AuthorizationHelper
                 $rooms[] = $area->getRooms()->toArray();
                 continue;
             }
+
             if (null !== ($room = $authorization->getRoom())) {
                 $rooms[] = [$room];
                 continue;
@@ -187,7 +189,7 @@ class AuthorizationHelper
         /*
          * A partir d'ici il faut être connecté
          */
-        if (null === $user) {
+        if (!$user instanceof UserInterface) {
             return false;
         }
 
@@ -267,9 +269,11 @@ class AuthorizationHelper
         if ($this->isAreaAdministrator($user, $area)) {
             return true;
         }
+
         if ($this->isAreaManager($user, $area)) {
             return true;
         }
+
         if ($this->isRoomAdministrator($user, $room)) {
             return true;
         }
@@ -317,7 +321,7 @@ class AuthorizationHelper
 
         $authorizations = $this->findByAreaOrRoom($area, $room);
         $users = array_map(
-            fn ($authorization) => $authorization->getUser(),
+            static fn($authorization) => $authorization->getUser(),
             $authorizations
         );
 

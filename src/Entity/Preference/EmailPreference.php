@@ -14,20 +14,18 @@ class EmailPreference
     use IdEntityTrait;
 
     #[ORM\Column(type: 'boolean')]
-    private bool $onCreated;
-    #[ORM\Column(type: 'boolean')]
-    private bool $onUpdated;
-    #[ORM\Column(type: 'boolean')]
-    private bool $onDeleted;
+    private bool $onCreated = false;
 
-    public function __construct(
-        #[ORM\ManyToOne(UserInterface::class)]
-        #[ORM\JoinColumn(nullable: false)]
-        private UserInterface $user
-    ) {
-        $this->onCreated = false;
-        $this->onDeleted = false;
-        $this->onUpdated = false;
+    #[ORM\Column(type: 'boolean')]
+    private bool $onUpdated = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $onDeleted = false;
+
+    public function __construct(#[ORM\ManyToOne(UserInterface::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private UserInterface $user)
+    {
     }
 
     public function getOnCreated(): bool

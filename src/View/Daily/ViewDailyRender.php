@@ -76,7 +76,7 @@ class ViewDailyRender implements ViewInterface
     ): array {
         $roomsModel = [];
 
-        if (null !== $room) {
+        if ($room instanceof RoomInterface) {
             $rooms = [$room];
         } else {
             $rooms = $this->roomRepository->findByArea($area); //not $area->getRooms() sqlite not work

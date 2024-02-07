@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Contrat\Repository\PeriodicityRepositoryInterface;
 use Grr\Core\Periodicity\Message\PeriodicityDeleted;
@@ -11,6 +12,7 @@ use Grr\GrrBundle\Entity\Periodicity;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\HandlerEntry;
 use Grr\GrrBundle\Periodicity\PeriodicityConstant;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/periodicity')]
+#[Route(path: '/periodicity')]
 class PeriodicityController extends AbstractController
 {
     public function __construct(
@@ -30,17 +32,18 @@ class PeriodicityController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_front_periodicity_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/{id}/edit', name: 'grr_front_periodicity_edit', methods: ['GET', 'POST'])]
     #[IsGranted('grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
         $displayOptionsWeek = false;
         $entry = $this->handlerEntry->prepareToEditWithPeriodicity($entry);
         $periodicity = $entry->getPeriodicity();
-        $typePeriodicity = null !== $periodicity ? $periodicity->getType() : 0;
+        $typePeriodicity = $periodicity instanceof PeriodicityInterface ? $periodicity->getType() : 0;
         if (PeriodicityConstant::EVERY_WEEK === $typePeriodicity) {
             $displayOptionsWeek = true;
         }
+
         $oldEntry = clone $entry;
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
         $form->handleRequest($request);
@@ -64,7 +67,7 @@ class PeriodicityController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'periodicity_delete', methods: ['POST'])]
+    #[Route(path: '/{id}', name: 'periodicity_delete', methods: ['POST'])]
     public function delete(Request $request, Periodicity $periodicity): RedirectResponse
     {
         $entry = $this->entryRepository->getBaseEntryForPeriodicity($periodicity);
@@ -73,6 +76,7 @@ class PeriodicityController extends AbstractController
             foreach ($periodicity->getEntries() as $entry) {
                 $this->periodicityRepository->remove($entry);
             }
+
             $this->periodicityRepository->remove($periodicity);
             $this->periodicityRepository->flush();
 

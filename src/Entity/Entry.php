@@ -21,6 +21,7 @@ class Entry implements EntryInterface, TimestampableInterface
     #[ORM\Column(type: 'string', length: 80, nullable: false)]
     #[Groups(groups: 'entry:read')]
     private ?string $name = null;
+
     #[ORM\ManyToOne(targetEntity: RoomInterface::class, inversedBy: 'entries')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(groups: 'entry:read')]

@@ -9,6 +9,7 @@ use Grr\Core\TypeEntry\Message\TypeEntryUpdated;
 use Grr\GrrBundle\Entity\TypeEntry;
 use Grr\GrrBundle\TypeEntry\Form\TypeEntryType;
 use Grr\GrrBundle\TypeEntry\TypeEntryFactory;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 
-#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/entrytype')]
+#[Route(path: '/admin/entrytype')]
 #[IsGranted('ROLE_GRR_ADMINISTRATOR')]
 class TypeEntryController extends AbstractController
 {
@@ -28,7 +29,7 @@ class TypeEntryController extends AbstractController
     ) {
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_type_entry_index', methods: ['GET'])]
+    #[Route(path: '/', name: 'grr_admin_type_entry_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -39,7 +40,7 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'grr_admin_type_entry_new', methods: ['GET', 'POST'])]
+    #[Route(path: '/new', name: 'grr_admin_type_entry_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $typeEntry = $this->typeEntryFactory->createNew();
@@ -63,7 +64,7 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_type_entry_show', methods: ['GET'])]
+    #[Route(path: '/{id}', name: 'grr_admin_type_entry_show', methods: ['GET'])]
     public function show(TypeEntry $typeEntry): Response
     {
         return $this->render(
@@ -74,7 +75,7 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_type_entry_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/{id}/edit', name: 'grr_admin_type_entry_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, TypeEntry $typeEntry): Response
     {
         $form = $this->createForm(TypeEntryType::class, $typeEntry);
@@ -101,7 +102,7 @@ class TypeEntryController extends AbstractController
         );
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_type_entry_delete', methods: ['POST'])]
+    #[Route(path: '/{id}', name: 'grr_admin_type_entry_delete', methods: ['POST'])]
     public function delete(Request $request, TypeEntry $typeEntry): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$typeEntry->getId(), $request->request->get('_token'))) {
