@@ -14,9 +14,9 @@ class EntryEmailNotification extends Notification implements EmailNotificationIn
 {
     public function __construct(
         string $sujet,
-        private EntryInterface $entry,
-        private ?string $actionUrl = null,
-        private ?string $actionText = 'Consulter'
+        private readonly EntryInterface $entry,
+        private readonly ?string $actionUrl = null,
+        private readonly ?string $actionText = 'Consulter'
     ) {
         parent::__construct($sujet.$entry->getName());
     }

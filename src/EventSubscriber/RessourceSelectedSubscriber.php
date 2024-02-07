@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 class RessourceSelectedSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private RessourceSelectedHelper $ressourceSelectedHelper
+        private readonly RessourceSelectedHelper $ressourceSelectedHelper
     ) {
     }
 

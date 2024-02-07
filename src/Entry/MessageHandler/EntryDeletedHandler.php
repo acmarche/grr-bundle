@@ -17,11 +17,11 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 class EntryDeletedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier,
-        private EntryRepository $entryRepository,
-        private UserRepository $userRepository,
-        private AuthorizationHelper $authorizationHelper,
-        private EmailPreferenceRepository $emailPreferenceRepository
+        private readonly NotifierInterface $notifier,
+        private readonly EntryRepository $entryRepository,
+        private readonly UserRepository $userRepository,
+        private readonly AuthorizationHelper $authorizationHelper,
+        private readonly EmailPreferenceRepository $emailPreferenceRepository
     ) {
     }
 

@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 class GrrhUrlHelperExtension extends AbstractExtension
 {
     public function __construct(
-        private RouterHelper $routerHelper
+        private readonly RouterHelper $routerHelper
     ) {
     }
 

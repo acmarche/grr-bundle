@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository
+        private readonly UserRepositoryInterface $userRepository
     ) {
     }
 

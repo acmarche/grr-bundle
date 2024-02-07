@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\Navigation;
 
+use DateTimeImmutable;
 use Carbon\Carbon;
 use DateTime;
 use Grr\Core\Factory\CarbonFactory;
@@ -17,10 +18,10 @@ use Twig\Error\SyntaxError;
 class DateSelectorRender
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private Environment $twigEnvironment,
-        private DateProvider $dateProvider,
-        private CarbonFactory $carbonFactory
+        private readonly RequestStack $requestStack,
+        private readonly Environment $twigEnvironment,
+        private readonly DateProvider $dateProvider,
+        private readonly CarbonFactory $carbonFactory
     ) {
     }
 
@@ -42,7 +43,7 @@ class DateSelectorRender
         return $this->renderMonthByWeeks($dateSelected);
     }
 
-    private function renderMonthByWeeks(\DateTime|\DateTimeImmutable $dateSelected): string
+    private function renderMonthByWeeks(DateTime|DateTimeImmutable $dateSelected): string
     {
         $today = Carbon::today();
         $dateSelected = $this->carbonFactory->instanceImmutable($dateSelected);

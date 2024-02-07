@@ -23,10 +23,10 @@ use Symfony\Bundle\SecurityBundle\Security;
 class EntryType extends AbstractType
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
-        private DurationFactory $durationFactory,
-        private Security $security,
-        private AuthorizationHelper $authorizationHelper
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly DurationFactory $durationFactory,
+        private readonly Security $security,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 

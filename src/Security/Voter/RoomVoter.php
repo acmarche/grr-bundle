@@ -21,8 +21,8 @@ class RoomVoter extends Voter
     private Room $room;
 
     public function __construct(
-        private AccessDecisionManagerInterface $accessDecisionManager,
-        private AuthorizationHelper $authorizationHelper
+        private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 

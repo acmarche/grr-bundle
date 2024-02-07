@@ -11,9 +11,9 @@ use Grr\GrrBundle\Periodicity\HandlerPeriodicity;
 class HandlerEntry
 {
     public function __construct(
-        private EntryRepositoryInterface $entryRepository,
-        private HandlerPeriodicity $handlerPeriodicity,
-        private PropertyUtil $propertyUtil
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly HandlerPeriodicity $handlerPeriodicity,
+        private readonly PropertyUtil $propertyUtil
     ) {
     }
 

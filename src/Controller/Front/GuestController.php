@@ -16,23 +16,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route(path: '/front/guest')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/front/guest')]
 class GuestController extends AbstractController
 {
     public function __construct(
-        private EntryFactory $entryFactory,
-        private EntryRepositoryInterface $entryRepository,
-        private HandlerEntry $handlerEntry,
-        private EventDispatcherInterface $eventDispatcher,
-        private FrontRouterHelper $frontRouterHelper,
-        private MessageBusInterface $messageBus
+        private readonly EntryFactory $entryFactory,
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly HandlerEntry $handlerEntry,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly FrontRouterHelper $frontRouterHelper,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/new/room/{id}', name: 'grr_front_guest_new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/room/{id}', name: 'grr_front_guest_new', methods: ['GET', 'POST'])]
     public function new(Request $request, Room $room): Response
     {
         $area = $room->getArea();
@@ -57,12 +57,12 @@ class GuestController extends AbstractController
                 'room' => $room,
                 'periodicity' => null,
                 'displayOptionsWeek' => false,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_front_guest_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_front_guest_show', methods: ['GET'])]
     #[IsGranted('grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {

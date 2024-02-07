@@ -18,22 +18,22 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/account')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/account')]
 #[IsGranted('ROLE_GRR')]
 class AccountController extends AbstractController
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
-        private PasswordHelper $passwordHelper,
-        private AuthorizationRepositoryInterface $authorizationRepository,
-        private EmailPreferenceRepository $emailPreferenceRepository,
-        private MessageBusInterface $messageBus
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly PasswordHelper $passwordHelper,
+        private readonly AuthorizationRepositoryInterface $authorizationRepository,
+        private readonly EmailPreferenceRepository $emailPreferenceRepository,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/show', name: 'grr_account_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/show', name: 'grr_account_show', methods: ['GET'])]
     public function show(): Response
     {
         /**
@@ -53,7 +53,7 @@ class AccountController extends AbstractController
         );
     }
 
-    #[Route(path: '/edit', name: 'grr_account_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'grr_account_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
@@ -71,12 +71,12 @@ class AccountController extends AbstractController
             '@grr_front/account/edit.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/password', name: 'grr_account_edit_password', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/password', name: 'grr_account_edit_password', methods: ['GET', 'POST'])]
     public function password(Request $request): Response
     {
         $user = $this->getUser();
@@ -99,12 +99,12 @@ class AccountController extends AbstractController
             '@grr_front/account/edit_password.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/delete', name: 'grr_user_account_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/delete', name: 'grr_user_account_delete', methods: ['POST'])]
     public function delete(Request $request): RedirectResponse
     {
         $user = $this->getUser();

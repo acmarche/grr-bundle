@@ -12,7 +12,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 class PeriodicityUpdatedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier
+        private readonly NotifierInterface $notifier
     ) {
     }
 

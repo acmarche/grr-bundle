@@ -11,7 +11,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 class PeriodicityDeletedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier
+        private readonly NotifierInterface $notifier
     ) {
     }
 

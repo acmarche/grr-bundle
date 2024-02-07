@@ -28,22 +28,22 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/booking')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/booking')]
 class BookingController extends AbstractController
 {
     public function __construct(
-        private EntryRepositoryInterface $entryRepository,
-        private CarbonFactory $carbonFactory,
-        private ApiSerializer $apiSerializer,
-        private BookingRepository $bookingRepository,
-        private BookingHandler $bookingHandler,
-        private HandlerEntry $handlerEntry
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly CarbonFactory $carbonFactory,
+        private readonly ApiSerializer $apiSerializer,
+        private readonly BookingRepository $bookingRepository,
+        private readonly BookingHandler $bookingHandler,
+        private readonly HandlerEntry $handlerEntry
     ) {
     }
 
-    #[Route(path: '/', name: 'grr_admin_booking_index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_booking_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
@@ -54,7 +54,7 @@ class BookingController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}/show', name: 'grr_admin_booking_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/show', name: 'grr_admin_booking_show', methods: ['GET'])]
     public function show(Booking $booking): Response
     {
         return $this->render(
@@ -65,7 +65,7 @@ class BookingController extends AbstractController
         );
     }
 
-    #[Route(path: '/new/{id}', name: 'grr_admin_entry_new_from_booking', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/{id}', name: 'grr_admin_entry_new_from_booking', methods: ['GET', 'POST'])]
     #[IsGranted('grr.addEntry')]
     public function new(Request $request, Booking $booking): Response
     {
@@ -89,12 +89,12 @@ class BookingController extends AbstractController
                 'entry' => $entry,
                 'periodicity' => null,
                 'displayOptionsWeek' => false,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}/delete', name: 'grr_admin_booking_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/delete', name: 'grr_admin_booking_delete', methods: ['POST'])]
     public function delete(Request $request, Booking $booking): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->request->get('_token'))) {
@@ -107,7 +107,7 @@ class BookingController extends AbstractController
         return $this->redirectToRoute('grr_admin_booking_index');
     }
 
-    #[Route(path: '/entries/{id}', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/entries/{id}', methods: ['GET'])]
     public function entries(Room $room): JsonResponse
     {
         $today = $this->carbonFactory->today();
@@ -116,7 +116,7 @@ class BookingController extends AbstractController
         return $this->json($this->apiSerializer->serializeEntries($entries, false));
     }
 
-    #[Route(path: '/entries/{date}/{id}', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/entries/{date}/{id}', methods: ['GET'])]
     public function entriesByDate(DateTime|DateTimeImmutable $date, Room $room): JsonResponse
     {
         $today = $this->carbonFactory->instance($date);
@@ -125,13 +125,13 @@ class BookingController extends AbstractController
         return $this->json($this->apiSerializer->serializeEntries($entries, true));
     }
 
-    #[Route(path: '/form', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/form', methods: ['GET'])]
     public function renderFormEntry(): Response
     {
         $form = $this->createForm(BookingForm::class);
 
         return $this->render('@Grr/front/api/_form.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }

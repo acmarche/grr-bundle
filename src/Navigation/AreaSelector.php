@@ -13,10 +13,10 @@ use Twig\Error\SyntaxError;
 class AreaSelector
 {
     public function __construct(
-        private MenuSelectFactory $menuSelectFactory,
-        private FormFactoryInterface $formFactory,
-        private RessourceSelectedHelper $ressourceSelectedHelper,
-        private Environment $environment
+        private readonly MenuSelectFactory $menuSelectFactory,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly RessourceSelectedHelper $ressourceSelectedHelper,
+        private readonly Environment $environment
     ) {
     }
 

@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 class AddDurationFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private DurationFactory $durationFactory
+        private readonly DurationFactory $durationFactory
     ) {
     }
 

@@ -9,7 +9,7 @@ use Twig\TwigFilter;
 class GrrAdminExtension extends AbstractExtension
 {
     public function __construct(
-        private DateProvider $dateProvider
+        private readonly DateProvider $dateProvider
     ) {
     }
 

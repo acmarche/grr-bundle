@@ -17,7 +17,7 @@ use Symfony\Component\Ldap\LdapInterface;
 class LdapGrr implements LdapInterface
 {
     public function __construct(
-        private AdapterInterface $adapter
+        private readonly AdapterInterface $adapter
     ) {
     }
 

@@ -19,9 +19,9 @@ use Grr\GrrBundle\Setting\Factory\SettingFactory;
 class SettingHandler
 {
     public function __construct(
-        private SettingFactory $settingFactory,
-        private SettingRepositoryInterface $settingRepository,
-        private SettingProvider $settingProvider
+        private readonly SettingFactory $settingFactory,
+        private readonly SettingRepositoryInterface $settingRepository,
+        private readonly SettingProvider $settingProvider
     ) {
     }
 

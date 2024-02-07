@@ -24,8 +24,8 @@ use Symfony\Component\Yaml\Yaml;
 class FixCommand extends Command
 {
     public function __construct(
-        private NotifierInterface $notifier,
-        private EntryRepository $entryRepository,
+        private readonly NotifierInterface $notifier,
+        private readonly EntryRepository $entryRepository,
         string $name = null
     ) {
         parent::__construct($name);

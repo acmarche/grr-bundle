@@ -14,7 +14,7 @@ use Symfony\Component\Notifier\Recipient\RecipientInterface;
  * @see BrowserChannel
  * Class BrowserGrrChannel.
  */
-final class BrowserGrrChannel implements ChannelInterface
+final readonly class BrowserGrrChannel implements ChannelInterface
 {
     public function __construct(
         private RequestStack $stack

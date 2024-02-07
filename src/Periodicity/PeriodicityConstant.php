@@ -33,10 +33,6 @@ class PeriodicityConstant
 
     public static function getTypePeriodicite(int $type): int|string
     {
-        if (isset(self::getTypesPeriodicite()[$type])) {
-            return self::getTypesPeriodicite()[$type];
-        }
-
-        return $type;
+        return self::getTypesPeriodicite()[$type] ?? $type;
     }
 }

@@ -18,18 +18,18 @@ use Grr\Core\I18n\LocalHelper;
 use Grr\GrrBundle\Navigation\RessourceSelectedHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 
 class HomeController extends AbstractController
 {
     public function __construct(
-        private RessourceSelectedHelper $ressourceSelectedHelper,
-        private LocalHelper $localHelper,
-        private AreaRepositoryInterface $areaRepository
+        private readonly RessourceSelectedHelper $ressourceSelectedHelper,
+        private readonly LocalHelper $localHelper,
+        private readonly AreaRepositoryInterface $areaRepository
     ) {
     }
 
-    #[Route(path: '/{_locale<%grr.supported_locales%>}', name: 'grr_homepage')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{_locale<%grr.supported_locales%>}', name: 'grr_homepage')]
     public function redirectToScheduler(): Response
     {
         $defaultLocal = $this->localHelper->getDefaultLocal();
@@ -56,7 +56,7 @@ class HomeController extends AbstractController
         );
     }
 
-    #[Route(path: '/vuejs', name: 'vuejs')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/vuejs', name: 'vuejs')]
     public function index(): Response
     {
         return $this->render(

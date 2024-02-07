@@ -12,9 +12,9 @@ use Twig\TwigFunction;
 class GrrFrontExtension extends AbstractExtension
 {
     public function __construct(
-        private FrontHelper $frontHelper,
-        private DateSelectorRender $dateSelectorRender,
-        private AreaSelector $areaSelector
+        private readonly FrontHelper $frontHelper,
+        private readonly DateSelectorRender $dateSelectorRender,
+        private readonly AreaSelector $areaSelector
     ) {
     }
 

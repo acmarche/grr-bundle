@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class EntryGuestWithPeriodicityType extends AbstractType
 {
     public function __construct(
-        private DurationFactory $durationFactory
+        private readonly DurationFactory $durationFactory
     ) {
     }
 

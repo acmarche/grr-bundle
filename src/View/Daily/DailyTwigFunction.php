@@ -2,6 +2,7 @@
 
 namespace Grr\GrrBundle\View\Daily;
 
+use DateTimeImmutable;
 use DateTime;
 use Grr\Core\Model\RoomModel;
 use Grr\Core\Model\TimeSlot;
@@ -16,7 +17,7 @@ use Twig\TwigFunction;
 class DailyTwigFunction extends AbstractExtension
 {
     public function __construct(
-        private Environment $environment
+        private readonly Environment $environment
     ) {
     }
 
@@ -41,7 +42,7 @@ class DailyTwigFunction extends AbstractExtension
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    private function renderCellDataDay(\DateTime|\DateTimeImmutable $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
+    private function renderCellDataDay(DateTime|DateTimeImmutable $dateSelected, TimeSlot $timeSlot, RoomModel $roomModel): string
     {
         /**
          * @var Entry[]

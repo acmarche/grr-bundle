@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class BusyRoomValidator extends ConstraintValidator
 {
     public function __construct(
-        private EntryRepositoryInterface $entryRepository
+        private readonly EntryRepositoryInterface $entryRepository
     ) {
     }
 

@@ -21,8 +21,8 @@ use Symfony\Bundle\SecurityBundle\Security;
 class AddAreaFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private Security $security,
-        private AuthorizationHelper $authorizationHelper
+        private readonly Security $security,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 

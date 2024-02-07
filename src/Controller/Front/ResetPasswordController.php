@@ -14,12 +14,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-#[Route(path: '/reset-password')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/reset-password')]
 class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
@@ -33,7 +33,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Display & process form to request a password reset.
      */
-    #[Route(path: '/', name: 'grr_forgot_password_request')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_forgot_password_request')]
     public function request(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
@@ -46,14 +46,14 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/request.html.twig', [
-            'requestForm' => $form->createView(),
+            'requestForm' => $form,
         ]);
     }
 
     /**
      * Confirmation page after a user has requested a password reset.
      */
-    #[Route(path: '/check-email', name: 'grr_check_email')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/check-email', name: 'grr_check_email')]
     public function checkEmail(): Response
     {
         // Generate a fake token if the user does not exist or someone hit this page directly.
@@ -70,7 +70,7 @@ class ResetPasswordController extends AbstractController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      */
-    #[Route(path: '/reset/{token}', name: 'grr_reset_password')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/reset/{token}', name: 'grr_reset_password')]
     public function reset(Request $request, UserPasswordHasherInterface $passwordEncoder, string $token = null): Response
     {
         if ($token) {
@@ -117,7 +117,7 @@ class ResetPasswordController extends AbstractController
         }
 
         return $this->render('reset_password/reset.html.twig', [
-            'resetForm' => $form->createView(),
+            'resetForm' => $form,
         ]);
     }
 

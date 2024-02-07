@@ -9,7 +9,7 @@ use Twig\TwigFilter;
 class SerializerExtension extends AbstractExtension
 {
     public function __construct(
-        private SerializerInterface $serializer
+        private readonly SerializerInterface $serializer
     ) {
     }
 

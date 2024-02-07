@@ -18,12 +18,12 @@ use Symfony\Component\Routing\RouterInterface;
 class EntryUpdatedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier,
-        private EntryRepository $entryRepository,
-        private UserRepository $userRepository,
-        private AuthorizationHelper $authorizationHelper,
-        private EmailPreferenceRepository $emailPreferenceRepository,
-        private RouterInterface $router
+        private readonly NotifierInterface $notifier,
+        private readonly EntryRepository $entryRepository,
+        private readonly UserRepository $userRepository,
+        private readonly AuthorizationHelper $authorizationHelper,
+        private readonly EmailPreferenceRepository $emailPreferenceRepository,
+        private readonly RouterInterface $router
     ) {
     }
 

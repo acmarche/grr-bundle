@@ -33,8 +33,8 @@ class AreaVoter extends Voter
     private Area $area;
 
     public function __construct(
-        private AccessDecisionManagerInterface $accessDecisionManager,
-        private AuthorizationHelper $authorizationHelper
+        private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 

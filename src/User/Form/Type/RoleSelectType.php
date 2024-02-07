@@ -22,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class RoleSelectType extends AbstractType
 {
     public function __construct(
-        private StdClassToNumberTransformer $stdClassToNumberTransformer
+        private readonly StdClassToNumberTransformer $stdClassToNumberTransformer
     ) {
     }
 

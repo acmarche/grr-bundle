@@ -14,7 +14,7 @@ use Grr\GrrBundle\Periodicity\Factory\PeriodicityFactory;
 class EntryFactory
 {
     public function __construct(
-        private PeriodicityFactory $periodicityFactory
+        private readonly PeriodicityFactory $periodicityFactory
     ) {
     }
 

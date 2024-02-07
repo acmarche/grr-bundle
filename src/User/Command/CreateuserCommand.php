@@ -23,9 +23,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class CreateuserCommand extends Command
 {
     public function __construct(
-        private UserFactory $userFactory,
-        private UserRepositoryInterface $userRepository,
-        private PasswordHelper $passwordHelper
+        private readonly UserFactory $userFactory,
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly PasswordHelper $passwordHelper
     ) {
         parent::__construct();
     }
@@ -54,7 +54,7 @@ class CreateuserCommand extends Command
             return 1;
         }
 
-        if (\strlen($name) < 1) {
+        if (\strlen((string) $name) < 1) {
             $symfonyStyle->error('Name minium 1');
 
             return 1;
@@ -66,7 +66,7 @@ class CreateuserCommand extends Command
             $question->setMaxAttempts(5);
             $question->setValidator(
                 function ($password): string {
-                    if (\strlen($password) < 4) {
+                    if (\strlen((string) $password) < 4) {
                         throw new RuntimeException('Le mot de passe doit faire minimum 4 caractères');
                     }
 

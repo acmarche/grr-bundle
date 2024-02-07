@@ -11,18 +11,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/type/area')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/type/area')]
 class TypeEntryAreaController extends AbstractController
 {
     public function __construct(
-        private AreaRepositoryInterface $areaRepository,
-        private MessageBusInterface $messageBus
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/{id}/edit', name: 'grr_admin_type_area_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_type_area_edit', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function edit(Request $request, Area $area): Response
     {
@@ -45,7 +45,7 @@ class TypeEntryAreaController extends AbstractController
             '@grr_admin/type_area/edit.html.twig',
             [
                 'area' => $area,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }

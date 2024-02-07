@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class PostVoter extends Voter
 {
     public function __construct(
-        private ServiceLocator $criteria
+        private readonly ServiceLocator $criteria
     ) {
     }
 

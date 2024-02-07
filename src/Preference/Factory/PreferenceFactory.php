@@ -9,7 +9,7 @@ use Grr\GrrBundle\Preference\Repository\EmailPreferenceRepository;
 class PreferenceFactory
 {
     public function __construct(
-        private EmailPreferenceRepository $emailPreferenceRepository
+        private readonly EmailPreferenceRepository $emailPreferenceRepository
     ) {
     }
 

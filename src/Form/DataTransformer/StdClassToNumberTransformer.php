@@ -14,7 +14,7 @@ class StdClassToNumberTransformer implements DataTransformerInterface
      *
      * @param int|null $value
      */
-    public function transform($value): \stdClass|string
+    public function transform($value): stdClass|string
     {
         if (null === $value) {
             return '';
@@ -52,7 +52,7 @@ class StdClassToNumberTransformer implements DataTransformerInterface
      *
      * @return mixed|null
      */
-    public function reverseTransform($value)
+    public function reverseTransform($value): mixed
     {
         if ($value instanceof stdClass) {
             return $value->value;

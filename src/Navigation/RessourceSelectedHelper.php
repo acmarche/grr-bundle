@@ -21,11 +21,11 @@ class RessourceSelectedHelper
     private ?SessionInterface $session;
 
     public function __construct(
-        private RequestStack $requestStack,
-        private Security $security,
-        private SettingProvider $settingProvider,
-        private AreaRepositoryInterface $areaRepository,
-        private RoomRepositoryInterface $roomRepository
+        private readonly RequestStack $requestStack,
+        private readonly Security $security,
+        private readonly SettingProvider $settingProvider,
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly RoomRepositoryInterface $roomRepository
     ) {
         $this->session = null;
     }

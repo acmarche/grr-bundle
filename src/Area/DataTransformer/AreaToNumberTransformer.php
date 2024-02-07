@@ -10,7 +10,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class AreaToNumberTransformer implements DataTransformerInterface
 {
     public function __construct(
-        private AreaRepositoryInterface $areaRepository
+        private readonly AreaRepositoryInterface $areaRepository
     ) {
     }
 
@@ -21,7 +21,7 @@ class AreaToNumberTransformer implements DataTransformerInterface
      *
      * @return string|int|null
      */
-    public function transform($area)
+    public function transform($area): mixed
     {
         if (null === $area) {
             return '';
@@ -37,7 +37,7 @@ class AreaToNumberTransformer implements DataTransformerInterface
      *
      * @throws TransformationFailedException if object (area) is not found
      */
-    public function reverseTransform($areaNumber)
+    public function reverseTransform($areaNumber): mixed
     {
         // no area number? It's optional, so that's ok
         if ('' === $areaNumber) {

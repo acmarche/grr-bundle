@@ -17,7 +17,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserProcessor implements ProcessorInterface
 {
     public function __construct(
-        private UserPasswordHasherInterface $userPasswordEncoder
+        private readonly UserPasswordHasherInterface $userPasswordEncoder
     ) {
     }
 

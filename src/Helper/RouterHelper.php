@@ -20,8 +20,8 @@ use Symfony\Component\Routing\RouterInterface;
 class RouterHelper
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private RouterInterface $router
+        private readonly RequestStack $requestStack,
+        private readonly RouterInterface $router
     ) {
     }
 

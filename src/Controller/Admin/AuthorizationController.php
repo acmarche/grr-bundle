@@ -13,18 +13,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/authorization')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/authorization')]
 class AuthorizationController extends AbstractController
 {
     public function __construct(
-        private AuthorizationRepositoryInterface $authorizationRepository,
-        private MessageBusInterface $messageBus
+        private readonly AuthorizationRepositoryInterface $authorizationRepository,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/delete', name: 'grr_authorization_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/delete', name: 'grr_authorization_delete', methods: ['POST'])]
     public function delete(Request $request): RedirectResponse
     {
         $id = $request->get('idauth');
@@ -52,7 +52,7 @@ class AuthorizationController extends AbstractController
         return $this->redirect($urlBack);
     }
 
-    #[Route(path: '/room/{id}', name: 'grr_authorization_show_by_room', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/room/{id}', name: 'grr_authorization_show_by_room', methods: ['GET'])]
     #[IsGranted('grr.room.edit', subject: 'room')]
     public function show(Room $room): Response
     {

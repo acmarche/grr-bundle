@@ -15,22 +15,22 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/setting')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/setting')]
 #[IsGranted('ROLE_GRR_ADMINISTRATOR')]
 class SettingController extends AbstractController
 {
     public function __construct(
-        private SettingRepositoryInterface $settingRepository,
-        private SettingHandler $settingHandler,
-        private FormSettingFactory $formSettingFactory,
-        private SettingProvider $settingProvider,
-        private MessageBusInterface $messageBus
+        private readonly SettingRepositoryInterface $settingRepository,
+        private readonly SettingHandler $settingHandler,
+        private readonly FormSettingFactory $formSettingFactory,
+        private readonly SettingProvider $settingProvider,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/', name: 'grr_admin_setting_index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_setting_index', methods: ['GET'])]
     public function index(): Response
     {
         $settings = $this->settingProvider->renderAll();
@@ -43,7 +43,7 @@ class SettingController extends AbstractController
         );
     }
 
-    #[Route(path: '/edit', name: 'grr_admin_setting_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit', name: 'grr_admin_setting_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request): Response
     {
         $form = $this->formSettingFactory->generate();
@@ -60,12 +60,12 @@ class SettingController extends AbstractController
         return $this->render(
             '@grr_admin/setting/edit.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{name}', name: 'grr_admin_setting_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{name}', name: 'grr_admin_setting_delete', methods: ['POST'])]
     public function delete(Request $request, SettingEntity $setting): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$setting->getName(), $request->request->get('_token'))) {

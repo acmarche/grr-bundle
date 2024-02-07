@@ -2,6 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use DateTimeImmutable;
 use DateTime;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Message\EntryCreated;
@@ -24,23 +26,23 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route(path: '/front/entry')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/front/entry')]
 class EntryController extends AbstractController
 {
     public function __construct(
-        private EntryFactory $entryFactory,
-        private EntryRepositoryInterface $entryRepository,
-        private HandlerEntry $handlerEntry,
-        private EventDispatcherInterface $eventDispatcher,
-        private FrontRouterHelper $frontRouterHelper,
-        private MessageBusInterface $messageBus
+        private readonly EntryFactory $entryFactory,
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly HandlerEntry $handlerEntry,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly FrontRouterHelper $frontRouterHelper,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/', name: 'grr_front_entry_index', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_front_entry_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $entries = [];
@@ -64,16 +66,16 @@ class EntryController extends AbstractController
             [
                 'entries' => $entries,
                 'search' => $search,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: ['GET', 'POST'])]
-    #[Entity(data: 'area', expr: 'repository.find(area)')]
-    #[Entity(data: 'room', expr: 'repository.find(room)')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: ['GET', 'POST'])]
     #[IsGranted('grr.addEntry', subject: 'room')]
-    public function new(Request $request, Area $area, Room $room, \DateTime|\DateTimeImmutable $date, int $hour, int $minute): Response
+    public function new(Request $request, #[MapEntity(expr: 'repository.find(area)')]
+    Area $area, #[MapEntity(expr: 'repository.find(room)')]
+    Room $room, DateTime|DateTimeImmutable $date, int $hour, int $minute): Response
     {
         $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
         //bug
@@ -96,12 +98,12 @@ class EntryController extends AbstractController
                 'entry' => $entry,
                 'periodicity' => null,
                 'displayOptionsWeek' => false,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_front_entry_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_front_entry_show', methods: ['GET'])]
     #[IsGranted('grr.entry.show', subject: 'entry')]
     public function show(Entry $entry): Response
     {
@@ -121,7 +123,7 @@ class EntryController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}/edit', name: 'grr_front_entry_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_front_entry_edit', methods: ['GET', 'POST'])]
     #[IsGranted('grr.entry.edit', subject: 'entry')]
     public function edit(Request $request, Entry $entry): Response
     {
@@ -149,12 +151,12 @@ class EntryController extends AbstractController
             [
                 'entry' => $entry,
                 'repeats' => [],
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_front_entry_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_front_entry_delete', methods: ['POST'])]
     #[IsGranted('grr.entry.delete', subject: 'entry')]
     public function delete(Request $request, Entry $entry): RedirectResponse
     {

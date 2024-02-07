@@ -27,8 +27,8 @@ class EntryVoter extends Voter
     private Area $area;
 
     public function __construct(
-        private Security $security,
-        private AuthorizationHelper $authorizationHelper
+        private readonly Security $security,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 

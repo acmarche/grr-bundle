@@ -12,20 +12,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/preference')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/preference')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class EmailNotifcationPreferenceController extends AbstractController
 {
     public function __construct(
-        private EmailPreferenceRepository $emailPreferenceRepository,
-        private PreferenceFactory $preferenceFactory,
-        private MessageBusInterface $messageBus
+        private readonly EmailPreferenceRepository $emailPreferenceRepository,
+        private readonly PreferenceFactory $preferenceFactory,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/edit/{id}', name: 'grr_admin_preference_email_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/edit/{id}', name: 'grr_admin_preference_email_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $preference = $this->preferenceFactory->createEmailPreferenceByUser($user);
@@ -46,7 +46,7 @@ class EmailNotifcationPreferenceController extends AbstractController
             '@grr_admin/preference/edit.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }

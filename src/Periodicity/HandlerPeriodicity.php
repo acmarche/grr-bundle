@@ -21,10 +21,10 @@ use Grr\Core\Periodicity\PeriodicityDaysProvider;
 class HandlerPeriodicity
 {
     public function __construct(
-        private PeriodicityRepositoryInterface $periodicityRepository,
-        private PeriodicityDaysProvider $periodicityDaysProvider,
-        private EntryRepositoryInterface $entryRepository,
-        private GeneratorEntry $entryFactory
+        private readonly PeriodicityRepositoryInterface $periodicityRepository,
+        private readonly PeriodicityDaysProvider $periodicityDaysProvider,
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly GeneratorEntry $entryFactory
     ) {
     }
 

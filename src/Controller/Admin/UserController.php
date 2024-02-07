@@ -19,21 +19,21 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/user')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/user')]
 #[IsGranted('ROLE_GRR_MANAGER_USER')]
 class UserController extends AbstractController
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
-        private UserFactory $userFactory,
-        private PasswordHelper $passwordHelper,
-        private MessageBusInterface $messageBus
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly UserFactory $userFactory,
+        private readonly PasswordHelper $passwordHelper,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/', name: 'grr_admin_user_index', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_user_index', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $args = $users = [];
@@ -48,12 +48,12 @@ class UserController extends AbstractController
             '@grr_admin/user/index.html.twig',
             [
                 'users' => $users,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/new', name: 'grr_admin_user_new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'grr_admin_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $user = $this->userFactory->createNew();
@@ -75,12 +75,12 @@ class UserController extends AbstractController
             '@grr_admin/user/new.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_admin_user_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render(
@@ -91,7 +91,7 @@ class UserController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}/edit', name: 'grr_admin_user_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserAdvanceType::class, $user);
@@ -113,7 +113,7 @@ class UserController extends AbstractController
             '@grr_admin/user/edit.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
@@ -121,7 +121,7 @@ class UserController extends AbstractController
     /**
      * Displays a form to edit an existing User utilisateur.
      */
-    #[Route(path: '/{id}/roles', name: 'grr_admin_user_roles', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/roles', name: 'grr_admin_user_roles', methods: ['GET', 'POST'])]
     public function roles(Request $request, User $user): Response
     {
         $form = $this->createForm(UserRoleType::class, $user);
@@ -143,12 +143,12 @@ class UserController extends AbstractController
             '@grr_admin/user/roles.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_admin_user_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$user->getEmail(), $request->request->get('_token'))) {

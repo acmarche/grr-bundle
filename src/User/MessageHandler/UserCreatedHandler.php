@@ -10,7 +10,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 class UserCreatedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier
+        private readonly NotifierInterface $notifier
     ) {
     }
 

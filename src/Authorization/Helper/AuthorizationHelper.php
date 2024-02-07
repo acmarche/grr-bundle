@@ -26,9 +26,9 @@ class AuthorizationHelper
     public $userRepository;
 
     public function __construct(
-        private AuthorizationRepositoryInterface $authorizationRepository,
-        private AreaRepositoryInterface $areaRepository,
-        private RoomRepositoryInterface $roomRepository
+        private readonly AuthorizationRepositoryInterface $authorizationRepository,
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly RoomRepositoryInterface $roomRepository
     ) {
     }
 

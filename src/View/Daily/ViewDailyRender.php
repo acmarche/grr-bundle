@@ -22,13 +22,13 @@ use Twig\Environment;
 class ViewDailyRender implements ViewInterface
 {
     public function __construct(
-        private Environment $environment,
-        private EntryRepositoryInterface $entryRepository,
-        private AreaRepositoryInterface $areaRepository,
-        private RoomRepositoryInterface $roomRepository,
-        private EntryLocationService $entryLocationService,
-        private TimeSlotsProvider $timeSlotsProvider,
-        private CarbonFactory $carbonFactory
+        private readonly Environment $environment,
+        private readonly EntryRepositoryInterface $entryRepository,
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly RoomRepositoryInterface $roomRepository,
+        private readonly EntryLocationService $entryLocationService,
+        private readonly TimeSlotsProvider $timeSlotsProvider,
+        private readonly CarbonFactory $carbonFactory
     ) {
     }
 

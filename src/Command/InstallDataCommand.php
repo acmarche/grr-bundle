@@ -35,18 +35,18 @@ class InstallDataCommand extends Command
     private ?SymfonyStyle $symfonyStyle = null;
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private TypeEntryRepositoryInterface $typeEntryRepository,
-        private RoomRepositoryInterface $roomRepository,
-        private UserRepositoryInterface $userRepository,
-        private SettingRepositoryInterface $settingRepository,
-        private TypeEntryFactory $typeEntryFactory,
-        private AreaRepositoryInterface $areaRepository,
-        private SettingFactory $settingFactory,
-        private AreaFactory $areaFactory,
-        private RoomFactory $roomFactory,
-        private UserFactory $userFactory,
-        private UserPasswordHasherInterface $userPasswordEncoder
+        private readonly EntityManagerInterface $entityManager,
+        private readonly TypeEntryRepositoryInterface $typeEntryRepository,
+        private readonly RoomRepositoryInterface $roomRepository,
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly SettingRepositoryInterface $settingRepository,
+        private readonly TypeEntryFactory $typeEntryFactory,
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly SettingFactory $settingFactory,
+        private readonly AreaFactory $areaFactory,
+        private readonly RoomFactory $roomFactory,
+        private readonly UserFactory $userFactory,
+        private readonly UserPasswordHasherInterface $userPasswordEncoder
     ) {
         parent::__construct();
     }

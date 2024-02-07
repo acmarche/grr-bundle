@@ -16,21 +16,21 @@ use Grr\GrrBundle\Entry\Repository\EntryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 
 class AjaxController extends AbstractController
 {
     public function __construct(
-        private AreaRepositoryInterface $areaRepository,
-        private RoomRepositoryInterface $roomRepository,
-        private EntryRepository $entryRepository,
-        private AuthorizationHelper $authorizationHelper
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly RoomRepositoryInterface $roomRepository,
+        private readonly EntryRepository $entryRepository,
+        private readonly AuthorizationHelper $authorizationHelper
     ) {
     }
 
-    #[Route(path: '/ajax/getrooms', name: 'grr_ajax_getrooms')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/ajax/getrooms', name: 'grr_ajax_getrooms')]
     public function ajaxRequestGetRooms(Request $request): Response
     {
         $areaId = (int) $request->get('id');
@@ -56,7 +56,7 @@ class AjaxController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/ajax/getentries', name: 'grr_ajax_getentries')]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/ajax/getentries', name: 'grr_ajax_getentries')]
     public function ajaxRequestGetEntries(Request $request): Response
     {
         $data = json_decode($request->getContent(), null, 512, JSON_THROW_ON_ERROR);

@@ -10,7 +10,7 @@ use Symfony\Component\Notifier\NotifierInterface;
 class PreferenceUpdatedHandler
 {
     public function __construct(
-        private NotifierInterface $notifier
+        private readonly NotifierInterface $notifier
     ) {
     }
 

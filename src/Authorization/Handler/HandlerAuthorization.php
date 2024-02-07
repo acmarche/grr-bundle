@@ -21,9 +21,9 @@ class HandlerAuthorization
     private FlashBagInterface $flashBag;
 
     public function __construct(
-        private AuthorizationRepositoryInterface $authorizationRepository,
-        private RequestStack $requestStack,
-        private TranslatorInterface $translator
+        private readonly AuthorizationRepositoryInterface $authorizationRepository,
+        private readonly RequestStack $requestStack,
+        private readonly TranslatorInterface $translator
     ) {
 
     }

@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvents;
 class AddRoomFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private bool $required = false,
+        private readonly bool $required = false,
         private ?string $label = null,
         private ?string $placeholder = null
     ) {

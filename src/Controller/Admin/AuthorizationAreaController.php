@@ -11,18 +11,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(path: '/admin/authorization/area')]
+
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/authorization/area')]
 class AuthorizationAreaController extends AbstractController
 {
     public function __construct(
-        private HandlerAuthorization $handlerAuthorization,
-        private AuthorizationRepositoryInterface $authorizationRepository
+        private readonly HandlerAuthorization $handlerAuthorization,
+        private readonly AuthorizationRepositoryInterface $authorizationRepository
     ) {
     }
 
-    #[Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new/area/{id}', name: 'grr_authorization_from_area', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function new(Request $request, Area $area = null): Response
     {
@@ -46,12 +46,12 @@ class AuthorizationAreaController extends AbstractController
             '@grr_admin/authorization/area/new.html.twig',
             [
                 'area' => $area,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_authorization_area_show', methods: ['GET'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function show(Area $area): Response
     {

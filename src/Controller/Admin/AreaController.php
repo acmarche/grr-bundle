@@ -16,22 +16,22 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route(path: '/admin/area')]
+#[\Symfony\Component\Routing\Attribute\Route(path: '/admin/area')]
 class AreaController extends AbstractController
 {
     public function __construct(
-        private AreaFactory $areaFactory,
-        private AreaRepositoryInterface $areaRepository,
-        private RoomRepositoryInterface $roomRepository,
-        private AuthorizationHelper $authorizationHelper,
-        private MessageBusInterface $messageBus
+        private readonly AreaFactory $areaFactory,
+        private readonly AreaRepositoryInterface $areaRepository,
+        private readonly RoomRepositoryInterface $roomRepository,
+        private readonly AuthorizationHelper $authorizationHelper,
+        private readonly MessageBusInterface $messageBus
     ) {
     }
 
-    #[Route(path: '/', name: 'grr_admin_area_index', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/', name: 'grr_admin_area_index', methods: ['GET'])]
     #[IsGranted('grr.area.index')]
     public function index(): Response
     {
@@ -46,7 +46,7 @@ class AreaController extends AbstractController
         );
     }
 
-    #[Route(path: '/new', name: 'grr_admin_area_new', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/new', name: 'grr_admin_area_new', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.new')]
     public function new(Request $request): Response
     {
@@ -68,12 +68,12 @@ class AreaController extends AbstractController
             '@grr_admin/area/new.html.twig',
             [
                 'area' => $area,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_admin_area_show', methods: ['GET'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_area_show', methods: ['GET'])]
     #[IsGranted('grr.area.show', subject: 'area')]
     public function show(Area $area): Response
     {
@@ -90,7 +90,7 @@ class AreaController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}/edit', name: 'grr_admin_area_edit', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}/edit', name: 'grr_admin_area_edit', methods: ['GET', 'POST'])]
     #[IsGranted('grr.area.edit', subject: 'area')]
     public function edit(Request $request, Area $area): Response
     {
@@ -113,12 +113,12 @@ class AreaController extends AbstractController
             '@grr_admin/area/edit.html.twig',
             [
                 'area' => $area,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
 
-    #[Route(path: '/{id}', name: 'grr_admin_area_delete', methods: ['POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/{id}', name: 'grr_admin_area_delete', methods: ['POST'])]
     #[IsGranted('grr.area.delete', subject: 'area')]
     public function delete(Request $request, Area $area): RedirectResponse
     {

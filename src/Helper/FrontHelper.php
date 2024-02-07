@@ -20,9 +20,9 @@ use Twig\Environment;
 class FrontHelper
 {
     public function __construct(
-        private Environment $environment,
-        private TypeEntryRepositoryInterface $typeEntryRepository,
-        private SettingRepositoryInterface $settingRepository
+        private readonly Environment $environment,
+        private readonly TypeEntryRepositoryInterface $typeEntryRepository,
+        private readonly SettingRepositoryInterface $settingRepository
     ) {
     }
 

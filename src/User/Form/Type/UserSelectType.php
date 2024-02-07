@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserSelectType extends AbstractType
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository
+        private readonly UserRepositoryInterface $userRepository
     ) {
     }
 

@@ -14,9 +14,9 @@ use Symfony\Component\Notifier\Recipient\Recipient;
 class BookingHandler
 {
     public function __construct(
-        private RoomRepository $roomRepository,
-        private NotifierInterface $notifier,
-        private UserRepository $userRepository
+        private readonly RoomRepository $roomRepository,
+        private readonly NotifierInterface $notifier,
+        private readonly UserRepository $userRepository
     ) {
     }
 
