@@ -34,11 +34,15 @@ class DateSelectorRender
     {
         $request = $this->requestStack->getMainRequest();
 
-        if (! $request instanceof Request) {
+        if (!$request instanceof Request) {
             return new Response('');
         }
 
         $dateSelected = $request->get('date') ?? new DateTime();
+        if (!$dateSelected instanceof DateTime) {
+
+            $dateSelected = DateTime::createFromFormat('Y-m-d', $dateSelected);
+        }
 
         return $this->renderMonthByWeeks($dateSelected);
     }
