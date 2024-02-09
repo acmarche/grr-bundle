@@ -11,10 +11,12 @@ namespace Grr\GrrBundle\EventSubscriber\Form;
 use Grr\Core\Contrat\Repository\Security\UserRepositoryInterface;
 use Grr\GrrBundle\Entity\Security\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
+#[AsEventListener(event: FormEvents::PRE_SET_DATA)]
 class AddUserFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
@@ -28,11 +30,11 @@ class AddUserFieldSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SET_DATA => 'onPreSetData',
+            FormEvents::PRE_SET_DATA => 'onFormPreSetData',
         ];
     }
 
-    public function onPreSetData(FormEvent $formEvent): void
+    public function onFormPreSetData(FormEvent $formEvent): void
     {
         $entry = $formEvent->getData();
         $form = $formEvent->getForm();

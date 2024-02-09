@@ -12,12 +12,14 @@ use Grr\GrrBundle\Area\Form\Type\AreaSelectType;
 use Grr\GrrBundle\Authorization\Helper\AuthorizationHelper;
 use Grr\GrrBundle\Entity\Security\User;
 use LogicException;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
+#[AsEventListener(event: FormEvents::PRE_SET_DATA)]
 class AddAreaFieldSubscriber implements EventSubscriberInterface
 {
     public function __construct(
@@ -32,11 +34,11 @@ class AddAreaFieldSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SET_DATA => 'onPreSetData',
+            FormEvents::PRE_SET_DATA => 'onFormPreSetData',
         ];
     }
 
-    public function onPreSetData(FormEvent $formEvent): void
+    public function onFormPreSetData(FormEvent $formEvent): void
     {
         /**
          * @var User

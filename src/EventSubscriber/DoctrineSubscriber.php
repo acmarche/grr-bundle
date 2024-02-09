@@ -3,6 +3,7 @@
 namespace Grr\GrrBundle\EventSubscriber;
 
 use DateTime;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
@@ -14,6 +15,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @see https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/events.html#events
  * Class DoctrineSubscriber
  */
+#[AsDoctrineListener(event: Events::prePersist)]
+#[AsDoctrineListener(event: Events::preUpdate)]
 class DoctrineSubscriber implements EventSubscriber
 {
     public function __construct(
