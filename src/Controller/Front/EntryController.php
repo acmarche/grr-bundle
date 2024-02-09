@@ -2,10 +2,8 @@
 
 namespace Grr\GrrBundle\Controller\Front;
 
-use Grr\Core\Contrat\Entity\PeriodicityInterface;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
-use DateTimeImmutable;
 use DateTime;
+use Grr\Core\Contrat\Entity\PeriodicityInterface;
 use Grr\Core\Contrat\Repository\EntryRepositoryInterface;
 use Grr\Core\Entry\Message\EntryCreated;
 use Grr\Core\Entry\Message\EntryDeleted;
@@ -19,13 +17,14 @@ use Grr\GrrBundle\Entry\Form\EntryType;
 use Grr\GrrBundle\Entry\Form\EntryWithPeriodicityType;
 use Grr\GrrBundle\Entry\Form\SearchEntryType;
 use Grr\GrrBundle\Entry\HandlerEntry;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/front/entry')]
 class EntryController extends AbstractController
@@ -69,13 +68,23 @@ class EntryController extends AbstractController
         );
     }
 
-    #[Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: ['GET', 'POST'])]
+    #[Route(path: '/new/area/{area}/room/{room}/date/{date}/hour/{hour}/minute/{minute}', name: 'grr_front_entry_new', methods: [
+        'GET',
+        'POST',
+    ])]
     #[IsGranted('grr.addEntry', subject: 'room')]
-    public function new(Request $request, #[MapEntity(expr: 'repository.find(area)')]
-    Area $area, #[MapEntity(expr: 'repository.find(room)')]
-    Room $room, DateTime|DateTimeImmutable $date, int $hour, int $minute): Response
-    {
-        $entry = $this->entryFactory->initEntryForNew($area, $room, $date, $hour, $minute);
+    public function new(
+        Request $request,
+        #[MapEntity(expr: 'repository.find(area)')]
+        Area $area,
+        #[MapEntity(expr: 'repository.find(room)')]
+        Room $room,
+        string $date,
+        int $hour,
+        int $minute
+    ): Response {
+        $dateTime = DateTime::createFromFormat('Y-m-d', $date);
+        $entry = $this->entryFactory->initEntryForNew($area, $room, $dateTime, $hour, $minute);
         //bug
         //  $this->dispatchMessage(new EntryInitialized($entry->getId()));
         $form = $this->createForm(EntryWithPeriodicityType::class, $entry);
@@ -90,6 +99,8 @@ class EntryController extends AbstractController
             ]);
         }
 
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK);
+
         return $this->render(
             '@grr_front/entry/new.html.twig',
             [
@@ -98,6 +109,7 @@ class EntryController extends AbstractController
                 'displayOptionsWeek' => false,
                 'form' => $form,
             ]
+            , $response
         );
     }
 
