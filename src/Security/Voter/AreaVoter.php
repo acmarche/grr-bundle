@@ -36,7 +36,7 @@ class AreaVoter extends Voter
 
     private ?User $user = null;
 
-    private Area $area;
+    private ?Area $area;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
@@ -49,7 +49,7 @@ class AreaVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject && ! $subject instanceof Area) {
+        if ($subject && !$subject instanceof Area) {
             return false;
         }
 
@@ -67,7 +67,7 @@ class AreaVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (! $user instanceof User) {
+        if (!$user instanceof User) {
             return false;
         }
 
@@ -108,6 +108,10 @@ class AreaVoter extends Voter
 
     private function canNewRoom(): bool
     {
+        if (!$this->area) {
+            return false;
+        }
+
         return $this->authorizationHelper->isAreaAdministrator($this->user, $this->area);
     }
 
@@ -125,6 +129,10 @@ class AreaVoter extends Voter
 
     private function canEdit(): bool
     {
+        if (!$this->area) {
+            return false;
+        }
+
         return $this->authorizationHelper->isAreaAdministrator($this->user, $this->area);
     }
 

@@ -57,6 +57,7 @@ class EntryController extends AbstractController
             $entries = $this->entryRepository->search($args);
             $search = true;
         }
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK);
 
         return $this->render(
             '@grr_front/entry/index.html.twig',
@@ -65,6 +66,7 @@ class EntryController extends AbstractController
                 'search' => $search,
                 'form' => $form,
             ]
+            , $response
         );
     }
 
@@ -156,6 +158,7 @@ class EntryController extends AbstractController
                 ]
             );
         }
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK);
 
         return $this->render(
             '@grr_front/entry/edit.html.twig',
@@ -164,6 +167,7 @@ class EntryController extends AbstractController
                 'repeats' => [],
                 'form' => $form,
             ]
+            , $response
         );
     }
 

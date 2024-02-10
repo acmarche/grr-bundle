@@ -22,14 +22,13 @@ class VueController extends AbstractController implements FrontControllerInterfa
     ) {
     }
 
-    #[Route(path: '/area/{area}/date/{date}/view/{view}/room/{room<\d+>?1}', name: 'grr_front_view', methods: ['GET'])]
+    #[Route(path: '/area/{area}/date/{date}/view/{view}/room/{room<\d+>?}', name: 'grr_front_view', methods: ['GET'])]
     public function view(
         #[MapEntity(expr: 'repository.find(area)')]
         Area $area,
         #[MapDateTime(format: 'Y-m-d')]
         string $date,
         string $view,
-        #[MapEntity(expr: 'repository.find(room)')]
         ?Room $room = null
     ): Response {
 

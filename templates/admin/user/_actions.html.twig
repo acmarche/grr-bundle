@@ -9,7 +9,7 @@
        class="btn btn-primary"><i class="ti ti-user-shield"></i> {{ 'label.btn.authorization'|trans({}) }}</a>
 
     <a href="{{ path('grr_admin_user_password', { 'id': user.id }) }}" role="button"
-       class="btn btn-primary"><i class="ti ti-user-secret"></i> {{ 'label.btn.password'|trans({}) }}</a>
+       class="btn btn-primary"><i class="ti ti-lock"></i> {{ 'label.btn.password'|trans({}) }}</a>
 
     <a href="{{ path('grr_admin_preference_email_edit', {'id': user.id}) }}" role="button"
        class="btn btn-primary"><i class="ti ti-bell"></i> {{ 'label.btn.preference.email'|trans({}) }}</a>

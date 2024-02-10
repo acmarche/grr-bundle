@@ -46,6 +46,7 @@ class UserController extends AbstractController
         }
 
         $users = $this->userRepository->search($args);
+        $response = new Response(null, $form->isSubmitted() ? Response::HTTP_UNPROCESSABLE_ENTITY : Response::HTTP_OK);
 
         return $this->render(
             '@grr_admin/user/index.html.twig',
@@ -53,6 +54,7 @@ class UserController extends AbstractController
                 'users' => $users,
                 'form' => $form,
             ]
+            , $response
         );
     }
 

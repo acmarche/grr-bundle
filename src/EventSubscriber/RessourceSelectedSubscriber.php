@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 class RessourceSelectedSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly RessourceSelectedHelper $ressourceSelectedHelper
+        private readonly RessourceSelectedHelper $ressourceSelectedHelper,
     ) {
     }
 
@@ -25,17 +25,17 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
          * This is not usual in Symfony but it may happen.
          * If it is a class, it comes in array format.
          */
-        if (! \is_array($controller)) {
+        if (!\is_array($controller)) {
             return;
         }
 
         if ($controller[0] instanceof FrontControllerInterface) {
             $area = $controllerEvent->getRequest()->get('area');
             $room = $controllerEvent->getRequest()->get('room');
-            /*
+            /**
              * if not set in url, force by user all ressources
              */
-            if (! $room) {
+            if (!$room) {
                 $room = -1;
             }
 
@@ -44,8 +44,10 @@ class RessourceSelectedSubscriber implements EventSubscriberInterface
             }
 
             if ($area instanceof AreaInterface) {
-                $this->ressourceSelectedHelper->setSelected($area->getId(), $room);
+                $area = $area->getId();
             }
+
+            $this->ressourceSelectedHelper->setSelected($area, $room);
         }
     }
 
