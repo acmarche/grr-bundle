@@ -43,7 +43,7 @@ class ResetPasswordController extends AbstractController
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        return $this->render('@Grr/reset_password/request.html.twig', [
             'requestForm' => $form,
         ]);
     }
@@ -60,7 +60,7 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render('@Grr/reset_password/check_email.html.twig', [
             'resetToken' => $resetToken,
         ]);
     }
@@ -117,7 +117,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('grr_homepage');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('@Grr/reset_password/reset.html.twig', [
             'resetForm' => $form,
         ]);
     }
@@ -130,7 +130,7 @@ class ResetPasswordController extends AbstractController
 
         // Do not reveal whether a user account was found or not.
         if ($user === null) {
-            return $this->redirectToRoute('app_check_email');
+            return $this->redirectToRoute('grr_homepage');
         }
 
         try {
@@ -152,7 +152,7 @@ class ResetPasswordController extends AbstractController
             ->from(new Address('e-square@marche.be', 'esquare'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->htmlTemplate('@Grr/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
             ])
