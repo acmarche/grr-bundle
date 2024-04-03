@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Réservation - Grr{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('bundles/grr/favicon.ico') }}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
     <link href="{{ asset('bundles/grr/css/print.css') }}" rel="stylesheet" media="print">
     {% block stylesheets %}
 
@@ -20,6 +20,9 @@
 
 <main role="main" class="container pt-3">
 
+    <div class="alert alert-danger mt-5">
+        Gestion des salles déplacée sur <a href="https://salles-ale.marche.be">https://salles-ale.marche.be</a>
+    </div>
     {% include '@Grr/_flash_messages.html.twig' %}
 
     {% block notifications %}
