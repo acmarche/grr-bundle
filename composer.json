@@ -24,7 +24,8 @@
     "twig/string-extra": "^3.0",
     "symfony/messenger": "5.1.*",
     "twig/cssinliner-extra": "^3.0",
-    "twig/inky-extra": "^3.0"
+    "twig/inky-extra": "^3.0",
+    "ext-pdo": "*"
   },
   "require_dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.3"
