@@ -55,7 +55,7 @@ class GrrCommand extends Command
                 ':beneficiaire' => $entry->getReservedFor() ?? $entry->getCreatedBy(),
                 ':name' => $entry->getName(),
                 ':description' => $entry->getDescription(),
-                ':statut_entry' =>  '-',
+                ':statut_entry' => '-',
             ];
             $sql = 'INSERT INTO grr_entry(`start_time`,`end_time`,`entry_type`,`repeat_id`,`room_id`,`timestamp`,`create_by`,`beneficiaire_ext`,`beneficiaire`,`name`,`type`,`description`,`statut_entry`)
 VALUES(:start_time,:end_time,:entry_type,:repeat_id,:room_id,:timestamp,:create_by,:beneficiaire_ext,:beneficiaire,:name,:type,:description,:statut_entry)';
